@@ -1,0 +1,52 @@
+---
+description: 人机协作模式、Hooks 确定性保障、代码库地图、噪音排除
+alwaysApply: true
+---
+
+# 人机协作与代码库管理
+
+## 人机协作模式
+
+| 模式 | 适用场景 | 人工投入 | AI 贡献 |
+|------|---------|---------|--------|
+| **AI First** | CRUD、标准化功能、脚手架生成、文档模板填充 | 20%（审核） | 80% |
+| **Human First** | 复杂业务逻辑、核心算法、架构决策 | 70%（设计） | 30%（辅助） |
+| **Pair Mode** | 重构、调试、学习新技术、探索性原型 | 50% | 50% |
+
+不确定时默认 Pair Mode。AI First 的前提是任务边界清晰且有验证手段。
+
+## Hooks 确定性保障
+
+> 需要每次都执行的事情用 Hooks，不要靠 prompt 提醒。Hooks 是确定性的，Skills 是概率性的。
+
+推荐配置（通过 Cursor `hooks.json`）：
+
+| 触发点 | 用途 | 示例 |
+|--------|------|------|
+| 文件保存后 | 自动 lint/format | `npm run lint:fix` |
+| 提交前 | 检查 secrets 泄露 | 扫描 `.env` / `.key` / `.pem` |
+| 会话结束 | 记录摘要 | 输出新发现的约定到日志 |
+
+- 不得绕过 pre-commit / pre-push hooks。除非用户明确授权，禁止使用 `--no-verify` 或等价参数。
+
+## 代码库地图
+
+大型项目（>50 个顶层目录或 >10 万行代码）在项目根目录维护 `CODEBASE.md`：
+
+```
+# 代码库地图
+## 核心服务
+- services/api/       — REST API 网关
+- services/payments/  — 支付处理
+## 共享库
+- packages/types/     — 跨服务类型定义
+## 不要碰
+- generated/          — 自动生成，不要手动修改
+```
+
+地图只描述最高层结构；子目录细节放对应的 globs 规则文件中。
+
+## 噪音排除
+
+- 在 `.gitignore` 或 `.cursorignore` 中排除 `node_modules/`、`dist/`、`build/`、`vendor/`、`generated/`
+- 排除规则提交进版本库，整个团队共享

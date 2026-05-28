@@ -1,0 +1,109 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+# Public Codex configuration example.
+# Verified against @openai/codex 0.134.0 on 2026-05-28.
+# Merge into ~/.codex/config.toml manually. Do not overwrite an existing config blindly.
+
+# Choose a model that is available to your Codex account.
+# model = "gpt-5-codex"
+# review_model = "gpt-5-codex"
+model_provider = "openai"
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+developer_instructions = "Respond clearly, precisely, and with evidence when facts are uncertain."
+
+project_doc_fallback_filenames = ["CLAUDE.md"]
+project_doc_max_bytes = 65536
+tool_output_token_limit = 40000
+
+hide_agent_reasoning = true
+model_reasoning_effort = "high"
+model_reasoning_summary = "auto"
+model_verbosity = "high"
+# Enable web search according to your Codex version and account policy.
+# web_search = "enabled"
+
+check_for_update_on_startup = true
+
+[shell_environment_policy]
+inherit = "all"
+
+[features]
+memories = true
+undo = true
+unified_exec = true
+apply_patch_freeform = true
+child_agents_md = true
+goals = true
+
+[agents]
+max_threads = 5
+max_depth = 2
+
+[agents.default]
+description = "General-purpose helper."
+
+[agents.worker]
+description = "Executes implementation tasks: coding, file creation, configuration."
+
+[agents.explorer]
+description = "Read-only codebase exploration: searches, reads, maps code structure."
+
+[agents.awaiter]
+description = "Monitors long-running commands such as builds, tests, and deployments."
+
+[agents.reviewer]
+description = "Reviews code or design against quality gates and produces structured feedback."
+
+[analytics]
+enabled = false
+
+# --- MCP Servers ---
+# Public default: all external MCP servers are disabled until credentials and data-flow implications are reviewed.
+# Version pinning policy: do not use @latest in npm MCP examples.
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp@2.3.0"]
+enabled = false
+tool_timeout_sec = 60
+env_vars = ["CONTEXT7_API_KEY"]
+
+[mcp_servers.tavily]
+command = "npx"
+args = ["-y", "tavily-mcp@0.2.19"]
+enabled = false
+tool_timeout_sec = 30
+env_vars = ["TAVILY_API_KEY"]
+
+[mcp_servers.sequential-thinking]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-sequential-thinking@2025.12.18"]
+enabled = false
+
+[mcp_servers.deepwiki]
+url = "https://mcp.deepwiki.com/mcp"
+enabled = false
+enabled_tools = ["read_wiki_structure", "read_wiki_contents", "ask_question"]
+
+[mcp_servers.brave-search]
+command = "npx"
+args = ["-y", "@brave/brave-search-mcp-server@2.0.82", "--transport", "stdio"]
+enabled = false
+tool_timeout_sec = 30
+env_vars = ["BRAVE_API_KEY"]
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@playwright/mcp@0.0.75"]
+enabled = false
+tool_timeout_sec = 120
+
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@1.1.1"]
+enabled = false
+
+# Augment Context Engine is intentionally omitted from the default runnable example
+# because relay URLs and token handling are deployment-specific.
+# If you enable it, use environment variables and do not commit private relay URLs.

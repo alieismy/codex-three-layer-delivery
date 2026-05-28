@@ -1,0 +1,9 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+# Advanced high-permission profile.
+# Use only for trusted local workspaces after reviewing the risks.
+
+approval_policy = "on-request"
+sandbox_mode = "danger-full-access"
+
+[windows]
+sandbox = "elevated"

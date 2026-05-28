@@ -1,0 +1,46 @@
+# Normalize text files by default.
+* text=auto
+
+# Documentation.
+*.md text eol=lf
+*.mdc text eol=lf
+*.mdx text eol=lf
+*.markdown text eol=lf
+
+# Configuration and data files.
+*.gitattributes text eol=lf
+*.gitignore text eol=lf
+LICENSE text eol=lf
+*.json text eol=lf
+*.jsonc text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.env.example text eol=lf
+
+# Source and script files.
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+*.ps1 text eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Common binary artifacts.
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.docx binary
+*.pptx binary
+*.xlsx binary
+*.zip binary
+*.7z binary
+*.gz binary
+*.tar binary

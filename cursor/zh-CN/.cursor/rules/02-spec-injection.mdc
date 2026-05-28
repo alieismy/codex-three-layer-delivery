@@ -1,0 +1,32 @@
+---
+description: 规范注入（Spec Injection）：项目规范的自动加载层级和规范检查要求
+alwaysApply: true
+---
+
+# 规范注入（Spec Injection）
+
+项目级规范存储在仓库中，每次会话自动加载，确保 AI 行为与项目约定一致。
+
+## 规范层级
+
+| 层级 | 载体 | 加载方式 |
+|------|------|---------|
+| 用户全局 | Cursor User Rules（设置中配置） | 每次会话自动加载 |
+| 项目规范 | `.cursor/rules/*.mdc`（本规则集） | `alwaysApply: true` 自动加载 |
+| 模块规范 | `.cursor/rules/*.mdc` 中使用 `globs` 匹配的规则 | 打开匹配文件时加载 |
+| 项目记忆 | `.cursor/rules/` 中的决策记录规则 | 持久化跨会话 |
+
+## 规范检查要求
+
+涉及设计和实现的 Skill（`$rd-technical-writing`、`$rd-detailed-design`、`$rd-implement`、`$rd-code-review`）执行前：
+
+1. 检查 `.cursor/rules/` 中是否有项目特定约定
+2. 检查是否有已固化的设计决策或架构约束
+3. 新的设计决策建议创建为新的 `.cursor/rules/*.mdc` 规则持久化
+
+## 规范维护要求
+
+- `.cursor/rules/*.mdc` 面向 agent，记录工程约束、脚本、目录约定、风险点和验证命令；`README.md` 面向人类，说明项目是什么、为什么存在、如何开始。不要在两者之间复制同一段内容，必要时互相链接。
+- 修改 `.cursor/rules/*.mdc` 前先搜索是否已有等价规则。优先收紧已有规则，不重复新增。
+- 当规则文件已明显变长时，新增规则必须同时评估是否有过期、重复或不可执行规则应删除或合并。
+- Skill frontmatter 的 `description` 是触发摘要，必须先写触发条件，保留最短可检索长度。优先写适用场景、症状和边界，不写宣传语、内部流程或价值判断。
