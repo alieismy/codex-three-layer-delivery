@@ -68,3 +68,22 @@ On Windows, user-level environment variables can also be set with `setx`, but re
 Copy the `cursor/zh-CN/.cursor` directory into a Cursor workspace if you want to use the Cursor adapter.
 
 The Cursor adapter is optional and should be kept aligned with the Codex rules when rules change.
+
+## Claude Code Adapter
+
+Install user-level Claude Code memory:
+
+```bash
+cp claude/global/CLAUDE.md ~/.claude/CLAUDE.md
+```
+
+Install project-level Claude Code rules and skills:
+
+```bash
+cp claude/project/CLAUDE.md /path/to/your-project/CLAUDE.md
+cp -r claude/project/.claude /path/to/your-project/.claude
+```
+
+If the target workspace already has `CLAUDE.md` or `.claude/`, merge manually.
+
+The Claude Code adapter is optional and should be kept aligned with the Codex rules when rules change.

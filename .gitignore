@@ -23,6 +23,7 @@ coverage/
 .idea/
 .specstory/
 /.cursor/
+/.claude/settings.local.json
 *.swp
 *.swo
 *~

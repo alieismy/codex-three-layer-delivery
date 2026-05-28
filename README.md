@@ -8,7 +8,7 @@ This repository packages a three-layer operating model:
 2. **Project engineering discipline**: project-level `AGENTS.md` rules for scope control, quality gates, security, MCP routing, and verification.
 3. **R&D skills**: eight independent `rd-*` skills for requirements, design, implementation, review, testing, and deployment deliverables.
 
-It also includes an optional Cursor adapter area for teams that want to port the same engineering discipline to Cursor.
+It also includes optional Cursor and Claude Code adapter areas for teams that want to port the same engineering discipline to other agent environments.
 
 > This project is independent and is not affiliated with OpenAI, Cursor, Anthropic, or any referenced framework. See `ATTRIBUTION.md` for inspiration references.
 
@@ -49,6 +49,10 @@ Layer 3: R&D Skills
   - rd-code-review
   - rd-testing
   - rd-deployment
+
+Adapter mappings:
+  Cursor: cursor/zh-CN/.cursor/rules/ and cursor/zh-CN/.cursor/skills/
+  Claude Code: claude/project/CLAUDE.md and claude/project/.claude/skills/
 ```
 
 ## Quick Start
@@ -132,6 +136,21 @@ cursor/
 
 Codex remains the primary target of this repository. Treat Cursor support as optional until the adapter you need has been translated and re-verified.
 
+## Claude Code Adapter
+
+The `claude/` directory contains a Claude Code compatibility pack:
+
+```text
+claude/
+  README.md
+  global/CLAUDE.md
+  project/CLAUDE.md
+  project/.claude/settings.json
+  project/.claude/skills/rd-*/SKILL.md
+```
+
+Codex remains the primary target of this repository. Treat Claude Code support as optional and re-check Claude Code file conventions before changing `CLAUDE.md`, `.claude/settings.json`, or `.claude/skills/` behavior.
+
 ## Safety Defaults
 
 The public configuration intentionally uses conservative defaults:
@@ -141,6 +160,7 @@ The public configuration intentionally uses conservative defaults:
 - no hardcoded personal model name;
 - no default third-party relay URL;
 - optional MCP servers are disabled until credentials and use cases are reviewed;
+- Claude Code project settings deny common secret files and require confirmation for commit, push, tag, publish, and delete operations;
 - package versions are documented in `docs/compatibility.md` and should be refreshed before release.
 
 ## Repository Layout
@@ -157,6 +177,12 @@ codex-three-layer-delivery/
     README.md
     zh-CN/.cursor/rules/
     zh-CN/.cursor/skills/
+  claude/
+    README.md
+    global/CLAUDE.md
+    project/CLAUDE.md
+    project/.claude/settings.json
+    project/.claude/skills/
   skills/
     rd-*/SKILL.md
   docs/
