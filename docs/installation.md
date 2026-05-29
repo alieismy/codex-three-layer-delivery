@@ -69,6 +69,37 @@ Copy the `cursor/zh-CN/.cursor` directory into a Cursor workspace if you want to
 
 The Cursor adapter is optional and should be kept aligned with the Codex rules when rules change.
 
+## Simplified Chinese Pack
+
+The Simplified Chinese translation pack is available under:
+
+```text
+zh-CN/
+```
+
+Install Chinese Codex rules:
+
+```bash
+cp zh-CN/codex/global/AGENTS.md ~/.codex/AGENTS.md
+cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+```
+
+Install Chinese shared skills:
+
+```bash
+cp -r zh-CN/skills/rd-* ~/.agents/skills/
+```
+
+Install Chinese Claude Code files:
+
+```bash
+cp zh-CN/claude/global/CLAUDE.md ~/.claude/CLAUDE.md
+cp zh-CN/claude/project/CLAUDE.md /path/to/your-project/CLAUDE.md
+cp -r zh-CN/claude/project/.claude /path/to/your-project/.claude
+```
+
+The English root remains the canonical baseline. Use `zh-CN/` as a translation pack and merge manually if destination files already exist.
+
 ## Claude Code Adapter
 
 Install user-level Claude Code memory:

@@ -1,0 +1,17 @@
+{
+  "includeCoAuthoredBy": false,
+  "enableAllProjectMcpServers": false,
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./secrets/)"
+    ],
+    "ask": [
+      "Bash(git commit )",
+      "Bash(git push )",
+      "Bash(git tag )",
+      "Bash(npm publish )",
+      "Bash(rm )"
+    ]
+  }
+}

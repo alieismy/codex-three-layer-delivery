@@ -12,6 +12,8 @@ It also includes optional Cursor and Claude Code adapter areas for teams that wa
 
 > This project is independent and is not affiliated with OpenAI, Cursor, Anthropic, or any referenced framework. See `ATTRIBUTION.md` for inspiration references.
 
+Simplified Chinese users can start from `zh-CN/`. The English root remains the canonical baseline; `zh-CN/` is a translation pack, and `cursor/zh-CN/` remains the Cursor-specific compatibility pack.
+
 ## Who This Is For
 
 Use this repository if you want AI coding agents to produce verifiable engineering deliverables instead of unstructured chat output.
@@ -53,6 +55,7 @@ Layer 3: R&D Skills
 Adapter mappings:
   Cursor: cursor/zh-CN/.cursor/rules/ and cursor/zh-CN/.cursor/skills/
   Claude Code: claude/project/CLAUDE.md and claude/project/.claude/skills/
+  Simplified Chinese: zh-CN/
 ```
 
 ## Quick Start
@@ -106,6 +109,20 @@ cp .env.example .env
 
 Fill only the keys for MCP servers you actually enable.
 
+### 5. Use Simplified Chinese templates
+
+Use the Simplified Chinese translation pack:
+
+```text
+zh-CN/
+```
+
+Cursor-specific Chinese files remain under:
+
+```text
+cursor/zh-CN/
+```
+
 ## Skill Reference
 
 | Skill | Primary deliverable | Typical use |
@@ -135,6 +152,22 @@ cursor/
 ```
 
 Codex remains the primary target of this repository. Treat Cursor support as optional until the adapter you need has been translated and re-verified.
+
+## Simplified Chinese Pack
+
+The `zh-CN/` directory contains a Simplified Chinese translation pack for Codex, Claude Code, shared `rd-*` skills, documentation, and prompts.
+
+```text
+zh-CN/
+  README.md
+  PROMPTS.md
+  codex/
+  claude/
+  skills/
+  docs/
+```
+
+The English root is the canonical baseline. Use `zh-CN/` as a translation pack, not as a separate source of truth. Cursor-specific Chinese support remains in `cursor/zh-CN/`.
 
 ## Claude Code Adapter
 
@@ -177,6 +210,13 @@ codex-three-layer-delivery/
     README.md
     zh-CN/.cursor/rules/
     zh-CN/.cursor/skills/
+  zh-CN/
+    README.md
+    PROMPTS.md
+    codex/
+    claude/
+    skills/
+    docs/
   claude/
     README.md
     global/CLAUDE.md

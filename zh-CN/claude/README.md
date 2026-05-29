@@ -1,0 +1,42 @@
+# Claude Code 简体中文适配包
+
+本目录将 Codex Three-Layer Delivery 的三层交付模型映射到 Claude Code 的原生文件约定。
+
+参考的 Claude Code 官方载体：
+
+- memory：`CLAUDE.md`
+- settings：`.claude/settings.json`
+- skills：`.claude/skills/*/SKILL.md`
+
+官方文档：
+
+- https://docs.anthropic.com/en/docs/claude-code/memory
+- https://docs.anthropic.com/en/docs/claude-code/settings
+- https://docs.anthropic.com/en/docs/claude-code/skills
+
+## 当前结构
+
+```text
+zh-CN/claude/
+  global/CLAUDE.md
+  project/CLAUDE.md
+  project/.claude/settings.json
+  project/.claude/skills/rd-*/SKILL.md
+```
+
+## 安装
+
+安装用户级 Claude Code memory：
+
+```bash
+cp zh-CN/claude/global/CLAUDE.md ~/.claude/CLAUDE.md
+```
+
+安装项目级 Claude Code 规则和 Skills：
+
+```bash
+cp zh-CN/claude/project/CLAUDE.md /path/to/your-project/CLAUDE.md
+cp -r zh-CN/claude/project/.claude /path/to/your-project/.claude
+```
+
+如果目标文件已存在，请手动合并。不要盲目覆盖已有 `CLAUDE.md`、`.claude/settings.json` 或 Skills。

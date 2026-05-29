@@ -31,36 +31,89 @@ foreach ($file in $textFiles) {
     }
 }
 
-$skillFiles = Get-ChildItem -LiteralPath (Join-Path $root "skills") -Recurse -File -Filter "SKILL.md" -Force
-foreach ($skill in $skillFiles) {
-    $content = Get-Content -LiteralPath $skill.FullName -Raw
-    $hasName = $content -match "(?m)^name:\s*rd-[^\r\n]+"
-    $hasDescription = $content -match "(?m)^description:\s*(Use when|>-)"
-    $descriptionMentionsTrigger = $content -match "Use when"
-    if (-not ($hasName -and $hasDescription -and $descriptionMentionsTrigger)) {
-        Add-Failure "Skill frontmatter must include name and trigger-oriented description: $($skill.FullName)"
+function Test-SkillFrontmatter {
+    param([string]$SkillRoot)
+
+    if (-not (Test-Path -LiteralPath $SkillRoot)) {
+        return
+    }
+
+    $skillFiles = Get-ChildItem -LiteralPath $SkillRoot -Recurse -File -Filter "SKILL.md" -Force
+    foreach ($skill in $skillFiles) {
+        $content = Get-Content -LiteralPath $skill.FullName -Raw
+        $hasName = $content -match "(?m)^name:\s*rd-[^\r\n]+"
+        $hasDescription = $content -match "(?m)^description:\s*(Use when|>-)"
+        $descriptionMentionsTrigger = $content -match "Use when"
+        if (-not ($hasName -and $hasDescription -and $descriptionMentionsTrigger)) {
+            Add-Failure "Skill frontmatter must include name and trigger-oriented description: $($skill.FullName)"
+        }
     }
 }
 
-$publicConfig = Join-Path $root "codex/examples/config.example.toml"
-if (Test-Path -LiteralPath $publicConfig) {
-    $configText = Get-Content -LiteralPath $publicConfig -Raw
-    $blockedConfigStrings = @(
-        'gpt-5.5',
-        'danger-full-access',
-        'sandbox = "elevated"',
-        'acemcp.heroman.wtf',
-        'service_tier = "fast"',
-        'windows_wsl_setup_acknowledged = true',
-        'theme = "dark-neon"'
+$skillRoots = @(
+    (Join-Path $root "skills"),
+    (Join-Path $root "claude/project/.claude/skills"),
+    (Join-Path $root "zh-CN/skills"),
+    (Join-Path $root "zh-CN/claude/project/.claude/skills")
+)
+foreach ($skillRoot in $skillRoots) {
+    Test-SkillFrontmatter -SkillRoot $skillRoot
+}
+
+function Assert-MirroredSkillSet {
+    param(
+        [string]$SourceRoot,
+        [string]$TargetRoot
     )
-    foreach ($blocked in $blockedConfigStrings) {
-        if ($configText.Contains($blocked)) {
-            Add-Failure "Unsafe or private default found in public config: $blocked"
+
+    if (-not (Test-Path -LiteralPath $TargetRoot)) {
+        Add-Failure "Missing mirrored skill directory: $TargetRoot"
+        return
+    }
+
+    $sourceNames = Get-ChildItem -LiteralPath $SourceRoot -Directory -Force | Select-Object -ExpandProperty Name
+    $targetNames = Get-ChildItem -LiteralPath $TargetRoot -Directory -Force | Select-Object -ExpandProperty Name
+    foreach ($sourceName in $sourceNames) {
+        if ($targetNames -notcontains $sourceName) {
+            Add-Failure "Missing mirrored skill '$sourceName' in $TargetRoot"
         }
     }
-} else {
-    Add-Failure "Missing public config example: $publicConfig"
+    foreach ($targetName in $targetNames) {
+        if ($sourceNames -notcontains $targetName) {
+            Add-Failure "Unexpected skill '$targetName' in $TargetRoot"
+        }
+    }
+}
+
+Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "claude/project/.claude/skills")
+Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "zh-CN/skills")
+Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "zh-CN/claude/project/.claude/skills")
+
+$publicConfigs = @(
+    (Join-Path $root "codex/examples/config.example.toml"),
+    (Join-Path $root "zh-CN/codex/examples/config.example.toml")
+)
+$blockedConfigStrings = @(
+    'gpt-5.5',
+    'danger-full-access',
+    'sandbox = "elevated"',
+    'acemcp.heroman.wtf',
+    'service_tier = "fast"',
+    'windows_wsl_setup_acknowledged = true',
+    'theme = "dark-neon"'
+)
+foreach ($publicConfig in $publicConfigs) {
+    if (-not (Test-Path -LiteralPath $publicConfig)) {
+        Add-Failure "Missing public config example: $publicConfig"
+        continue
+    }
+
+    $configText = Get-Content -LiteralPath $publicConfig -Raw
+    foreach ($blocked in $blockedConfigStrings) {
+        if ($configText.Contains($blocked)) {
+            Add-Failure "Unsafe or private default found in public config $publicConfig`: $blocked"
+        }
+    }
 }
 
 $scanFiles = $textFiles | Where-Object {

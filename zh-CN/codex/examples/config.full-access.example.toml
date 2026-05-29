@@ -1,0 +1,9 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+# 高权限配置示例。
+# 仅在你完全信任的本地工作区中使用，并先审查风险。
+
+approval_policy = "on-request"
+sandbox_mode = "danger-full-access"
+
+[windows]
+sandbox = "elevated"

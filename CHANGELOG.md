@@ -9,4 +9,4 @@ This project uses GitHub releases for versioning. Directory names should not con
 - Created the public `codex-three-layer-delivery` repository layout.
 - Split safe Codex configuration from full-access advanced configuration.
 - Added GitHub-ready metadata: license, contribution guide, security policy, attribution notes, compatibility docs, and validation script.
-- Included Codex rules, Cursor adapter, Claude Code adapter, and eight `rd-*` skills.
+- Included Codex rules, Cursor adapter, Claude Code adapter, Simplified Chinese translation pack, and eight `rd-*` skills.
