@@ -1,6 +1,6 @@
 # Compatibility
 
-Version data in this file was checked on 2026-05-28. Re-check registry latest versions and tool/API surface before each public release.
+Version data in this file was checked on 2026-05-28. Cursor adapter documentation was checked on 2026-05-29. Re-check registry latest versions and tool/API surface before each public release.
 
 ## Codex
 
@@ -15,6 +15,25 @@ Version data in this file was checked on 2026-05-28. Re-check registry latest ve
 | `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.153` | File conventions checked for `CLAUDE.md`, `.claude/settings.json`, and `.claude/skills/`. Re-check before changing adapter behavior. |
 
 Official Claude Code docs checked: [memory](https://docs.anthropic.com/en/docs/claude-code/memory), [settings](https://docs.anthropic.com/en/docs/claude-code/settings), and [skills](https://docs.anthropic.com/en/docs/claude-code/skills).
+
+## Cursor
+
+Official Cursor docs checked on 2026-05-29:
+
+- [Rules](https://cursor.com/docs/context/rules): Project Rules live in `.cursor/rules`; `.md` and `.mdc` are supported; `.mdc` frontmatter can specify metadata such as `description` and `globs`.
+- [Skills](https://cursor.com/docs/skills): Agent Skills are portable, version-controlled packages that can include scripts, templates, and references.
+- [MCP](https://cursor.com/docs/context/mcp): project-specific MCP servers are configured through `.cursor/mcp.json`.
+
+| Adapter surface | Repository path | Public-release posture |
+|---|---|---|
+| English rules | `cursor/project/.cursor/rules/*.mdc` | Cursor-native project rules |
+| English skills | `cursor/project/.cursor/skills/rd-*/SKILL.md` | Mirrored from root `skills/rd-*` |
+| English MCP example | `cursor/project/.cursor/mcp.example.json` | Example only; copy to `.cursor/mcp.json` after review |
+| Chinese rules | `cursor/zh-CN/.cursor/rules/*.mdc` | Cursor-specific Simplified Chinese compatibility pack |
+| Chinese skills | `cursor/zh-CN/.cursor/skills/rd-*/SKILL.md` | Mirrored from `zh-CN/skills/rd-*` |
+| Chinese MCP example | `cursor/zh-CN/.cursor/mcp.example.json` | Example only; copy to `.cursor/mcp.json` after review |
+
+This repository does not ship an active Cursor `.cursor/mcp.json` and does not rely on undocumented `disabled` or `alwaysAllow` fields in Cursor MCP templates.
 
 ## MCP Packages
 

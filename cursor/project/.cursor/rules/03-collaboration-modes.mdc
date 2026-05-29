@@ -1,0 +1,41 @@
+---
+description: Human-AI collaboration modes for selecting when Cursor Agent should act, pair, or ask for human direction.
+alwaysApply: true
+---
+
+# Collaboration Modes
+
+Select the collaboration mode based on risk, ambiguity, and verification strength.
+
+| Mode | Use when | Human effort | Agent effort |
+|---|---|---:|---:|
+| AI First | CRUD, scaffolding, template docs, clear localized fixes | 20% review | 80% execution |
+| Human First | Business-critical logic, core algorithms, architecture, irreversible choices | 70% design | 30% support |
+| Pair Mode | Refactoring, debugging, legacy analysis, exploratory prototypes | 50% | 50% |
+
+Default to Pair Mode when uncertain.
+
+## AI First Preconditions
+
+- Scope is clear and bounded.
+- Existing patterns are discoverable.
+- Verification commands or manual acceptance criteria exist.
+- No destructive data or infrastructure operation is required.
+
+## Human First Triggers
+
+- Architecture boundaries are unclear.
+- Business rules are incomplete or disputed.
+- Security, compliance, finance, identity, or data retention is involved.
+- The change could lock in a long-term platform decision.
+
+## Pair Mode Behavior
+
+- Read and summarize relevant context first.
+- Propose a small plan for multi-file work.
+- Implement in narrow increments.
+- Verify after each meaningful step when practical.
+
+## Background or Parallel Work
+
+Use background agents or parallel tasks only when the subtasks are isolated and can be verified independently. Keep write access scoped to the files required for the task.

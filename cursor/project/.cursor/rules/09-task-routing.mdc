@@ -1,0 +1,42 @@
+---
+description: Task routing for the eight independent rd-* skills and their authoring-to-review relationships.
+alwaysApply: true
+---
+
+# Task Routing
+
+The eight `rd-*` skills can be used independently and in any order. They are not a forced pipeline.
+
+## Available Skills
+
+| Skill | Deliverable | Daily work |
+|---|---|---|
+| `$rd-requirements-analysis` | Structured requirements document or PRD | Requirements analysis |
+| `$rd-technical-writing` | Technical proposal, high-level design, or implementation plan | Solution design |
+| `$rd-detailed-design` | Detailed design document | API, data, flow, and failure design |
+| `$rd-implement` | Runnable code and tests | Implementation and bug fixing |
+| `$rd-doc-review` | Document review findings | Requirements, proposal, or design review |
+| `$rd-code-review` | Code review findings | Diff, PR, commit, or working tree review |
+| `$rd-testing` | Test plan, tests, or test report | Test design and execution |
+| `$rd-deployment` | Runbook or release checklist | Deployment and rollback planning |
+
+## Authoring To Review Mapping
+
+| Authoring skill | Review skill | Review mode |
+|---|---|---|
+| `$rd-requirements-analysis` to PRD | `$rd-doc-review` | Requirements Review |
+| `$rd-technical-writing` to proposal or implementation plan | `$rd-doc-review` | Proposal Review |
+| `$rd-detailed-design` to detailed design | `$rd-doc-review` | Design Review |
+| `$rd-implement` to code | `$rd-code-review` | Code Review |
+
+## Invocation Guidance
+
+- Invoke the relevant skill by name when the task clearly matches it.
+- Do not force a full requirements-to-deployment pipeline for small tasks.
+- For reviews, lead with findings and severity.
+- For implementation, make the smallest verifiable change and run the closest checks.
+- For testing, cover normal, abnormal, and boundary scenarios.
+
+## Parallel Work
+
+Use parallel or background work only when subtasks are independent, write scopes do not overlap, and the outputs can be merged without ambiguity.

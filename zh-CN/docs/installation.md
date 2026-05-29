@@ -70,6 +70,13 @@ cp -r zh-CN/claude/project/.claude /path/to/your-project/.claude
 
 ## Cursor 适配包
 
+安装 Cursor 英文适配包：
+
+```bash
+cp -r cursor/project/.cursor /path/to/your-project/.cursor
+cp cursor/project/PROMPTS.md /path/to/your-project/PROMPTS.cursor.md
+```
+
 Cursor 中文适配包保留在：
 
 ```text
@@ -80,9 +87,16 @@ cursor/zh-CN/
 
 ```bash
 cp -r cursor/zh-CN/.cursor /path/to/your-project/.cursor
+cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
 ```
 
 如果目标项目已有 `.cursor/`，请手动合并。
+
+Cursor MCP 需要显式启用。先审查凭据、数据流和使用场景，再把示例文件复制为目标项目的 `.cursor/mcp.json`：
+
+```bash
+cp cursor/zh-CN/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
+```
 
 ## 环境变量
 

@@ -10,3 +10,4 @@ This project uses GitHub releases for versioning. Directory names should not con
 - Split safe Codex configuration from full-access advanced configuration.
 - Added GitHub-ready metadata: license, contribution guide, security policy, attribution notes, compatibility docs, and validation script.
 - Included Codex rules, Cursor adapter, Claude Code adapter, Simplified Chinese translation pack, and eight `rd-*` skills.
+- Added an English Cursor adapter under `cursor/project/`, aligned Cursor `zh-CN` with the same opt-in MCP posture, and documented the official Cursor Rules, Skills, and MCP baseline.

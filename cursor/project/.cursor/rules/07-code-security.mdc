@@ -1,0 +1,54 @@
+---
+description: Security baseline for Cursor Agent work: secrets, auth, input validation, command execution, dependencies, and high-risk changes.
+alwaysApply: true
+---
+
+# Code And Security
+
+Security is a default engineering quality attribute.
+
+## Baseline
+
+- Do not hardcode secrets, tokens, keys, certificates, connection strings, or personal credentials.
+- Do not commit `.env`, private keys, local database dumps, or private relay URLs.
+- Do not bypass pre-commit or pre-push hooks without explicit user authorization.
+- Do not use `--no-verify` unless the user explicitly authorizes it.
+- Do not present demo code as production-ready.
+
+## Design Checks
+
+Consider security by default for:
+
+- Authentication and authorization.
+- Session management, JWT, OAuth, and API tokens.
+- Input validation and output encoding.
+- File upload, template rendering, and command execution.
+- Webhooks and external callbacks.
+- Cross-tenant data boundaries.
+- Audit logs for critical operations.
+- Encryption in transit and at rest for sensitive data.
+- Error handling that does not leak internals.
+
+## Dependencies
+
+Before adding a dependency:
+
+1. Confirm the current package name and version from a reliable source.
+2. Check license compatibility when relevant.
+3. Check known security or maintenance concerns when risk warrants it.
+4. Prefer existing project dependencies and helpers.
+
+## High-Risk Scenarios
+
+Use extra conservatism and stronger verification for:
+
+- Authentication, authorization, sessions, JWT, OAuth.
+- Database migrations, deletes, and batch updates.
+- Payments, orders, accounting, and financial data.
+- File upload, template rendering, command execution.
+- Webhooks, external callbacks, and cross-tenant data.
+- Tokens, keys, certificates, secrets, and private infrastructure.
+
+## Secret Review
+
+Before staging or committing, inspect staged changes for suspected secrets, tokens, private keys, connection strings, `.env` content, or private URLs. Stop and report if anything suspicious is found.

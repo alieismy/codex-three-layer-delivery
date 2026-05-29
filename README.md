@@ -12,7 +12,7 @@ It also includes optional Cursor and Claude Code adapter areas for teams that wa
 
 > This project is independent and is not affiliated with OpenAI, Cursor, Anthropic, or any referenced framework. See `ATTRIBUTION.md` for inspiration references.
 
-Simplified Chinese users can start from `zh-CN/`. The English root remains the canonical baseline; `zh-CN/` is a translation pack, and `cursor/zh-CN/` remains the Cursor-specific compatibility pack.
+Simplified Chinese users can start from `zh-CN/`. The English root remains the canonical baseline; `zh-CN/` is a translation pack, `cursor/project/` is the English Cursor adapter, and `cursor/zh-CN/` remains the Cursor-specific Simplified Chinese compatibility pack.
 
 ## Who This Is For
 
@@ -53,7 +53,8 @@ Layer 3: R&D Skills
   - rd-deployment
 
 Adapter mappings:
-  Cursor: cursor/zh-CN/.cursor/rules/ and cursor/zh-CN/.cursor/skills/
+  Cursor: cursor/project/.cursor/rules/ and cursor/project/.cursor/skills/
+  Cursor zh-CN: cursor/zh-CN/.cursor/rules/ and cursor/zh-CN/.cursor/skills/
   Claude Code: claude/project/CLAUDE.md and claude/project/.claude/skills/
   Simplified Chinese: zh-CN/
 ```
@@ -117,6 +118,12 @@ Use the Simplified Chinese translation pack:
 zh-CN/
 ```
 
+Cursor English files are available under:
+
+```text
+cursor/project/
+```
+
 Cursor-specific Chinese files remain under:
 
 ```text
@@ -140,18 +147,24 @@ The skills are independent. They are not a forced pipeline.
 
 ## Cursor Adapter
 
-The `cursor/` directory contains adapter documentation and a `zh-CN` compatibility pack:
+The `cursor/` directory contains Cursor adapter documentation, an English adapter, and a Simplified Chinese compatibility pack:
 
 ```text
 cursor/
   README.md
+  project/
+    .cursor/rules/*.mdc
+    .cursor/skills/rd-*/SKILL.md
+    .cursor/mcp.example.json
+    PROMPTS.md
   zh-CN/
     .cursor/rules/*.mdc
     .cursor/skills/rd-*/SKILL.md
+    .cursor/mcp.example.json
     PROMPTS.md
 ```
 
-Codex remains the primary target of this repository. Treat Cursor support as optional until the adapter you need has been translated and re-verified.
+Codex remains the primary target of this repository. Treat Cursor support as optional. The Cursor MCP file is published as `mcp.example.json`; copy it to `.cursor/mcp.json` only after reviewing credentials, data flow, and the target workspace's MCP status.
 
 ## Simplified Chinese Pack
 
@@ -167,7 +180,7 @@ zh-CN/
   docs/
 ```
 
-The English root is the canonical baseline. Use `zh-CN/` as a translation pack, not as a separate source of truth. Cursor-specific Chinese support remains in `cursor/zh-CN/`.
+The English root is the canonical baseline. Use `zh-CN/` as a translation pack, not as a separate source of truth. Cursor English support is in `cursor/project/`; Cursor-specific Chinese support remains in `cursor/zh-CN/`.
 
 ## Claude Code Adapter
 
@@ -193,6 +206,7 @@ The public configuration intentionally uses conservative defaults:
 - no hardcoded personal model name;
 - no default third-party relay URL;
 - optional MCP servers are disabled until credentials and use cases are reviewed;
+- Cursor adapter MCP config is shipped as `mcp.example.json`, not as an active `.cursor/mcp.json`;
 - Claude Code project settings deny common secret files and require confirmation for commit, push, tag, publish, and delete operations;
 - package versions are documented in `docs/compatibility.md` and should be refreshed before release.
 
@@ -208,8 +222,12 @@ codex-three-layer-delivery/
       config.full-access.example.toml
   cursor/
     README.md
+    project/.cursor/rules/
+    project/.cursor/skills/
+    project/.cursor/mcp.example.json
     zh-CN/.cursor/rules/
     zh-CN/.cursor/skills/
+    zh-CN/.cursor/mcp.example.json
   zh-CN/
     README.md
     PROMPTS.md

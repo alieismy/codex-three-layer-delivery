@@ -1,0 +1,57 @@
+---
+description: Context management, session refresh, repository maps, and search hygiene for long Cursor Agent sessions.
+alwaysApply: true
+---
+
+# Context And Session Management
+
+## Context Health
+
+- Use full file paths in implementation plans and final reports.
+- Summarize key constraints before complex multi-step work.
+- Refresh context when the task changes from analysis to implementation, or from implementation to review.
+- If answer quality degrades or the same issue fails twice, stop and reassess context before continuing.
+
+## Session Strategy
+
+For large tasks, split work into independently verifiable sessions:
+
+| Session | Goal | Persistence |
+|---|---|---|
+| 1 | Understand structure and constraints | Rules, docs, or notes |
+| 2 | Implement changes | Git diff and tests |
+| 3 | Independent verification | Test results and review notes |
+
+## Codebase Map
+
+Large projects should maintain a lightweight `CODEBASE.md` at the project root:
+
+```text
+# Codebase Map
+## Core Services
+- services/api/       - REST API gateway
+- services/payments/  - Payment processing
+## Shared Libraries
+- packages/types/     - Cross-service types
+## Do Not Touch
+- generated/          - Auto-generated files
+```
+
+The map should describe top-level structure only. Detailed constraints belong in nested rules or module docs.
+
+## Noise Exclusion
+
+Keep generated files, build artifacts, and third-party code out of routine search scope:
+
+- `node_modules/`
+- `dist/`
+- `build/`
+- `vendor/`
+- `generated/`
+- coverage outputs and temporary files
+
+Commit exclusion rules when the whole team should share them.
+
+## Configuration Iteration
+
+Review agent configuration every three to six months or after major model releases. Separate rules that compensate for model limitations from rules that encode durable project conventions.

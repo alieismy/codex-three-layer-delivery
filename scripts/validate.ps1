@@ -53,6 +53,8 @@ function Test-SkillFrontmatter {
 $skillRoots = @(
     (Join-Path $root "skills"),
     (Join-Path $root "claude/project/.claude/skills"),
+    (Join-Path $root "cursor/project/.cursor/skills"),
+    (Join-Path $root "cursor/zh-CN/.cursor/skills"),
     (Join-Path $root "zh-CN/skills"),
     (Join-Path $root "zh-CN/claude/project/.claude/skills")
 )
@@ -86,6 +88,8 @@ function Assert-MirroredSkillSet {
 }
 
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "claude/project/.claude/skills")
+Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "cursor/project/.cursor/skills")
+Assert-MirroredSkillSet -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot (Join-Path $root "cursor/zh-CN/.cursor/skills")
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "zh-CN/skills")
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "zh-CN/claude/project/.claude/skills")
 
@@ -112,6 +116,40 @@ foreach ($publicConfig in $publicConfigs) {
     foreach ($blocked in $blockedConfigStrings) {
         if ($configText.Contains($blocked)) {
             Add-Failure "Unsafe or private default found in public config $publicConfig`: $blocked"
+        }
+    }
+}
+
+$cursorActiveMcpConfigs = @(
+    (Join-Path $root "cursor/project/.cursor/mcp.json"),
+    (Join-Path $root "cursor/zh-CN/.cursor/mcp.json")
+)
+foreach ($cursorActiveMcpConfig in $cursorActiveMcpConfigs) {
+    if (Test-Path -LiteralPath $cursorActiveMcpConfig) {
+        Add-Failure "Cursor adapter must ship MCP as mcp.example.json, not active mcp.json: $cursorActiveMcpConfig"
+    }
+}
+
+$cursorMcpExamples = @(
+    (Join-Path $root "cursor/project/.cursor/mcp.example.json"),
+    (Join-Path $root "cursor/zh-CN/.cursor/mcp.example.json")
+)
+$blockedCursorMcpStrings = @(
+    '@latest',
+    '"disabled"',
+    '"alwaysAllow"',
+    'acemcp.heroman.wtf'
+)
+foreach ($cursorMcpExample in $cursorMcpExamples) {
+    if (-not (Test-Path -LiteralPath $cursorMcpExample)) {
+        Add-Failure "Missing Cursor MCP example: $cursorMcpExample"
+        continue
+    }
+
+    $cursorMcpText = Get-Content -LiteralPath $cursorMcpExample -Raw
+    foreach ($blocked in $blockedCursorMcpStrings) {
+        if ($cursorMcpText.Contains($blocked)) {
+            Add-Failure "Unsafe or unsupported Cursor MCP template string found in $cursorMcpExample`: $blocked"
         }
     }
 }

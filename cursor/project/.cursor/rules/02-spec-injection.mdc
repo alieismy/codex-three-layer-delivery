@@ -1,0 +1,43 @@
+---
+description: Cursor-native spec injection: how project rules, module rules, skills, and durable decisions should be organized.
+alwaysApply: true
+---
+
+# Spec Injection
+
+Project specs are stored in the repository so Cursor Agent can load consistent conventions across sessions.
+
+## Spec Hierarchy
+
+| Level | Carrier | Loading method |
+|---|---|---|
+| User global | Cursor User Rules | Applied from Cursor settings |
+| Project specs | `.cursor/rules/*.md` or `.cursor/rules/*.mdc` | Project-scoped rules |
+| Module specs | Nested `.cursor/rules/` or `globs` in `.mdc` frontmatter | Scoped to matching paths |
+| Task capabilities | `.cursor/skills/rd-*/SKILL.md` | Invoked by Cursor Agent when relevant |
+| Interoperable fallback | `AGENTS.md` | Plain markdown alternative where appropriate |
+
+## Rule Authoring
+
+- Keep rules focused, actionable, and under 500 lines.
+- Use `.mdc` when frontmatter such as `description`, `globs`, or `alwaysApply` is needed.
+- Split large concepts into composable rules instead of one broad rule.
+- Prefer concrete constraints, scripts, paths, and examples over vague preferences.
+- Do not store secrets, private URLs, or personal credentials in rules.
+
+## Spec Check Requirements
+
+Before design, implementation, or review work:
+
+1. Check `.cursor/rules/` for project conventions.
+2. Check relevant skills in `.cursor/skills/`.
+3. Check existing docs and prior decisions before creating new rules.
+4. Persist durable project decisions as rules only when they are reusable.
+
+## Spec Maintenance
+
+- `.cursor/rules/` is for agent behavior and project constraints.
+- `README.md` is for humans: what the project is, why it exists, and how to start.
+- Avoid duplicating the same content between rules and README.
+- Before adding a rule, search for an equivalent existing rule and tighten it instead of duplicating it.
+- Skill frontmatter `description` is the trigger summary. It should start with trigger conditions and stay short.

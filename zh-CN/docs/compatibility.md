@@ -1,6 +1,6 @@
 # 兼容性
 
-本文件中的版本数据于 2026-05-28 核查。每次公开发布前都应重新核查 registry 最新版本和工具/API surface（API 表面，即可调用接口和行为）。
+本文件中的版本数据于 2026-05-28 核查。Cursor 适配包文档于 2026-05-29 核查。每次公开发布前都应重新核查 registry 最新版本和工具/API surface（API 表面，即可调用接口和行为）。
 
 ## Codex
 
@@ -19,6 +19,25 @@ Claude Code 官方文档核查入口：
 - https://docs.anthropic.com/en/docs/claude-code/memory
 - https://docs.anthropic.com/en/docs/claude-code/settings
 - https://docs.anthropic.com/en/docs/claude-code/skills
+
+## Cursor
+
+Cursor 官方文档于 2026-05-29 核查：
+
+- [Rules](https://cursor.com/docs/context/rules)：项目规则位于 `.cursor/rules`，支持 `.md` 和 `.mdc`；`.mdc` frontmatter 可声明 `description`、`globs` 等元数据。
+- [Skills](https://cursor.com/docs/skills)：Agent Skills 是可版本化的能力包，可包含脚本、模板和参考资料。
+- [MCP](https://cursor.com/docs/context/mcp)：项目级 MCP server 通过 `.cursor/mcp.json` 配置。
+
+| 适配面 | 仓库路径 | 公开发布姿态 |
+|---|---|---|
+| 英文规则 | `cursor/project/.cursor/rules/*.mdc` | Cursor 原生项目规则 |
+| 英文 Skills | `cursor/project/.cursor/skills/rd-*/SKILL.md` | 与根目录 `skills/rd-*` 镜像 |
+| 英文 MCP 示例 | `cursor/project/.cursor/mcp.example.json` | 仅示例；审查后复制为 `.cursor/mcp.json` |
+| 中文规则 | `cursor/zh-CN/.cursor/rules/*.mdc` | Cursor 平台专用中文兼容包 |
+| 中文 Skills | `cursor/zh-CN/.cursor/skills/rd-*/SKILL.md` | 与 `zh-CN/skills/rd-*` 镜像 |
+| 中文 MCP 示例 | `cursor/zh-CN/.cursor/mcp.example.json` | 仅示例；审查后复制为 `.cursor/mcp.json` |
+
+本仓库不直接发布活动 Cursor `.cursor/mcp.json`，也不在公开模板中依赖 `disabled` 或 `alwaysAllow` 等未确认的 Cursor MCP 字段。
 
 ## MCP Packages
 

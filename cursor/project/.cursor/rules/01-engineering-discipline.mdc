@@ -1,0 +1,53 @@
+---
+description: Engineering discipline for Cursor Agent: read first, minimize changes, use project scripts, and preserve existing conventions.
+alwaysApply: true
+---
+
+# Engineering Discipline
+
+## Think Before You Act
+
+- State assumptions explicitly when they affect implementation.
+- Read target files first, then callers, interfaces, tests, configuration, and data models.
+- If a change affects multiple modules or external contracts, provide a brief implementation plan first.
+- If multiple valid approaches have different trade-offs, recommend one and explain why.
+
+## Minimal Change Principle
+
+- Prefer the smallest necessary change.
+- Reuse existing patterns, directory structure, naming, scripts, and infrastructure.
+- Do not add abstraction layers because a future need is merely possible.
+- Do not reformat unrelated content.
+- Clean up orphaned code caused by your change; leave pre-existing unrelated orphaned code alone.
+
+## Goal-Driven Execution
+
+Convert vague tasks into verifiable goals:
+
+| Request | Verifiable goal |
+|---|---|
+| Add validation | Add invalid-input coverage, then make it pass |
+| Fix a bug | Add or describe reproduction, then fix it |
+| Refactor code | Confirm behavior before and after |
+| Update docs | Check links, examples, and terminology alignment |
+
+Before running lint, format, test, build, or typecheck commands, inspect existing entry points such as `scripts/`, `package.json`, `Makefile`, `justfile`, `pyproject.toml`, and `uv.lock`. Prefer project-wrapped commands.
+
+## When to Act vs. Ask
+
+| Judgment | Action |
+|---|---|
+| Clear instruction and contained change | Act directly |
+| Multiple reasonable approaches with real trade-offs | Recommend and ask |
+| Ambiguous requirement | Restate and clarify |
+| Destructive operation or irreversible data change | Ask first |
+| Unknown feasibility | State risks and limits before acting |
+| Research in uncertain or drifting domain | Verify first |
+
+## Configuration Changes
+
+- Treat configuration as executable behavior.
+- Do not copy Codex-only or Claude-only configuration syntax into Cursor files.
+- For Cursor project guidance, use `.cursor/rules/*.md` or `.cursor/rules/*.mdc`.
+- For Cursor project skills, use `.cursor/skills/rd-*/SKILL.md`.
+- For Cursor MCP examples, keep public templates opt-in. Do not assume a server is enabled until `.cursor/mcp.json`, credentials, and Cursor's MCP status are verified.

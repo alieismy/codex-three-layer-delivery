@@ -1,35 +1,79 @@
 # Cursor Adapter
 
-The primary target of this repository is Codex. Cursor support is provided as an adapter layer.
+The primary target of this repository is Codex. Cursor support is provided as an adapter layer that maps the same engineering discipline into Cursor-native rules, skills, and optional MCP configuration.
 
 ## Current Status
 
-The available Cursor adapter is currently packaged under:
+The English Cursor adapter is packaged under:
+
+```text
+cursor/project/
+  .cursor/rules/*.mdc
+  .cursor/skills/rd-*/SKILL.md
+  .cursor/mcp.example.json
+  PROMPTS.md
+```
+
+The Simplified Chinese Cursor compatibility pack is packaged under:
 
 ```text
 cursor/zh-CN/
   .cursor/rules/*.mdc
   .cursor/skills/rd-*/SKILL.md
+  .cursor/mcp.example.json
   PROMPTS.md
   README.md
 ```
 
-This adapter is a Chinese-language compatibility pack derived from the same three-layer delivery model.
+## Cursor Documentation Baseline
+
+Cursor documentation checked on 2026-05-29:
+
+- [Rules](https://cursor.com/docs/context/rules): Project Rules live in `.cursor/rules`; `.md` and `.mdc` are supported; `.mdc` frontmatter can specify metadata such as `description` and `globs`.
+- [Skills](https://cursor.com/docs/skills): Agent Skills are portable, version-controlled packages that can include scripts, templates, and references.
+- [MCP](https://cursor.com/docs/context/mcp): project-specific MCP servers are configured through `.cursor/mcp.json`.
 
 ## Recommended Public-Release Posture
 
-For the first public release, treat Cursor support as optional:
+Treat Cursor support as optional and explicitly opt-in:
 
 - Codex rules and skills are the stable baseline.
-- Cursor `zh-CN` files are included for compatibility and migration reference.
-- A full English Cursor adapter should be released only after its `.mdc` rules, skills, prompts, and MCP config are translated and re-verified.
+- `cursor/project/` is the English Cursor adapter.
+- `cursor/zh-CN/` remains the Cursor-specific Simplified Chinese compatibility pack.
+- This repository ships `mcp.example.json`, not an active `.cursor/mcp.json`.
+- Do not rely on undocumented Cursor MCP fields such as `disabled` or `alwaysAllow` in public templates.
 
 ## Installation
 
-Copy the packaged Cursor files into a Cursor workspace:
+Install the English adapter:
+
+```bash
+cp -r cursor/project/.cursor /path/to/your-project/.cursor
+cp cursor/project/PROMPTS.md /path/to/your-project/PROMPTS.cursor.md
+```
+
+Install the Simplified Chinese Cursor pack:
 
 ```bash
 cp -r cursor/zh-CN/.cursor /path/to/your-project/.cursor
+cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
 ```
 
 If the target workspace already has `.cursor/`, merge manually.
+
+## Optional MCP Setup
+
+The adapter ships MCP as an explicit example file:
+
+```text
+cursor/project/.cursor/mcp.example.json
+cursor/zh-CN/.cursor/mcp.example.json
+```
+
+To enable MCP in a target Cursor workspace, review the data flow and credentials first, then copy the example:
+
+```bash
+cp cursor/project/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
+```
+
+Fill only the environment variables for servers you actually enable. Re-check Cursor's MCP status in the UI after copying.

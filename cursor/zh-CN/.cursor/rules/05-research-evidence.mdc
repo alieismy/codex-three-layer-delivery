@@ -36,9 +36,11 @@ alwaysApply: true
 - **库/框架/SDK 文档**：优先 Context7
 - **大型开源项目架构**：DeepWiki（按需启用）
 - **多方案比较/复杂推理**：Sequential Thinking（按需启用）
-- **Web 搜索**：Tavily MCP 默认启用；Brave Search 按需启用
+- **Web 搜索**：使用当前可用且已启用的检索工具；Tavily MCP 和 Brave Search 均按需配置后再使用
 - **浏览器交互/E2E 测试**：优先 Cursor 内置浏览器能力或 Playwright CLI；Playwright MCP 按需启用
-- **跨仓库代码分析**：Augment Context Engine MCP（按需启用）
+- **跨仓库代码分析**：已审查并配置的私有代码检索工具（按需启用）
+
+不要把可选 MCP server 描述为已可用，除非目标 Cursor 工作区已经存在 `.cursor/mcp.json`、凭据有效，并且 Cursor 的 MCP 状态显示已启用。
 
 ## 学术与标准检索
 

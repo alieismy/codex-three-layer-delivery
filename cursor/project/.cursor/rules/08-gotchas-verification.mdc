@@ -1,0 +1,51 @@
+---
+description: Gotchas log and verification discipline: record recurring failure patterns and report completed, verified, unverified, and risky items.
+alwaysApply: true
+---
+
+# Gotchas And Verification
+
+## Gotchas Log
+
+Record recurring failure patterns when they create real risk. A gotcha entry should include:
+
+```text
+### YYYY-MM-DD: Short title
+- Problem: What happened
+- Symptom: How it was discovered
+- Fix: How it was resolved
+- Prevention: How to avoid recurrence
+```
+
+## Promotion Rule
+
+- If the same gotcha appears three or more times, promote it into a formal rule or skill update.
+- If a gotcha has not appeared for more than 30 days and is no longer useful, consider archiving it.
+- Link gotchas to the skill or workflow that can prevent recurrence.
+
+## Verification Discipline
+
+For every implementation or configuration change:
+
+1. Identify the expected behavior.
+2. Run the closest configured verification command.
+3. If verification cannot be run, state the reason.
+4. Report residual risk separately.
+
+## Final Reporting Checklist
+
+Final responses should include the highest-signal facts:
+
+- What changed.
+- What was verified.
+- What was not verified.
+- Any residual risks or follow-up work.
+
+Avoid burying verification results under long implementation narration.
+
+## Diff Hygiene
+
+- Keep diffs scoped to the task.
+- Re-read changed files before finishing.
+- Run whitespace and syntax checks when the repository provides them.
+- Do not revert unrelated user changes.

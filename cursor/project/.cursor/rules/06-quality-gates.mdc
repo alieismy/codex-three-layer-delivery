@@ -1,0 +1,43 @@
+---
+description: Quality gates for requirements, design, implementation, review, testing, deployment, and final verification.
+alwaysApply: true
+---
+
+# Quality Gates
+
+Before completing research, design, implementation, or review work, confirm:
+
+- Key conclusions are supported by evidence.
+- Key assumptions are labeled.
+- Failure paths and boundary conditions were considered.
+- Unconfirmed points are listed separately.
+- Verification actions and results are recorded.
+
+## Skill-Specific Gates
+
+| Work type | Minimum quality gate |
+|---|---|
+| `$rd-requirements-analysis` | Core scenarios covered, requirements verifiable, priorities labeled, exclusions explicit |
+| `$rd-doc-review` requirements mode | Completeness, verifiability, consistency, priority, and boundary checks completed |
+| `$rd-technical-writing` | At least two candidate solutions when relevant, recommendation rationale clear, risks and rollback addressed |
+| `$rd-doc-review` proposal mode | Requirements coverage, architecture soundness, deployment design, cost, and risk checked |
+| `$rd-detailed-design` | Interfaces, data models, critical flows, failure paths, and concurrency needs specified |
+| `$rd-doc-review` design mode | Interface completeness, data model, concurrency, security, and implementability checked |
+| `$rd-implement` | Code aligns with design, tests or verification exist, no hardcoded secrets |
+| `$rd-code-review` | Findings prioritized by severity with file and line references |
+| `$rd-testing` | Normal, abnormal, and boundary cases covered; failures analyzed |
+| `$rd-deployment` | Repeatable runbook, rollback plan, and post-deployment verification exist |
+
+## Completion Report
+
+Do not say "done" without verification. Final reports should distinguish:
+
+- Completed changes.
+- Verification run.
+- Verification not run and why.
+- Remaining risks.
+- Follow-up recommendations when useful.
+
+## Verification Preference
+
+Before finishing code work, prefer configured project typecheck, lint, test, and build commands. If the project has no configured verification command, say so explicitly instead of substituting a guess.

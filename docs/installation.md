@@ -65,9 +65,29 @@ On Windows, user-level environment variables can also be set with `setx`, but re
 
 ## Cursor Adapter
 
-Copy the `cursor/zh-CN/.cursor` directory into a Cursor workspace if you want to use the Cursor adapter.
+Install the English Cursor adapter:
 
-The Cursor adapter is optional and should be kept aligned with the Codex rules when rules change.
+```bash
+cp -r cursor/project/.cursor /path/to/your-project/.cursor
+cp cursor/project/PROMPTS.md /path/to/your-project/PROMPTS.cursor.md
+```
+
+Install the Simplified Chinese Cursor pack:
+
+```bash
+cp -r cursor/zh-CN/.cursor /path/to/your-project/.cursor
+cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
+```
+
+If the target workspace already has `.cursor/`, merge manually.
+
+Cursor MCP is intentionally opt-in. Review credentials and data flow, then copy the example to the Cursor project MCP location:
+
+```bash
+cp cursor/project/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
+```
+
+The Cursor adapter is optional and should be kept aligned with the Codex and Claude Code adapters when rules change.
 
 ## Simplified Chinese Pack
 

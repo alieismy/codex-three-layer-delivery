@@ -9,7 +9,7 @@
 - 英文根目录保持发布基线和结构基线。
 - `zh-CN/` 只翻译当前仓库的 Codex、Claude Code、Skills 和文档入口。
 - 归档目录 `codex-research-design-studio` 只作为中文术语和表达种子。
-- Cursor 平台专用中文兼容包继续保留在 `cursor/zh-CN/`。
+- Cursor 英文适配包位于 `cursor/project/`；Cursor 平台专用中文兼容包继续保留在 `cursor/zh-CN/`。
 - 不把灵感参考表述为直接派生、实质移植或上游背书。
 
 ## 三层结构
@@ -69,6 +69,12 @@ cp -r zh-CN/claude/project/.claude /path/to/your-project/.claude
 
 ### Cursor
 
+Cursor 英文适配包位于：
+
+```text
+cursor/project/
+```
+
 Cursor 中文适配包位于：
 
 ```text
@@ -80,6 +86,8 @@ cursor/zh-CN/
 ```bash
 cp -r cursor/zh-CN/.cursor /path/to/your-project/.cursor
 ```
+
+Cursor MCP 配置以 `mcp.example.json` 形式发布。需要启用时，先审查凭据和数据流，再复制为目标项目的 `.cursor/mcp.json`。
 
 ## 文件清单
 
@@ -112,6 +120,7 @@ zh-CN/
 
 - Codex 示例配置默认使用 `workspace-write`，不默认启用 `danger-full-access`。
 - 外部 MCP server 默认禁用，直到凭据、数据流和使用场景被明确审查。
+- Cursor 适配包只发布 `.cursor/mcp.example.json`，不直接发布活动 `.cursor/mcp.json`。
 - 不使用 `@latest` 作为 npm MCP 包版本。
 - Claude Code 项目设置默认禁止读取 `.env` 和 `secrets/`，并对 commit、push、tag、publish、delete 操作要求确认。
 - Context7 保持当前已验证 pin：`@upstash/context7-mcp@2.3.0`，不升级到 `3.0.0`，直到工具名、认证方式和平台兼容性重新验证完成。
