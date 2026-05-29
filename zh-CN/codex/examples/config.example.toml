@@ -59,8 +59,8 @@ description = "Reviews code or design against quality gates and produces structu
 enabled = false
 
 # --- MCP Servers ---
-# 公开默认值：所有外部 MCP servers 在凭据和数据流影响审查前均禁用。
-# 版本 pin 策略：npm MCP 示例中不要使用 @latest。
+# 公开默认值：所有外部 MCP 服务器在凭据和数据流影响审查前均禁用。
+# 版本固定策略：npm MCP 示例中不要使用 @latest。
 
 [mcp_servers.context7]
 command = "npx"

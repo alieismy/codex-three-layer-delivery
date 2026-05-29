@@ -43,13 +43,13 @@ cp zh-CN/codex/examples/config.example.toml ~/.codex/config.toml
 
 如果已有配置，只合并需要的片段。
 
-高权限 profile 需要显式选择：
+高权限配置档需要显式选择：
 
 ```text
 zh-CN/codex/examples/config.full-access.example.toml
 ```
 
-不要在不可信仓库中使用 full access。
+不要在不可信仓库中使用 full access（完全访问权限）。
 
 ## Claude Code 适配包
 
@@ -106,6 +106,6 @@ cp cursor/zh-CN/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
 cp .env.example .env
 ```
 
-只填写你实际启用的 MCP server 所需 API key。不要提交 `.env`。
+只填写你实际启用的 MCP 服务器所需 API key。不要提交 `.env`。
 
 Windows 用户级环境变量也可用 `setx` 设置，但设置后需要重启 shell、Codex CLI、Codex App、Cursor 或 Claude Code。

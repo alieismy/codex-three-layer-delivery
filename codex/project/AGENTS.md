@@ -220,7 +220,7 @@ Select the appropriate tool based on problem type — do not overuse:
 - **Library/Framework/SDK documentation**: Prefer Context7
 - **Large open-source project architecture**: DeepWiki (enable on demand)
 - **Multi-option comparison / Complex reasoning**: Sequential Thinking (enable on demand)
-- **Web search**: Codex built-in `web_search` as primary; Tavily MCP enabled by default; Brave Search as an on-demand supplement
+- **Web search**: Codex built-in `web_search` as primary; use Tavily or Brave Search only when the MCP server is configured, credentialed, and enabled
 - **Browser interaction / E2E testing**: Prefer built-in browser tools or Playwright CLI; enable Playwright MCP on demand
 - **Cross-repository code analysis**: Augment Context Engine MCP (enable on demand)
 

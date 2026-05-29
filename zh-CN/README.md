@@ -119,11 +119,11 @@ zh-CN/
 ## 安全默认值
 
 - Codex 示例配置默认使用 `workspace-write`，不默认启用 `danger-full-access`。
-- 外部 MCP server 默认禁用，直到凭据、数据流和使用场景被明确审查。
+- 外部 MCP 服务器默认禁用，直到凭据、数据流和使用场景被明确审查。
 - Cursor 适配包只发布 `.cursor/mcp.example.json`，不直接发布活动 `.cursor/mcp.json`。
 - 不使用 `@latest` 作为 npm MCP 包版本。
 - Claude Code 项目设置默认禁止读取 `.env` 和 `secrets/`，并对 commit、push、tag、publish、delete 操作要求确认。
-- Context7 保持当前已验证 pin：`@upstash/context7-mcp@2.3.0`，不升级到 `3.0.0`，直到工具名、认证方式和平台兼容性重新验证完成。
+- Context7 保持当前已验证固定版本：`@upstash/context7-mcp@2.3.0`，不升级到 `3.0.0`，直到工具名、认证方式和平台兼容性重新验证完成。
 
 ## 版本维护
 

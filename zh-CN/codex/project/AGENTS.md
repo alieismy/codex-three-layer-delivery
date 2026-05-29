@@ -220,7 +220,7 @@
 - **库/框架/SDK 文档**：优先 Context7
 - **大型开源项目架构**：DeepWiki（按需启用）
 - **多方案比较/复杂推理**：Sequential Thinking（按需启用）
-- **Web 搜索**：Codex 内置 `web_search` 为主；Tavily MCP 默认启用；Brave Search 按需补充
+- **Web 搜索**：Codex 内置 `web_search` 为主；只有在 MCP 服务器已配置、凭据有效且已启用时，才使用 Tavily 或 Brave Search
 - **浏览器交互/E2E 测试**：优先内置浏览器工具或 Playwright CLI；Playwright MCP 按需启用
 - **跨仓库代码分析**：Augment Context Engine MCP（按需启用）
 
