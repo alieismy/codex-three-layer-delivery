@@ -62,6 +62,41 @@ foreach ($skillRoot in $skillRoots) {
     Test-SkillFrontmatter -SkillRoot $skillRoot
 }
 
+$expectedSkillNames = @(
+    "rd-requirement",
+    "rd-feasibility",
+    "rd-research",
+    "rd-solution",
+    "rd-design",
+    "rd-specification",
+    "rd-review"
+)
+
+function Assert-ExpectedSkillSet {
+    param([string]$SkillRoot)
+
+    if (-not (Test-Path -LiteralPath $SkillRoot)) {
+        Add-Failure "Missing skill root: $SkillRoot"
+        return
+    }
+
+    $actualNames = Get-ChildItem -LiteralPath $SkillRoot -Directory -Force | Select-Object -ExpandProperty Name
+    foreach ($expectedName in $expectedSkillNames) {
+        if ($actualNames -notcontains $expectedName) {
+            Add-Failure "Missing expected document skill '$expectedName' in $SkillRoot"
+        }
+    }
+    foreach ($actualName in $actualNames) {
+        if ($expectedSkillNames -notcontains $actualName) {
+            Add-Failure "Unexpected non-document skill '$actualName' in $SkillRoot"
+        }
+    }
+}
+
+foreach ($skillRoot in $skillRoots) {
+    Assert-ExpectedSkillSet -SkillRoot $skillRoot
+}
+
 function Assert-MirroredSkillSet {
     param(
         [string]$SourceRoot,

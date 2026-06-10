@@ -16,12 +16,12 @@ claude/
   project/.claude/skills/rd-*/SKILL.md
 ```
 
-This adapter maps the same three-layer delivery model to Claude Code:
+This adapter maps the same document-delivery three-layer model to Claude Code:
 
 - `global/CLAUDE.md`: user-level memory and behavior rules.
-- `project/CLAUDE.md`: project-level engineering discipline.
+- `project/CLAUDE.md`: project-level document-delivery discipline.
 - `project/.claude/settings.json`: conservative project settings.
-- `project/.claude/skills/rd-*`: project-level R&D skills.
+- `project/.claude/skills/rd-*`: project-level document-delivery skills.
 
 ## Installation
 

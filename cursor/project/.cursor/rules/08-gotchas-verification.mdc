@@ -25,10 +25,10 @@ Record recurring failure patterns when they create real risk. A gotcha entry sho
 
 ## Verification Discipline
 
-For every implementation or configuration change:
+For every document, standards, or configuration change:
 
 1. Identify the expected behavior.
-2. Run the closest configured verification command.
+2. Run the closest configured verification command or document consistency check.
 3. If verification cannot be run, state the reason.
 4. Report residual risk separately.
 
@@ -41,7 +41,7 @@ Final responses should include the highest-signal facts:
 - What was not verified.
 - Any residual risks or follow-up work.
 
-Avoid burying verification results under long implementation narration.
+Avoid burying verification results under long narration.
 
 ## Diff Hygiene
 

@@ -1,14 +1,14 @@
 # Codex Three-Layer Delivery
 
-An unofficial, deliverable-driven rules-and-skills framework for Codex-first software R&D.
+An unofficial, deliverable-driven rules-and-skills framework for Codex-first system design, architecture documentation, feasibility analysis, and document review.
 
 This repository packages a three-layer operating model:
 
 1. **Global directives**: personal behavioral rules for accuracy, evidence discipline, and response style.
-2. **Project engineering discipline**: project-level `AGENTS.md` rules for scope control, quality gates, security, MCP routing, and verification.
-3. **R&D skills**: eight independent `rd-*` skills for requirements, design, implementation, review, testing, and deployment deliverables.
+2. **Project document-delivery discipline**: project-level `AGENTS.md` rules for scope control, quality gates, security, MCP routing, and verification.
+3. **Document delivery skills**: seven independent `rd-*` skills for requirements, feasibility studies, research evidence, technical proposals, detailed designs, standards work, and document review.
 
-It also includes optional Cursor and Claude Code adapter areas for teams that want to port the same engineering discipline to other agent environments.
+It also includes optional Cursor and Claude Code adapter areas for teams that want to port the same document-delivery discipline to other agent environments.
 
 > This project is independent and is not affiliated with OpenAI, Cursor, Anthropic, or any referenced framework. See `ATTRIBUTION.md` for inspiration references.
 
@@ -16,13 +16,14 @@ Simplified Chinese users can start from `zh-CN/`. The English root remains the c
 
 ## Who This Is For
 
-Use this repository if you want AI coding agents to produce verifiable engineering deliverables instead of unstructured chat output.
+Use this repository if you want AI agents to produce verifiable system-design and documentation deliverables instead of unstructured chat output.
 
 It is designed for:
 
-- senior engineers and architects using Codex on real repositories;
-- teams that want repeatable requirements, design, review, testing, and deployment workflows;
-- projects that need explicit evidence discipline, minimal-change execution, and final verification reporting.
+- system designers, solution architects, and technical leads writing PRDs, feasibility reports, proposals, and designs;
+- product managers who need requirements to remain structured, prioritized, and traceable;
+- standards contributors and reviewers working on national, industry, enterprise, or internal specifications;
+- teams that need explicit evidence discipline, clause-level review rigor, and final verification reporting.
 
 ## Architecture
 
@@ -35,22 +36,21 @@ Layer 1: Global AGENTS.md
 
 Layer 2: Project AGENTS.md
   {project}/AGENTS.md
-  - engineering discipline
+  - document delivery discipline
   - spec injection
-  - quality gates
+  - document quality gates
   - security and MCP routing
   - task routing
 
-Layer 3: R&D Skills
+Layer 3: Document Delivery Skills
   ~/.agents/skills/rd-*/SKILL.md or {project}/.agents/skills/rd-*/SKILL.md
-  - rd-requirements-analysis
-  - rd-technical-writing
-  - rd-detailed-design
-  - rd-implement
-  - rd-doc-review
-  - rd-code-review
-  - rd-testing
-  - rd-deployment
+  - rd-requirement
+  - rd-feasibility
+  - rd-research
+  - rd-solution
+  - rd-design
+  - rd-specification
+  - rd-review
 
 Adapter mappings:
   Cursor: cursor/project/.cursor/rules/ and cursor/project/.cursor/skills/
@@ -67,7 +67,7 @@ Adapter mappings:
 # Global directives
 cp codex/global/AGENTS.md ~/.codex/AGENTS.md
 
-# Project engineering discipline
+# Project document-delivery discipline
 cp codex/project/AGENTS.md /path/to/your-project/AGENTS.md
 ```
 
@@ -134,16 +134,15 @@ cursor/zh-CN/
 
 | Skill | Primary deliverable | Typical use |
 |---|---|---|
-| `$rd-requirements-analysis` | Structured requirements / PRD | turn raw requests into verifiable requirements |
-| `$rd-technical-writing` | technical proposal / high-level design | compare solutions and produce implementation plans |
-| `$rd-detailed-design` | detailed design | define APIs, data models, flows, failures, and concurrency |
-| `$rd-implement` | runnable code and tests | implement features, bug fixes, refactors |
-| `$rd-doc-review` | document review findings | review requirements, proposals, or detailed designs |
-| `$rd-code-review` | code review findings | review diffs, PRs, commits, or current working trees |
-| `$rd-testing` | test plan / tests / test report | design, run, and evaluate test coverage |
-| `$rd-deployment` | runbook / release checklist | plan and verify deployment or rollback |
+| `$rd-requirement` | Structured requirements / PRD | turn raw user needs into verifiable requirements |
+| `$rd-feasibility` | Feasibility study / feasibility analysis | evaluate technical, economic, schedule, compliance, operational, and risk feasibility |
+| `$rd-research` | Evidence package / literature and source notes | collect and validate evidence for feasibility, solution, standards, or fact-dependent review work |
+| `$rd-solution` | Technical proposal / high-level design / construction plan | compare candidate solutions and produce design-ready technical documents |
+| `$rd-design` | Detailed design | define interfaces, data models, flows, errors, security, and concurrency |
+| `$rd-specification` | Standards/specification draft or clause review | draft, revise, or review standards and normative clauses |
+| `$rd-review` | Document review findings | review requirements, feasibility reports, proposals, designs, or standards |
 
-The skills are independent. They are not a forced pipeline.
+The skills are independent. They are not a forced pipeline. Use `$rd-research` when external evidence is needed; it is a recommended companion for feasibility studies, technical proposals, standards work, and fact-dependent reviews, not a mandatory first step for every task.
 
 ## Cursor Adapter
 
@@ -269,6 +268,7 @@ The validator checks common release blockers:
 
 - CRLF drift in Markdown, TOML, MDC, and script files;
 - missing skill frontmatter;
+- inconsistent mirrored skill directory sets;
 - unsafe defaults in the public Codex config example;
 - obvious secret leaks;
 - stale private/internal strings.

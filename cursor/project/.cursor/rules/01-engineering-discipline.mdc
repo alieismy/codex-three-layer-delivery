@@ -1,37 +1,40 @@
 ---
-description: Engineering discipline for Cursor Agent: read first, minimize changes, use project scripts, and preserve existing conventions.
+description: Document delivery discipline for Cursor Agent: read source material first, minimize changes, preserve intent, and convert document tasks into verifiable goals.
 alwaysApply: true
 ---
 
-# Engineering Discipline
+# Document Delivery Discipline
 
-## Think Before You Act
+## Think Before You Write
 
-- State assumptions explicitly when they affect implementation.
-- Read target files first, then callers, interfaces, tests, configuration, and data models.
-- If a change affects multiple modules or external contracts, provide a brief implementation plan first.
+- State assumptions explicitly when they affect requirements, feasibility, design, standards, or review conclusions.
+- Read target documents first, then upstream requirements, feasibility reports, proposals, standards, glossaries, review comments, and constraints.
+- Preserve source text before restructuring it. Do not silently rewrite user intent, clause wording, or stakeholder decisions.
+- If a change affects document structure, terminology, authority, or traceability, provide a brief plan first.
 - If multiple valid approaches have different trade-offs, recommend one and explain why.
 
 ## Minimal Change Principle
 
-- Prefer the smallest necessary change.
-- Reuse existing patterns, directory structure, naming, scripts, and infrastructure.
-- Do not add abstraction layers because a future need is merely possible.
+- Prefer the smallest necessary document change.
+- Reuse existing templates, terminology, numbering, review tables, directory structure, and document conventions.
+- Do not add sections or process overhead because a future need is merely possible.
 - Do not reformat unrelated content.
-- Clean up orphaned code caused by your change; leave pre-existing unrelated orphaned code alone.
+- Clean up inconsistencies caused by your change; leave pre-existing unrelated issues alone.
 
 ## Goal-Driven Execution
 
-Convert vague tasks into verifiable goals:
+Convert vague document tasks into verifiable goals:
 
 | Request | Verifiable goal |
 |---|---|
-| Add validation | Add invalid-input coverage, then make it pass |
-| Fix a bug | Add or describe reproduction, then fix it |
-| Refactor code | Confirm behavior before and after |
-| Update docs | Check links, examples, and terminology alignment |
+| Analyze requirements | PRD/SRS items with priority, assumptions, exclusions, and acceptance criteria |
+| Assess feasibility | Feasible / conditionally feasible / not feasible conclusion with evidence, conditions, and risks |
+| Write proposal | Candidate solution comparison and justified recommendation |
+| Write detailed design | Interfaces, data, flows, errors, security, and unresolved decisions |
+| Review document | Severity-graded findings with evidence, impact, and recommendations |
+| Review standard | Exact clause references and normative replacement wording where possible |
 
-Before running lint, format, test, build, or typecheck commands, inspect existing entry points such as `scripts/`, `package.json`, `Makefile`, `justfile`, `pyproject.toml`, and `uv.lock`. Prefer project-wrapped commands.
+Before running validation commands, inspect existing entry points such as `scripts/`, `package.json`, `Makefile`, `justfile`, or document-specific tooling.
 
 ## When to Act vs. Ask
 
@@ -39,8 +42,8 @@ Before running lint, format, test, build, or typecheck commands, inspect existin
 |---|---|
 | Clear instruction and contained change | Act directly |
 | Multiple reasonable approaches with real trade-offs | Recommend and ask |
-| Ambiguous requirement | Restate and clarify |
-| Destructive operation or irreversible data change | Ask first |
+| Ambiguity affects scope, cost, compliance, risk, or architecture | Restate and clarify |
+| Destructive operation or authoritative baseline change | Ask first |
 | Unknown feasibility | State risks and limits before acting |
 | Research in uncertain or drifting domain | Verify first |
 

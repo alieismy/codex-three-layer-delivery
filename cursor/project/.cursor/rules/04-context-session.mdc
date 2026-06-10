@@ -1,5 +1,5 @@
 ---
-description: Context management, session refresh, repository maps, and search hygiene for long Cursor Agent sessions.
+description: Context management, session refresh, document maps, and search hygiene for long Cursor Agent sessions.
 alwaysApply: true
 ---
 
@@ -7,9 +7,9 @@ alwaysApply: true
 
 ## Context Health
 
-- Use full file paths in implementation plans and final reports.
+- Use full file paths in plans, review reports, and final reports.
 - Summarize key constraints before complex multi-step work.
-- Refresh context when the task changes from analysis to implementation, or from implementation to review.
+- Refresh context when the task changes between requirements, feasibility, proposal, detailed design, standards work, and review.
 - If answer quality degrades or the same issue fails twice, stop and reassess context before continuing.
 
 ## Session Strategy
@@ -18,39 +18,33 @@ For large tasks, split work into independently verifiable sessions:
 
 | Session | Goal | Persistence |
 |---|---|---|
-| 1 | Understand structure and constraints | Rules, docs, or notes |
-| 2 | Implement changes | Git diff and tests |
-| 3 | Independent verification | Test results and review notes |
+| 1 | Understand documents, scope, and constraints | Notes, rules, or document map |
+| 2 | Draft or revise document content | Tracked document changes |
+| 3 | Independent review and verification | Review findings and verification notes |
 
-## Codebase Map
+## Document Map
 
-Large projects should maintain a lightweight `CODEBASE.md` at the project root:
+Large document repositories should maintain a lightweight `DOCUMENTS.md` at the project root:
 
 ```text
-# Codebase Map
-## Core Services
-- services/api/       - REST API gateway
-- services/payments/  - Payment processing
-## Shared Libraries
-- packages/types/     - Cross-service types
-## Do Not Touch
-- generated/          - Auto-generated files
+# Document Map
+## Requirements
+- docs/prd/              - PRD and SRS documents
+## Feasibility
+- docs/feasibility/      - feasibility studies and approval material
+## Design
+- docs/design/           - proposals, high-level designs, detailed designs
+## Standards
+- docs/standards/        - standards drafts, references, review comments
+## Do Not Edit Directly
+- published/             - approved baselines
 ```
 
-The map should describe top-level structure only. Detailed constraints belong in nested rules or module docs.
+The map should describe top-level structure only. Detailed constraints belong near the documents they govern.
 
 ## Noise Exclusion
 
-Keep generated files, build artifacts, and third-party code out of routine search scope:
-
-- `node_modules/`
-- `dist/`
-- `build/`
-- `vendor/`
-- `generated/`
-- coverage outputs and temporary files
-
-Commit exclusion rules when the whole team should share them.
+Keep generated files, exports, build artifacts, third-party content, and temporary files out of routine search scope unless they are the review target.
 
 ## Configuration Iteration
 

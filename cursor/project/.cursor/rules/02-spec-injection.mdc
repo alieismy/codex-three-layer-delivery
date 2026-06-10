@@ -27,11 +27,11 @@ Project specs are stored in the repository so Cursor Agent can load consistent c
 
 ## Spec Check Requirements
 
-Before design, implementation, or review work:
+Before requirements, feasibility, design, standards, or review work:
 
 1. Check `.cursor/rules/` for project conventions.
 2. Check relevant skills in `.cursor/skills/`.
-3. Check existing docs and prior decisions before creating new rules.
+3. Check existing templates, glossaries, review forms, standards references, and prior decisions before creating new rules.
 4. Persist durable project decisions as rules only when they are reusable.
 
 ## Spec Maintenance

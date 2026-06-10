@@ -18,11 +18,12 @@ alwaysApply: true
 
 ## 规范检查要求
 
-涉及设计和实现的 Skill（`$rd-technical-writing`、`$rd-detailed-design`、`$rd-implement`、`$rd-code-review`）执行前：
+执行需求、可研、设计、标准或评审工作前：
 
 1. 检查 `.cursor/rules/` 中是否有项目特定约定
-2. 检查是否有已固化的设计决策或架构约束
-3. 新的设计决策建议创建为新的 `.cursor/rules/*.mdc` 规则持久化
+2. 检查相关 `.cursor/skills/`
+3. 检查既有模板、术语表、评审表、标准引用和已批准决策
+4. 新的长期有效决策只在可复用时持久化为规则
 
 ## 规范维护要求
 

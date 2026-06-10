@@ -1,41 +1,44 @@
 ---
-description: Task routing for the eight independent rd-* skills and their authoring-to-review relationships.
+description: Task routing for the seven independent rd-* document skills and their authoring-to-review relationships.
 alwaysApply: true
 ---
 
 # Task Routing
 
-The eight `rd-*` skills can be used independently and in any order. They are not a forced pipeline.
+The seven `rd-*` document skills can be used independently and in any order. They are not a forced pipeline.
 
 ## Available Skills
 
 | Skill | Deliverable | Daily work |
 |---|---|---|
-| `$rd-requirements-analysis` | Structured requirements document or PRD | Requirements analysis |
-| `$rd-technical-writing` | Technical proposal, high-level design, or implementation plan | Solution design |
-| `$rd-detailed-design` | Detailed design document | API, data, flow, and failure design |
-| `$rd-implement` | Runnable code and tests | Implementation and bug fixing |
-| `$rd-doc-review` | Document review findings | Requirements, proposal, or design review |
-| `$rd-code-review` | Code review findings | Diff, PR, commit, or working tree review |
-| `$rd-testing` | Test plan, tests, or test report | Test design and execution |
-| `$rd-deployment` | Runbook or release checklist | Deployment and rollback planning |
+| `$rd-requirement` | Structured requirements / PRD / SRS | Requirements analysis and product/design input |
+| `$rd-feasibility` | Feasibility study / feasibility analysis report | Project feasibility and decision support |
+| `$rd-research` | Evidence package / source notes | Literature, standards, policy, vendor, market, and technical evidence for downstream documents |
+| `$rd-solution` | Technical proposal / high-level design / construction plan | System architecture and solution documentation |
+| `$rd-design` | Detailed design document | Interface, data, flow, error, security, and concurrency design |
+| `$rd-specification` | Standards/specification draft or clause review | Standards formulation, revision, and clause-level review |
+| `$rd-review` | Document review findings | Requirements, feasibility, proposal, design, and standards review |
 
 ## Authoring To Review Mapping
 
 | Authoring skill | Review skill | Review mode |
 |---|---|---|
-| `$rd-requirements-analysis` to PRD | `$rd-doc-review` | Requirements Review |
-| `$rd-technical-writing` to proposal or implementation plan | `$rd-doc-review` | Proposal Review |
-| `$rd-detailed-design` to detailed design | `$rd-doc-review` | Design Review |
-| `$rd-implement` to code | `$rd-code-review` | Code Review |
+| `$rd-requirement` to PRD / SRS | `$rd-review` | Requirements Review |
+| `$rd-feasibility` to feasibility report | `$rd-review` | Feasibility Review |
+| `$rd-solution` to proposal / high-level design / construction plan | `$rd-review` | Proposal Review |
+| `$rd-design` to detailed design | `$rd-review` | Design Review |
+| `$rd-specification` to standard / specification / clause draft | `$rd-review` | Standards Review |
+
+`$rd-research` is not part of the authoring-to-review chain. Use it as evidence input for `$rd-feasibility`, `$rd-solution`, `$rd-specification`, `$rd-design`, or fact-dependent `$rd-review`.
 
 ## Invocation Guidance
 
 - Invoke the relevant skill by name when the task clearly matches it.
-- Do not force a full requirements-to-deployment pipeline for small tasks.
-- For reviews, lead with findings and severity.
-- For implementation, make the smallest verifiable change and run the closest checks.
-- For testing, cover normal, abnormal, and boundary scenarios.
+- Do not force a full PRD-to-design pipeline for small tasks.
+- For reviews, lead with severity-graded findings.
+- For standards work, cite exact clauses and mark missing evidence as requiring human verification.
+- For feasibility work, separate facts, assumptions, estimates, and unknowns.
+- Use `$rd-research` when external evidence materially affects a feasibility, solution, standards, design, or review conclusion.
 
 ## Parallel Work
 

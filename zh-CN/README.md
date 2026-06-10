@@ -1,6 +1,6 @@
 # Codex Three-Layer Delivery 简体中文包
 
-本目录是 `Codex Three-Layer Delivery` 的简体中文 translation pack（翻译包）。英文根目录是 canonical baseline（权威基线）；本目录只提供中文阅读、复制和落地使用入口，不单独定义新的工程规则。
+本目录是 `Codex Three-Layer Delivery` 的简体中文 translation pack（翻译包）。本项目现在面向系统设计师、系统架构师、技术方案作者、产品经理和标准/文档评审人员，聚焦需求分析、可研、方案、概要设计、详细设计、标准规范和文档评审。英文根目录是 canonical baseline（权威基线）；本目录只提供中文阅读、复制和落地使用入口，不单独定义新的工程规则。
 
 > 本项目独立维护，不隶属于 OpenAI、Cursor、Anthropic 或任何参考框架。具体灵感参考与许可证边界见根目录 `ATTRIBUTION.md`。
 
@@ -19,14 +19,28 @@ Layer 1: 全局指令
   zh-CN/codex/global/AGENTS.md
   zh-CN/claude/global/CLAUDE.md
 
-Layer 2: 项目工程纪律
+Layer 2: 项目文档交付纪律
   zh-CN/codex/project/AGENTS.md
   zh-CN/claude/project/CLAUDE.md
 
-Layer 3: 交付物驱动 Skills
+Layer 3: 文档交付 Skills
   zh-CN/skills/rd-*/SKILL.md
   zh-CN/claude/project/.claude/skills/rd-*/SKILL.md
 ```
+
+核心 Skill：
+
+| Skill | 主要交付物 | 典型工作 |
+|------|------------|----------|
+| `$rd-requirement` | PRD / SRS / 结构化需求 | 需求分析、场景建模、优先级和验收标准 |
+| `$rd-feasibility` | 可研报告 / 可行性分析 | 技术、经济、进度、合规、运行和风险可行性评估 |
+| `$rd-research` | 证据包 / 文献资料 / 来源笔记 | 为可研、方案、标准规范或事实依赖型评审收集和核验证据 |
+| `$rd-solution` | 技术方案 / 概要设计 / 建设方案 | 候选方案比较、推荐方案、架构和建设设计 |
+| `$rd-design` | 详细设计文档 | 接口、数据模型、流程、状态机、错误和安全设计 |
+| `$rd-specification` | 标准规范草案 / 条款级评审 | 国家、行业、企业或内部标准规范制定与评审 |
+| `$rd-review` | 文档评审报告 | 需求、可研、方案、设计、标准规范评审 |
+
+这些 Skill 可独立使用，不强制组成流水线。`$rd-research` 用于需要外部证据的场景，是可研、技术方案、标准规范和事实依赖型评审的推荐伴随能力，不是所有任务的强制前置步骤。
 
 ## 快速开始
 
@@ -135,4 +149,5 @@ zh-CN/
 - `zh-CN/claude/project/.claude/skills/rd-*` 与 `zh-CN/skills/rd-*` 数量一致；
 - JSON/TOML 可解析；
 - 不引入真实 secrets、私有 relay URL 或旧仓库名；
+- 不重新引入编码开发、代码评审、测试执行或部署执行类 Skill；
 - 不把灵感参考写成直接派生或上游背书。

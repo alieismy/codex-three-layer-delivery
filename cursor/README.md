@@ -1,6 +1,6 @@
 # Cursor Adapter
 
-The primary target of this repository is Codex. Cursor support is provided as an adapter layer that maps the same engineering discipline into Cursor-native rules, skills, and optional MCP configuration.
+The primary target of this repository is Codex. Cursor support is provided as an adapter layer that maps the same document-delivery discipline into Cursor-native rules, skills, and optional MCP configuration.
 
 ## Current Status
 
@@ -37,7 +37,7 @@ Cursor documentation checked on 2026-05-29:
 
 Treat Cursor support as optional and explicitly opt-in:
 
-- Codex rules and skills are the stable baseline.
+- Codex document rules and skills are the stable baseline.
 - `cursor/project/` is the English Cursor adapter.
 - `cursor/zh-CN/` remains the Cursor-specific Simplified Chinese compatibility pack.
 - This repository ships `mcp.example.json`, not an active `.cursor/mcp.json`.

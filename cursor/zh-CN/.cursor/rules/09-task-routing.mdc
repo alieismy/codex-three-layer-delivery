@@ -1,46 +1,45 @@
 ---
-description: 任务路由：rd-* 技能总览、文档编写与评审对应关系、后台代理编排
+description: 任务路由：7 个独立 rd-* 文档 Skill 及其编写与评审关系。
 alwaysApply: true
 ---
 
 # 任务路由
 
-8 个 `rd-*` Skill 可**独立使用、任意顺序执行**，不强制流水线。
+7 个 `rd-*` 文档 Skill 可独立使用、任意顺序执行，不强制流水线。
 
 ## 可用 Skill 一览
 
 | Skill | 交付物 | 日常工作 |
 |-------|--------|---------|
-| `$rd-requirements-analysis` | 结构化需求文档 / PRD | 需求分析与设计 |
-| `$rd-technical-writing` | 技术方案 / 概要设计 / 建设方案 | 总体设计方案编写 |
-| `$rd-detailed-design` | 详细设计文档 | 详细设计方案编写 |
-| `$rd-implement` | 可运行代码 | 代码开发 |
-| `$rd-code-review` | 代码评审意见（双阶段） | Code Review |
-| `$rd-testing` | 测试用例 / 测试报告 | 单元测试 / 系统测试 |
-| `$rd-deployment` | 部署操作手册 / 变更记录 | 安装部署 |
-| `$rd-doc-review` | 文档评审意见（三模式） | 需求评审 / 方案评审 / 设计评审 |
+| `$rd-requirement` | 结构化需求 / PRD / SRS | 需求分析和产品/设计输入 |
+| `$rd-feasibility` | 可研报告 / 可行性分析报告 | 项目可行性和决策支持 |
+| `$rd-research` | 证据包 / 来源笔记 | 为下游文档收集文献、标准、政策、厂商、市场和技术证据 |
+| `$rd-solution` | 技术方案 / 概要设计 / 建设方案 | 系统架构和方案文档 |
+| `$rd-design` | 详细设计文档 | 接口、数据、流程、错误、安全和并发设计 |
+| `$rd-specification` | 标准/规范草案或条款评审 | 标准制定、修订和条款级评审 |
+| `$rd-review` | 文档评审意见 | 需求、可研、方案、设计和标准评审 |
 
-## 文档编写与评审的对应关系
+## 编写与评审对应关系
 
 | 编写 Skill | 评审 Skill | 评审模式 |
-|-----------|-----------|---------|
-| `$rd-requirements-analysis` → PRD | `$rd-doc-review` | 需求评审模式 |
-| `$rd-technical-writing` → 技术方案/建设方案 | `$rd-doc-review` | 方案评审模式 |
-| `$rd-detailed-design` → 详细设计 | `$rd-doc-review` | 设计评审模式 |
-| `$rd-implement` → 代码 | `$rd-code-review` | 双阶段代码评审 |
+|-----------|-----------|----------|
+| `$rd-requirement` -> PRD / SRS | `$rd-review` | 需求评审 |
+| `$rd-feasibility` -> 可研报告 | `$rd-review` | 可研评审 |
+| `$rd-solution` -> 技术方案 / 概要设计 / 建设方案 | `$rd-review` | 方案评审 |
+| `$rd-design` -> 详细设计 | `$rd-review` | 设计评审 |
+| `$rd-specification` -> 标准 / 规范 / 条款草案 | `$rd-review` | 标准评审 |
 
-## 后台代理编排
+`$rd-research` 不属于编写与评审链条。它作为 `$rd-feasibility`、`$rd-solution`、`$rd-specification`、`$rd-design` 或事实依赖型 `$rd-review` 的证据输入。
 
-### 调度原则
+## 调用建议
 
-- **任务隔离**：每个子任务分配独立后台代理（Task 工具），防止上下文污染
-- **最小权限**：探索任务使用只读代理（`readonly: true`）；实现任务使用常规代理
-- **编排器不做重活**：主代理负责分诊和路由
+- 任务明确匹配某个 Skill 时，直接按名称调用。
+- 小任务不要强制走完整 PRD 到设计流水线。
+- 评审任务先输出分级问题。
+- 标准任务必须引用具体条款，依据不足时标注需人工核实。
+- 可研任务必须区分事实、假设、估算和未知项。
+- 当外部证据会实质影响可研、方案、标准、设计或评审结论时，使用 `$rd-research`。
 
-### 角色路由
+## 并行工作
 
-| 角色 | 触发场景 | Cursor 实现 |
-|------|---------|------------|
-| 实现 | 文件创建、配置修改 | Task（generalPurpose） |
-| 探索 | 代码搜索、架构理解（只读） | Task（explore） |
-| 评审 | 代码评审、设计评审 | Task（generalPurpose, readonly） |
+仅当子任务独立、写入范围不重叠、结果可明确合并时，才使用并行或后台任务。

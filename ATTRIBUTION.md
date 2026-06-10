@@ -1,16 +1,16 @@
 # Attribution
 
-This project is an independent synthesis of software engineering and agent-operation patterns. It is not affiliated with OpenAI, Cursor, Anthropic, or any referenced framework.
+This project is an independent synthesis of document-delivery, system-design, and agent-operation patterns. It is not affiliated with OpenAI, Cursor, Anthropic, or any referenced framework.
 
 ## Inspiration Categories
 
-The framework is influenced by these broad public engineering patterns:
+The framework is influenced by these broad public document and agent-operation patterns:
 
 - spec-driven development and explicit project specification loading;
-- test-driven implementation and verification-first delivery;
+- verification-first document delivery;
 - dual-stage review gates;
 - context engineering and search-before-build discipline;
-- role-separated requirements, design, implementation, review, testing, and deployment workflows;
+- role-separated requirements, feasibility, design, standards, and document review workflows;
 - prompt-injection trust-boundary separation;
 - deterministic checks for tasks that should not rely on prompt reminders.
 

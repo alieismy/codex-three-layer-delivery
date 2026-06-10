@@ -1,6 +1,6 @@
 #:schema https://developers.openai.com/codex/config-schema.json
 # Public Codex configuration example.
-# Verified against @openai/codex 0.134.0 on 2026-05-28.
+# Verified against @openai/codex 0.135.0 on 2026-05-28.
 # Merge into ~/.codex/config.toml manually. Do not overwrite an existing config blindly.
 
 # Choose a model that is available to your Codex account.
@@ -44,16 +44,16 @@ max_depth = 2
 description = "General-purpose helper."
 
 [agents.worker]
-description = "Executes implementation tasks: coding, file creation, configuration."
+description = "Drafts or edits scoped document content and configuration files."
 
 [agents.explorer]
-description = "Read-only codebase exploration: searches, reads, maps code structure."
+description = "Read-only exploration: searches, reads, maps documents, sources, and references."
 
 [agents.awaiter]
-description = "Monitors long-running commands such as builds, tests, and deployments."
+description = "Monitors long-running document conversion, validation, export, or research commands."
 
 [agents.reviewer]
-description = "Reviews code or design against quality gates and produces structured feedback."
+description = "Reviews documents, designs, standards, or evidence against quality gates."
 
 [analytics]
 enabled = false
@@ -71,7 +71,7 @@ env_vars = ["CONTEXT7_API_KEY"]
 
 [mcp_servers.tavily]
 command = "npx"
-args = ["-y", "tavily-mcp@0.2.19"]
+args = ["-y", "tavily-mcp@0.2.20"]
 enabled = false
 tool_timeout_sec = 30
 env_vars = ["TAVILY_API_KEY"]

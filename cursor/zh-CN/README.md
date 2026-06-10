@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-- `.cursor/rules/*.mdc`：按 Cursor 规则文件拆分的工程纪律。
+- `.cursor/rules/*.mdc`：按 Cursor 规则文件拆分的文档交付纪律。
 - `.cursor/skills/rd-*/SKILL.md`：Cursor 版 `rd-*` 技能。
 - `.cursor/mcp.example.json`：显式 opt-in（选择启用）的 MCP 示例配置。
 - `PROMPTS.md`：中文提示词模板。

@@ -1,42 +1,46 @@
-# CLAUDE.md - Project Engineering Discipline (v4)
+# CLAUDE.md - Project Document Delivery Discipline (v4)
 
-This file defines project-level engineering constraints for Claude Code. The 8 `rd-*` Skills can be used independently and in any order; they are not a forced pipeline.
+This file defines project-level constraints for Claude Code in document-centered system design work. The `rd-*` Skills are independent and can be used in any order; they are not a forced pipeline.
 
-## Think Before You Act
+This adapter intentionally excludes coding, code review, test authoring/execution, deployment execution, and release operations.
 
-- State assumptions explicitly. If unsure, ask first.
-- If multiple interpretations exist, list them and let the user choose.
-- Read target files first, then callers, interface definitions, related tests, configuration, and data models.
-- If a change affects multiple modules or external contracts, produce a brief implementation plan first.
+## Think Before You Write
 
-## Minimal Change Principle
+- State assumptions explicitly when they affect requirements, feasibility, design, standards, or review conclusions.
+- If multiple interpretations affect scope, cost, compliance, or architecture, list them and ask the user to choose.
+- Read target documents first, then upstream requirements, feasibility reports, proposals, standards, glossaries, review comments, and constraints.
+- Preserve source text before restructuring it. Do not silently rewrite user intent, clause wording, or stakeholder decisions.
 
-- Prefer the smallest necessary change.
-- Reuse existing patterns, directory structures, and infrastructure.
-- Do not add abstraction layers preemptively.
-- Do not improve adjacent code, comments, or formatting unless required by the task.
-- Every line changed must be traceable to a user requirement.
+## Scope Locking
+
+- Prefer the smallest document change that satisfies the task.
+- Reuse existing templates, terminology, numbering, review tables, and document structure.
+- Do not add sections, frameworks, or process overhead unless they improve traceability, reviewability, or decision quality.
+- Every changed line must trace back to the user's request or a necessary consistency update.
 
 ## Goal-Driven Execution
 
-Convert tasks into verifiable goals:
+| Request | Verifiable goal |
+|---|---|
+| Analyze requirements | PRD/SRS items with priorities, assumptions, exclusions, and acceptance criteria |
+| Assess feasibility | Feasible / conditionally feasible / not feasible conclusion with evidence, conditions, and risks |
+| Write proposal | Candidate solution comparison and justified recommendation |
+| Write detailed design | Interfaces, data, flows, errors, security, and unresolved decisions |
+| Review document | Severity-graded findings with evidence, impact, and recommendations |
+| Review standard | Exact clause references and normative replacement wording where possible |
 
-- "Add validation" -> write tests for invalid input, then make the tests pass.
-- "Fix bug" -> write a reproduction test, then make the test pass.
-- "Refactor X" -> ensure tests pass before and after the refactor.
-- Before running lint, format, test, build, or typecheck commands, check existing project script entry points such as `scripts/`, `package.json`, `Makefile`, `justfile`, `pyproject.toml`, and `uv.lock`.
+Before running validation commands, inspect existing project entry points such as `scripts/`, `package.json`, `Makefile`, `justfile`, or document-specific tooling.
 
-## When to Act vs. When to Ask
+## When to Act vs. Ask
 
 | Judgment | Action |
 |---|---|
-| Instruction is clear and change is contained | Act directly |
-| Multiple reasonable approaches have different trade-offs | Recommend one with rationale, then ask the user to choose |
-| Requirements are ambiguous | Restate understanding and confirm before acting |
-| Operation is destructive | Confirm first |
-| Feasibility is unclear | State risks and limits first |
-| Creating multiple new files or directories | State the plan and file list first |
-| Research involves an uncertain or drift-prone domain | Search and verify first |
+| Instruction is clear and contained | Act directly |
+| Multiple document structures or solution paths have different trade-offs | Recommend one with rationale, then ask |
+| Ambiguity affects scope, cost, compliance, risk, or architecture | Restate understanding and ask |
+| Operation is destructive or changes authoritative baselines | Confirm first |
+| Evidence is unavailable for a factual or standards claim | State known facts and verification gaps |
+| Research involves uncertain or drift-prone facts | Search and verify first |
 
 ## Claude Code File Mapping
 
@@ -52,86 +56,75 @@ Do not paste Codex-only `config.toml`, Codex hooks, or Cursor `.mdc` syntax into
 
 ## Spec Injection
 
-Project specifications should be stored in repository files so Claude Code can load the same engineering constraints across sessions.
+Before executing document-delivery Skills:
 
-Before executing design- and implementation-related Skills:
+1. Check this `CLAUDE.md` for document conventions.
+2. Check existing templates, glossaries, naming rules, review forms, and approved examples.
+3. Check upstream decisions, requirements, feasibility conclusions, standards references, and architecture constraints.
+4. Persist durable decisions in `CLAUDE.md` or linked project documents, not only in chat history.
 
-1. Check this `CLAUDE.md` file for project-specific conventions.
-2. Check for established design decisions or architectural constraints.
-3. Persist durable project decisions in `CLAUDE.md` or a linked project document, not only in chat history.
-
-`CLAUDE.md` is for agents: engineering constraints, scripts, directory conventions, risk points, and verification commands. `README.md` is for humans: what the project is, why it exists, and how to get started.
+`CLAUDE.md` is for agents: stable document-delivery constraints, directory conventions, risk points, and verification commands. `README.md` is for humans: what the project is, why it exists, and how to get started.
 
 ## Evidence Discipline
 
-- If a fact can be confirmed via code, check the code first.
-- If a fact can be confirmed via official documentation, check official docs first.
-- If a fact can be confirmed via standards, RFCs, or papers, check the original source first.
-- If external verification is unavailable, explicitly state the limitation.
-- Distinguish facts, inferences, assumptions, and unresolved questions.
+- If a fact can be confirmed from the target document, cite the document first.
+- If a fact can be confirmed via official documentation, standards, laws, regulations, RFCs, or papers, check the original source first.
+- Distinguish facts, assumptions, estimates, inferences, and unresolved questions.
+- For standards work, do not invent clauses, document status, publication dates, or authority. Mark missing evidence as requiring human verification.
 
 ## MCP and Tool Routing
 
-Use external tools for specific evidence or workflow needs, not as a broad default:
+Use external tools for specific evidence needs:
 
-- Library, framework, or SDK documentation: prefer official docs or a documentation MCP such as Context7 when configured.
-- Current web research: use web search for time-sensitive facts.
-- Browser interaction and E2E testing: prefer local test scripts or Playwright when available.
-- Cross-repository code analysis: use repository search tools only when they materially improve evidence quality.
+- Library, framework, or SDK documentation: official docs or Context7 when configured.
+- Current web research: web search for time-sensitive facts.
+- Open-source architecture reference: DeepWiki on demand.
+- Complex multi-option reasoning: native reasoning first; Sequential Thinking on demand.
+- Standards or policy verification: official standards bodies, regulators, or vendor official documentation first.
 
 ## Quality Gates
 
-Before completing research, design, implementation, or review tasks, confirm:
+Before completing requirements, feasibility, design, standards, or review work, confirm:
 
-- Key conclusions are supported by evidence, not only inference.
-- Key assumptions are explicitly labeled.
-- Failure paths and boundary conditions have been covered.
-- Unconfirmed points are listed separately.
-- Verification actions and results have been recorded.
+- Key conclusions are supported by evidence.
+- Facts, assumptions, estimates, inferences, and unknowns are separated.
+- Relevant boundary conditions, compliance constraints, and risks are covered.
+- Unconfirmed points are listed with verification actions.
+- Final output distinguishes completed work, verification performed, unverified areas, evidence limits, risks, and follow-up.
 
-## R&D Skill Routing
-
-Available project Skills use the `rd-` prefix:
+## Document Skill Routing
 
 | Skill | Deliverable | Daily work |
 |---|---|---|
-| `rd-requirements-analysis` | Structured requirements document / PRD | Requirements analysis |
-| `rd-technical-writing` | Technical proposal / high-level design / implementation plan | Architecture and planning |
-| `rd-detailed-design` | Detailed design document | Interfaces, data models, flows, failures |
-| `rd-implement` | Runnable code and tests | Code development |
-| `rd-code-review` | Code review findings | Code review |
-| `rd-testing` | Test plan, tests, or test report | Unit, integration, system, or E2E testing |
-| `rd-deployment` | Deployment runbook / change records | Release and rollback planning |
-| `rd-doc-review` | Document review findings | Requirements, proposal, or design review |
+| `rd-requirement` | Structured requirements / PRD / SRS | Requirements analysis and product/design input |
+| `rd-feasibility` | Feasibility study / feasibility analysis report | Project feasibility and decision support |
+| `rd-research` | Evidence package / source notes | Literature, standards, policy, vendor, market, and technical evidence for downstream documents |
+| `rd-solution` | Technical proposal / high-level design / construction plan | System architecture and solution documentation |
+| `rd-design` | Detailed design document | Interface, data, flow, error, security, and concurrency design |
+| `rd-specification` | Standards/specification draft or clause review | Standards formulation, revision, and clause-level review |
+| `rd-review` | Document review findings | Requirements, feasibility, proposal, design, and standards review |
 
-Use a Skill when the task matches its trigger conditions. Do not force all Skills into a pipeline.
+Use a Skill when the task matches its trigger conditions. Do not force all Skills into a pipeline. Use `rd-research` when external evidence materially affects feasibility, solution, standards, design, or review conclusions; it is not a mandatory first stage.
 
-## Code Quality Constraints
+## Security and AI System Design
 
-| Constraint | Threshold |
-|---|---:|
-| Single function or method | <= 50 lines |
-| Single file | <= 500 lines |
-| Nesting depth | <= 3 levels |
-| Function parameters | <= 5 |
+Security is a design quality attribute:
 
-Prefer readable, direct code. Add comments only when they explain why something is necessary.
+- authentication and authorization model;
+- data protection and privacy;
+- input/data validation expectations;
+- auditability and traceability;
+- failure handling and information disclosure boundaries;
+- compliance and standards alignment.
 
-## Security Baseline
-
-- No hardcoded secrets, tokens, API keys, or private relay URLs.
-- Do not commit `.env`, private keys, or local machine credentials.
-- Validate external inputs.
-- Avoid leaking internal details in error messages.
-- Confirm dependency versions, licenses, and known vulnerabilities before introducing new dependencies.
-- Before committing, check staged changes for suspected secrets, tokens, private keys, connection strings, and `.env` content.
+For AI/ML systems, distinguish model capability, system capability, evaluation result, and production readiness. Include evaluation design, hallucination risk, prompt-injection risk, data boundary, and fallback strategy when relevant.
 
 ## Completion and Verification
 
 Do not say "done" without verification. Final reporting must distinguish:
 
 - Completed work.
-- Verification commands and results.
+- Verification performed.
 - Unverified areas.
-- Technical debt or temporary compromises.
+- Evidence limitations.
 - Risks and recommended follow-up.

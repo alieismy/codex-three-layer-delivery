@@ -1,13 +1,13 @@
 # Cursor Prompt Templates
 
-Use these prompts in Cursor Agent chat. Replace `{placeholders}` with project-specific details.
+Use these short prompts in Cursor Agent chat. Replace `{placeholders}` with project-specific details.
 
-The English root `PROMPTS.md` contains the full template set. This file provides Cursor-specific short forms for the packaged `.cursor/skills/rd-*` skills.
+The root `PROMPTS.md` contains the full template set. This file provides Cursor-specific short forms for the packaged `.cursor/skills/rd-*` document-delivery skills. Coding, code review, testing, and deployment execution are intentionally out of scope.
 
 ## Requirements
 
 ```text
-Use $rd-requirements-analysis
+Use $rd-requirement
 
 Structure the following raw requirement into a verifiable PRD.
 
@@ -15,92 +15,102 @@ Raw requirement:
 {paste the user's original wording}
 
 Known constraints:
-- Tech stack: {stack or TBD}
-- Users: {target users}
-- Timeline: {timeline}
+- Stakeholders: {roles}
+- Business / policy constraints: {constraints}
+- System / technical constraints: {constraints or TBD}
+- Timeline / budget: {constraints}
+```
+
+## Research Evidence
+
+```text
+Use $rd-research
+
+Collect and validate evidence for:
+{decision, document section, standard clause, technology choice, policy question, or review claim}
+
+Downstream use:
+{rd-feasibility / rd-solution / rd-specification / rd-design / rd-review}
+
+Expected output:
+source table with authority, date/version context, relevance, confidence, conflicts, gaps, and citation-ready notes.
+```
+
+## Feasibility
+
+```text
+Use $rd-feasibility
+
+Evaluate whether {project / solution / feature} is feasible.
+
+Decision question:
+{what needs to be judged}
+
+Inputs:
+{PRD, meeting notes, policy, existing system docs, or pasted context}
+
+Compare viable options and separate facts, assumptions, estimates, and unknowns.
 ```
 
 ## Technical Proposal
 
 ```text
-Use $rd-technical-writing
+Use $rd-solution
 
-Write a technical proposal for:
-{feature or system}
+Write a technical proposal / high-level design for:
+{system or project}
 
 Requirements source:
 {file path or summary}
 
-Constraints:
-- Tech stack: {stack}
-- Deployment: {environment}
-- Performance: {targets}
+Feasibility input:
+{file path or conclusion, if any}
 
-Compare at least two viable approaches and recommend one.
+Constraints:
+- Existing systems: {boundaries}
+- Security / compliance: {requirements}
+- Performance / capacity: {targets}
+
+Compare candidate solutions and recommend one.
 ```
 
 ## Detailed Design
 
 ```text
-Use $rd-detailed-design
+Use $rd-design
 
 Create a detailed design for:
-{module or feature}
+{module, subsystem, interface, data domain, or process}
 
-Include interfaces, data model, critical flows, failure paths, and concurrency considerations.
+Include module boundaries, interfaces, data model, critical flows, errors, security, auditability, concurrency, and unresolved decisions.
 ```
 
-## Implementation
+## Standards Work
 
 ```text
-Use $rd-implement
+Use $rd-specification
 
-Implement:
-{specific task}
+Draft / revise / review the following standard or specification clauses:
+{paste clauses or reference file path}
 
-Scope:
-- {file or module}: {expected change}
-
-Acceptance criteria:
-- {observable behavior}
-- {verification command or test}
+Requirements:
+- Cite or identify the exact clause for every issue
+- Do not invent standards evidence
+- Mark insufficient evidence as requiring human verification
+- Provide replacement normative wording when possible
 ```
 
-## Code Review
+## Document Review
 
 ```text
-Use $rd-code-review
+Use $rd-review, {Requirements Review / Feasibility Review / Proposal Review / Design Review / Standards Review} mode
 
-Review the current changes.
+Review target:
+{document name, version, or file path}
 
-Focus:
-- correctness
-- security
-- maintainability
-- missing tests
-```
+Review focus:
+- {focus area 1}
+- {focus area 2}
 
-## Testing
-
-```text
-Use $rd-testing
-
-Design and run tests for:
-{feature or module}
-
-Cover normal, abnormal, and boundary scenarios. Record failures and root cause analysis.
-```
-
-## Deployment
-
-```text
-Use $rd-deployment
-
-Create a deployment runbook for:
-{service or release}
-
-Target environment:
-{environment}
-
-Include rollback and post-deployment verification.
+Lead with severity-graded findings, evidence, impact, and concrete recommendations.
 ```
