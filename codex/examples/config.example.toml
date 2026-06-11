@@ -1,6 +1,6 @@
 #:schema https://developers.openai.com/codex/config-schema.json
 # Public Codex configuration example.
-# Verified against @openai/codex 0.135.0 on 2026-05-28.
+# Verified against @openai/codex 0.139.0 on 2026-06-11.
 # Merge into ~/.codex/config.toml manually. Do not overwrite an existing config blindly.
 
 # Choose a model that is available to your Codex account.
@@ -20,13 +20,19 @@ hide_agent_reasoning = true
 model_reasoning_effort = "high"
 model_reasoning_summary = "auto"
 model_verbosity = "high"
-# Enable web search according to your Codex version and account policy.
-# web_search = "enabled"
+personality = "pragmatic"
+# Standard speed is the default. Configure service_tier only when you intentionally use Fast/Flex.
+
+web_search = "cached"
 
 check_for_update_on_startup = true
 
 [shell_environment_policy]
 inherit = "all"
+
+[sandbox_workspace_write]
+# Leave shell-command network access disabled by default. The built-in web_search tool is separate.
+network_access = false
 
 [features]
 memories = true
@@ -38,7 +44,7 @@ goals = true
 
 [agents]
 max_threads = 5
-max_depth = 2
+max_depth = 1
 
 [agents.default]
 description = "General-purpose helper."
