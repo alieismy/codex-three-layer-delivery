@@ -55,11 +55,11 @@ Context7 继续固定在 `2.3.0`，直到 `3.0.0` 的工具名、认证行为以
 
 ## 发布规则
 
-打 tag 前：
+创建 tag 前：
 
 1. 对每个 npm MCP 包运行 `npm view <package> version`；
-2. 如果版本变化，更新 registry latest 列；
+2. 如果版本变化，更新 `registry latest`（注册表最新版本）列；
 3. 只有重新验证后，才更新已测试 / 已固定版本和配置示例；
 4. 配置示例必须固定到已测试版本；
 5. 不要把固定版本替换为 `@latest`；
-6. 工具名或 API surface 有变化时，在 release notes 中说明。
+6. 工具名或 API surface 有变化时，在 release notes（发布说明）中说明。

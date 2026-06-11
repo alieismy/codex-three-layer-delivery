@@ -49,11 +49,11 @@ cp zh-CN/codex/examples/config.example.toml ~/.codex/config.toml
 zh-CN/codex/examples/config.full-access.example.toml
 ```
 
-不要在不可信仓库中使用 full access（完全访问权限）。
+不要在不可信仓库中使用 `full access`（完全访问权限）。
 
 ## Claude Code 适配包
 
-安装用户级 Claude Code memory：
+安装用户级 Claude Code memory（记忆）：
 
 ```bash
 cp zh-CN/claude/global/CLAUDE.md ~/.claude/CLAUDE.md
@@ -109,3 +109,5 @@ cp .env.example .env
 只填写你实际启用的 MCP 服务器所需 API key。不要提交 `.env`。
 
 Windows 用户级环境变量也可用 `setx` 设置，但设置后需要重启 shell、Codex CLI、Codex App、Cursor 或 Claude Code。
+
+英文根目录仍是权威基线；`zh-CN/` 是简体中文翻译包。目标文件已存在时，应手动合并，避免覆盖本地项目规则。

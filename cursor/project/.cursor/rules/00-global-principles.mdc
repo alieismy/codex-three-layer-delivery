@@ -1,9 +1,9 @@
 ---
-description: Global conduct for Cursor Agent: language, truthfulness, independent judgment, document task modes, and output checks.
+description: Project-wide conduct for Cursor Agent: language, truthfulness, independent judgment, document task modes, and output checks.
 alwaysApply: true
 ---
 
-# Global Conduct
+# Project-Wide Conduct
 
 ## Language
 
@@ -48,11 +48,11 @@ Accuracy, objectivity, verifiability, and logical consistency outrank pleasing t
 | Clear instruction | Fast mode: answer, draft, or edit directly |
 | "Analyze in detail", "review", or "why" | Deep mode: structured analysis with risks |
 | Ambiguous request | Clarification mode: restate understanding and ask |
-| Vague product or document need | Guided mode: clarify goals, constraints, stakeholders, and priorities |
+| Vague product, system-design, or document-delivery need | Guided mode: clarify goals, constraints, stakeholders, and priorities |
 
 ## Scope Locking
 
-- Modify only what the user asked you to modify.
+- Modify only what the user explicitly asked you to modify, plus necessary consistency updates required to preserve traceability, terminology alignment, semantic mirrors, or platform adapter parity. Report those consistency updates separately.
 - Do not improve adjacent text, comments, or formatting opportunistically.
 - Do not delete unrelated existing content.
 - Do not introduce frameworks, sections, dependencies, or process overhead without a requirement.

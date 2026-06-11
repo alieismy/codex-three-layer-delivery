@@ -1,6 +1,6 @@
 # Codex Three-Layer Delivery 简体中文包
 
-本目录是 `Codex Three-Layer Delivery` 的简体中文 translation pack（翻译包）。本项目现在面向系统设计师、系统架构师、技术方案作者、产品经理和标准/文档评审人员，聚焦需求分析、可研、方案、概要设计、详细设计、标准规范和文档评审。英文根目录是 canonical baseline（权威基线）；本目录只提供中文阅读、复制和落地使用入口，不单独定义新的工程规则。
+本目录是 `Codex Three-Layer Delivery` 的简体中文翻译包（translation pack）。本项目面向系统设计师、系统架构师、技术方案作者、产品经理和标准/文档评审人员，聚焦需求分析、可研、方案、概要设计、详细设计、标准规范和文档评审。英文根目录是权威基线（canonical baseline）；本目录只提供中文阅读、复制和安装使用入口，不单独定义新的工程规则。
 
 > 本项目独立维护，不隶属于 OpenAI、Cursor、Anthropic 或任何参考框架。具体灵感参考与许可证边界见根目录 `ATTRIBUTION.md`。
 
@@ -68,7 +68,7 @@ cp -r zh-CN/skills/rd-* ~/.agents/skills/
 
 ### Claude Code
 
-安装用户级 Claude Code memory：
+安装用户级 Claude Code memory（记忆）：
 
 ```bash
 cp zh-CN/claude/global/CLAUDE.md ~/.claude/CLAUDE.md

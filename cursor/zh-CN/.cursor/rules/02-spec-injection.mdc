@@ -1,33 +1,43 @@
 ---
-description: 规范注入（Spec Injection）：项目规范的自动加载层级和规范检查要求
+description: Cursor 原生规范注入：组织项目规则、模块规则、Skills 和长期决策。
 alwaysApply: true
 ---
 
 # 规范注入（Spec Injection）
 
-项目级规范存储在仓库中，每次会话自动加载，确保 AI 行为与项目约定一致。
+项目级规范存储在仓库中，使 Cursor Agent 能够跨会话加载一致的项目约定。
 
 ## 规范层级
 
 | 层级 | 载体 | 加载方式 |
 |------|------|---------|
-| 用户全局 | Cursor User Rules（设置中配置） | 每次会话自动加载 |
-| 项目规范 | `.cursor/rules/*.mdc`（本规则集） | `alwaysApply: true` 自动加载 |
-| 模块规范 | `.cursor/rules/*.mdc` 中使用 `globs` 匹配的规则 | 打开匹配文件时加载 |
-| 项目记忆 | `.cursor/rules/` 中的决策记录规则 | 持久化跨会话 |
+| 用户全局 | Cursor User Rules | 从 Cursor 设置中应用 |
+| 项目规范 | `.cursor/rules/*.md` 或 `.cursor/rules/*.mdc` | 项目范围规则 |
+| 模块规范 | 嵌套 `.cursor/rules/` 或 `.mdc` frontmatter 中的 `globs` | 作用于匹配路径 |
+| 任务能力 | `.cursor/skills/rd-*/SKILL.md` | 相关时由 Cursor Agent 调用 |
+| 互操作后备 | `AGENTS.md` | 适用时的普通 Markdown 替代 |
+
+## 规则编写
+
+- 规则应聚焦、可执行，并控制在 500 行以内。
+- 需要 `description`、`globs` 或 `alwaysApply` 等 frontmatter 时使用 `.mdc`。
+- 将大型概念拆分为可组合规则，避免单个规则覆盖过宽。
+- 优先写具体约束、脚本、路径和示例，避免泛泛偏好。
+- 不在规则中存储 secrets、私有 URL 或个人凭据。
 
 ## 规范检查要求
 
 执行需求、可研、设计、标准或评审工作前：
 
-1. 检查 `.cursor/rules/` 中是否有项目特定约定
-2. 检查相关 `.cursor/skills/`
-3. 检查既有模板、术语表、评审表、标准引用和已批准决策
-4. 新的长期有效决策只在可复用时持久化为规则
+1. 检查 `.cursor/rules/` 中的项目约定。
+2. 检查 `.cursor/skills/` 中的相关 Skill。
+3. 创建新规则前，检查既有模板、术语表、评审表、标准引用和已批准决策。
+4. 只有可复用的长期项目决策才持久化为规则。
 
-## 规范维护要求
+## 规范维护
 
-- `.cursor/rules/*.mdc` 面向 agent，记录工程约束、脚本、目录约定、风险点和验证命令；`README.md` 面向人类，说明项目是什么、为什么存在、如何开始。不要在两者之间复制同一段内容，必要时互相链接。
-- 修改 `.cursor/rules/*.mdc` 前先搜索是否已有等价规则。优先收紧已有规则，不重复新增。
-- 当规则文件已明显变长时，新增规则必须同时评估是否有过期、重复或不可执行规则应删除或合并。
-- Skill frontmatter 的 `description` 是触发摘要，必须先写触发条件，保留最短可检索长度。优先写适用场景、症状和边界，不写宣传语、内部流程或价值判断。
+- `.cursor/rules/` 用于 agent 行为和项目约束。
+- `README.md` 面向人类，说明项目是什么、为什么存在、如何开始。
+- 避免在规则和 README 之间重复同一段内容。
+- 新增规则前先搜索是否已有等价规则，优先收紧已有规则而不是重复新增。
+- Skill frontmatter 的 `description` 是触发摘要，应以触发条件开头，并保持简短。

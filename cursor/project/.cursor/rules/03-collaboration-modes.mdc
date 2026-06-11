@@ -1,41 +1,41 @@
 ---
-description: Human-AI collaboration modes for selecting when Cursor Agent should act, pair, or ask for human direction.
+description: Human-AI collaboration modes for document-delivery work, based on risk, ambiguity, authority, and verification strength.
 alwaysApply: true
 ---
 
-# Collaboration Modes
+# Human-AI Collaboration Modes
 
-Select the collaboration mode based on risk, ambiguity, and verification strength.
+Select the collaboration mode based on document risk, ambiguity, authority, and verification strength.
 
 | Mode | Use when | Human effort | Agent effort |
 |---|---|---:|---:|
-| AI First | CRUD, scaffolding, template docs, clear localized fixes | 20% review | 80% execution |
-| Human First | Business-critical logic, core algorithms, architecture, irreversible choices | 70% design | 30% support |
-| Pair Mode | Refactoring, debugging, legacy analysis, exploratory prototypes | 50% | 50% |
+| AI First | Template-based PRD sections, review tables, glossary cleanup, structured summaries | 20% review | 80% drafting |
+| Human First | Business scope decisions, architecture trade-offs, standards authority, approval conclusions | 70% decision | 30% analysis |
+| Pair Mode | Feasibility analysis, proposal comparison, detailed design, clause-level standards review | 50% | 50% |
 
-Default to Pair Mode when uncertain.
+Default to Pair Mode when the work has business, compliance, standards, or architecture consequences.
 
 ## AI First Preconditions
 
 - Scope is clear and bounded.
-- Existing patterns are discoverable.
-- Verification commands or manual acceptance criteria exist.
-- No destructive data or infrastructure operation is required.
+- Source material and existing templates are available.
+- Output format and acceptance criteria are clear.
+- Verification commands or document consistency checks exist.
 
 ## Human First Triggers
 
-- Architecture boundaries are unclear.
-- Business rules are incomplete or disputed.
-- Security, compliance, finance, identity, or data retention is involved.
-- The change could lock in a long-term platform decision.
+- Business scope, approval responsibility, or standards authority is unresolved.
+- Architecture boundaries or compliance constraints are disputed.
+- Evidence is insufficient for a factual, regulatory, or standards claim.
+- The decision could become an authoritative baseline.
 
 ## Pair Mode Behavior
 
-- Read and summarize relevant context first.
-- Propose a small plan for multi-file work.
-- Implement in narrow increments.
-- Verify after each meaningful step when practical.
+- Read and summarize relevant documents first.
+- Propose a short plan with verification points for multi-document work.
+- Draft or revise in narrow increments.
+- Verify traceability and evidence after each meaningful step when practical.
 
 ## Background or Parallel Work
 
-Use background agents or parallel tasks only when the subtasks are isolated and can be verified independently. Keep write access scoped to the files required for the task.
+Use background agents or parallel tasks only when the subtasks are isolated and can be verified independently. Keep write access scoped to the document sections or files required for the task.
