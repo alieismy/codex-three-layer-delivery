@@ -1,6 +1,6 @@
 # Compatibility
 
-Version data in this file was checked on 2026-05-28. Cursor adapter documentation was checked on 2026-05-29. Re-check registry latest versions and tool/API surface before each public release.
+Version data and current Skills documentation were re-checked on 2026-07-10. Re-check registry latest versions and tool/API surfaces before each public release.
 
 ## Codex
 
@@ -12,13 +12,13 @@ Version data in this file was checked on 2026-05-28. Cursor adapter documentatio
 
 | Component | Tested/pinned version | Registry latest checked | Notes |
 |---|---:|---:|---|
-| `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.153` | File conventions checked for `CLAUDE.md`, `.claude/settings.json`, and `.claude/skills/`. Re-check before changing adapter behavior. |
+| `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.206` | File conventions checked for `CLAUDE.md`, `.claude/settings.json`, and `.claude/skills/` on 2026-07-10. Re-check before changing adapter behavior. |
 
-Official Claude Code docs checked: [memory](https://docs.anthropic.com/en/docs/claude-code/memory), [settings](https://docs.anthropic.com/en/docs/claude-code/settings), and [skills](https://docs.anthropic.com/en/docs/claude-code/skills).
+Official Claude Code docs checked: [memory](https://code.claude.com/docs/en/memory), [settings](https://code.claude.com/docs/en/settings), and [skills](https://code.claude.com/docs/en/skills).
 
 ## Cursor
 
-Official Cursor docs checked on 2026-05-29:
+Official Cursor docs checked on 2026-07-10:
 
 - [Rules](https://cursor.com/docs/context/rules): Project Rules live in `.cursor/rules`; `.md` and `.mdc` are supported; `.mdc` frontmatter can specify metadata such as `description` and `globs`.
 - [Skills](https://cursor.com/docs/skills): Agent Skills are portable, version-controlled packages that can include scripts, templates, and references.

@@ -1,0 +1,1 @@
+[{"query":"按照适用标准起草规则重写这些规范性条款。","should_trigger":true},{"query":"修订这份企业规范的术语和规范性引用文件。","should_trigger":true},{"query":"独立评审这份标准，给出问题分级和通过结论。","should_trigger":false},{"query":"实现该标准描述的 API。","should_trigger":false}]

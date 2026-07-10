@@ -1,0 +1,1 @@
+[{"query":"编写可研报告，比较自建、采购和维持现状三种方案。","should_trigger":true},{"query":"根据现有证据判断项目能否满足进度和合规约束。","should_trigger":true},{"query":"输出详细 API 和数据库设计。","should_trigger":false},{"query":"独立评审这份可研报告并决定是否通过。","should_trigger":false}]

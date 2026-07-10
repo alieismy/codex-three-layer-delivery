@@ -1,21 +1,21 @@
 ---
 name: rd-specification
 description: >-
-  Use when drafting, revising, or reviewing national, industry, enterprise, or
-  internal technical standards, specifications, guidelines, or normative clauses.
-  Use when clause-level evidence, terminology consistency, normative wording,
-  and standards alignment matter. Do not use for code review, testing, or
-  deployment execution.
+  Use when drafting or revising national, industry, enterprise, internal, or
+  project standards, specifications, guidelines, and normative clauses. Apply
+  when clause wording, governing drafting rules, terminology, references, or
+  standards alignment must be changed. Use rd-review instead for an independent
+  severity-graded review verdict. Do not use for implementation or execution.
 ---
 
-# $rd-specification
+# rd-specification
 
 Support **standards and specification work** with clause-level rigor, evidence discipline, and normative wording control.
 
 ## Deliverables
 
 - Standards/specification draft outline or clause draft
-- Clause-level review comment table
+- Clause-level issue and revision table
 - Normative wording replacement proposals
 - Terminology and reference consistency checklist
 - Open issues requiring expert, legal, standards-body, or domain-owner confirmation
@@ -27,7 +27,8 @@ Support **standards and specification work** with clause-level rigor, evidence d
 - Identify the standard type: national, industry, enterprise, internal guideline, or project specification
 - Confirm the document status: draft, review draft, approval draft, published baseline, or revision
 - Identify the target audience and expected authority of the document
-- Confirm whether the work is drafting, revision, review, comparison, or gap analysis
+- Confirm whether the work is drafting, revision, clause analysis, comparison, or gap analysis
+- Identify the governing drafting rules and normative vocabulary for the target standards body or organization; do not assume one universal shall/should convention
 
 ### 2. Evidence Source Hierarchy
 
@@ -74,17 +75,18 @@ Pre-execution checks:
 - Existing review comment format
 - Domain-specific compliance, safety, cybersecurity, or industry requirements
 
-## MCP Tool Usage
+## Tool Selection
 
-- **web_search / Tavily / Brave Search**: official standards bodies, regulations, and current document status
-- **Context7**: official technical documentation when standards reference software or protocol behavior
-- **Sequential Thinking**: resolving clause conflicts and multi-source reasoning
+- Use `rd-research` for current standards status, regulations, official interpretations, or external technical facts
+- Prefer standards bodies, regulators, official specifications, and inspected normative sources
+- Use Context7 or an equivalent documentation retriever only when a clause depends on current software, protocol, SDK, or API behavior
+- When authoritative text is inaccessible, verify metadata only and mark clause content for human confirmation
 
 ## Quality Gates
 
 Pre-delivery checklist:
 
-- [ ] Every review finding references a specific clause, table, figure, or term
+- [ ] Every clause issue or proposal references a specific clause, table, figure, or term
 - [ ] Evidence level is explicit; unsupported claims are marked for human verification
 - [ ] Normative wording is clear, testable, and scope-bounded
 - [ ] Terminology and references are consistent

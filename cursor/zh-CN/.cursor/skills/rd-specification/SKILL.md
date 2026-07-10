@@ -1,21 +1,19 @@
 ---
 name: rd-specification
 description: >-
-  Use when drafting, revising, or reviewing national, industry, enterprise, or
-  internal technical standards, specifications, guidelines, or normative clauses.
-  Use when clause-level evidence, terminology consistency, normative wording,
-  and standards alignment matter. Do not use for code review, testing, or
-  deployment execution.
+  用于起草或修订国家、行业、企业、内部或项目标准、规范、指南和规范性条款。
+  当需要修改条款表述、适用起草规则、术语、引用或标准协调关系时使用。
+  需要独立问题分级和评审结论时改用 rd-review。不用于实现或执行工作。
 ---
 
-# $rd-specification
+# rd-specification
 
 以条款级严谨性、证据纪律和规范性用语控制，支撑**标准规范制定、修订和评审**。
 
 ## 交付物
 
 - 标准/规范草案大纲或条款草案
-- 条款级评审意见表
+- 条款级问题与修订表
 - 规范性替换文本建议
 - 术语与引用一致性检查表
 - 需专家、法务、标准主管或领域负责人确认的开放问题
@@ -27,7 +25,8 @@ description: >-
 - 识别标准类型：国家标准、行业标准、企业标准、内部规范、项目规范
 - 确认文档状态：草案、征求意见稿、送审稿、已发布基线或修订稿
 - 明确目标读者和预期效力
-- 确认任务类型：起草、修订、评审、对比或差距分析
+- 确认任务类型：起草、修订、条款分析、对比或差距分析
+- 识别目标标准化组织或机构适用的起草规则和规范性用语，不假定存在统一的 shall/should 约定
 
 ### 2. 证据来源层级
 
@@ -74,17 +73,18 @@ description: >-
 - 既有评审意见表格式
 - 领域特定的合规、安全、网络安全或行业要求
 
-## MCP 工具使用
+## 工具选择
 
-- **web_search / Tavily / Brave Search**：核实标准主管机构、法规和当前标准状态
-- **Context7**：标准涉及软件或协议行为时核实官方技术文档
-- **Sequential Thinking**：处理条款冲突和多源证据推理
+- 当前标准状态、法规、官方解释或外部技术事实使用 `rd-research`
+- 优先标准化组织、监管机构、官方规范和已检查的规范性来源
+- 只有条款依赖当前软件、协议、SDK 或 API 行为时才使用 Context7 或同类文档检索能力
+- 权威文本不可访问时只核实元数据，并把条款内容标记为需要人工确认
 
 ## 质量门禁
 
 交付前核查：
 
-- [ ] 每条评审意见引用具体条款、表、图或术语
+- [ ] 每条条款问题或建议引用具体条款、表、图或术语
 - [ ] 证据层级明确，依据不足处已标注人工核实
 - [ ] 规范性文本清晰、可验证、范围明确
 - [ ] 术语和引用一致

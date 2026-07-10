@@ -7,7 +7,7 @@ The root `PROMPTS.md` contains the full template set. This file provides Cursor-
 ## Requirements
 
 ```text
-Use $rd-requirement
+Use /rd-requirement
 
 Structure the following raw requirement into a verifiable PRD.
 
@@ -24,7 +24,7 @@ Known constraints:
 ## Research Evidence
 
 ```text
-Use $rd-research
+Use /rd-research
 
 Collect and validate evidence for:
 {decision, document section, standard clause, technology choice, policy question, or review claim}
@@ -39,7 +39,7 @@ source table with authority, date/version context, relevance, confidence, confli
 ## Feasibility
 
 ```text
-Use $rd-feasibility
+Use /rd-feasibility
 
 Evaluate whether {project / solution / feature} is feasible.
 
@@ -55,7 +55,7 @@ Compare viable options and separate facts, assumptions, estimates, and unknowns.
 ## Technical Proposal
 
 ```text
-Use $rd-solution
+Use /rd-solution
 
 Write a technical proposal / high-level design for:
 {system or project}
@@ -77,7 +77,7 @@ Compare candidate solutions and recommend one.
 ## Detailed Design
 
 ```text
-Use $rd-design
+Use /rd-design
 
 Create a detailed design for:
 {module, subsystem, interface, data domain, or process}
@@ -88,9 +88,9 @@ Include module boundaries, interfaces, data model, critical flows, errors, secur
 ## Standards Work
 
 ```text
-Use $rd-specification
+Use /rd-specification
 
-Draft / revise / review the following standard or specification clauses:
+Draft or revise the following standard or specification clauses:
 {paste clauses or reference file path}
 
 Requirements:
@@ -103,7 +103,7 @@ Requirements:
 ## Document Review
 
 ```text
-Use $rd-review, {Requirements Review / Feasibility Review / Proposal Review / Design Review / Standards Review} mode
+Use /rd-review, {Requirements Review / Feasibility Review / Proposal Review / Design Review / Standards Review} mode
 
 Review target:
 {document name, version, or file path}

@@ -1,17 +1,12 @@
 ---
 name: rd-research
 description: >-
-  Use when collecting, validating, and structuring evidence for requirements,
-  feasibility studies, technical proposals, architecture documents, detailed
-  designs, standards/specifications, or document reviews. Use before or
-  alongside rd-feasibility, rd-solution, rd-specification, or fact-dependent
-  rd-review when external literature, standards, policy, vendor documentation,
-  technical maturity, cost assumptions, or industry cases are needed. Do not use
-  as a mandatory first step for every task, and do not use it to fabricate
-  unavailable evidence.
+  用于为需求、可研、方案、设计、标准规范或评审工作收集、核验并组织外部或项目证据。
+  当文献、政策、标准、厂商文档、技术成熟度、成本假设或行业案例会实质影响结论时使用。
+  不作为所有任务的强制前置步骤，也不得用它替代无法取得的证据。
 ---
 
-# $rd-research
+# rd-research
 
 为下游文档交付成果和评审产出**可追溯证据包**。
 
@@ -31,7 +26,7 @@ description: >-
 - 说明依赖证据的决策问题或文档章节
 - 将宽泛课题拆成具体研究问题
 - 区分必须证据和可选背景资料
-- 判断证据支撑 `$rd-feasibility`、`$rd-solution`、`$rd-specification`、`$rd-design`、`$rd-requirement` 还是 `$rd-review`
+- 判断证据支撑 `rd-feasibility`、`rd-solution`、`rd-specification`、`rd-design`、`rd-requirement` 还是 `rd-review`
 
 ### 2. 来源优先级
 
@@ -74,14 +69,13 @@ description: >-
 - 列出证据缺口和具体后续核验动作
 - 除非用户要求完整文档，否则研究材料与最终正文措辞分离
 
-## MCP 工具使用
+## 工具选择
 
-- **web_search**：作为当前事实、政策、标准元数据、厂商页面和公开资料的主要工具
-- **Tavily / Brave Search**：仅在 MCP 服务器已配置、凭据有效且已启用时使用
-- **Context7**：用于框架、库和 API 官方文档
-- **DeepWiki**：用于公开 GitHub 仓库架构和代码库理解
-- **Browser / Playwright**：用于检查官方页面、PDF 或交互式来源
-- **Sequential Thinking**：用于多来源冲突处理和复杂权衡综合
+- 使用能够到达来源所有者的最窄已配置能力：官方文档检索、当前 Web 搜索、仓库检查或浏览器/PDF 检查
+- 仅在核实当前框架、库、SDK 或 API 文档时优先使用 Context7 或同类文档检索能力
+- 仓库类工具只能支持所检查公开仓库中的事实，不能作为通用最佳实践的权威依据
+- 综合分析优先使用原生推理；可选推理工具不得替代已检查证据
+- 某项能力不可用时记录限制，并使用能够检查的证据继续
 
 ## 质量门禁
 
@@ -97,7 +91,7 @@ description: >-
 
 ## 不做
 
-- 不把 `$rd-research` 作为所有任务的强制前置步骤
+- 不把 `rd-research` 作为所有任务的强制前置步骤
 - 不在未明确要求时编写最终 PRD、可研报告、技术方案、详细设计、标准规范或评审报告
 - 不把未查看的搜索摘要当作已确认事实引用
 - 不编造日期、版本、法律要求、标准条款、成本数字或基准结果

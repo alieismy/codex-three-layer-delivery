@@ -17,8 +17,8 @@ alwaysApply: true
 
 ## Evidence Discipline
 
-- Use `$rd-research` when external literature, standards, policy, vendor documentation, cost data, technical maturity, or industry cases materially affect the conclusion.
-- `$rd-research` is an evidence-support Skill, not a mandatory first stage for every task.
+- Use `/rd-research` when external literature, standards, policy, vendor documentation, cost data, technical maturity, or industry cases materially affect the conclusion.
+- `/rd-research` is an evidence-support Skill, not a mandatory first stage for every task.
 - If target document text can confirm it, quote or cite that text first.
 - If official documentation, standards, laws, regulations, RFCs, or papers can confirm it, use the original source before secondary sources.
 - If external verification is unavailable, say "unable to independently verify at this time".

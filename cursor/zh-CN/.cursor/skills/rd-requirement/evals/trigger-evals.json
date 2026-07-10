@@ -1,0 +1,1 @@
+[{"query":"请把这些访谈记录整理成带验收标准的 SRS。","should_trigger":true},{"query":"结构化这些原始用户需求，并找出尚未决定的事项。","should_trigger":true},{"query":"比较这个项目在经济和技术上是否可行。","should_trigger":false},{"query":"评审这份已经完成的 PRD，并给出通过结论。","should_trigger":false}]

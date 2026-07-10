@@ -1,15 +1,14 @@
 ---
 name: rd-solution
 description: >-
-  Use when writing technical proposals, high-level designs, solution
-  architecture documents, outline designs, construction plans, or technical
-  white papers. Use when requirements or feasibility inputs must be converted
-  into candidate solutions, architecture decisions, and design-ready technical
-  documentation. Do not use for feasibility studies, detailed design, code
-  implementation, testing, or deployment execution.
+  Use when converting approved requirements or feasibility inputs into a
+  technical proposal, high-level design, solution architecture, outline design,
+  construction plan, or technical white paper. Apply when real alternatives,
+  architectural decisions, and a design-ready recommendation are needed. Do not
+  use for feasibility conclusions, detailed design, independent review, or execution.
 ---
 
-# $rd-solution
+# rd-solution
 
 Research and produce high-quality technical documents — **technical proposals, high-level designs, solution architecture documents, construction plans, and technical white papers**.
 
@@ -27,8 +26,10 @@ Research and produce high-quality technical documents — **technical proposals,
 - Clarify the document type (technical proposal / high-level design / solution architecture / construction plan)
 - Confirm the audience (decision-makers / technical team / client reviewers)
 - Confirm constraints: timeline, budget, tech stack, compliance requirements
-- Check for existing requirements documents (`$rd-requirement` output)
-- Check for feasibility inputs (`$rd-feasibility` output) when the project has an approval phase
+- Check for existing requirements documents (`rd-requirement` output)
+- Check for feasibility inputs (`rd-feasibility` output) when the project has an approval phase
+- Resolve discoverable facts from project artifacts; ask the user only for material decisions that remain open
+- Use established domain terminology and surface conflicts instead of silently creating synonyms
 
 ### 2. Solution Research & Candidate Generation
 
@@ -108,14 +109,14 @@ Pre-execution checks:
 - Whether the project has technical proposal templates or formatting requirements
 - Whether Architecture Decision Record (ADR) conventions exist
 - Existing tech stack constraints and selection principles
+- Existing glossary or domain model; record only decisions that are hard to reverse, surprising without context, and based on a real trade-off
 
-## MCP Tool Usage
+## Tool Selection
 
-- **Context7**: Query tech stack/framework official documentation and best practices
-- **DeepWiki**: Analyze reference project architectures
-- **Sequential Thinking**: Complex multi-solution comparative reasoning
-- **Tavily / Brave Search**: Technology selection feasibility verification, industry case studies
-- **web_search** (Codex built-in): Quick verification of version numbers, compatibility
+- Use `rd-research` when current documentation, maturity, compatibility, cost, policy, or industry evidence materially affects the recommendation
+- Prefer primary sources and the narrowest configured retrieval capability
+- Use Context7 or an equivalent documentation retriever only for current framework, library, SDK, or API facts
+- Treat reference architectures as examples, not proof that a design fits this project's constraints
 
 ## Quality Gates
 

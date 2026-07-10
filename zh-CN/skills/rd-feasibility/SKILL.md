@@ -1,15 +1,12 @@
 ---
 name: rd-feasibility
 description: >-
-  Use when writing project feasibility studies, feasibility analysis reports,
-  option viability assessments, or decision-ready feasibility conclusions. Use
-  when business, technical, cost, schedule, compliance, operational, and risk
-  feasibility must be evaluated before a technical proposal or high-level
-  design. Do not use for detailed design, implementation, testing, or deployment
-  execution.
+  用于评估项目或候选方案是否可行，并形成可研报告、方案可行性评估或面向决策的
+  结论。当技术、经济、进度、运行、合规和风险证据需要在方案设计前综合比较时使用。
+  不用于需求编写、详细设计、独立评审或执行工作。
 ---
 
-# $rd-feasibility
+# rd-feasibility
 
 产出**可支撑决策的可研报告 / 可行性分析报告**，明确区分事实、假设、估算和待核实事项。
 
@@ -73,12 +70,12 @@ description: >-
 - 既有 PRD、项目背景、干系人决策记录
 - 术语、编号、章节结构约定
 
-## MCP 工具使用
+## 工具选择
 
-- **web_search / Tavily / Brave Search**：核实现行政策、市场、厂商、标准或成本资料
-- **Context7**：核实技术可行性相关官方文档
-- **DeepWiki**：评估开源或公开系统参考架构
-- **Sequential Thinking**：多方案权衡和敏感性分析
+- 现行政策、标准、市场、厂商、成本或技术成熟度证据使用 `rd-research`
+- 优先一手来源和最窄的已配置检索能力
+- 只有当前库或 API 接口、兼容性事实影响可行性时才使用文档检索能力
+- 将无法取得的证据与分析结论分开，并明确后续核验动作
 
 ## 质量门禁
 

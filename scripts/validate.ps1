@@ -41,11 +41,59 @@ function Test-SkillFrontmatter {
     $skillFiles = Get-ChildItem -LiteralPath $SkillRoot -Recurse -File -Filter "SKILL.md" -Force
     foreach ($skill in $skillFiles) {
         $content = Get-Content -LiteralPath $skill.FullName -Raw
-        $hasName = $content -match "(?m)^name:\s*rd-[^\r\n]+"
-        $hasDescription = $content -match "(?m)^description:\s*(Use when|>-)"
-        $descriptionMentionsTrigger = $content -match "Use when"
-        if (-not ($hasName -and $hasDescription -and $descriptionMentionsTrigger)) {
-            Add-Failure "Skill frontmatter must include name and trigger-oriented description: $($skill.FullName)"
+        $frontmatter = [regex]::Match($content, "(?s)\A---\n(?<body>.*?)\n---\n")
+        if (-not $frontmatter.Success) {
+            Add-Failure "Skill must start with valid LF-delimited frontmatter: $($skill.FullName)"
+            continue
+        }
+
+        $frontmatterBody = $frontmatter.Groups["body"].Value
+        $nameMatch = [regex]::Match($frontmatterBody, "(?m)^name:\s*(?<name>[a-z0-9]+(?:-[a-z0-9]+)*)\s*$")
+        $descriptionMatch = [regex]::Match(
+            $frontmatterBody,
+            "(?ms)^description:\s*>-\s*\n(?<description>(?: {2}.+(?:\n|$))+?)\z"
+        )
+        if (-not ($nameMatch.Success -and $descriptionMatch.Success)) {
+            Add-Failure "Skill frontmatter must contain only a valid name and block description: $($skill.FullName)"
+            continue
+        }
+
+        $name = $nameMatch.Groups["name"].Value
+        if ($name -ne $skill.Directory.Name) {
+            Add-Failure "Skill name must match its parent directory: $($skill.FullName)"
+        }
+
+        $topLevelKeys = [regex]::Matches($frontmatterBody, "(?m)^(?<key>[A-Za-z0-9_-]+):") |
+            ForEach-Object { $_.Groups["key"].Value }
+        foreach ($key in $topLevelKeys) {
+            if ($key -notin @("name", "description")) {
+                Add-Failure "Unexpected skill frontmatter field '$key': $($skill.FullName)"
+            }
+        }
+
+        $description = (($descriptionMatch.Groups["description"].Value -split "\n") |
+            ForEach-Object { $_.Trim() } |
+            Where-Object { $_ }) -join " "
+        if ($description.Length -lt 1 -or $description.Length -gt 1024) {
+            Add-Failure "Skill description must contain 1-1024 characters: $($skill.FullName)"
+        }
+
+        $isChinese = $skill.FullName -match "[\\/]zh-CN[\\/]"
+        if ($isChinese -and $description -notmatch "[\u4e00-\u9fff]") {
+            Add-Failure "Chinese skill description must contain Simplified Chinese trigger text: $($skill.FullName)"
+        }
+        if (-not $isChinese -and -not $description.StartsWith("Use when")) {
+            Add-Failure "English skill description must front-load its trigger with 'Use when': $($skill.FullName)"
+        }
+
+        if (($content -split "\n").Count -gt 500) {
+            Add-Failure "SKILL.md exceeds the 500-line progressive-disclosure limit: $($skill.FullName)"
+        }
+        if ($content -match '\$rd-') {
+            Add-Failure "Shared skill bodies must use neutral rd-* identifiers, not platform invocation syntax: $($skill.FullName)"
+        }
+        if ($content -match "(?m)^## (MCP Tool Usage|MCP 工具使用)$" -or $content.Contains("Codex built-in")) {
+            Add-Failure "Platform-specific or hard-coded tool routing found in shared skill: $($skill.FullName)"
         }
     }
 }
@@ -60,6 +108,48 @@ $skillRoots = @(
 )
 foreach ($skillRoot in $skillRoots) {
     Test-SkillFrontmatter -SkillRoot $skillRoot
+}
+
+function Test-SkillEvals {
+    param([string]$SkillRoot)
+
+    foreach ($skillDirectory in Get-ChildItem -LiteralPath $SkillRoot -Directory -Force) {
+        $evalsPath = Join-Path $skillDirectory.FullName "evals/evals.json"
+        $triggerPath = Join-Path $skillDirectory.FullName "evals/trigger-evals.json"
+        foreach ($requiredPath in @($evalsPath, $triggerPath)) {
+            if (-not (Test-Path -LiteralPath $requiredPath)) {
+                Add-Failure "Missing required skill evaluation file: $requiredPath"
+            }
+        }
+        if (-not ((Test-Path -LiteralPath $evalsPath) -and (Test-Path -LiteralPath $triggerPath))) {
+            continue
+        }
+
+        try {
+            $evals = Get-Content -LiteralPath $evalsPath -Raw | ConvertFrom-Json
+            $triggers = @(Get-Content -LiteralPath $triggerPath -Raw | ConvertFrom-Json)
+        }
+        catch {
+            Add-Failure "Invalid skill evaluation JSON in $($skillDirectory.FullName): $($_.Exception.Message)"
+            continue
+        }
+
+        if ($evals.skill_name -ne $skillDirectory.Name -or @($evals.evals).Count -lt 2) {
+            Add-Failure "Skill output evals must match the skill name and contain at least two cases: $evalsPath"
+        }
+        foreach ($eval in @($evals.evals)) {
+            if (-not $eval.prompt -or -not $eval.expected_output -or @($eval.assertions).Count -lt 1) {
+                Add-Failure "Each output eval needs a prompt, expected output, and assertions: $evalsPath"
+            }
+        }
+        if ($triggers.Count -lt 4 -or -not ($triggers.should_trigger -contains $true) -or -not ($triggers.should_trigger -contains $false)) {
+            Add-Failure "Trigger evals need at least four positive and negative boundary cases: $triggerPath"
+        }
+    }
+}
+
+foreach ($skillRoot in $skillRoots) {
+    Test-SkillEvals -SkillRoot $skillRoot
 }
 
 $expectedSkillNames = @(
@@ -122,11 +212,61 @@ function Assert-MirroredSkillSet {
     }
 }
 
+function Assert-MirroredSkillTree {
+    param(
+        [string]$SourceRoot,
+        [string]$TargetRoot
+    )
+
+    $sourceFiles = Get-ChildItem -LiteralPath $SourceRoot -Recurse -File -Force
+    $targetFiles = Get-ChildItem -LiteralPath $TargetRoot -Recurse -File -Force
+    $sourceMap = @{}
+    $targetMap = @{}
+    foreach ($file in $sourceFiles) {
+        $relative = $file.FullName.Substring($SourceRoot.Length).TrimStart("\", "/")
+        $sourceMap[$relative] = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash
+    }
+    foreach ($file in $targetFiles) {
+        $relative = $file.FullName.Substring($TargetRoot.Length).TrimStart("\", "/")
+        $targetMap[$relative] = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash
+    }
+    foreach ($relative in $sourceMap.Keys) {
+        if (-not $targetMap.ContainsKey($relative)) {
+            Add-Failure "Missing mirrored skill file '$relative' in $TargetRoot"
+        }
+        elseif ($sourceMap[$relative] -ne $targetMap[$relative]) {
+            Add-Failure "Mirrored skill file differs from canonical source: $relative in $TargetRoot"
+        }
+    }
+    foreach ($relative in $targetMap.Keys) {
+        if (-not $sourceMap.ContainsKey($relative)) {
+            Add-Failure "Unexpected mirrored skill file '$relative' in $TargetRoot"
+        }
+    }
+}
+
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "claude/project/.claude/skills")
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "cursor/project/.cursor/skills")
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot (Join-Path $root "cursor/zh-CN/.cursor/skills")
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "zh-CN/skills")
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "zh-CN/claude/project/.claude/skills")
+
+Assert-MirroredSkillTree -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "claude/project/.claude/skills")
+Assert-MirroredSkillTree -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "cursor/project/.cursor/skills")
+Assert-MirroredSkillTree -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot (Join-Path $root "zh-CN/claude/project/.claude/skills")
+Assert-MirroredSkillTree -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot (Join-Path $root "cursor/zh-CN/.cursor/skills")
+
+$cursorPlatformFiles = @(
+    (Join-Path $root "cursor/project/PROMPTS.md"),
+    (Join-Path $root "cursor/zh-CN/PROMPTS.md")
+) + @(Get-ChildItem -LiteralPath (Join-Path $root "cursor/project/.cursor/rules") -File -Force) +
+    @(Get-ChildItem -LiteralPath (Join-Path $root "cursor/zh-CN/.cursor/rules") -File -Force)
+foreach ($cursorFile in $cursorPlatformFiles) {
+    $cursorPath = if ($cursorFile -is [System.IO.FileInfo]) { $cursorFile.FullName } else { $cursorFile }
+    if ((Get-Content -LiteralPath $cursorPath -Raw).Contains('$rd-')) {
+        Add-Failure "Cursor platform files must use /rd-* invocation syntax: $cursorPath"
+    }
+}
 
 $publicConfigs = @(
     (Join-Path $root "codex/examples/config.example.toml"),

@@ -1,6 +1,6 @@
 # 兼容性
 
-本文件中的版本数据于 2026-05-28 核查。Cursor 适配包文档于 2026-05-29 核查。每次公开发布前都应重新核查 registry 最新版本和工具/API surface（API 表面，即可调用接口和行为）。
+本文件中的版本数据和当前 Skills 文档已于 2026-07-10 重新核查。每次公开发布前都应重新核查 registry 最新版本和工具/API surface（API 表面，即可调用接口和行为）。
 
 ## Codex
 
@@ -12,17 +12,17 @@
 
 | 组件 | 已测试 / 已固定版本 | registry 最新核查版本 | 备注 |
 |---|---:|---:|---|
-| `@anthropic-ai/claude-code` npm 包 | 本仓库不固定 | `2.1.153` | 已核查 `CLAUDE.md`、`.claude/settings.json`、`.claude/skills/` 文件约定。变更适配行为前需重新核查。 |
+| `@anthropic-ai/claude-code` npm 包 | 本仓库不固定 | `2.1.206` | 已于 2026-07-10 核查 `CLAUDE.md`、`.claude/settings.json`、`.claude/skills/` 文件约定。变更适配行为前需重新核查。 |
 
 Claude Code 官方文档核查入口：
 
-- https://docs.anthropic.com/en/docs/claude-code/memory
-- https://docs.anthropic.com/en/docs/claude-code/settings
-- https://docs.anthropic.com/en/docs/claude-code/skills
+- https://code.claude.com/docs/en/memory
+- https://code.claude.com/docs/en/settings
+- https://code.claude.com/docs/en/skills
 
 ## Cursor
 
-Cursor 官方文档于 2026-05-29 核查：
+Cursor 官方文档于 2026-07-10 核查：
 
 - [Rules](https://cursor.com/docs/context/rules)：项目规则位于 `.cursor/rules`，支持 `.md` 和 `.mdc`；`.mdc` frontmatter 可声明 `description`、`globs` 等元数据。
 - [Skills](https://cursor.com/docs/skills)：Agent Skills 是可版本化的能力包，可包含脚本、模板和参考资料。

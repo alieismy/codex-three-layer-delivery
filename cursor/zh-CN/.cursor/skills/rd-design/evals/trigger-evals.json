@@ -1,0 +1,1 @@
+[{"query":"定义详细接口契约、状态机、数据模式和错误处理。","should_trigger":true},{"query":"把已批准架构转成可实施详细设计。","should_trigger":true},{"query":"比较三个概要架构方案并推荐一个。","should_trigger":false},{"query":"评审这份完成的详细设计并给问题分级。","should_trigger":false}]

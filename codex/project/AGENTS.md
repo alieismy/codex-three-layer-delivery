@@ -114,7 +114,7 @@ Before executing document-delivery Skills:
 |------|----------------------|--------------|-----------------|
 | **AI First** | Template-based PRD sections, review tables, glossary cleanup, structured summaries | 20% review | 80% drafting |
 | **Human First** | Business scope decisions, architecture trade-offs, standards authority, approval conclusions | 70% decision | 30% analysis |
-| **Pair Mode** | Feasibility analysis, proposal comparison, detailed design, clause-level standards review | 50% | 50% |
+| **Pair Mode** | Feasibility analysis, proposal comparison, detailed design, clause-level standards work | 50% | 50% |
 
 Default to Pair Mode when the work has business, compliance, standards, or architecture consequences.
 
@@ -265,13 +265,13 @@ Select tools by evidence need:
 - Candidate comparison and recommendation rationale clear; architecture, security, cost, risk, and exit path addressed.
 
 ### Detailed Design (`$rd-design`)
-- Interfaces, data models, critical flows, failure paths, security, auditability, concurrency, and unresolved decisions specified.
+- Interfaces, data models, critical flows, failure paths, trust boundaries, security, auditability, concurrency, and unresolved decisions specified.
 
 ### Standards Work (`$rd-specification`)
 - Clause-level evidence, normative wording, terminology, references, conflicts, and human-verification gaps handled.
 
 ### Document Review (`$rd-review`)
-- Correct review mode selected; findings are severity-graded with location, evidence, impact, and recommendation; verdict is explicit.
+- Correct review mode selected; alignment and intrinsic quality are both assessed; findings include location, evidence, impact, severity rationale, and action; verdict follows unresolved impact.
 
 ---
 
@@ -349,7 +349,7 @@ Available document-delivery Skills:
 | `$rd-research` | Evidence package / source notes | Literature, standards, policy, vendor, market, and technical evidence for downstream documents |
 | `$rd-solution` | Technical proposal / high-level design / construction plan | System architecture and solution documentation |
 | `$rd-design` | Detailed design document | Interface, data, flow, error, security, and concurrency design |
-| `$rd-specification` | Standards/specification draft or clause review | Standards formulation, revision, and clause-level review |
+| `$rd-specification` | Standards/specification draft or clause revision | Standards formulation, revision, and normative wording work |
 | `$rd-review` | Document review findings | Requirements, feasibility, proposal, design, and standards review |
 
 ### Authoring-to-Review Mapping

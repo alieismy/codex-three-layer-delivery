@@ -1,15 +1,14 @@
 ---
 name: rd-feasibility
 description: >-
-  Use when writing project feasibility studies, feasibility analysis reports,
-  option viability assessments, or decision-ready feasibility conclusions. Use
-  when business, technical, cost, schedule, compliance, operational, and risk
-  feasibility must be evaluated before a technical proposal or high-level
-  design. Do not use for detailed design, implementation, testing, or deployment
-  execution.
+  Use when evaluating whether a project or option is feasible and producing a
+  feasibility study, option viability assessment, or decision-ready conclusion.
+  Apply when technical, economic, schedule, operational, compliance, and risk
+  evidence must be compared before solution design. Do not use for requirements
+  authoring, detailed design, independent review, or execution.
 ---
 
-# $rd-feasibility
+# rd-feasibility
 
 Produce **decision-ready feasibility studies** that distinguish confirmed facts, assumptions, estimates, and unresolved verification needs.
 
@@ -73,12 +72,12 @@ Pre-execution checks:
 - Existing PRD, project background, or stakeholder decision records
 - Required terminology, glossary, or document numbering conventions
 
-## MCP Tool Usage
+## Tool Selection
 
-- **web_search / Tavily / Brave Search**: current policy, market, vendor, standards, or cost evidence
-- **Context7**: official documentation for technical feasibility claims
-- **DeepWiki**: reference architectures when assessing open-source or public systems
-- **Sequential Thinking**: multi-option trade-off reasoning and sensitivity checks
+- Use `rd-research` for current policy, standards, market, vendor, cost, or technical-maturity evidence
+- Prefer primary sources and the narrowest configured retrieval capability
+- Use library/API documentation retrieval only when current interface or compatibility facts affect feasibility
+- Separate unavailable evidence from analysis and make the verification action explicit
 
 ## Quality Gates
 

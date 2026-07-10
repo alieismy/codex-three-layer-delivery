@@ -10,9 +10,11 @@
 
 官方文档：
 
-- https://docs.anthropic.com/en/docs/claude-code/memory
-- https://docs.anthropic.com/en/docs/claude-code/settings
-- https://docs.anthropic.com/en/docs/claude-code/skills
+已于 2026-07-10 核查：
+
+- https://code.claude.com/docs/en/memory
+- https://code.claude.com/docs/en/settings
+- https://code.claude.com/docs/en/skills
 
 ## 当前结构
 
@@ -21,7 +23,10 @@ zh-CN/claude/
   global/CLAUDE.md
   project/CLAUDE.md
   project/.claude/settings.json
-  project/.claude/skills/rd-*/SKILL.md
+  project/.claude/skills/rd-*/
+    SKILL.md
+    evals/*.json
+    references/*.md  # 按需提供
 ```
 
 ## 安装

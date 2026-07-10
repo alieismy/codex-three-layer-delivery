@@ -1,15 +1,12 @@
 ---
 name: rd-solution
 description: >-
-  Use when writing technical proposals, high-level designs, solution
-  architecture documents, outline designs, construction plans, or technical
-  white papers. Use when requirements or feasibility inputs must be converted
-  into candidate solutions, architecture decisions, and design-ready technical
-  documentation. Do not use for feasibility studies, detailed design, code
-  implementation, testing, or deployment execution.
+  用于把已批准需求或可研输入转化为技术方案、概要设计、解决方案架构、建设方案
+  或技术白皮书。当需要比较真实候选方案、形成架构决策和可供详细设计使用的推荐结论时使用。
+  不用于可行性结论、详细设计、独立评审或执行工作。
 ---
 
-# $rd-solution
+# rd-solution
 
 研究和编写高质量技术文档——**技术方案、概要设计、解决方案架构、建设方案、技术白皮书**。
 
@@ -27,8 +24,10 @@ description: >-
 - 明确文档类型（技术方案 / 概要设计 / 解决方案架构 / 建设方案）
 - 确认读者（决策层 / 技术团队 / 甲方评审）
 - 确认约束条件：时间、预算、技术栈、合规要求
-- 检查是否有已有需求文档（`$rd-requirement` 产出）
-- 项目有立项审批阶段时，检查可研输入（`$rd-feasibility` 产出）
+- 检查是否有已有需求文档（`rd-requirement` 产出）
+- 项目有立项审批阶段时，检查可研输入（`rd-feasibility` 产出）
+- 从项目材料中核实可查事实，只向用户确认仍未决定且会实质影响方案的事项
+- 使用既有领域术语；发现冲突时显式指出，不静默创建同义词
 
 ### 2. 方案研究与候选生成
 
@@ -108,14 +107,14 @@ description: >-
 - 项目是否有技术方案模板或格式要求
 - 是否有架构决策记录（ADR）的规范
 - 已有的技术栈约束和选型原则
+- 已有术语表或领域模型；只有决策难以逆转、缺少背景会令人意外且确有真实权衡时才记录 ADR
 
-## MCP 工具使用
+## 工具选择
 
-- **Context7**：查询技术栈/框架官方文档和最佳实践
-- **DeepWiki**：分析参考项目的架构设计
-- **Sequential Thinking**：复杂多方案对比推理
-- **Tavily / Brave Search**：技术选型可行性核实、行业案例检索
-- **web_search**（Codex 内置）：快速核实版本号、兼容性
+- 当前文档、成熟度、兼容性、成本、政策或行业证据会实质影响推荐时，使用 `rd-research`
+- 优先一手来源和最窄的已配置检索能力
+- 仅在核实当前框架、库、SDK 或 API 事实时使用 Context7 或同类文档检索能力
+- 参考架构只能作为示例，不能证明其适合本项目约束
 
 ## 质量门禁
 

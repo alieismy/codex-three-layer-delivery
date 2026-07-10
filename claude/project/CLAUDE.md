@@ -101,7 +101,7 @@ Before completing requirements, feasibility, design, standards, or review work, 
 | `rd-research` | Evidence package / source notes | Literature, standards, policy, vendor, market, and technical evidence for downstream documents |
 | `rd-solution` | Technical proposal / high-level design / construction plan | System architecture and solution documentation |
 | `rd-design` | Detailed design document | Interface, data, flow, error, security, and concurrency design |
-| `rd-specification` | Standards/specification draft or clause review | Standards formulation, revision, and clause-level review |
+| `rd-specification` | Standards/specification draft or clause revision | Standards formulation, revision, and normative wording work |
 | `rd-review` | Document review findings | Requirements, feasibility, proposal, design, and standards review |
 
 Use a Skill when the task matches its trigger conditions. Do not force all Skills into a pipeline. Use `rd-research` when external evidence materially affects feasibility, solution, standards, design, or review conclusions; it is not a mandatory first stage.

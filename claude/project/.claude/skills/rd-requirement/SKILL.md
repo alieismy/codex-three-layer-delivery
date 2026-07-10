@@ -1,14 +1,14 @@
 ---
 name: rd-requirement
 description: >-
-  Use when analyzing user needs, structuring requirements, writing PRDs, SRS
-  documents, or requirement traceability materials. Use when raw user
-  statements, meeting notes, stakeholder feedback, or business scenarios need
-  to be structured, prioritized, and made verifiable. Do not use for solution
-  design, feasibility studies, detailed design, or code implementation.
+  Use when turning raw user needs, meeting notes, stakeholder feedback, or
+  business scenarios into a PRD, SRS, structured requirements, or traceability
+  material. Apply when requirements must be clarified, prioritized, bounded,
+  and made verifiable. Do not use for feasibility conclusions, solution or
+  detailed design, independent document review, or implementation.
 ---
 
-# $rd-requirement
+# rd-requirement
 
 Transform raw user needs into **structured, traceable, and verifiable requirements documents**.
 
@@ -25,7 +25,9 @@ Transform raw user needs into **structured, traceable, and verifiable requiremen
 
 - Distinguish between the user's original phrasing and structured requirements; preserve original phrasing without altering intent
 - Identify implicit assumptions and list them explicitly
-- Ask targeted questions for decision-critical ambiguity; if risk is low, state assumptions and proceed
+- Resolve discoverable facts from supplied materials and the project before asking the user
+- Ask only for decisions or decision-critical ambiguity; handle one high-impact decision branch at a time, and if risk is low, state assumptions and proceed
+- Identify overloaded or conflicting domain terms and propose a canonical term without inventing business meaning
 - Use the 5W1H framework (Who / What / Why / When / Where / How) to ensure full dimensional coverage
 
 ### 2. Requirements Classification & Structuring
@@ -78,26 +80,27 @@ Perform a preliminary feasibility judgment on key requirements:
 ## Spec Injection Check
 
 Pre-execution checks:
-- Whether project AGENTS.md specifies requirements template conventions
+- Applicable project guidance, templates, and rules for requirements work
 - Whether established product standards or quality attribute baselines exist
 - Existing requirements document format and naming conventions
 - Existing glossary, stakeholder map, review checklist, or standard terminology constraints
 
-## MCP Tool Usage
+## Tool Selection
 
-- **Context7**: Query similar product requirement patterns and best practices
-- **Sequential Thinking**: Complex requirement decomposition and dependency analysis
-- **DeepWiki**: Reference how open-source projects organize requirements
+- Inspect user-provided and local project sources before external retrieval
+- Use `rd-research` when laws, standards, policy, external interfaces, or other evidence materially affect a requirement
+- Use only configured tools, prefer primary sources, and use library/API documentation retrieval only for current interface facts
+- If retrieval is unavailable, mark the evidence gap instead of inventing a requirement
 
 ## Quality Gates
 
 Pre-delivery checklist:
 
-- [ ] 100% coverage of core scenarios
+- [ ] Every identified in-scope core scenario is covered and traceable to a source or decision
 - [ ] Every functional requirement has acceptance criteria
 - [ ] Priorities labeled, no P0 requirements missing
 - [ ] Assumptions and exclusions explicitly listed
-- [ ] All requirements are verifiable (no untestable requirements exist)
+- [ ] Every requirement has an acceptance method, or is explicitly marked as unresolved with a verification action
 - [ ] Key terms, stakeholder roles, and business rules are consistent
 - [ ] Decision-critical ambiguity is either resolved or explicitly listed
 - [ ] Requirements are traceable to original user statements or cited source material

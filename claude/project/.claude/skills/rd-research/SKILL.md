@@ -1,17 +1,14 @@
 ---
 name: rd-research
 description: >-
-  Use when collecting, validating, and structuring evidence for requirements,
-  feasibility studies, technical proposals, architecture documents, detailed
-  designs, standards/specifications, or document reviews. Use before or
-  alongside rd-feasibility, rd-solution, rd-specification, or fact-dependent
-  rd-review when external literature, standards, policy, vendor documentation,
-  technical maturity, cost assumptions, or industry cases are needed. Do not use
-  as a mandatory first step for every task, and do not use it to fabricate
-  unavailable evidence.
+  Use when collecting, validating, and structuring external or project evidence
+  for requirements, feasibility, solution, design, standards, or review work.
+  Apply when literature, policy, standards, vendor documentation, technical
+  maturity, cost assumptions, or industry cases materially affect a conclusion.
+  Do not use as a mandatory first step or as a substitute for unavailable evidence.
 ---
 
-# $rd-research
+# rd-research
 
 Produce a **traceable evidence package** for downstream document-delivery outputs and reviews.
 
@@ -31,7 +28,7 @@ Produce a **traceable evidence package** for downstream document-delivery output
 - State the decision or document section that depends on evidence
 - Convert broad topics into concrete research questions
 - Separate required evidence from optional background material
-- Identify whether the evidence supports `$rd-feasibility`, `$rd-solution`, `$rd-specification`, `$rd-design`, `$rd-requirement`, or `$rd-review`
+- Identify whether the evidence supports `rd-feasibility`, `rd-solution`, `rd-specification`, `rd-design`, `rd-requirement`, or `rd-review`
 
 ### 2. Source Hierarchy
 
@@ -74,14 +71,13 @@ Evaluate each useful source:
 - List evidence gaps and specific follow-up verification actions
 - Keep raw research separate from final document wording unless the user asks for a full document
 
-## MCP Tool Usage
+## Tool Selection
 
-- **web_search**: primary tool for current facts, policies, standards metadata, vendor pages, and public references
-- **Tavily / Brave Search**: use only when the MCP server is configured, credentialed, and enabled
-- **Context7**: use for official framework, library, and API documentation
-- **DeepWiki**: use for public GitHub repository architecture and codebase understanding
-- **Browser / Playwright**: use when an official page, PDF, or interactive source needs inspection
-- **Sequential Thinking**: use for multi-source conflict resolution or complex trade-off synthesis
+- Use the narrowest configured capability that reaches the source owner: official documentation retrieval, current web search, repository inspection, or browser/PDF inspection
+- Prefer Context7 or an equivalent documentation retriever only for current framework, library, SDK, or API documentation
+- Use repository-oriented tools only for facts grounded in the inspected public repository, not as authority for general best practices
+- Use native reasoning for synthesis; optional reasoning tools must not replace inspected evidence
+- If a capability is unavailable, record the limitation and continue with the evidence that can be inspected
 
 ## Quality Gates
 
@@ -97,7 +93,7 @@ Pre-delivery checklist:
 
 ## Out of Scope
 
-- Do not treat `$rd-research` as a mandatory first step for every task
+- Do not treat `rd-research` as a mandatory first step for every task
 - Do not write final PRDs, feasibility reports, solution documents, detailed designs, specifications, or review reports unless explicitly asked
 - Do not cite uninspected search snippets as confirmed facts
 - Do not invent dates, versions, legal requirements, standards clauses, cost figures, or benchmark results

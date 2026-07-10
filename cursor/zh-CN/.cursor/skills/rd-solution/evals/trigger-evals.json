@@ -1,0 +1,1 @@
+[{"query":"根据这些需求编写技术方案，并比较候选架构。","should_trigger":true},{"query":"把可研结论转化为概要设计。","should_trigger":true},{"query":"先判断这个项目本身是否可行。","should_trigger":false},{"query":"规定字段级数据库约束和错误码。","should_trigger":false}]

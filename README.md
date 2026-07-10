@@ -139,10 +139,12 @@ cursor/zh-CN/
 | `$rd-research` | Evidence package / literature and source notes | collect and validate evidence for feasibility, solution, standards, or fact-dependent review work |
 | `$rd-solution` | Technical proposal / high-level design / construction plan | compare candidate solutions and produce design-ready technical documents |
 | `$rd-design` | Detailed design | define interfaces, data models, flows, errors, security, and concurrency |
-| `$rd-specification` | Standards/specification draft or clause review | draft, revise, or review standards and normative clauses |
+| `$rd-specification` | Standards/specification draft or clause revision | draft or revise standards and normative clauses |
 | `$rd-review` | Document review findings | review requirements, feasibility reports, proposals, designs, or standards |
 
 The skills are independent. They are not a forced pipeline. Use `$rd-research` when external evidence is needed; it is a recommended companion for feasibility studies, technical proposals, standards work, and fact-dependent reviews, not a mandatory first step for every task.
+
+Each skill includes output and trigger-boundary cases under `evals/`. `rd-review` keeps its common framework in `SKILL.md` and loads only the selected document-mode checklist from `references/`. Shared skill bodies use neutral `rd-*` identifiers; Codex examples use `$rd-*`, while explicit Cursor and Claude Code invocation uses `/rd-*`.
 
 ## Cursor Adapter
 

@@ -1,14 +1,12 @@
 ---
 name: rd-requirement
 description: >-
-  Use when analyzing user needs, structuring requirements, writing PRDs, SRS
-  documents, or requirement traceability materials. Use when raw user
-  statements, meeting notes, stakeholder feedback, or business scenarios need
-  to be structured, prioritized, and made verifiable. Do not use for solution
-  design, feasibility studies, detailed design, or code implementation.
+  用于把原始用户需求、会议纪要、干系人反馈或业务场景转化为 PRD、SRS、
+  结构化需求或追踪材料。当需求需要澄清、排序、划定边界并形成可验证表述时使用。
+  不用于可行性结论、技术方案、详细设计、独立文档评审或代码实现。
 ---
 
-# $rd-requirement
+# rd-requirement
 
 将用户原始诉求转化为**结构化、可追溯、可验证的需求文档**。
 
@@ -25,7 +23,9 @@ description: >-
 
 - 区分用户原始表述和结构化需求，保留原始表述不篡改意图
 - 识别隐含假设，显式列出
-- 对影响决策的模糊点提问确认；低风险假设可显式标注后继续
+- 先从用户提供材料和项目中核实可查事实，再向用户提问
+- 只询问需要用户决定或会阻塞决策的模糊点；高影响决策每次处理一个分支，低风险假设可显式标注后继续
+- 识别含义过载或相互冲突的领域术语，提出规范术语，但不得编造业务含义
 - 使用 5W1H 框架（Who / What / Why / When / Where / How）覆盖需求维度
 
 ### 2. 需求分类与结构化
@@ -78,26 +78,27 @@ description: >-
 ## 规范注入检查
 
 执行前检查：
-- 项目 AGENTS.md 中是否有需求规范模板要求
+- 适用的项目说明、需求模板和规则
 - 是否有已固化的产品标准或质量属性基线
 - 已有需求文档的格式和命名约定
 - 是否有术语表、干系人清单、评审 checklist 或标准术语约束
 
-## MCP 工具使用
+## 工具选择
 
-- **Context7**：查询类似产品的需求模式和最佳实践
-- **Sequential Thinking**：复杂需求拆解和依赖分析
-- **DeepWiki**：参考开源项目的需求组织方式
+- 外部检索前先检查用户提供材料和本地项目来源
+- 法律、标准、政策、外部接口或其他证据会实质影响需求时，使用 `rd-research`
+- 只使用已配置工具，优先一手来源；仅在核实当前库或 API 接口事实时使用文档检索能力
+- 无法检索时标记证据缺口，不得据此编造需求
 
 ## 质量门禁
 
 交付前核查：
 
-- [ ] 核心场景 100% 覆盖
+- [ ] 所有已识别且纳入范围的核心场景均已覆盖，并可追踪到来源或决策
 - [ ] 每项功能需求有验收标准
 - [ ] 优先级已标注，P0 需求无遗漏
 - [ ] 假设和排除项已明确列出
-- [ ] 需求可验证（不存在无法测试的需求）
+- [ ] 每项需求都有验收方法，或已明确标记为未决并给出核验动作
 - [ ] 术语、干系人角色、业务规则一致
 - [ ] 影响决策的模糊点已解决或单独列出
 - [ ] 需求可追溯到用户原始表述或被引用资料

@@ -11,7 +11,7 @@
 
 ## Cursor 官方文档基线
 
-已于 2026-05-29 核查：
+已于 2026-07-10 核查：
 
 - [Rules](https://cursor.com/docs/context/rules)：项目规则位于 `.cursor/rules`，支持 `.md` 和 `.mdc`；`.mdc` frontmatter 可声明 `description`、`globs` 等元数据。
 - [Skills](https://cursor.com/docs/skills)：Agent Skills 是可版本化的能力包，可包含脚本、模板和参考资料。

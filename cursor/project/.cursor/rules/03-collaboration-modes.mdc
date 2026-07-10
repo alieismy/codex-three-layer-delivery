@@ -11,7 +11,7 @@ Select the collaboration mode based on document risk, ambiguity, authority, and 
 |---|---|---:|---:|
 | AI First | Template-based PRD sections, review tables, glossary cleanup, structured summaries | 20% review | 80% drafting |
 | Human First | Business scope decisions, architecture trade-offs, standards authority, approval conclusions | 70% decision | 30% analysis |
-| Pair Mode | Feasibility analysis, proposal comparison, detailed design, clause-level standards review | 50% | 50% |
+| Pair Mode | Feasibility analysis, proposal comparison, detailed design, clause-level standards work | 50% | 50% |
 
 Default to Pair Mode when the work has business, compliance, standards, or architecture consequences.
 

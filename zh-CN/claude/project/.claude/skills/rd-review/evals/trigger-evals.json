@@ -1,0 +1,1 @@
+[{"query":"评审这份详细设计，给问题分级并判断是否可以通过。","should_trigger":true},{"query":"依据证据审计这份可研报告并给出评审结论。","should_trigger":true},{"query":"把这些标准条款重写为规范性表述。","should_trigger":false},{"query":"根据需求创建新的概要架构方案。","should_trigger":false}]

@@ -2,7 +2,7 @@
 
 The primary target of this repository is Codex. Claude Code support is provided as an adapter layer using Claude Code's native files.
 
-This adapter follows Anthropic's documented Claude Code carriers for [memory](https://docs.anthropic.com/en/docs/claude-code/memory), [settings](https://docs.anthropic.com/en/docs/claude-code/settings), and [skills](https://docs.anthropic.com/en/docs/claude-code/skills).
+This adapter follows Anthropic's Claude Code documentation for [memory](https://code.claude.com/docs/en/memory), [settings](https://code.claude.com/docs/en/settings), and [skills](https://code.claude.com/docs/en/skills), checked on 2026-07-10.
 
 ## Current Status
 
@@ -13,7 +13,10 @@ claude/
   global/CLAUDE.md
   project/CLAUDE.md
   project/.claude/settings.json
-  project/.claude/skills/rd-*/SKILL.md
+  project/.claude/skills/rd-*/
+    SKILL.md
+    evals/*.json
+    references/*.md  # when required
 ```
 
 This adapter maps the same document-delivery three-layer model to Claude Code:

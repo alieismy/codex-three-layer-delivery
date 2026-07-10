@@ -1,0 +1,1 @@
+[{"query":"检索最新官方 API 行为，并形成有来源的设计证据笔记。","should_trigger":true},{"query":"为这些政策和标准结论收集权威证据。","should_trigger":true},{"query":"在不涉及外部事实的情况下润色这段文字。","should_trigger":false},{"query":"根据已核实输入编写完整详细设计。","should_trigger":false}]
