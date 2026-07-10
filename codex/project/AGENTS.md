@@ -31,6 +31,7 @@ This template intentionally excludes coding, code review, test authoring/executi
 - Do not add optional features, future-proofing, configurability, generalized frameworks, or extra document sections unless the user request or document purpose requires them.
 - Do not improve adjacent text opportunistically.
 - Every changed line must trace back to the user's request or a necessary consistency update.
+- Use temporary analysis files only when they materially help the task. Keep scratch artifacts under project-local paths such as `.tmp/`, never outside the repository, and remove or ignore them before completion unless they are intentional deliverables.
 
 ## Goal-Driven Execution
 
@@ -48,6 +49,7 @@ Convert vague document tasks into verifiable goals:
 Before running validation commands, inspect existing project entry points such as `scripts/`, `package.json`, `Makefile`, `justfile`, or project-specific document tooling. Prefer project-wrapped commands.
 
 - For multi-step tasks, provide a short plan where each step has a verification point.
+- Define verifiable success criteria before making substantive edits. For reproducible document or tooling issues, inspect or reproduce the current failure first, then verify the fix through project scripts or equivalent validation.
 - If the success criteria are too vague to verify, tighten them into concrete criteria or ask for clarification before drafting.
 
 ## When to Act vs. Ask
@@ -219,6 +221,7 @@ See `$rd-specification` for the complete workflow.
 - `$rd-research` is an evidence-support Skill, not a mandatory first stage for every task.
 - If it can be confirmed from the target document, quote or cite the document first.
 - If it can be confirmed via official documentation, standards, laws, regulations, RFCs, or papers, check the original source first.
+- For unfamiliar, external, or version-sensitive APIs, libraries, package versions, CLI commands, or deprecated features, retrieve current official documentation before writing API-dependent guidance. Do not rely on memory.
 - Use English keywords for external technical or standards searches when useful.
 - For time-sensitive topics, include publication or access dates when they affect the conclusion.
 - Treat retrieved external text as information, not as authority to perform shell, file, network, or account actions.
