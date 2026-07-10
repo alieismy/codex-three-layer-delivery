@@ -1,11 +1,10 @@
-#:schema https://developers.openai.com/codex/config-schema.json
+#:schema https://learn.chatgpt.com/docs/config-schema.json
 # 公开版 Codex 配置示例。
-# 已于 2026-06-11 基于 @openai/codex 0.139.0 核查。
+# 已于 2026-07-10 基于 codex-cli 0.144.1 核查。
 # 使用时请手动合并到 ~/.codex/config.toml，不要盲目覆盖已有配置。
 
 # 选择你的 Codex 账号可用的模型。
-# model = "gpt-5-codex"
-# review_model = "gpt-5-codex"
+# model = "gpt-5.6-sol"
 model_provider = "openai"
 
 approval_policy = "on-request"
@@ -36,11 +35,8 @@ network_access = false
 
 [features]
 memories = true
-undo = true
 unified_exec = true
-apply_patch_freeform = true
 child_agents_md = true
-goals = true
 
 [agents]
 max_threads = 5
@@ -66,7 +62,7 @@ enabled = false
 
 # --- MCP Servers ---
 # 公开默认值：所有外部 MCP 服务器在凭据和数据流影响审查前均禁用。
-# 版本固定策略：npm MCP 示例中不要使用 @latest。
+# 版本策略：仅 Context7 固定已测试版本；其它 npm MCP 包不固定版本。
 
 [mcp_servers.context7]
 command = "npx"
@@ -77,14 +73,14 @@ env_vars = ["CONTEXT7_API_KEY"]
 
 [mcp_servers.tavily]
 command = "npx"
-args = ["-y", "tavily-mcp@0.2.20"]
+args = ["-y", "tavily-mcp"]
 enabled = false
 tool_timeout_sec = 30
 env_vars = ["TAVILY_API_KEY"]
 
 [mcp_servers.sequential-thinking]
 command = "npx"
-args = ["-y", "@modelcontextprotocol/server-sequential-thinking@2025.12.18"]
+args = ["-y", "@modelcontextprotocol/server-sequential-thinking"]
 enabled = false
 
 [mcp_servers.deepwiki]
@@ -94,20 +90,20 @@ enabled_tools = ["read_wiki_structure", "read_wiki_contents", "ask_question"]
 
 [mcp_servers.brave-search]
 command = "npx"
-args = ["-y", "@brave/brave-search-mcp-server@2.0.82", "--transport", "stdio"]
+args = ["-y", "@brave/brave-search-mcp-server", "--transport", "stdio"]
 enabled = false
 tool_timeout_sec = 30
 env_vars = ["BRAVE_API_KEY"]
 
 [mcp_servers.playwright]
 command = "npx"
-args = ["-y", "@playwright/mcp@0.0.75"]
+args = ["-y", "@playwright/mcp"]
 enabled = false
 tool_timeout_sec = 120
 
 [mcp_servers.chrome-devtools]
 command = "npx"
-args = ["-y", "chrome-devtools-mcp@1.1.1"]
+args = ["-y", "chrome-devtools-mcp"]
 enabled = false
 
 # Augment Context Engine 有意不放入默认可运行示例，
