@@ -1,6 +1,6 @@
 #:schema https://learn.chatgpt.com/docs/config-schema.json
 # 公开版 Codex 配置示例。
-# 已于 2026-07-10 基于 codex-cli 0.144.1 核查。
+# 已于 2026-07-25 基于 codex-cli 0.145.0 核查。
 # 使用时请手动合并到 ~/.codex/config.toml，不要盲目覆盖已有配置。
 
 # 选择你的 Codex 账号可用的模型。
@@ -62,11 +62,12 @@ enabled = false
 
 # --- MCP Servers ---
 # 公开默认值：所有外部 MCP 服务器在凭据和数据流影响审查前均禁用。
+# 在 Codex App 中优先使用 Context7/Tavily App，避免与独立 MCP 重复。
 # 版本策略：仅 Context7 固定已测试版本；其它 npm MCP 包不固定版本。
 
 [mcp_servers.context7]
 command = "npx"
-args = ["-y", "@upstash/context7-mcp@2.3.0"]
+args = ["-y", "@upstash/context7-mcp@3.2.5"]
 enabled = false
 tool_timeout_sec = 60
 env_vars = ["CONTEXT7_API_KEY"]
@@ -78,22 +79,20 @@ enabled = false
 tool_timeout_sec = 30
 env_vars = ["TAVILY_API_KEY"]
 
-[mcp_servers.sequential-thinking]
-command = "npx"
-args = ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
 enabled = false
+enabled_tools = ["search_openai_docs", "fetch_openai_doc", "get_openapi_spec"]
+
+[mcp_servers.microsoft-learn]
+url = "https://learn.microsoft.com/api/mcp"
+enabled = false
+enabled_tools = ["microsoft_docs_search", "microsoft_docs_fetch", "microsoft_code_sample_search"]
 
 [mcp_servers.deepwiki]
 url = "https://mcp.deepwiki.com/mcp"
 enabled = false
 enabled_tools = ["read_wiki_structure", "read_wiki_contents", "ask_question"]
-
-[mcp_servers.brave-search]
-command = "npx"
-args = ["-y", "@brave/brave-search-mcp-server", "--transport", "stdio"]
-enabled = false
-tool_timeout_sec = 30
-env_vars = ["BRAVE_API_KEY"]
 
 [mcp_servers.playwright]
 command = "npx"
@@ -106,6 +105,5 @@ command = "npx"
 args = ["-y", "chrome-devtools-mcp"]
 enabled = false
 
-# Augment Context Engine 有意不放入默认可运行示例，
-# 因为 relay URL 和 token 处理取决于具体部署。
-# 如需启用，请使用环境变量，不要提交私有 relay URL。
+# Sequential Thinking、Brave Search 和第三方 ACE relay 有意不放入默认示例：
+# 前两者与现有推理/检索能力重复；后者需要单独完成代码数据流和信任边界审查。
