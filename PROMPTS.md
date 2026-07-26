@@ -19,6 +19,9 @@
 9. [Design Review](#9-design-review-rd-review)
 10. [Standards Work](#10-standards-work-rd-specification)
 11. [Standards / Document Review](#11-standards--document-review-rd-review)
+12. [Professional Technical Writing](#12-professional-technical-writing-rd-writing)
+13. [Research or Article Review](#13-research-or-article-review-rd-review)
+14. [Multi-Document Delivery Orchestration](#14-multi-document-delivery-orchestration-rd-delivery)
 
 ---
 
@@ -99,7 +102,7 @@ Use $rd-research
 {Decision, document section, standard clause, technology choice, policy question, or review claim that needs evidence}
 
 ## Downstream Use
-This evidence will support: {rd-feasibility / rd-solution / rd-specification / rd-design / rd-review}
+This evidence will support: {rd-feasibility / rd-solution / rd-specification / rd-design / rd-writing / rd-review}
 
 ## Required Source Types
 - Target project documents: {files or excerpts}
@@ -111,6 +114,8 @@ This evidence will support: {rd-feasibility / rd-solution / rd-specification / r
 ## Expected Output
 Produce a source table with authority, date/version context, relevance, confidence, conflicts, gaps, and citation-ready notes. Do not write the final downstream document yet.
 ```
+
+Choose one primary research mode: {Evidence Support / Technology and Open Source / Configuration and Infrastructure / Fact-check and Argument Evidence}. For technology and configuration work, include exact product form, version, platform, environment, reproducibility status, security/privacy boundary, and rollback or exit-path evidence.
 
 ---
 
@@ -376,9 +381,75 @@ Use $rd-review, Standards Review mode
 
 ---
 
+## 12. Professional Technical Writing (`$rd-writing`)
+
+```text
+Use $rd-writing, {Technical Article / Evidence Report / Decision Brief} mode
+
+## Audience and Purpose
+{real readers, publication or decision purpose, expected depth and length}
+
+## Verified Inputs
+{source files, evidence package, approved claims, date/version boundary}
+
+## Central Question or Candidate Conclusion
+{what the document must explain or help decide; treat a preferred conclusion as a proposition to test}
+
+## Required Output
+Produce audience-ready prose with traceable claims, the strongest material counterargument, explicit limitations, and a conclusion that stays within the evidence.
+```
+
+---
+
+## 13. Research or Article Review (`$rd-review`)
+
+```text
+Use $rd-review, {Research Review / Article Review} mode
+
+## Review Target
+{research report, tool evaluation, technical article, white paper, public-affairs article, or fact-check report}
+
+## Review Basis
+{source materials, date/version boundary, intended decision or publication standard}
+
+## Review Focus
+- Claim-to-source accuracy and source independence
+- Reproducibility, counterevidence, and alternative explanations
+- Causal and quantitative reasoning
+- Audience fit and publication risk after factual and logical integrity
+
+Lead with location-specific, severity-graded findings and give an approval or publication verdict.
+```
+
+---
+
+## 14. Multi-Document Delivery Orchestration (`$rd-delivery`)
+
+Use this only when the user explicitly wants an end-to-end, multi-document, phased, or cross-session engagement. Route a single deliverable directly to its specialist Skill.
+
+```text
+Use $rd-delivery
+
+## Engagement Goal and Authority
+{decision or delivery goal, audience, scope, exclusions, success criteria, owner, approval authority, date/version boundary}
+
+## Known Source-of-Truth Artifacts
+{project guidance, baselines, PRD, evidence, feasibility, decisions, designs, standards, reviews, or existing task record}
+
+## Required Deliverables
+{only the artifacts needed; do not force every rd-* stage}
+
+## Expected Output
+Create a delivery charter, artifact/dependency map, decision-complete work packages with blocking edges, checkable phase gates, explicit artifact states, and a durable handoff that does not depend on chat history.
+```
+
+---
+
 ## Combined Usage Example
 
 ```text
+# For an explicitly requested multi-document or cross-session engagement, use $rd-delivery to coordinate only the required steps below.
+
 # Step 1: Requirements Analysis
 Use $rd-requirement
 Structure the user's original needs into a PRD with priorities, assumptions, exclusions, and acceptance criteria.
@@ -390,6 +461,10 @@ Review the PRD for completeness, verifiability, consistency, and boundary clarit
 # Optional: Research Evidence
 Use $rd-research
 Collect and validate external evidence when feasibility, solution, standards, design, or review conclusions depend on literature, standards, policy, vendor documentation, cost assumptions, maturity claims, or industry cases.
+
+# Optional: Professional Writing
+Use $rd-writing
+Turn verified evidence into a technical article, evidence report, or decision brief when audience-ready narrative is the actual deliverable.
 
 # Step 3: Feasibility Analysis
 Use $rd-feasibility
@@ -423,7 +498,7 @@ Draft or review standard/specification clauses with clause-level evidence and no
 | Tip | Description |
 |-----|-------------|
 | Preserve raw source text | Keep the user's original requirement, clause, or document text intact before structuring it |
-| Specify document type | PRD, feasibility study, technical proposal, high-level design, detailed design, standard, or review report |
+| Specify document type | PRD, feasibility study, technical proposal, high-level design, detailed design, standard, technical article, evidence report, decision brief, or review report |
 | Provide upstream references | Link PRD -> feasibility -> proposal -> detailed design -> review for traceability |
 | Use research selectively | Invoke `$rd-research` only when external evidence materially affects the downstream document or review |
 | Demand evidence separation | Ask the agent to separate facts, assumptions, estimates, inferences, and unknowns |

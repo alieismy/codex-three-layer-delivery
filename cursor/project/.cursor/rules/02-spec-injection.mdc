@@ -40,4 +40,5 @@ Before requirements, feasibility, design, standards, or review work:
 - `README.md` is for humans: what the project is, why it exists, and how to start.
 - Avoid duplicating the same content between rules and README.
 - Before adding a rule, search for an equivalent existing rule and tighten it instead of duplicating it.
+- Add a durable rule only when it traces to an explicit project requirement, a recurring observed failure, or a material project risk, and state how compliance can be reviewed or verified.
 - Skill frontmatter `description` is the trigger summary. It should start with trigger conditions and stay short.

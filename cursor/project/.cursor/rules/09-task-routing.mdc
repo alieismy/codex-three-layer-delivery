@@ -1,11 +1,11 @@
 ---
-description: Task routing for the seven independent rd-* document skills and their authoring-to-review relationships.
+description: Task routing for eight specialist rd-* skills, one explicit delivery orchestrator, and their authoring-to-review relationships.
 alwaysApply: true
 ---
 
 # Task Routing
 
-The seven `rd-*` document skills can be used independently and in any order. They are not a forced pipeline.
+The eight specialist `rd-*` research and document skills can be used independently and in any order. They are not a forced pipeline. `/rd-delivery` is an explicit orchestrator for multi-artifact work, not a mandatory first stage.
 
 ## Available Skills
 
@@ -13,11 +13,13 @@ The seven `rd-*` document skills can be used independently and in any order. The
 |---|---|---|
 | `/rd-requirement` | Structured requirements / PRD / SRS | Requirements analysis and product/design input |
 | `/rd-feasibility` | Feasibility study / feasibility analysis report | Project feasibility and decision support |
-| `/rd-research` | Evidence package / source notes | Literature, standards, policy, vendor, market, and technical evidence for downstream documents |
+| `/rd-research` | Evidence package / research notes / fact-check matrix | Standards, open source, AI tools, configuration behavior, and contested claims |
 | `/rd-solution` | Technical proposal / high-level design / construction plan | System architecture and solution documentation |
 | `/rd-design` | Detailed design document | Interface, data, flow, error, security, and concurrency design |
 | `/rd-specification` | Standards/specification draft or clause revision | Standards formulation, revision, and normative wording work |
-| `/rd-review` | Document review findings | Requirements, feasibility, proposal, design, and standards review |
+| `/rd-writing` | Technical article / evidence report / decision brief | Audience-ready, source-backed professional writing |
+| `/rd-review` | Independent review findings | Engineering documents, research reports, standards, and article review |
+| `/rd-delivery` | Delivery charter / artifact map / phase gates / handoff | Explicit multi-stage and cross-session orchestration |
 
 ## Authoring To Review Mapping
 
@@ -28,8 +30,9 @@ The seven `rd-*` document skills can be used independently and in any order. The
 | `/rd-solution` to proposal / high-level design / construction plan | `/rd-review` | Proposal Review |
 | `/rd-design` to detailed design | `/rd-review` | Design Review |
 | `/rd-specification` to standard / specification / clause draft | `/rd-review` | Standards Review |
+| `/rd-writing` to technical article / evidence report / decision brief | `/rd-review` | Article Review |
 
-`/rd-research` is not part of the authoring-to-review chain. Use it as evidence input for `/rd-feasibility`, `/rd-solution`, `/rd-specification`, `/rd-design`, or fact-dependent `/rd-review`.
+`/rd-research` is not part of the authoring-to-review chain. Use it as evidence input for `/rd-feasibility`, `/rd-solution`, `/rd-specification`, `/rd-design`, `/rd-writing`, or fact-dependent `/rd-review`. Research reports and technology evaluations can themselves use Research Review mode. Use `/rd-delivery` only when the user explicitly requests cross-artifact orchestration, phase gates, or a durable handoff.
 
 ## Invocation Guidance
 
@@ -38,7 +41,9 @@ The seven `rd-*` document skills can be used independently and in any order. The
 - For reviews, lead with severity-graded findings.
 - For standards work, cite exact clauses and mark missing evidence as requiring human verification.
 - For feasibility work, separate facts, assumptions, estimates, and unknowns.
-- Use `/rd-research` when external evidence materially affects a feasibility, solution, standards, design, or review conclusion.
+- Use `/rd-research` for external or contested evidence, `/rd-writing` for audience-ready narrative, and `/rd-review` for an independent verdict.
+- Use `/rd-delivery` only for explicit multi-document or cross-session coordination; route a single deliverable directly.
+- In `/rd-delivery`, keep need and intent, current-state architecture, change design, decisions, evidence, and review findings in distinct authority layers. Distinguish machine checks from human decisions, record authorized waivers, invalidate affected reviews after material upstream changes, and reject stale or repository-escaping authoritative pointers.
 
 ## Parallel Work
 

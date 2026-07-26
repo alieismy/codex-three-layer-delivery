@@ -1,6 +1,6 @@
 #:schema https://learn.chatgpt.com/docs/config-schema.json
 # 公开版 Codex 配置示例。
-# 已于 2026-07-25 基于 codex-cli 0.145.0 核查。
+# 已于 2026-07-26 基于 codex-cli 0.145.0 核查。
 # 使用时请手动合并到 ~/.codex/config.toml，不要盲目覆盖已有配置。
 
 # 选择你的 Codex 账号可用的模型。
@@ -36,10 +36,9 @@ network_access = false
 [features]
 memories = true
 unified_exec = true
-child_agents_md = true
 
 [agents]
-max_threads = 5
+max_concurrent_threads_per_session = 5
 max_depth = 1
 
 [agents.default]
@@ -64,6 +63,7 @@ enabled = false
 # 公开默认值：所有外部 MCP 服务器在凭据和数据流影响审查前均禁用。
 # 在 Codex App 中优先使用 Context7/Tavily App，避免与独立 MCP 重复。
 # 版本策略：仅 Context7 固定已测试版本；其它 npm MCP 包不固定版本。
+# Context7 3.2.5 要求 Node.js >= 20.18.1。
 
 [mcp_servers.context7]
 command = "npx"

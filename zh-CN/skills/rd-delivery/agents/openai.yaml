@@ -1,0 +1,6 @@
+interface:
+  display_name: "文档交付编排"
+  short_description: "编排多阶段多文档交付、制品追踪、阶段门禁与跨会话交接"
+  default_prompt: "使用 $rd-delivery 编排这项明确的多文档任务，建立制品追踪、阶段门禁和可持久化交接。"
+policy:
+  allow_implicit_invocation: false

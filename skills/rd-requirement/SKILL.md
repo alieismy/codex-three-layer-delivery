@@ -1,11 +1,11 @@
 ---
 name: rd-requirement
 description: >-
-  Use when turning raw user needs, meeting notes, stakeholder feedback, or
-  business scenarios into a PRD, SRS, structured requirements, or traceability
-  material. Apply when requirements must be clarified, prioritized, bounded,
-  and made verifiable. Do not use for feasibility conclusions, solution or
-  detailed design, independent document review, or implementation.
+  Turn raw needs, meeting notes, stakeholder feedback, or business scenarios
+  into a PRD, SRS, structured requirements, or traceability material. Use when
+  scope, actors, rules, constraints, priorities, and acceptance must be made
+  explicit and verifiable, including product, system, infrastructure, or AI-tool
+  requirements. Do not use for feasibility conclusions, design, review, or implementation.
 ---
 
 # rd-requirement
@@ -41,6 +41,7 @@ Classify and organize along the following dimensions:
 | Constraints | Tech stack, platform, regulations, budget, timeline |
 | Assumptions | Unconfirmed premises that affect design |
 | Exclusions | Items explicitly out of scope |
+| Operating context | environment, topology, user capability, support, migration, and lifecycle constraints |
 
 For document-centered projects, also classify:
 
@@ -68,6 +69,7 @@ Attach verifiable acceptance criteria to each functional requirement:
 - Include normal path, exception path, boundary condition, and review/approval evidence
 - For non-functional requirements, define measurable thresholds or explicit evaluation methods
 - For policy or document requirements, define the review criterion and evidence needed for acceptance
+- For installation, configuration, migration, or integration requirements, define the observable end state, verification method, failure behavior, and rollback expectation without prescribing an unapproved implementation
 
 ### 5. Feasibility Pre-Assessment
 
@@ -76,6 +78,15 @@ Perform a preliminary feasibility judgment on key requirements:
 - Feasibility signal: whether the requirement appears feasible, conditionally feasible, or uncertain
 - Risk flagging: identify requirements that need feasibility analysis, stakeholder confirmation, or standard/legal verification
 - Dependency flagging: identify upstream decisions, external systems, approvals, and standards references
+
+### 6. Requirements Convergence Pass
+
+Before delivery, rewrite the structured requirements once as a lossless authoritative baseline:
+
+- Collapse duplicated facts, rules, and scenarios into one owning section
+- Remove resolved questions and temporary elicitation notes after preserving their decisions
+- Preserve every requirement ID, source anchor, decision, constraint, priority, and acceptance mapping
+- Re-read the document end to end and reopen any contradiction, missing acceptance method, or unresolved blocking decision
 
 ## Spec Injection Check
 
@@ -101,9 +112,11 @@ Pre-delivery checklist:
 - [ ] Priorities labeled, no P0 requirements missing
 - [ ] Assumptions and exclusions explicitly listed
 - [ ] Every requirement has an acceptance method, or is explicitly marked as unresolved with a verification action
+- [ ] Proposed products, models, vendors, tools, or configurations are separated from the underlying need unless approved as constraints
 - [ ] Key terms, stakeholder roles, and business rules are consistent
 - [ ] Decision-critical ambiguity is either resolved or explicitly listed
 - [ ] Requirements are traceable to original user statements or cited source material
+- [ ] The final convergence pass removed duplication without losing IDs, source anchors, decisions, or acceptance mappings
 
 ## Out of Scope
 

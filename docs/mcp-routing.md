@@ -2,15 +2,18 @@
 
 MCP servers should be enabled for specific evidence or workflow needs, not as a broad default.
 
-Use `$rd-research` as the Skill-level wrapper when a task needs source collection, literature review, standards metadata checks, policy research, vendor documentation validation, cost assumptions, or technical maturity evidence.
+Use `$rd-research` as the Skill-level wrapper when a task needs source collection, literature review, standards or policy checks, open-source or AI-tool evaluation, repository evidence, system-configuration investigation, public-fact verification, cost assumptions, or technical-maturity evidence.
 
 ## Routing Table
 
 | Need | Preferred route | Notes |
 |---|---|---|
-| Evidence package or source validation | `$rd-research` plus the narrowest source tool | Use before or alongside feasibility, solution, standards, or fact-dependent review work. |
+| Evidence package or source validation | `$rd-research` plus the narrowest source tool | Use before or alongside feasibility, solution, standards, writing, or fact-dependent review work. |
 | Library, framework, or SDK documentation | Context7 | Enable when official docs or examples are needed. |
 | Current web research | Codex built-in web search or Tavily | Use current sources for time-sensitive facts. |
+| Open-source or repository research | Local source inspection or GitHub/DeepWiki | Use a repository as evidence for that repository, not as authority for general best practice. |
+| System, VPN, VPS, proxy, or configuration research | Local state/logs plus current official documentation and targeted web search | Establish environment, topology, threat boundary, validation evidence, and rollback before recommending changes. |
+| Article fact-checking | Primary records plus independent current sources | Decompose claims, distinguish event/publication dates, and test counterevidence and alternative explanations. |
 | Complex multi-option reasoning | Native model reasoning first; Sequential Thinking on demand | Enable only when an explicit reasoning trace tool is useful. |
 | Open-source project architecture | DeepWiki on demand | Use for public GitHub projects. |
 | Independent search index | Brave Search on demand | Requires API key and account setup. |
@@ -25,3 +28,4 @@ Use `$rd-research` as the Skill-level wrapper when a task needs source collectio
 - Do not hardcode private relay URLs.
 - Keep external services disabled by default unless the repository clearly documents their data flow.
 - Record verified package versions in `docs/compatibility.md`.
+- Skills define repeatable workflows; MCP, apps, and web tools provide current or private evidence. Do not encode one vendor MCP as the only route unless the Skill truly depends on it.

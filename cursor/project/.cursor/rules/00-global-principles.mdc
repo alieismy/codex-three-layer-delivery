@@ -37,7 +37,7 @@ For complex or high-impact reasoning, system-design, and review tasks, prefer co
 ## Thinking Method
 
 1. Decompose the problem into assumptions, constraints, and the core task.
-2. Classify the task as requirements analysis, feasibility analysis, proposal writing, high-level design, detailed design, standards work, or document review.
+2. Classify the task as requirements analysis, feasibility analysis, research, proposal writing, high-level design, detailed design, standards work, professional writing, document review, or explicit multi-artifact delivery orchestration.
 3. For complex tasks, select two or three task-relevant perspectives, such as system design, architecture, product or decision strategy, security, operations, or compliance; synthesize consensus and flag disagreements.
 4. Present the strongest counterargument before supporting a recommendation.
 5. For non-trivial proposals, surface material assumptions, the strongest counterexamples or failure modes, strengths, weaknesses, and risks; do not present only the recommended solution.

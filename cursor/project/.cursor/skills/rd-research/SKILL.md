@@ -1,99 +1,104 @@
 ---
 name: rd-research
 description: >-
-  Use when collecting, validating, and structuring external or project evidence
-  for requirements, feasibility, solution, design, standards, or review work.
-  Apply when literature, policy, standards, vendor documentation, technical
-  maturity, cost assumptions, or industry cases materially affect a conclusion.
-  Do not use as a mandatory first step or as a substitute for unavailable evidence.
+  Research and verify decision-critical claims using project evidence and
+  inspected primary sources. Use for standards or policy evidence, open-source
+  and AI-tool evaluation, API or product facts, network or system configuration
+  research, literature review, and technical or public-affairs fact-checking.
+  Produce traceable evidence, not an unsupported answer or final design.
 ---
 
 # rd-research
 
-Produce a **traceable evidence package** for downstream document-delivery outputs and reviews.
+Produce a **traceable, decision-oriented evidence package** that downstream documents and reviews can audit.
 
 ## Deliverables
 
-- Research questions and decision dependencies
-- Search strategy and query log when external search is used
-- Evidence/source table with authority, date, relevance, and confidence
-- Key findings, conflicts, gaps, and assumptions
-- Citation-ready notes for downstream documents
-- Recommendation on which downstream Skill should use the evidence
+- Research question, decision dependency, scope, and stopping condition
+- Search strategy and query log when external retrieval is used
+- Claim-evidence matrix with authority, date/version, applicability, and confidence
+- Key findings, conflicts, gaps, assumptions, and falsifying evidence
+- Citation-ready notes and a recommended downstream handoff
 
-## Execution Steps
+## Select a Research Mode
 
-### 1. Research Scope
+Read only the reference needed for the target:
 
-- State the decision or document section that depends on evidence
-- Convert broad topics into concrete research questions
-- Separate required evidence from optional background material
-- Identify whether the evidence supports `rd-feasibility`, `rd-solution`, `rd-specification`, `rd-design`, `rd-requirement`, or `rd-review`
+| Mode | Use for | Reference |
+|------|---------|-----------|
+| Evidence support | laws, standards, papers, vendor facts, cost or market evidence for another `rd-*` Skill | use the common workflow below |
+| Technology and open source | repositories, libraries, AI Coding tools, LLM products, protocols, maintainability or adoption comparisons | [technology-research.md](references/technology-research.md) |
+| Configuration and infrastructure | Windows/Linux, VPN, VPS, proxy, network, security, installation or configuration behavior | [configuration-research.md](references/configuration-research.md) |
+| Fact-check and argument evidence | technical articles, public-affairs articles, timelines, quotations, causal or quantitative claims | [fact-check-research.md](references/fact-check-research.md) |
 
-### 2. Source Hierarchy
+If the target spans modes, choose one primary mode and load a second reference only for a material secondary question.
 
-Prefer sources in this order:
+## Common Workflow
 
-1. User-provided target documents and authoritative project materials
-2. Binding laws, regulations, standards, and official policy documents
-3. Official vendor, framework, protocol, or product documentation
-4. Peer-reviewed papers, technical reports, and standards-body materials
-5. Industry case studies, reputable analyst reports, and public references
-6. Expert inference, explicitly labeled as inference
+### 1. Frame the Research
 
-Do not cite a source as evidence unless the relevant content has been inspected.
+- State the decision or document section that depends on the result
+- Decompose broad topics into answerable claims or research questions
+- Record scope, jurisdiction, relevant date/version, required precision, and stopping condition
+- Separate facts to retrieve from decisions that require user or stakeholder authority
+- Identify whether the evidence supports `rd-requirement`, `rd-feasibility`, `rd-solution`, `rd-design`, `rd-specification`, `rd-writing`, or `rd-review`
 
-### 3. Search and Collection
+### 2. Use a Source Hierarchy
 
-- Prefer English keywords for broad technical and standards searches; present final output in the user's requested language
-- Record the main query intent, source type, and retrieval date for volatile facts
-- Use multiple source types for important claims instead of relying on one result
-- For paywalled or inaccessible standards, only cite metadata that was actually verified and mark clause content as unavailable
+Prefer the source closest to ownership of the claim:
 
-### 4. Source Evaluation
+1. User-provided target material, system observations, logs, source code, and authoritative project records
+2. Binding laws, regulations, standards, official policy, and first-party statements or datasets
+3. Official product, vendor, framework, protocol, API, and repository documentation
+4. Original papers, technical reports, issue/commit/release history, and standards-body material
+5. High-quality independent engineering analysis or reporting for context and cross-checking
+6. Expert inference, explicitly labeled and never substituted for missing evidence
 
-Evaluate each useful source:
+Forum, social-media, search-snippet, AI-generated, and aggregator content may supply leads but cannot alone establish a material conclusion.
 
-| Dimension | Check Content |
-|-----------|---------------|
-| Authority | official / standards body / vendor / academic / industry / media |
-| Currency | publication date, version, latest revision, deprecation status |
-| Relevance | direct evidence / indirect support / background only |
-| Reliability | primary source, secondary summary, conflict with other sources |
-| Applicability | jurisdiction, industry, system boundary, scenario fit |
-| Confidence | high / medium / low / unknown |
+### 3. Retrieve and Inspect
 
-### 5. Evidence Synthesis
+- Prefer English queries for broad technical research and present results in the requested language
+- Inspect the relevant source content before citing it; do not cite a search result or abstract as if the underlying claim was verified
+- Record retrieval date for volatile facts and exact version, edition, commit, jurisdiction, or environment when material
+- Seek independent corroboration for high-impact claims and actively search for disconfirming evidence
+- For inaccessible or paywalled material, report only verified metadata and mark unavailable content
 
-- Summarize findings in decision-oriented language
-- Mark conflicts between sources and explain which source should dominate
-- Distinguish facts, assumptions, estimates, interpretations, and recommendations
-- List evidence gaps and specific follow-up verification actions
-- Keep raw research separate from final document wording unless the user asks for a full document
+### 4. Evaluate Evidence
+
+Assess each material source for authority, currency, directness, independence, applicability, reproducibility, and conflict of interest. Map each conclusion to evidence and label it as fact, estimate, inference, judgment, or unknown.
+
+### 5. Synthesize and Hand Off
+
+- Answer each research question directly and state the evidence strength
+- Preserve disagreements and explain why one source should dominate, if justified
+- Separate observed behavior from documented behavior and both from recommendation
+- List evidence gaps, verification actions, and what would change the conclusion
+- For multi-stage work, maintain one canonical evidence package in the repository's established location and link supporting notes rather than scattering final claims across temporary files
+- Keep raw notes separate from publication-ready prose; use `rd-writing` for the final narrative and `rd-review` for an independent verdict
 
 ## Tool Selection
 
-- Use the narrowest configured capability that reaches the source owner: official documentation retrieval, current web search, repository inspection, or browser/PDF inspection
-- Prefer Context7 or an equivalent documentation retriever only for current framework, library, SDK, or API documentation
-- Use repository-oriented tools only for facts grounded in the inspected public repository, not as authority for general best practices
-- Use native reasoning for synthesis; optional reasoning tools must not replace inspected evidence
-- If a capability is unavailable, record the limitation and continue with the evidence that can be inspected
+- Use the narrowest configured capability that reaches the source owner: local inspection, official documentation retrieval, repository tools, current web search, or browser/PDF inspection
+- Use Context7 or an equivalent retriever for current library, framework, SDK, and API documentation; verify product, policy, pricing, and current-event claims with their owning sources
+- Use repository-oriented tools only for facts grounded in the inspected repository; README claims do not prove runtime behavior
+- Use native reasoning for synthesis; optional reasoning tools cannot replace evidence
+- When a capability is unavailable, record the limitation and continue only within the remaining evidence boundary
 
 ## Quality Gates
 
-Pre-delivery checklist:
-
-- [ ] Research questions and downstream document dependency are explicit
-- [ ] Important claims have inspected sources or are marked as assumptions
-- [ ] Source authority, currency, relevance, and confidence are visible
-- [ ] Volatile facts include retrieval date or version context when needed
-- [ ] Conflicting evidence is disclosed instead of flattened into one answer
-- [ ] Unsupported or inaccessible evidence is marked for human verification
-- [ ] No fabricated citations, standards clauses, market data, or vendor claims
+- [ ] Scope, decision dependency, mode, and stopping condition are explicit
+- [ ] Each material claim maps to inspected evidence or is labeled unverified
+- [ ] Volatile facts include date/version/environment context where needed
+- [ ] Primary and independent sources are distinguished; conflicts are preserved
+- [ ] Counterevidence and alternative explanations were actively tested for high-impact claims
+- [ ] Reproducibility limits, inaccessible evidence, and follow-up actions are explicit
+- [ ] Multi-stage work has one identifiable canonical evidence package rather than competing summaries
+- [ ] No fabricated citations, quotations, clauses, dates, versions, metrics, or behavior
 
 ## Out of Scope
 
-- Do not treat `rd-research` as a mandatory first step for every task
-- Do not write final PRDs, feasibility reports, solution documents, detailed designs, specifications, or review reports unless explicitly asked
-- Do not cite uninspected search snippets as confirmed facts
-- Do not invent dates, versions, legal requirements, standards clauses, cost figures, or benchmark results
+- Do not use `rd-research` as a mandatory first step for every task
+- Do not treat popularity, repository activity, a demo, or a vendor claim as proof of fitness
+- Do not produce a final PRD, feasibility report, design, standard, article, or independent approval verdict unless explicitly requested
+- Do not perform unauthorized access, destructive testing, deployment, or production change

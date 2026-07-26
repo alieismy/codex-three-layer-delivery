@@ -82,8 +82,8 @@ function Test-SkillFrontmatter {
         if ($isChinese -and $description -notmatch "[\u4e00-\u9fff]") {
             Add-Failure "Chinese skill description must contain Simplified Chinese trigger text: $($skill.FullName)"
         }
-        if (-not $isChinese -and -not $description.StartsWith("Use when")) {
-            Add-Failure "English skill description must front-load its trigger with 'Use when': $($skill.FullName)"
+        if (-not $isChinese -and $description -notmatch '\bUse (when|for)\b') {
+            Add-Failure "English skill description must state when or what target to use it for: $($skill.FullName)"
         }
 
         if (($content -split "\n").Count -gt 500) {
@@ -134,22 +134,67 @@ function Test-SkillEvals {
             continue
         }
 
-        if ($evals.skill_name -ne $skillDirectory.Name -or @($evals.evals).Count -lt 2) {
-            Add-Failure "Skill output evals must match the skill name and contain at least two cases: $evalsPath"
+        if ($evals.skill_name -ne $skillDirectory.Name -or @($evals.evals).Count -lt 3) {
+            Add-Failure "Skill output evals must match the skill name and contain at least three cases: $evalsPath"
         }
         foreach ($eval in @($evals.evals)) {
             if (-not $eval.prompt -or -not $eval.expected_output -or @($eval.assertions).Count -lt 1) {
                 Add-Failure "Each output eval needs a prompt, expected output, and assertions: $evalsPath"
             }
         }
-        if ($triggers.Count -lt 4 -or -not ($triggers.should_trigger -contains $true) -or -not ($triggers.should_trigger -contains $false)) {
-            Add-Failure "Trigger evals need at least four positive and negative boundary cases: $triggerPath"
+        $positiveCount = @($triggers | Where-Object { $_.should_trigger -eq $true }).Count
+        $negativeCount = @($triggers | Where-Object { $_.should_trigger -eq $false }).Count
+        if ($triggers.Count -lt 8 -or $positiveCount -lt 3 -or $negativeCount -lt 3) {
+            Add-Failure "Trigger evals need at least eight cases, including three positive and three near-miss negative cases: $triggerPath"
         }
     }
 }
 
 foreach ($skillRoot in $skillRoots) {
     Test-SkillEvals -SkillRoot $skillRoot
+}
+
+function Test-SkillOpenAiMetadata {
+    param([string]$SkillRoot)
+
+    foreach ($skillDirectory in Get-ChildItem -LiteralPath $SkillRoot -Directory -Force) {
+        $metadataPath = Join-Path $skillDirectory.FullName "agents/openai.yaml"
+        if (-not (Test-Path -LiteralPath $metadataPath)) {
+            Add-Failure "Missing ChatGPT/Codex skill metadata: $metadataPath"
+            continue
+        }
+
+        $metadata = Get-Content -LiteralPath $metadataPath -Raw
+        foreach ($requiredKey in @("interface:", "display_name:", "short_description:", "default_prompt:")) {
+            if (-not $metadata.Contains($requiredKey)) {
+                Add-Failure "Missing '$requiredKey' in skill metadata: $metadataPath"
+            }
+        }
+        $shortDescriptionMatch = [regex]::Match($metadata, '(?m)^\s{2}short_description:\s*"(?<value>[^"]+)"\s*$')
+        if (-not $shortDescriptionMatch.Success -or $shortDescriptionMatch.Groups["value"].Value.Length -lt 25 -or $shortDescriptionMatch.Groups["value"].Value.Length -gt 64) {
+            Add-Failure "Skill short_description must be a quoted 25-64 character string: $metadataPath"
+        }
+        $defaultPromptMatch = [regex]::Match($metadata, '(?m)^\s{2}default_prompt:\s*"(?<value>[^"]+)"\s*$')
+        if (-not $defaultPromptMatch.Success -or -not $defaultPromptMatch.Groups["value"].Value.Contains("`$$($skillDirectory.Name)")) {
+            Add-Failure "Skill default_prompt must be quoted and explicitly mention `$$($skillDirectory.Name): $metadataPath"
+        }
+        if ($metadata -match "(?m)^dependencies:") {
+            Add-Failure "Skill metadata must not add tool dependencies without a documented need: $metadataPath"
+        }
+        $hasInvocationPolicy = $metadata -match "(?m)^policy:"
+        if ($skillDirectory.Name -eq "rd-delivery") {
+            if (-not ($metadata -match "(?ms)^policy:\n\s{2}allow_implicit_invocation:\s*false\s*$")) {
+                Add-Failure "rd-delivery must disable implicit invocation because it is an explicit orchestrator: $metadataPath"
+            }
+        }
+        elseif ($hasInvocationPolicy) {
+            Add-Failure "Specialist Skills must retain the default invocation policy: $metadataPath"
+        }
+    }
+}
+
+foreach ($skillRoot in $skillRoots) {
+    Test-SkillOpenAiMetadata -SkillRoot $skillRoot
 }
 
 $expectedSkillNames = @(
@@ -159,7 +204,9 @@ $expectedSkillNames = @(
     "rd-solution",
     "rd-design",
     "rd-specification",
-    "rd-review"
+    "rd-writing",
+    "rd-review",
+    "rd-delivery"
 )
 
 function Assert-ExpectedSkillSet {

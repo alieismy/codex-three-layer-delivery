@@ -1,6 +1,6 @@
 # AGENTS.md - Project Document Delivery Discipline (v4)
 
-This file defines project-level constraints for document-centered system design work. The `rd-*` Skills are independent and can be used in any order; they are not a forced pipeline.
+This file defines project-level constraints for document-centered system design work. The eight specialist `rd-*` Skills are independent and can be used in any order; `rd-delivery` coordinates them only when the user explicitly requests multi-artifact orchestration.
 
 This template intentionally excludes coding, code review, test authoring/execution, deployment execution, and release operations.
 
@@ -104,6 +104,7 @@ Before executing document-delivery Skills:
 
 - `AGENTS.md` is for stable agent guidance. Long project facts, installation details, task logs, and plans belong in README, docs, project-state files, or Skills.
 - Before modifying `AGENTS.md`, search for an equivalent existing rule. Prefer tightening or consolidating over adding duplicates.
+- Add a durable rule only when it traces to an explicit project requirement, a recurring observed failure, or a material project risk, and identify how compliance can be reviewed or verified. Keep unproven ideas in task notes or proposals.
 - A Skill frontmatter `description` is the trigger summary. It must start with trigger conditions and stay short, searchable, and boundary-focused.
 
 ---
@@ -148,6 +149,17 @@ The map should describe only high-level locations, owners, and authority. Detail
 - For complex tasks, summarize key constraints before writing or reviewing.
 - Keep a trace from PRD -> research evidence when needed -> feasibility -> technical proposal -> detailed design -> review comments where possible.
 - Start a new session when the task type changes materially or context compression makes evidence hard to audit.
+
+### Multi-Document Delivery
+
+- Use `$rd-delivery` only when the user explicitly requests an end-to-end, multi-document, phased, or cross-session engagement; route single deliverables directly to their specialist Skill.
+- For long-running engagements, maintain one lightweight source-of-truth delivery record using existing repository conventions. Record artifact paths, statuses, upstream inputs, blocking edges, decisions, authority, verification, and the next eligible work.
+- Split large work into decision-complete, independently reviewable packages rather than arbitrary document sections. Each package must have checkable entry and exit conditions.
+- Do not conflate draft, in-review, conditionally accepted, approved, baselined, blocked, or superseded states. Never infer approval authority from document existence.
+- Keep long-lived needs and intent, current-state architecture, engagement-specific change design, decision rationale, evidence, and review findings in distinct authority layers. Propagate a material upstream change to affected downstream artifacts and repeat invalidated reviews.
+- Distinguish reproducible machine checks from explicit human decisions. A waiver requires authorized ownership, rationale, bounded scope, residual risk, and a re-review trigger; a failed gate returns to the nearest affected work package and becomes blocked when it cannot be resolved.
+- Validate every non-empty authoritative pointer before handoff. Report missing, stale, or repository-escaping paths instead of silently following them.
+- At phase boundaries, refresh only the relevant scoped guidance and authoritative artifacts, run affected checks, and produce a durable handoff that does not depend on chat history.
 
 ---
 
@@ -217,7 +229,7 @@ See `$rd-specification` for the complete workflow.
 
 ## Evidence Discipline
 
-- Use `$rd-research` when external literature, standards, policy, vendor documentation, cost data, technical maturity, or industry cases materially affect the conclusion.
+- Use `$rd-research` when external literature, standards, policy, source code, vendor documentation, open-source or AI-tool behavior, system configuration evidence, public facts, cost data, or technical maturity materially affect the conclusion.
 - `$rd-research` is an evidence-support Skill, not a mandatory first stage for every task.
 - If it can be confirmed from the target document, quote or cite the document first.
 - If it can be confirmed via official documentation, standards, laws, regulations, RFCs, or papers, check the original source first.
@@ -259,7 +271,7 @@ Select tools by evidence need:
 - Decision question clear; dimensions covered; options compared; conclusion, confidence, conditions, risks, and verification actions explicit.
 
 ### Research Evidence (`$rd-research`)
-- Research questions, source authority, date/version context, relevance, confidence, conflicts, gaps, and downstream usage are explicit.
+- Research mode, questions, source authority, date/version/environment context, applicability, reproducibility, counterevidence, confidence, gaps, and downstream usage are explicit.
 
 ### Technical Proposal / High-Level Design / Construction Plan (`$rd-solution`)
 - Candidate comparison and recommendation rationale clear; architecture, security, cost, risk, and exit path addressed.
@@ -270,8 +282,14 @@ Select tools by evidence need:
 ### Standards Work (`$rd-specification`)
 - Clause-level evidence, normative wording, terminology, references, conflicts, and human-verification gaps handled.
 
+### Professional Writing (`$rd-writing`)
+- Audience, purpose, claim architecture, evidence traceability, strongest counterargument, limitations, and conclusion boundary are explicit.
+
 ### Document Review (`$rd-review`)
-- Correct review mode selected; alignment and intrinsic quality are both assessed; findings include location, evidence, impact, severity rationale, and action; verdict follows unresolved impact.
+- Correct review mode selected; alignment/evidence and intrinsic-quality/argument axes are both assessed; findings include location, evidence, impact, severity rationale, and action; verdict follows unresolved impact.
+
+### Multi-Document Delivery (`$rd-delivery`)
+- Explicit orchestration request confirmed; artifact paths, statuses, authority layers, dependencies, machine or human gates, waivers, re-review triggers, verification, authoritative pointers, and durable handoff are current; only required specialist Skills are invoked.
 
 ---
 
@@ -346,11 +364,13 @@ Available document-delivery Skills:
 |-------|-------------|------------|
 | `$rd-requirement` | Structured requirements / PRD / SRS | Requirements analysis and product/design input |
 | `$rd-feasibility` | Feasibility study / feasibility analysis report | Project feasibility and decision support |
-| `$rd-research` | Evidence package / source notes | Literature, standards, policy, vendor, market, and technical evidence for downstream documents |
+| `$rd-research` | Evidence package / research notes / fact-check matrix | Standards, open source, AI tools, configuration behavior, and contested claims |
 | `$rd-solution` | Technical proposal / high-level design / construction plan | System architecture and solution documentation |
 | `$rd-design` | Detailed design document | Interface, data, flow, error, security, and concurrency design |
 | `$rd-specification` | Standards/specification draft or clause revision | Standards formulation, revision, and normative wording work |
-| `$rd-review` | Document review findings | Requirements, feasibility, proposal, design, and standards review |
+| `$rd-writing` | Technical article / evidence report / decision brief | Audience-ready, source-backed professional writing |
+| `$rd-review` | Independent review findings | Engineering documents, research reports, standards, and article review |
+| `$rd-delivery` | Delivery charter / artifact map / phase gates / handoff | Explicit multi-stage and cross-session orchestration |
 
 ### Authoring-to-Review Mapping
 
@@ -361,5 +381,6 @@ Available document-delivery Skills:
 | `$rd-solution` -> Proposal / high-level design / construction plan | `$rd-review` | Proposal Review |
 | `$rd-design` -> Detailed design | `$rd-review` | Design Review |
 | `$rd-specification` -> Standard / specification / clause draft | `$rd-review` | Standards Review |
+| `$rd-writing` -> Technical article / evidence report / decision brief | `$rd-review` | Article Review |
 
-`$rd-research` is not part of the authoring-to-review chain. Use it as evidence input for `$rd-feasibility`, `$rd-solution`, `$rd-specification`, `$rd-design`, or fact-dependent `$rd-review`.
+`$rd-research` is not part of the authoring-to-review chain. Use it as evidence input for `$rd-feasibility`, `$rd-solution`, `$rd-specification`, `$rd-design`, `$rd-writing`, or fact-dependent `$rd-review`. Research reports and technology evaluations can themselves use the Research Review mode. `$rd-delivery` coordinates only an explicitly requested multi-artifact engagement and does not replace any authoring or review Skill.

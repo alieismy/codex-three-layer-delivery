@@ -1,0 +1,78 @@
+# RD Skills Assessment and Evolution
+
+Status: implemented baseline, 2026-07-26.
+
+## Decision
+
+The original seven Skills were not redundant. They formed a coherent decision-and-document lifecycle: requirements, feasibility, research evidence, solution architecture, detailed design, standards work, and independent review.
+
+The first material role-level gap was source-backed professional writing, which was being forced into `rd-solution` or handled without a repeatable workflow; `rd-writing` now owns that work. A second comparative review against Matt Pocock's Skills and Trellis confirmed a different gap: no Skill owned explicit coordination of a multi-stage, multi-document, or cross-session engagement. This revision adds `rd-delivery` as an explicit orchestration Skill while keeping the other eight specialist Skills independently usable.
+
+## Role Coverage
+
+| User work | Primary Skill | Supporting Skill | Boundary |
+|---|---|---|---|
+| Product and system requirements | `rd-requirement` | `rd-research`, `rd-review` | proposed technology is not automatically a requirement |
+| Project or technology viability | `rd-feasibility` | `rd-research`, `rd-review` | decision analysis, not design or adoption execution |
+| Open-source, AI-tool, API, and technology research | `rd-research` | `rd-feasibility`, `rd-review` | evidence first; popularity and demos are not fitness proof |
+| VPN, VPS, proxy, network, and system-configuration research | `rd-research` | `rd-solution`, `rd-design` | establish environment, topology, threat boundary, verification, and rollback |
+| System and software architecture | `rd-solution` | `rd-research`, `rd-review` | option selection and high-level architecture, not detailed contracts |
+| Implementation-ready technical design | `rd-design` | `rd-research`, `rd-review` | design configuration and rollback contracts, not operational commands |
+| Standards and normative documents | `rd-specification` | `rd-research`, `rd-review` | authority, applicability, and conformity remain explicit |
+| Technical articles, white papers, evidence reports, decision briefs | `rd-writing` | `rd-research`, `rd-review` | audience-ready narrative after evidence is stable |
+| Technical or public-affairs fact-checking and argument review | `rd-research`, `rd-review` | `rd-writing` | claim-level evidence and position-neutral review standards |
+| Multi-document programs, phase gates, artifact status, and cross-session handoff | `rd-delivery` | only the specialist Skills required by the engagement | explicit orchestration only; never a mandatory pipeline |
+| Core code implementation, tests, deployment, security scanning | Codex core workflows and specialized plugins | relevant `rd-*` design inputs | deliberately not duplicated as a generic document Skill |
+
+## Why Nine, Not More
+
+- `rd-delivery` is a user-intent-gated orchestrator, not another authoring domain. It owns artifact maps, blocking edges, phase gates, status, and handoff, while delegating each document to the narrowest specialist Skill.
+- `rd-writing` owns narrative composition; `rd-research` owns evidence collection; `rd-review` owns an independent verdict. These trigger boundaries prevent a single Skill from researching, advocating, and approving its own output.
+- Open-source and AI-tool research, infrastructure/configuration research, and fact-checking share the same evidence contract. They are modes under `rd-research`, with focused references loaded on demand, rather than three competing top-level Skills.
+- Research-report and article review are modes under `rd-review` because they share findings, severity, remediation, and verdict mechanics.
+- Coding, deployment execution, browser automation, security scanning, and file-format manipulation already have stronger core or specialist workflows. Adding broad `rd-code` or `rd-operations` Skills would create trigger collisions and weaken ownership.
+
+## External Design Evidence
+
+- The [Agent Skills specification](https://agentskills.io/specification) makes `name` and `description` the discovery layer and recommends progressive disclosure, focused references, validation, and a main file below 500 lines.
+- Current [OpenAI Codex skill guidance](https://learn.chatgpt.com/docs/build-skills) says descriptions should front-load the use case because large installed Skill sets may have descriptions shortened or omitted from the initial list. It also documents optional `agents/openai.yaml` metadata for ChatGPT/Codex desktop use.
+- The former [openai/skills repository](https://github.com/openai/skills) is marked deprecated for current distribution examples; [openai/plugins](https://github.com/openai/plugins) is the current packaging reference. This repository retains direct Skill folders for cross-client authoring and adapters; plugin packaging is a separate distribution decision.
+- Anthropic's [Agent Skills engineering guidance](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) recommends starting from observed capability gaps, evaluating representative tasks, and splitting mutually exclusive context into on-demand resources.
+- Matt Pocock's current [research Skill](https://github.com/mattpocock/skills/blob/main/skills/engineering/research/SKILL.md) reinforces primary-source research and a single cited artifact. His [skill-design guidance](https://github.com/mattpocock/skills/blob/main/skills/productivity/writing-great-skills/SKILL.md) separates explicit orchestrators from model-invoked specialist disciplines, requires checkable completion criteria, and treats context load as a design cost. This project adopts those principles without copying tracker-specific commands or Claude-only frontmatter.
+- [Trellis](https://github.com/mindfold-ai/Trellis) persists scoped specs, task artifacts, verification context, and session handoffs and uses Plan / Implement / Verify / Finish boundaries. This project adapts only the document-delivery mechanisms: authoritative artifacts, decision-complete work packages, phase gates, status discipline, and durable handoff. It does not copy the `.trellis/` directory model, task scripts, coding workflow, or mandatory approval state machine.
+
+## VibeCoding 9.9.6 Reference Audit
+
+The local VibeCoding Codex 9.9.6 tree was reviewed as a design reference, not as an upstream dependency. Its most useful contribution is a set of document-governance mechanisms:
+
+- Keep long-lived need and intent, current-state architecture, engagement-specific change design, decision rationale, evidence, and review findings in distinct authority layers.
+- Distinguish reproducible machine gates from human decisions. A waiver requires authorized ownership, rationale, bounded scope, residual risk, and a re-review trigger.
+- Return a failed gate to the nearest affected work package instead of restarting unrelated stages; unresolved repeated failure becomes an explicit blocker.
+- Invalidate affected downstream reviews and approvals after a material upstream change.
+- Validate authoritative pointers and report missing, stale, or repository-escaping paths.
+- Promote a rule into durable project guidance only when it is traceable to an explicit requirement, a recurring observed failure, or a material project risk, and has a verification path.
+
+The following mechanisms were deliberately not adopted:
+
+| Candidate | Decision | Reason |
+|---|---|---|
+| PACE lifecycle and `.ai_state` state machine as a project-wide default | Do not adopt | Coding-oriented and too invasive for this repository's document-delivery scope |
+| Athena/Quantum Skill families and named subagents | Do not adopt | Duplicate current specialist ownership and depend on source-specific routing assumptions |
+| Full default hook bundle | Do not adopt | Excessive operational surface; native Windows portability and output contracts are not demonstrated |
+| `approval_policy = "never"` with `danger-full-access` | Do not adopt | Removes both approval and sandbox boundaries; unsuitable as a public or project default |
+| Hard-coded model context and compaction limits | Do not adopt | Model-specific assumptions were not justified by current official configuration evidence |
+| Literal text or scripts from the reference tree | Do not adopt | No license, `COPYING`, or `NOTICE` declaration was found; only independently expressed mechanisms were adapted |
+
+The source `config.toml` also failed current schema validation because `windows_wsl_setup_acknowledged` is not a recognized top-level property. The current canonical concurrency key is `agents.max_concurrent_threads_per_session`; `agents.max_threads` is retained only as a legacy alias. An opaque `[desktop]` table may pass schema validation because it permits additional properties, but that does not prove arbitrary keys have runtime effect. These conclusions were checked against the current [Codex config reference](https://learn.chatgpt.com/docs/config-file/config-reference), [configuration schema](https://learn.chatgpt.com/docs/config-schema.json), and [hooks documentation](https://learn.chatgpt.com/docs/hooks).
+
+## Implemented Quality Controls
+
+- Eight positive/near-miss trigger cases per Skill, with at least three cases on each side
+- At least three output-quality evals per Skill
+- Focused `references/` for research, review, writing, and delivery modes
+- `agents/openai.yaml` UI metadata without MCP dependencies; specialist Skills retain default invocation policy
+- `rd-delivery` alone declares `policy.allow_implicit_invocation: false` because orchestration must be explicitly requested
+- Exact English and Chinese mirrors for Claude and Cursor adapter trees
+- Repository validation for frontmatter, description boundaries, metadata, evals, Skill set, LF endings, and mirror equality
+
+The next meaningful optimization should come from observed false triggers, missed triggers, broken handoffs, or low-quality real outputs. Adding another top-level Skill without an independently triggerable deliverable or workflow would be speculative.

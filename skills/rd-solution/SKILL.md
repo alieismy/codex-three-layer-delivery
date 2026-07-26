@@ -1,16 +1,17 @@
 ---
 name: rd-solution
 description: >-
-  Use when converting approved requirements or feasibility inputs into a
-  technical proposal, high-level design, solution architecture, outline design,
-  construction plan, or technical white paper. Apply when real alternatives,
-  architectural decisions, and a design-ready recommendation are needed. Do not
-  use for feasibility conclusions, detailed design, independent review, or execution.
+  Convert approved requirements or feasibility inputs into a technical
+  proposal, high-level design, solution architecture, outline design, or
+  construction plan. Use when real alternatives, architecture decisions,
+  operating boundaries, and a design-ready recommendation are needed for
+  software, infrastructure, networking, or AI-enabled systems. Do not use for
+  feasibility, detailed design, independent review, prose-first articles, or execution.
 ---
 
 # rd-solution
 
-Research and produce high-quality technical documents — **technical proposals, high-level designs, solution architecture documents, construction plans, and technical white papers**.
+Produce decision-ready **technical proposals, high-level designs, solution architecture documents, and construction plans**.
 
 ## Deliverables
 
@@ -18,6 +19,7 @@ Research and produce high-quality technical documents — **technical proposals,
 - Construction plan or design-oriented project plan
 - Candidate solution comparison matrix
 - Recommended solution with risk statement
+- Architecture decision record inputs for material choices
 
 ## Execution Steps
 
@@ -36,6 +38,7 @@ Research and produce high-quality technical documents — **technical proposals,
 - Generate at least **2 candidate solutions** when a real architectural or technical choice exists
 - Each solution should include: architecture overview, core components, data/interface boundaries, technology choices, deployment or operating assumptions
 - Use search tools to verify the feasibility and maturity of key technology selections
+- For infrastructure, networking, proxy, VPN, VPS, or AI-tool solutions, model trust boundaries, control/data flows, credential ownership, platform/version constraints, observability, recovery, and exit path
 
 ### 3. Multi-Dimensional Cross-Check
 
@@ -51,6 +54,7 @@ Evaluate each candidate solution across the following dimensions:
 | Cost | Development cost, operational cost, licensing fees |
 | Risk | Technical risk, staffing risk, schedule risk, external dependency risk |
 | Exit path | Alternative path if the recommended solution is rejected or fails validation |
+| Verifiability | Evidence, prototype, compatibility check, or acceptance method needed before commitment |
 
 ### 4. Recommendation & Decision Guidance
 
@@ -130,6 +134,7 @@ Pre-delivery checklist:
 - [ ] Key data has source attribution; inferences and facts are distinguished
 - [ ] Document structure is complete; readers can understand independently
 - [ ] Design remains at proposal/high-level depth and does not drift into code implementation
+- [ ] Version-sensitive technology claims and configuration assumptions are verified or explicitly bounded
 
 ## Out of Scope
 
@@ -137,3 +142,4 @@ Pre-delivery checklist:
 - Do not fabricate benchmark data or performance figures
 - Do not present inferences as verified facts
 - Do not write code, tests, deployment runbooks, or execution procedures
+- Use `rd-writing` for technical articles, white papers, research reports, or decision briefs whose primary challenge is audience-ready narrative rather than architecture selection

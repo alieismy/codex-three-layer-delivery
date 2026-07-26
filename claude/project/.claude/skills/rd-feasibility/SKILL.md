@@ -1,11 +1,11 @@
 ---
 name: rd-feasibility
 description: >-
-  Use when evaluating whether a project or option is feasible and producing a
-  feasibility study, option viability assessment, or decision-ready conclusion.
-  Apply when technical, economic, schedule, operational, compliance, and risk
-  evidence must be compared before solution design. Do not use for requirements
-  authoring, detailed design, independent review, or execution.
+  Evaluate whether a project, product, open-source component, AI tool,
+  infrastructure change, or candidate option is viable, and produce a
+  decision-ready feasibility conclusion. Use when technical, economic, schedule,
+  operational, security, compliance, and risk evidence must be compared before
+  commitment. Do not use for requirements, design, review, or execution.
 ---
 
 # rd-feasibility
@@ -35,12 +35,13 @@ Evaluate the option or project across these dimensions:
 | Dimension | Check Content |
 |-----------|---------------|
 | Necessity | problem value, policy/business driver, stakeholder demand |
-| Technical feasibility | maturity, integration constraints, data availability, architecture fit |
+| Technical feasibility | maturity, compatibility, integration constraints, data availability, architecture fit |
 | Economic feasibility | budget, lifecycle cost, licensing, staffing, procurement |
 | Schedule feasibility | milestones, dependencies, review cycles, delivery risks |
-| Operational feasibility | maintainability, staffing model, process fit, training needs |
-| Security and compliance | regulations, standards, security controls, auditability |
-| Risk feasibility | high-risk assumptions, external dependencies, fallback options |
+| Operational feasibility | installability, maintainability, staffing model, process fit, training, support and rollback |
+| Security and compliance | regulations, standards, privacy, supply-chain exposure, security controls, auditability |
+| Sustainability | upstream maintenance, release cadence, licensing, vendor or community dependency, exit path |
+| Risk feasibility | high-risk assumptions, external dependencies, failure modes, fallback options |
 
 ### 3. Candidate Options
 
@@ -55,6 +56,7 @@ Evaluate the option or project across these dimensions:
 - Mark estimates as estimates and state the estimation basis
 - If exact data is unavailable, use ranges and sensitivity analysis instead of false precision
 - Clearly label unsupported assumptions and list how to verify them
+- For open-source or AI-tool choices, distinguish repository activity from maintainability, demos from reproducible capability, and model capability from product or system capability
 
 ### 5. Conclusion and Decision Advice
 
@@ -89,6 +91,7 @@ Pre-delivery checklist:
 - [ ] At least two options are compared when a choice exists
 - [ ] Key data and standards claims have source attribution
 - [ ] Verdict, confidence, conditions, risks, and next actions are clear
+- [ ] Compatibility, lifecycle, security, support, and exit-path concerns are covered when technology adoption is in scope
 - [ ] No fabricated cost, schedule, benchmark, policy, or standards claims
 
 ## Out of Scope

@@ -1,11 +1,11 @@
 ---
 name: rd-specification
 description: >-
-  Use when drafting or revising national, industry, enterprise, internal, or
-  project standards, specifications, guidelines, and normative clauses. Apply
-  when clause wording, governing drafting rules, terminology, references, or
-  standards alignment must be changed. Use rd-review instead for an independent
-  severity-graded review verdict. Do not use for implementation or execution.
+  Draft or revise national, industry, enterprise, internal, or project
+  standards, specifications, guidelines, and normative clauses. Use when
+  authority, scope, terminology, references, conformity criteria, or normative
+  wording must be established or changed. Use rd-review for an independent
+  verdict; do not use for implementation or execution.
 ---
 
 # rd-specification
@@ -29,6 +29,7 @@ Support **standards and specification work** with clause-level rigor, evidence d
 - Identify the target audience and expected authority of the document
 - Confirm whether the work is drafting, revision, clause analysis, comparison, or gap analysis
 - Identify the governing drafting rules and normative vocabulary for the target standards body or organization; do not assume one universal shall/should convention
+- Confirm jurisdiction, edition, effective date, supersession status, and applicability boundary when they affect authority
 
 ### 2. Evidence Source Hierarchy
 
@@ -64,6 +65,7 @@ For each issue or proposal:
 - Cross-check terminology, abbreviations, symbols, tables, figures, and references
 - Check whether requirements conflict across clauses or with referenced documents
 - Confirm that each mandatory clause is testable, inspectable, or otherwise verifiable
+- Define or identify the conformity-assessment method, evidence, sampling boundary, and responsible party when the clause requires compliance demonstration
 - List unresolved conflicts and required decision owners
 
 ## Spec Injection Check
@@ -92,6 +94,7 @@ Pre-delivery checklist:
 - [ ] Terminology and references are consistent
 - [ ] Replacement wording is provided for major issues when possible
 - [ ] Mandatory, recommended, and informative content are not mixed
+- [ ] Jurisdiction, edition, applicability, and conformity method are explicit where material
 - [ ] No invented standard clauses, document statuses, or source claims
 
 ## Out of Scope

@@ -57,6 +57,7 @@ For complex or high-impact reasoning, system-design, and review tasks, prefer co
 - When researching open-source code, LLMs, or AI coding tools, prioritize current official documentation, source code, release notes, issues, actual configuration, and reproducible testing. Distinguish product surfaces, versions, platforms, authentication methods, and subscription capabilities. Treat community configurations and experience reports as candidates for verification, not as established best practices.
 - For network infrastructure, VPN, VPS, proxy-network, or system-configuration tasks, first establish the operating system, software and versions, network topology, provider constraints, objective, and threat boundary. Distinguish configuration correctness, connectivity, security, performance, and privacy concerns.
 - Commands and configuration proposals should state their scope, prerequisites, expected result, material risks, validation method, and rollback path. Do not claim that a deployment, configuration, or repair succeeded without runtime evidence.
+- Use external documentation to confirm public interfaces, configuration, and version behavior. Determine actual repository behavior from the current code, configuration, project validation entry points, and reproducible runtime evidence. When they conflict, report the discrepancy instead of allowing external documentation to override repository facts.
 
 ## Response Patterns
 
@@ -95,14 +96,17 @@ Precise, direct, incisive — but not arrogant. No unsolicited moralizing unless
 ## Editing Discipline
 
 - Before editing, read applicable local instructions, target files, upstream/downstream documents, and nearby references. Do not infer behavior from filenames when content is available.
+- Respect `.gitignore`, `.ignore`, `.rgignore`, and tool-specific ignore rules by default. Unless the task or evidence clearly requires otherwise, do not inspect or modify dependency directories, generated code, build outputs, caches, coverage output, or packaged artifacts; when access is necessary, state why and keep the scope bounded.
 - Prefer existing project tools, scripts, styles, and patterns before introducing new ones.
+- Preserve the target file's encoding, line endings, and local formatting. Do not run repository-wide formatters, auto-fixes, or mechanical reordering unless explicitly requested or required by a project validation entry point. Update dependencies and lockfiles only when an approved dependency change requires it.
 - When a rule is critical, prefer executable checks, tests, hooks, scripts, sandboxing, or permission boundaries over relying only on written reminders.
 - For application or core-code work, first understand the existing implementation, architecture, and relevant code paths. Prefer established patterns, make only the minimum changes directly required by the objective, and verify them with tests, builds, static analysis, or an equivalent method.
+- Match verification scope to change risk and blast radius. Start with the minimum sufficient checks directly relevant to the change; broaden verification for shared behavior, cross-module contracts, security-critical paths, or build and release contracts. Do not skip necessary tests merely to save time, and do not run expensive repository-wide checks without justification.
 - Unless the user explicitly asks only for analysis, review, or a proposal, a clear implementation task should be carried through to a runnable or otherwise verifiable result. If verification is not possible, state what remains unverified and why.
 
 ## Git And Secrets
 
-- Before committing or pushing, inspect the diff for unrelated changes, generated noise, local-only paths, and suspected secrets.
+- After implementation, inspect the final diff for missed call sites, broken references, accidental coupling, duplicated logic, unrelated formatting, generated noise, local-only paths, and suspected secrets. Before committing or pushing, confirm the intended scope again.
 - Do not force-push, rewrite history, or push to a default branch without explicit approval.
 - Never hardcode API keys, tokens, passwords, private keys, cookies, or connection strings. If a committed secret is suspected, stop and recommend rotation.
 

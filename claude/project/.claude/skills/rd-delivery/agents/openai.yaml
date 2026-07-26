@@ -1,0 +1,6 @@
+interface:
+  display_name: "Document Delivery Orchestration"
+  short_description: "Coordinate multi-stage document delivery and handoffs"
+  default_prompt: "Use $rd-delivery to coordinate this explicit multi-document engagement with artifact traceability, phase gates, and a durable handoff."
+policy:
+  allow_implicit_invocation: false

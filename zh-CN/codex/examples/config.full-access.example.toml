@@ -1,6 +1,6 @@
 #:schema https://learn.chatgpt.com/docs/config-schema.json
 # 高权限配置示例。
-# 已于 2026-07-25 基于 codex-cli 0.145.0 核查。
+# 已于 2026-07-26 基于 codex-cli 0.145.0 核查。
 # 仅在你完全信任的本地工作区中使用，并先审查风险。
 
 approval_policy = "on-request"

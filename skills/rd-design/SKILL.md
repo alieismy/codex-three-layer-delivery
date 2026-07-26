@@ -1,11 +1,12 @@
 ---
 name: rd-design
 description: >-
-  Use when producing a construction-ready detailed design from approved
-  requirements and material architecture decisions. Apply when interface
-  contracts, data models, schemas, critical flows, state machines, errors,
-  security, observability, or concurrency must be specified. Do not use for
-  requirements, feasibility, high-level solution selection, review, or execution.
+  Produce an implementation-ready detailed design from approved requirements
+  and architecture decisions. Use when interface contracts, schemas, critical
+  flows, state machines, configuration contracts, trust boundaries, errors,
+  security, observability, concurrency, or recovery behavior must be specified
+  for software or infrastructure. Do not use for requirements, option selection,
+  review, implementation, or operational execution.
 ---
 
 # rd-design
@@ -18,6 +19,7 @@ Produce **construction-ready detailed designs** based on approved requirements a
 - API contract definitions (OpenAPI / Protobuf / GraphQL Schema)
 - Database schema design
 - Security, error handling, and observability design sections
+- Configuration, migration, verification, and rollback contracts when infrastructure or integration is in scope
 
 ## Execution Steps
 
@@ -77,7 +79,14 @@ General software security design considerations:
 - Error propagation strategy: propagate upward / handle at current layer / degrade
 - Monitoring and alerting trigger conditions
 
-### 8. Design Verification Notes
+### 8. Configuration and Change Design (if applicable)
+
+- Define configuration ownership, source of truth, schema, defaults, validation rules, environment variance, and precedence
+- Separate secrets from ordinary configuration and define provisioning, rotation, revocation, and redaction boundaries
+- Define migration stages, compatibility window, rollback conditions, recovery point, and state reconciliation
+- Specify expected observations and verification criteria without turning the design into an execution runbook
+
+### 9. Design Verification Notes
 
 - Define how reviewers can verify the design: traceability matrix, checklist, walkthrough, prototype, or external standard check
 - Mark unresolved design items with decision dependency, verification action, and owner or target date when known; otherwise mark them unassigned or unconfirmed
@@ -109,6 +118,7 @@ Pre-delivery checklist:
 - [ ] Concurrency and idempotency requirements addressed
 - [ ] Security dimensions covered (at minimum: authentication, authorization, input validation, data protection)
 - [ ] Error handling strategy is explicit
+- [ ] Configuration, migration, recovery, and rollback contracts are explicit when applicable
 - [ ] Design is traceable to requirements (each module maps to a requirement item)
 - [ ] Unresolved design decisions have owner, deadline, and dependency
 - [ ] The document gives reviewers enough detail to assess feasibility and consistency
