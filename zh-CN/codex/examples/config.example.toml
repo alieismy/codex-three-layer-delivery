@@ -1,6 +1,6 @@
 #:schema https://learn.chatgpt.com/docs/config-schema.json
 # 公开版 Codex 配置示例。
-# 已于 2026-07-26 基于 codex-cli 0.145.0 核查。
+# 已于 2026-07-29 基于 codex-cli 0.146.0 核查。
 # 使用时请手动合并到 ~/.codex/config.toml，不要盲目覆盖已有配置。
 
 # 选择你的 Codex 账号可用的模型。
@@ -13,16 +13,20 @@ developer_instructions = "请用清晰、准确、可验证的方式回答；事
 
 project_doc_fallback_filenames = ["CLAUDE.md"]
 project_doc_max_bytes = 65536
-tool_output_token_limit = 40000
+tool_output_token_limit = 10000
 
 hide_agent_reasoning = true
-model_reasoning_effort = "high"
-model_reasoning_summary = "auto"
+model_reasoning_effort = "medium"
+plan_mode_reasoning_effort = "high"
+model_reasoning_summary = "none"
 model_verbosity = "high"
 personality = "pragmatic"
+# 对复杂任务，可通过 codex --profile high 叠加 $CODEX_HOME/high.config.toml。
 # 标准速度是默认值。只有明确使用 Fast/Flex 时才配置 service_tier。
 
-web_search = "cached"
+# 需要最新外部证据时适合使用实时检索；如果不要求时效性，或需要更严格地
+# 限制外部检索，可改用 cached 或 indexed。
+web_search = "live"
 
 check_for_update_on_startup = true
 
@@ -37,9 +41,17 @@ network_access = false
 memories = true
 unified_exec = true
 
+[features.multi_agent_v2]
+enabled = true
+min_wait_timeout_ms = 10000
+default_wait_timeout_ms = 60000
+max_wait_timeout_ms = 120000
+
 [agents]
 max_concurrent_threads_per_session = 5
-max_depth = 1
+default_subagent_reasoning_effort = "medium"
+# 仅当所有子代理都应默认使用 GPT-5.6 Sol 时，才启用以下配置。
+# default_subagent_model = "gpt-5.6-sol"
 
 [agents.default]
 description = "General-purpose helper."
