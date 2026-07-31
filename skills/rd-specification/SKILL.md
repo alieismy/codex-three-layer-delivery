@@ -31,6 +31,8 @@ Support **standards and specification work** with clause-level rigor, evidence d
 - Identify the governing drafting rules and normative vocabulary for the target standards body or organization; do not assume one universal shall/should convention
 - Confirm jurisdiction, edition, effective date, supersession status, and applicability boundary when they affect authority
 
+**Completion criterion:** document type, status, authority, task mode, drafting rules, jurisdiction, edition, and applicability are either verified or explicitly bounded.
+
 ### 2. Evidence Source Hierarchy
 
 Prefer sources in this order:
@@ -43,6 +45,8 @@ Prefer sources in this order:
 
 When evidence is missing, mark "insufficient evidence, requires human verification" instead of inventing a basis.
 
+**Completion criterion:** every material clause or revision proposal has an identified authority level, and unavailable authority is visible as a verification gap.
+
 ### 3. Clause-Level Analysis
 
 For each issue or proposal:
@@ -53,12 +57,16 @@ For each issue or proposal:
 - Provide a replacement wording proposal when possible
 - Distinguish mandatory requirements from recommendations and informative notes
 
+**Completion criterion:** every reported issue identifies an exact location, issue type, evidence, impact, and bounded replacement or verification action.
+
 ### 4. Normative Wording Control
 
 - Use clear mandatory language for requirements and avoid vague verbs such as "support", "optimize", or "improve" unless they are defined
 - Avoid unverifiable adjectives such as "advanced", "secure", "fast", or "reliable" without criteria
 - Keep terms consistent with the glossary and referenced standards
 - Avoid adding implementation-specific details unless the standard intentionally constrains implementation
+
+**Completion criterion:** every normative statement has unambiguous force, scope, actor, condition, and verifiable outcome without relying on undefined or promotional language.
 
 ### 5. Consistency and Traceability Checks
 
@@ -67,6 +75,8 @@ For each issue or proposal:
 - Confirm that each mandatory clause is testable, inspectable, or otherwise verifiable
 - Define or identify the conformity-assessment method, evidence, sampling boundary, and responsible party when the clause requires compliance demonstration
 - List unresolved conflicts and required decision owners
+
+**Completion criterion:** terminology, references, cross-clause obligations, and conformity methods are consistent, with every unresolved conflict assigned or explicitly unassigned for human decision.
 
 ## Spec Injection Check
 

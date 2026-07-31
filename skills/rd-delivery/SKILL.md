@@ -30,6 +30,7 @@ For a durable engagement record, read [delivery-record.md](references/delivery-r
 - Keep authority explicit: an agent may draft, verify, or recommend, but only an authorized stakeholder can approve or baseline an artifact
 - Load the smallest relevant context set for the current stage, then refresh it at each phase boundary
 - Keep durable artifact classes distinct: long-lived need and intent, current-state architecture, engagement-specific change design, decision rationale, evidence, and review findings must not silently substitute for one another
+- Treat the delivery record as an index, not a second copy of its artifacts: keep status and concise decision context in the record, and link to the one authoritative location for full content
 
 ## Workflow
 
@@ -53,7 +54,15 @@ For each required artifact, record:
 
 Use decision-complete slices for large engagements: each work package should produce an independently reviewable result, fit a bounded work session, and declare its blocking edges. Do not split work only by document section when that would leave an unverifiable fragment.
 
-**Completion criterion:** every planned artifact has a purpose, owner state, prerequisites, exit gate, and downstream handoff.
+Separate three states while mapping work:
+
+- **Ready to define:** the output and completion question are precise enough to form a work package
+- **Not yet specified:** the item is in scope but depends on unresolved decisions or evidence before it can be defined precisely
+- **Out of scope:** the item lies beyond the engagement goal and does not become eligible unless the scope is explicitly changed
+
+Promote an item from not yet specified only when its completion question and blocking edges become precise. Keep out-of-scope items separate so they cannot silently enter the work frontier.
+
+**Completion criterion:** every planned artifact has a purpose, owner, status, prerequisites, exit gate, and downstream handoff; every other known material item is explicitly not yet specified or out of scope.
 
 ### 3. Execute the Required Stages
 
@@ -93,19 +102,21 @@ Before each stage, load its authoritative upstream artifacts and applicable scop
 - Promote only stable, reviewed conventions or decisions into durable project guidance; keep temporary notes and session logs out of `AGENTS.md`
 - Provide the next frontier: work packages whose blockers are resolved, required owner decisions, and exact verification actions
 
-**Completion criterion:** another reviewer or future session can resume from repository artifacts without reconstructing material context from chat.
+**Completion criterion:** another reviewer or future session can resume from repository artifacts without reconstructing material context from chat or reconciling duplicate decision records.
 
 ## Quality Gates
 
 - [ ] Orchestration was explicitly requested and is not replacing a single specialist Skill
 - [ ] Goal, scope, authority, success criteria, and date/version boundary are explicit
 - [ ] Artifact statuses, source-of-truth paths, dependencies, and blocking edges are current
+- [ ] Ready-to-define, not-yet-specified, and out-of-scope work remain distinct
 - [ ] Only required stages were selected
 - [ ] Each phase has checkable entry and exit conditions
 - [ ] Machine checks, human decisions, and authorized waivers are distinguished and evidenced
 - [ ] Draft, reviewed, approved, baselined, superseded, and blocked states are not conflated
 - [ ] Authoritative pointers resolve to current in-scope artifacts; stale, missing, or escaping paths are reported rather than followed
 - [ ] Material decisions, evidence gaps, verification results, and next actions are durable and traceable
+- [ ] Full artifact or decision content has one authoritative location; the delivery record points to it instead of duplicating it
 - [ ] Handoff can be understood without relying on hidden chat history
 
 ## Out of Scope

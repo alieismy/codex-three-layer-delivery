@@ -33,12 +33,16 @@ Produce decision-ready **technical proposals, high-level designs, solution archi
 - Resolve discoverable facts from project artifacts; ask the user only for material decisions that remain open
 - Use established domain terminology and surface conflicts instead of silently creating synonyms
 
+**Completion criterion:** the target document, audience, approved inputs, constraints, open decisions, and terminology basis are explicit enough to generate real alternatives.
+
 ### 2. Solution Research & Candidate Generation
 
 - Generate at least **2 candidate solutions** when a real architectural or technical choice exists
 - Each solution should include: architecture overview, core components, data/interface boundaries, technology choices, deployment or operating assumptions
 - Use search tools to verify the feasibility and maturity of key technology selections
 - For infrastructure, networking, proxy, VPN, VPS, or AI-tool solutions, model trust boundaries, control/data flows, credential ownership, platform/version constraints, observability, recovery, and exit path
+
+**Completion criterion:** every real decision has at least two viable candidates or a documented reason only one remains, and each candidate states the same material boundaries and assumptions.
 
 ### 3. Multi-Dimensional Cross-Check
 
@@ -56,12 +60,16 @@ Evaluate each candidate solution across the following dimensions:
 | Exit path | Alternative path if the recommended solution is rejected or fails validation |
 | Verifiability | Evidence, prototype, compatibility check, or acceptance method needed before commitment |
 
+**Completion criterion:** every candidate is compared on the same decision-relevant dimensions, with missing evidence and non-comparable criteria visible.
+
 ### 4. Recommendation & Decision Guidance
 
 - Provide recommendations based on quantitative or semi-quantitative comparison
 - Clearly state the rationale for the recommendation and the reasons for rejecting alternatives
 - Label the recommendation confidence level (High / Medium / Low) with supporting basis
 - State residual risks and items requiring further confirmation
+
+**Completion criterion:** the recommendation, rejected alternatives, confidence, residual risks, and verification actions required before committing to the option are traceable to the comparison.
 
 ### 5. Structured Document Output
 
@@ -106,6 +114,8 @@ Select the appropriate template based on document type:
 ```
 
 > Boundary: this Skill may define deployment architecture as part of a construction or high-level design document, but it does not produce deployment runbooks, release commands, rollback execution steps, or operational change records.
+
+**Completion criterion:** the chosen structure contains every decision-relevant section, stays at proposal or high-level depth, and gives detailed design an approved set of boundaries and decisions.
 
 ## Spec Injection Check
 

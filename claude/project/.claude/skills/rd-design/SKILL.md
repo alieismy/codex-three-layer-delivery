@@ -30,12 +30,16 @@ Produce **construction-ready detailed designs** based on approved requirements a
 - Identify design scope boundaries: which modules/services are covered in this iteration
 - Confirm traceability to PRD items or stakeholder-approved design decisions
 
+**Completion criterion:** every in-scope design element traces to an approved requirement or decision, and each missing upstream decision is explicit before detailed contracts are written.
+
 ### 2. Interface Design
 
 - Define inter-module interface contracts (inputs, outputs, invariants, preconditions, postconditions, error codes, ordering, and idempotency requirements)
 - Distinguish and label internal vs. external interfaces
 - Specify API versioning strategy
 - Define backward compatibility constraints for interface changes
+
+**Completion criterion:** every interface has ownership, inputs, outputs, invariants, failure behavior, ordering or idempotency semantics where applicable, and a compatibility boundary.
 
 ### 3. Data Model Design
 
@@ -44,6 +48,8 @@ Produce **construction-ready detailed designs** based on approved requirements a
 - Data lifecycle: creation → update → archival → deletion
 - Data consistency strategy: strong consistency / eventual consistency / compensation
 
+**Completion criterion:** every persisted or exchanged data element has type and constraint semantics, lifecycle ownership, relationship or index rationale where applicable, and a stated consistency model.
+
 ### 4. Critical Flow Design
 
 - Sequence diagrams or flowcharts for core business processes
@@ -51,11 +57,15 @@ Produce **construction-ready detailed designs** based on approved requirements a
 - Concurrency control strategy: lock types, optimistic/pessimistic, retry strategy
 - Idempotency design: which operations must be idempotent and how to guarantee it
 
+**Completion criterion:** every critical flow covers success, failure, timeout, retry, concurrency, and idempotency behavior at the boundaries where they can change system state.
+
 ### 5. State Machine Design (if applicable)
 
 - State definitions and valid transitions
 - Handling strategy for invalid transitions
 - Conflict resolution for concurrent state modifications
+
+**Completion criterion:** every state and allowed transition has a trigger, guard, effect, invalid-transition behavior, and concurrent-conflict rule, or state-machine design is explicitly not applicable.
 
 ### 6. Security Design
 
@@ -72,12 +82,16 @@ General software security design considerations:
 | Secrets | credential ownership, storage, rotation, revocation, and exposure handling |
 | Auditability | audit events, traceability, log retention, sensitive-field masking |
 
+**Completion criterion:** every trust boundary and protected asset maps to the applicable authentication, authorization, validation, protection, secret, abuse-case, and audit controls, with omissions justified by risk.
+
 ### 7. Error Handling Design
 
 - Error classification: recoverable / unrecoverable / requires human intervention
 - Error code taxonomy design
 - Error propagation strategy: propagate upward / handle at current layer / degrade
 - Monitoring and alerting trigger conditions
+
+**Completion criterion:** every material failure class has ownership, propagation or degradation behavior, user or caller visibility, observability, and recovery or escalation semantics.
 
 ### 8. Configuration and Change Design (if applicable)
 
@@ -86,11 +100,15 @@ General software security design considerations:
 - Define migration stages, compatibility window, rollback conditions, recovery point, and state reconciliation
 - Specify expected observations and verification criteria without turning the design into an execution runbook
 
+**Completion criterion:** configuration and change behavior has one source of truth, precedence and validation rules, secret boundaries, compatibility and rollback conditions, and observable verification criteria, or is explicitly not applicable.
+
 ### 9. Design Verification Notes
 
 - Define how reviewers can verify the design: traceability matrix, checklist, walkthrough, prototype, or external standard check
 - Mark unresolved design items with decision dependency, verification action, and owner or target date when known; otherwise mark them unassigned or unconfirmed
 - Identify assumptions that must be validated before implementation starts
+
+**Completion criterion:** reviewers can verify every material contract and traceability claim, and no unresolved item lacks an assignment state, dependency, and verification action.
 
 ## Spec Injection Check
 

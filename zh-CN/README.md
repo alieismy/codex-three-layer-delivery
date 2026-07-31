@@ -42,7 +42,7 @@ Layer 3: 文档交付 Skills
 | `$rd-review` | 独立评审报告 | 评审工程文档、研究报告、标准规范及技术或时政文章 |
 | `$rd-delivery` | 交付章程 / 制品地图 / 阶段门禁 / 交接 | 显式编排多阶段、多文档或跨会话任务 |
 
-8 个专业 Skill 可独立使用，不强制组成流水线。需要外部或争议证据时使用 `$rd-research`，需要把已核实证据组织为面向受众的成稿时使用 `$rd-writing`，需要独立结论时使用 `$rd-review`。仅当用户明确要求跨制品编排、阶段门禁或持久化交接时，才调用 `$rd-delivery`。
+8 个专业 Skill 可独立使用，不强制组成流水线。需要外部或争议证据时使用 `$rd-research`，需要把已核实证据组织为面向受众的成稿时使用 `$rd-writing`，需要独立结论时使用 `$rd-review`。仅当用户明确要求跨制品编排、阶段门禁或持久化交接时，才调用 `$rd-delivery`。该边界在 Codex 中由 `agents/openai.yaml` 编码，在 Claude 和 Cursor 适配器中由平台专用 Frontmatter `disable-model-invocation: true` 编码。
 
 每个 Skill 都在 `evals/` 下提供输出质量和触发边界用例，并在 `agents/openai.yaml` 中提供 ChatGPT/Codex 桌面元数据。多模式 Skill 在 `SKILL.md` 中保留公共流程，只按所选模式加载 `references/` 检查表。共享 Skill 正文使用中性 `rd-*` 标识；Codex 示例使用 `$rd-*`，Cursor 和 Claude Code 显式调用使用 `/rd-*`。
 

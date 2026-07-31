@@ -38,6 +38,8 @@ Read only the reference needed for the target:
 - Preserve established terminology, names, dates, quotations, numbering, and traceability
 - If the user supplies a desired conclusion, treat it as a proposition to test rather than a fact to defend
 
+**Completion criterion:** audience, purpose, scope, mode, date boundary, source set, tone, length, and citation contract are explicit.
+
 ### 2. Establish the Claim Architecture
 
 - State the central question and candidate conclusion
@@ -45,11 +47,15 @@ Read only the reference needed for the target:
 - Separate fact, estimate, inference, prediction, opinion, and value judgment
 - Remove claims that are irrelevant to the document purpose or unsupported by available evidence
 
+**Completion criterion:** every retained claim supports the document purpose, has a claim type, and maps to evidence, reasoning, counterclaim, limitation, or an explicit verification gap.
+
 ### 3. Verify Before Drafting
 
 - Inspect supplied and project sources first; use `rd-research` for volatile, disputed, external, or decision-critical claims
 - Resolve timeline, version, jurisdiction, units, denominator, quotation context, and source ownership where material
 - Record conflicts and evidence gaps; do not let polished prose conceal uncertainty
+
+**Completion criterion:** every decision-critical or publishable factual claim is verified to the required precision or bounded in the planned wording before prose drafting begins.
 
 ### 4. Draft for the Audience
 
@@ -59,12 +65,16 @@ Read only the reference needed for the target:
 - Keep evidence close to the claim it supports and distinguish sourced facts from the author's analysis
 - Use tables only for genuine comparison and diagrams only when they clarify structure, flow, or causality
 
+**Completion criterion:** the draft answers the central question for the target audience, preserves evidence boundaries and counterarguments, and contains no section without a decision or explanatory purpose.
+
 ### 5. Edit and Verify
 
 - Check factual accuracy, citation entailment, chronology, causal logic, internal consistency, terminology, and numerical units
 - Remove promotional, slogan-like, template-like, repetitive, and unsupported language
 - Confirm the conclusion does not exceed the evidence and that limitations are specific rather than boilerplate
 - Preserve a claim-source map for high-impact or contested documents
+
+**Completion criterion:** every material claim, citation, number, quotation, term, and conclusion passes the final accuracy and entailment check, with unresolved limitations still visible.
 
 ## Tool Selection
 

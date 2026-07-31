@@ -1,6 +1,6 @@
 # RD Skills Assessment and Evolution
 
-Status: implemented baseline, 2026-07-26.
+Status: implemented baseline, refreshed 2026-07-31.
 
 ## Decision
 
@@ -38,8 +38,28 @@ The first material role-level gap was source-backed professional writing, which 
 - Current [OpenAI Codex skill guidance](https://learn.chatgpt.com/docs/build-skills) says descriptions should front-load the use case because large installed Skill sets may have descriptions shortened or omitted from the initial list. It also documents optional `agents/openai.yaml` metadata for ChatGPT/Codex desktop use.
 - The former [openai/skills repository](https://github.com/openai/skills) is marked deprecated for current distribution examples; [openai/plugins](https://github.com/openai/plugins) is the current packaging reference. This repository retains direct Skill folders for cross-client authoring and adapters; plugin packaging is a separate distribution decision.
 - Anthropic's [Agent Skills engineering guidance](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) recommends starting from observed capability gaps, evaluating representative tasks, and splitting mutually exclusive context into on-demand resources.
-- Matt Pocock's current [research Skill](https://github.com/mattpocock/skills/blob/main/skills/engineering/research/SKILL.md) reinforces primary-source research and a single cited artifact. His [skill-design guidance](https://github.com/mattpocock/skills/blob/main/skills/productivity/writing-great-skills/SKILL.md) separates explicit orchestrators from model-invoked specialist disciplines, requires checkable completion criteria, and treats context load as a design cost. This project adopts those principles without copying tracker-specific commands or Claude-only frontmatter.
+- Matt Pocock's current [research Skill](https://github.com/mattpocock/skills/blob/main/skills/engineering/research/SKILL.md) reinforces primary-source research and a single cited artifact. His [skill-design guidance](https://github.com/mattpocock/skills/blob/main/skills/productivity/writing-great-skills/SKILL.md) separates explicit orchestrators from model-invoked specialist disciplines, requires checkable completion criteria, treats context load as a design cost, and prunes duplication, no-op instructions, and stale sediment. The 2026-07-31 audit pinned `main` to Commit [`2ab958093e83e0ec752e6c1c5932da465bf23e0c`](https://github.com/mattpocock/skills/commit/2ab958093e83e0ec752e6c1c5932da465bf23e0c) and independently adapted only mechanisms that fit document delivery.
 - [Trellis](https://github.com/mindfold-ai/Trellis) persists scoped specs, task artifacts, verification context, and session handoffs and uses Plan / Implement / Verify / Finish boundaries. This project adapts only the document-delivery mechanisms: authoritative artifacts, decision-complete work packages, phase gates, status discipline, and durable handoff. It does not copy the `.trellis/` directory model, task scripts, coding workflow, or mandatory approval state machine.
+
+## Matt Pocock Skills 1.1.0 and Main Audit
+
+The latest tagged release observed on 2026-07-31 was [`v1.1.0`](https://github.com/mattpocock/skills/releases/tag/v1.1.0). The inspected `main` commit was newer and changed installation documentation after the release; the audit therefore used the pinned `main` source for current behavior and the release notes only as change-history evidence.
+
+| Mechanism | Decision | Adaptation in this project |
+|---|---|---|
+| User-invoked orchestration vs. model-invoked reusable discipline | Adopt | `rd-delivery` remains explicit-only. Codex uses `agents/openai.yaml`; Claude and Cursor adapters use `disable-model-invocation: true`. The standard/Codex Skill roots retain portable `name` and `description` frontmatter. |
+| Checkable, demanding completion criteria for each step | Adopt | Every numbered step in all nine canonical Skills now has one English or Chinese completion criterion, and repository validation enforces exactly one criterion inside each step across adapters. |
+| Single source of truth; maps and handoffs as indexes rather than stores | Adopt | The delivery record points to authoritative artifacts and decision records instead of duplicating full content. |
+| Frontier planning under uncertainty | Adopt with document semantics | `rd-delivery` separates ready-to-define work, in-scope work that is not yet precise enough, and out-of-scope work; only precise, independently reviewable outputs become work packages. |
+| Facts are retrieved; stakeholder decisions remain human-owned | Retain and strengthen | Existing requirement, solution, review, and delivery workflows already separate discoverable facts from scope, priority, risk, approval, and other authorized decisions. |
+| Primary-source research in one cited artifact | Already adopted | `rd-research` uses an explicit source hierarchy, counterevidence, version/date context, one canonical evidence package, and downstream handoff. |
+| Two-axis review | Already stronger in scope | `rd-review` applies alignment/evidence and intrinsic-quality/argument axes to requirements, feasibility, research, proposals, designs, standards, and articles rather than only code diffs. |
+| Router Skill for many manual commands | Do not adopt now | Only `rd-delivery` is explicit-only; the eight specialist Skills are model-invoked and independently triggerable, so a second router would add cognitive and maintenance load without a distinct deliverable. |
+| Mandatory background research agents | Do not adopt | Parallel research can be useful, but the Skill must remain correct when subagents are unavailable, unsuitable, or not authorized. |
+| Issue-tracker state machines, coding flows, TDD, implementation, and code review | Do not adopt | They conflict with the repository's intentional document-delivery and system-design scope. |
+| Tracker-specific maps, ticket labels, assignment claims, and automatic external writes | Do not adopt | Durable repository artifacts and explicit authority are portable; external tracker mutation remains task- and authorization-specific. |
+
+The release notes say Commit `af6d692` added both “Negation” and “Negative Space,” but the commit itself is titled “Drop Negative Space; keep Negation only,” and the pinned `main` `SKILL.md` and `GLOSSARY.md` contain only Negation. The current source therefore overrides the inconsistent release-note description; this project did not claim or copy a non-existent current rule.
 
 ## VibeCoding 9.9.6 Reference Audit
 
@@ -71,8 +91,8 @@ The source `config.toml` also failed current schema validation because `windows_
 - At least three output-quality evals per Skill
 - Focused `references/` for research, review, writing, and delivery modes
 - `agents/openai.yaml` UI metadata without MCP dependencies; specialist Skills retain default invocation policy
-- `rd-delivery` alone declares `policy.allow_implicit_invocation: false` because orchestration must be explicitly requested
-- Exact English and Chinese mirrors for Claude and Cursor adapter trees
-- Repository validation for frontmatter, description boundaries, metadata, evals, Skill set, LF endings, and mirror equality
+- `rd-delivery` alone disables implicit invocation: by `policy.allow_implicit_invocation: false` for Codex and by `disable-model-invocation: true` in Claude/Cursor adapters
+- Exact English and Chinese adapter mirrors except the validated, platform-specific `rd-delivery` invocation field
+- Repository validation for frontmatter, description boundaries, per-step completion criteria, invocation parity, metadata, evals, Skill set, LF endings, and mirror equality
 
-The next meaningful optimization should come from observed false triggers, missed triggers, broken handoffs, or low-quality real outputs. Adding another top-level Skill without an independently triggerable deliverable or workflow would be speculative.
+The next meaningful optimization should come from observed false triggers, missed triggers, premature step completion, broken handoffs, duplicate authority records, or low-quality real outputs. Adding another top-level Skill without an independently triggerable deliverable or workflow would be speculative.

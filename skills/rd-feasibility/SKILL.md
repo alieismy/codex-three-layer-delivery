@@ -28,6 +28,8 @@ Produce **decision-ready feasibility studies** that distinguish confirmed facts,
 - Confirm input sources: PRD, meeting notes, existing system documents, standards, policies, budgets, schedules
 - Separate facts from assumptions before evaluating feasibility
 
+**Completion criterion:** the decision question, comparison scope, audience, source set, facts, assumptions, and evidence gaps are explicit.
+
 ### 2. Feasibility Dimensions
 
 Evaluate the option or project across these dimensions:
@@ -43,12 +45,16 @@ Evaluate the option or project across these dimensions:
 | Sustainability | upstream maintenance, release cadence, licensing, vendor or community dependency, exit path |
 | Risk feasibility | high-risk assumptions, external dependencies, failure modes, fallback options |
 
+**Completion criterion:** every material dimension is assessed against evidence or explicitly excluded with a reason; no missing dimension is silently treated as favorable.
+
 ### 3. Candidate Options
 
 - Compare at least two options when a real choice exists
 - Include the baseline option, such as maintaining the current process, when relevant
 - Explain why any option is excluded before detailed comparison
 - Do not present a single preferred option as if alternatives do not exist
+
+**Completion criterion:** every real option and relevant current-state baseline is either compared on common criteria or excluded with a documented basis.
 
 ### 4. Evidence and Estimation Discipline
 
@@ -58,12 +64,16 @@ Evaluate the option or project across these dimensions:
 - Clearly label unsupported assumptions and list how to verify them
 - For open-source or AI-tool choices, distinguish repository activity from maintainability, demos from reproducible capability, and model capability from product or system capability
 
+**Completion criterion:** every decision-material fact, estimate, and assumption is traceable to a source or estimation basis, or carries a verification action and an explicit effect on confidence.
+
 ### 5. Conclusion and Decision Advice
 
 - Provide a clear verdict: feasible / conditionally feasible / not feasible
 - State confidence level: high / medium / low
 - Explain the minimum conditions required to proceed
 - List blocking issues, open questions, and recommended next actions
+
+**Completion criterion:** the verdict, confidence, proceed conditions, blockers, residual risks, and next verification actions follow from the comparison rather than from preference.
 
 ## Spec Injection Check
 

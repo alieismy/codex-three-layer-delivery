@@ -51,10 +51,10 @@ function Test-SkillFrontmatter {
         $nameMatch = [regex]::Match($frontmatterBody, "(?m)^name:\s*(?<name>[a-z0-9]+(?:-[a-z0-9]+)*)\s*$")
         $descriptionMatch = [regex]::Match(
             $frontmatterBody,
-            "(?ms)^description:\s*>-\s*\n(?<description>(?: {2}.+(?:\n|$))+?)\z"
+            "(?ms)^description:\s*>-\s*\n(?<description>(?: {2}.+(?:\n|$))+?)(?=^[A-Za-z0-9_-]+:|\z)"
         )
         if (-not ($nameMatch.Success -and $descriptionMatch.Success)) {
-            Add-Failure "Skill frontmatter must contain only a valid name and block description: $($skill.FullName)"
+            Add-Failure "Skill frontmatter must contain a valid name and block description: $($skill.FullName)"
             continue
         }
 
@@ -63,12 +63,25 @@ function Test-SkillFrontmatter {
             Add-Failure "Skill name must match its parent directory: $($skill.FullName)"
         }
 
+        $isPlatformAdapter = $skill.FullName -match "[\\/]\.(claude|cursor)[\\/]skills[\\/]"
+        $hasExplicitInvocationField = $frontmatterBody -match "(?m)^disable-model-invocation:\s*true\s*$"
         $topLevelKeys = [regex]::Matches($frontmatterBody, "(?m)^(?<key>[A-Za-z0-9_-]+):") |
             ForEach-Object { $_.Groups["key"].Value }
         foreach ($key in $topLevelKeys) {
-            if ($key -notin @("name", "description")) {
+            $isAllowedInvocationKey = (
+                $key -eq "disable-model-invocation" -and
+                $isPlatformAdapter -and
+                $name -eq "rd-delivery"
+            )
+            if ($key -notin @("name", "description") -and -not $isAllowedInvocationKey) {
                 Add-Failure "Unexpected skill frontmatter field '$key': $($skill.FullName)"
             }
+        }
+        if ($isPlatformAdapter -and $name -eq "rd-delivery" -and -not $hasExplicitInvocationField) {
+            Add-Failure "Claude and Cursor rd-delivery adapters must disable model invocation: $($skill.FullName)"
+        }
+        if (($name -ne "rd-delivery" -or -not $isPlatformAdapter) -and $hasExplicitInvocationField) {
+            Add-Failure "Only Claude and Cursor rd-delivery adapters may disable model invocation in SKILL.md: $($skill.FullName)"
         }
 
         $description = (($descriptionMatch.Groups["description"].Value -split "\n") |
@@ -88,6 +101,31 @@ function Test-SkillFrontmatter {
 
         if (($content -split "\n").Count -gt 500) {
             Add-Failure "SKILL.md exceeds the 500-line progressive-disclosure limit: $($skill.FullName)"
+        }
+        $stepMatches = [regex]::Matches($content, "(?m)^### \d+\..*$")
+        $completionCriterionMatches = [regex]::Matches(
+            $content,
+            "(?m)^\*\*(Completion criterion:|完成标准：)\*\*"
+        )
+        if ($stepMatches.Count -ne $completionCriterionMatches.Count) {
+            Add-Failure "Numbered Skill steps and completion criteria must have a one-to-one count: $($skill.FullName)"
+        }
+        for ($stepIndex = 0; $stepIndex -lt $stepMatches.Count; $stepIndex++) {
+            $stepMatch = $stepMatches[$stepIndex]
+            $segmentEnd = if ($stepIndex + 1 -lt $stepMatches.Count) {
+                $stepMatches[$stepIndex + 1].Index
+            }
+            else {
+                $content.Length
+            }
+            $stepSegment = $content.Substring($stepMatch.Index, $segmentEnd - $stepMatch.Index)
+            $stepCriterionCount = [regex]::Matches(
+                $stepSegment,
+                "(?m)^\*\*(Completion criterion:|完成标准：)\*\*"
+            ).Count
+            if ($stepCriterionCount -ne 1) {
+                Add-Failure "Each numbered Skill step must contain exactly one completion criterion ('$($stepMatch.Value)'): $($skill.FullName)"
+            }
         }
         if ($content -match '\$rd-') {
             Add-Failure "Shared skill bodies must use neutral rd-* identifiers, not platform invocation syntax: $($skill.FullName)"
@@ -262,7 +300,8 @@ function Assert-MirroredSkillSet {
 function Assert-MirroredSkillTree {
     param(
         [string]$SourceRoot,
-        [string]$TargetRoot
+        [string]$TargetRoot,
+        [switch]$AllowPlatformInvocationDifference
     )
 
     $sourceFiles = Get-ChildItem -LiteralPath $SourceRoot -Recurse -File -Force
@@ -271,11 +310,21 @@ function Assert-MirroredSkillTree {
     $targetMap = @{}
     foreach ($file in $sourceFiles) {
         $relative = $file.FullName.Substring($SourceRoot.Length).TrimStart("\", "/")
-        $sourceMap[$relative] = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash
+        $normalizedRelative = $relative.Replace("\", "/")
+        $content = Get-Content -LiteralPath $file.FullName -Raw
+        if ($AllowPlatformInvocationDifference -and $normalizedRelative -eq "rd-delivery/SKILL.md") {
+            $content = $content -replace "(?m)^disable-model-invocation:\s*true\n", ""
+        }
+        $sourceMap[$relative] = $content
     }
     foreach ($file in $targetFiles) {
         $relative = $file.FullName.Substring($TargetRoot.Length).TrimStart("\", "/")
-        $targetMap[$relative] = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash
+        $normalizedRelative = $relative.Replace("\", "/")
+        $content = Get-Content -LiteralPath $file.FullName -Raw
+        if ($AllowPlatformInvocationDifference -and $normalizedRelative -eq "rd-delivery/SKILL.md") {
+            $content = $content -replace "(?m)^disable-model-invocation:\s*true\n", ""
+        }
+        $targetMap[$relative] = $content
     }
     foreach ($relative in $sourceMap.Keys) {
         if (-not $targetMap.ContainsKey($relative)) {
@@ -298,10 +347,10 @@ Assert-MirroredSkillSet -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "zh-CN/skills")
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "zh-CN/claude/project/.claude/skills")
 
-Assert-MirroredSkillTree -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "claude/project/.claude/skills")
-Assert-MirroredSkillTree -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "cursor/project/.cursor/skills")
-Assert-MirroredSkillTree -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot (Join-Path $root "zh-CN/claude/project/.claude/skills")
-Assert-MirroredSkillTree -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot (Join-Path $root "cursor/zh-CN/.cursor/skills")
+Assert-MirroredSkillTree -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "claude/project/.claude/skills") -AllowPlatformInvocationDifference
+Assert-MirroredSkillTree -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "cursor/project/.cursor/skills") -AllowPlatformInvocationDifference
+Assert-MirroredSkillTree -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot (Join-Path $root "zh-CN/claude/project/.claude/skills") -AllowPlatformInvocationDifference
+Assert-MirroredSkillTree -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot (Join-Path $root "cursor/zh-CN/.cursor/skills") -AllowPlatformInvocationDifference
 
 $cursorPlatformFiles = @(
     (Join-Path $root "cursor/project/PROMPTS.md"),

@@ -45,11 +45,15 @@ If the target spans modes, identify the primary mode and load one additional ref
 - Resolve discoverable facts from the materials; ask only for missing authority or intent that blocks the verdict
 - Preserve approved intent and separate bounded remediation from redesign or ghostwriting
 
+**Completion criterion:** the exact target, version, scope, mode, authority, upstream basis, and verdict vocabulary are fixed before findings are graded.
+
 ### 2. Review on Two Independent Axes
 
 - **Alignment/evidence axis**: Does the target match upstream intent and authoritative evidence?
 - **Intrinsic-quality/argument axis**: Is it internally complete, consistent, feasible, logically valid, understandable, and verifiable?
 - Apply the mode reference to refine these axes; strength on one axis cannot hide failure on the other
+
+**Completion criterion:** every material section is assessed on both axes or explicitly marked not applicable, and neither axis is collapsed into the other.
 
 ### 3. Test Failure Hypotheses
 
@@ -57,6 +61,8 @@ If the target spans modes, identify the primary mode and load one additional ref
 - Test the strongest plausible counterexample, failure path, boundary condition, alternative explanation, and evidence gap
 - For causal claims, test chronology, mechanism, confounders, and whether evidence supports causation rather than correlation
 - Report a finding only when its location, evidence, and impact can be stated; do not manufacture findings to appear thorough
+
+**Completion criterion:** every material assumption and central conclusion has been tested against the strongest plausible counterexample, failure path, boundary condition, or alternative explanation.
 
 ### 4. Grade Findings by Impact
 
@@ -69,6 +75,8 @@ If the target spans modes, identify the primary mode and load one additional ref
 
 Each finding must include location, axis, problem, evidence, impact, severity rationale, concrete remediation or verification action, and owner/date when known.
 
+**Completion criterion:** every retained finding is reproducible from its location and evidence, has an impact-based severity rationale, and names a bounded corrective or verification action.
+
 ### 5. Determine the Verdict
 
 Default document verdicts are **Approved / Conditionally Approved / Rejected**. Article mode may use **Publishable / Publishable after revision / Not publishable**. In either form:
@@ -77,6 +85,8 @@ Default document verdicts are **Approved / Conditionally Approved / Rejected**. 
 - Unresolved Critical findings normally require rejection or revision before approval
 - Conditional approval requires bounded conditions, verification actions, assignment state, and a re-review trigger
 - Project policy overrides these defaults; never use a universal issue-count threshold
+
+**Completion criterion:** the verdict follows from unresolved impact and evidence limits, and every condition has an action, assignment state, and re-review trigger.
 
 ## Tool Selection
 

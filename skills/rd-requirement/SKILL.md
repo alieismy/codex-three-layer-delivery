@@ -30,6 +30,8 @@ Transform raw user needs into **structured, traceable, and verifiable requiremen
 - Identify overloaded or conflicting domain terms and propose a canonical term without inventing business meaning
 - Use the 5W1H framework (Who / What / Why / When / Where / How) to ensure full dimensional coverage
 
+**Completion criterion:** every decision-critical ambiguity is resolved or explicitly owned as an assumption, open decision, or verification action; discoverable facts are not left as user questions.
+
 ### 2. Requirements Classification & Structuring
 
 Classify and organize along the following dimensions:
@@ -52,6 +54,8 @@ For document-centered projects, also classify:
 | Data and interfaces | required data objects, external systems, exchange boundaries |
 | Evidence sources | meeting notes, standards, existing documents, laws, product decisions |
 
+**Completion criterion:** every in-scope scenario maps to identified actors, rules, data or interface boundaries, and at least one classified requirement or explicit exclusion.
+
 ### 3. Priority Labeling
 
 Label each requirement with a priority:
@@ -60,6 +64,8 @@ Label each requirement with a priority:
 - **P1 (Should Have)**: Important, but can be deferred to next iteration
 - **P2 (Nice to Have)**: Beneficial if included
 - **P3 (Won't Have)**: Identified but explicitly excluded
+
+**Completion criterion:** every requirement has an explicit priority under the chosen scheme, and any priority conflict or missing decision authority is recorded instead of silently resolved.
 
 ### 4. Acceptance Criteria Definition
 
@@ -71,6 +77,8 @@ Attach verifiable acceptance criteria to each functional requirement:
 - For policy or document requirements, define the review criterion and evidence needed for acceptance
 - For installation, configuration, migration, or integration requirements, define the observable end state, verification method, failure behavior, and rollback expectation without prescribing an unapproved implementation
 
+**Completion criterion:** every requirement has a checkable acceptance or evaluation method covering the material normal, exception, and boundary behavior, or is explicitly unresolved with a verification action.
+
 ### 5. Feasibility Pre-Assessment
 
 Perform a preliminary feasibility judgment on key requirements:
@@ -78,6 +86,8 @@ Perform a preliminary feasibility judgment on key requirements:
 - Feasibility signal: whether the requirement appears feasible, conditionally feasible, or uncertain
 - Risk flagging: identify requirements that need feasibility analysis, stakeholder confirmation, or standard/legal verification
 - Dependency flagging: identify upstream decisions, external systems, approvals, and standards references
+
+**Completion criterion:** every requirement that could materially fail or block delivery has a feasibility signal, risk or evidence flag, and named dependency or follow-up action.
 
 ### 6. Requirements Convergence Pass
 
@@ -87,6 +97,8 @@ Before delivery, rewrite the structured requirements once as a lossless authorit
 - Remove resolved questions and temporary elicitation notes after preserving their decisions
 - Preserve every requirement ID, source anchor, decision, constraint, priority, and acceptance mapping
 - Re-read the document end to end and reopen any contradiction, missing acceptance method, or unresolved blocking decision
+
+**Completion criterion:** one authoritative, internally consistent baseline remains, with no lost identifiers or mappings and no unresolved blocker hidden in temporary notes.
 
 ## Spec Injection Check
 

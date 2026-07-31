@@ -43,6 +43,8 @@ If the target spans modes, choose one primary mode and load a second reference o
 - Separate facts to retrieve from decisions that require user or stakeholder authority
 - Identify whether the evidence supports `rd-requirement`, `rd-feasibility`, `rd-solution`, `rd-design`, `rd-specification`, `rd-writing`, or `rd-review`
 
+**Completion criterion:** every research question is answerable within a stated scope and stopping condition, and user-owned decisions are separated from retrievable facts.
+
 ### 2. Use a Source Hierarchy
 
 Prefer the source closest to ownership of the claim:
@@ -56,6 +58,8 @@ Prefer the source closest to ownership of the claim:
 
 Forum, social-media, search-snippet, AI-generated, and aggregator content may supply leads but cannot alone establish a material conclusion.
 
+**Completion criterion:** each material claim has a planned source class that is sufficiently authoritative and close to the claim owner, and any lower-tier substitution is explicit and justified.
+
 ### 3. Retrieve and Inspect
 
 - Prefer English queries for broad technical research and present results in the requested language
@@ -64,9 +68,13 @@ Forum, social-media, search-snippet, AI-generated, and aggregator content may su
 - Seek independent corroboration for high-impact claims and actively search for disconfirming evidence
 - For inaccessible or paywalled material, report only verified metadata and mark unavailable content
 
+**Completion criterion:** every cited source has been inspected at the level needed for the claim, volatile context is recorded, and material counterevidence or access limits are captured.
+
 ### 4. Evaluate Evidence
 
 Assess each material source for authority, currency, directness, independence, applicability, reproducibility, and conflict of interest. Map each conclusion to evidence and label it as fact, estimate, inference, judgment, or unknown.
+
+**Completion criterion:** every material conclusion has an evidence-strength and claim-type label, with conflicts and applicability limits preserved.
 
 ### 5. Synthesize and Hand Off
 
@@ -76,6 +84,8 @@ Assess each material source for authority, currency, directness, independence, a
 - List evidence gaps, verification actions, and what would change the conclusion
 - For multi-stage work, maintain one canonical evidence package in the repository's established location and link supporting notes rather than scattering final claims across temporary files
 - Keep raw notes separate from publication-ready prose; use `rd-writing` for the final narrative and `rd-review` for an independent verdict
+
+**Completion criterion:** each research question has a bounded answer, evidence link, confidence or limitation, falsifier or follow-up where material, and one identifiable downstream handoff.
 
 ## Tool Selection
 
