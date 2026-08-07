@@ -1,12 +1,13 @@
 ---
 name: rd-delivery
+disable-model-invocation: true
 description: >-
   Coordinate a multi-stage, multi-document decision or design engagement across
   requirements, research, feasibility, solution, design, specification, writing,
   and review. Use when the user explicitly requests an end-to-end workflow,
   document package, phased delivery plan, cross-session handoff, or artifact and
-  decision traceability. Do not use for a single document or coding/deployment execution.
-disable-model-invocation: true
+  decision traceability. Invoke only when explicitly requested; route a single
+  document and coding or deployment execution to their owning workflows.
 ---
 
 # rd-delivery
@@ -102,6 +103,7 @@ Before each stage, load its authoritative upstream artifacts and applicable scop
 - Record decisions with rationale, alternatives, consequences, and authority; create an ADR only when the decision is hard to reverse, surprising without context, and based on a real trade-off
 - Promote only stable, reviewed conventions or decisions into durable project guidance; keep temporary notes and session logs out of `AGENTS.md`
 - Provide the next frontier: work packages whose blockers are resolved, required owner decisions, and exact verification actions
+- Redact secrets and unnecessary personal or infrastructure identifiers from handoffs; use controlled pointers for sensitive raw evidence instead of copying it into session records
 
 **Completion criterion:** another reviewer or future session can resume from repository artifacts without reconstructing material context from chat or reconciling duplicate decision records.
 
@@ -119,6 +121,7 @@ Before each stage, load its authoritative upstream artifacts and applicable scop
 - [ ] Material decisions, evidence gaps, verification results, and next actions are durable and traceable
 - [ ] Full artifact or decision content has one authoritative location; the delivery record points to it instead of duplicating it
 - [ ] Handoff can be understood without relying on hidden chat history
+- [ ] Handoff contains no secrets or unnecessary sensitive identifiers and points safely to controlled evidence when needed
 
 ## Out of Scope
 

@@ -67,6 +67,7 @@ Forum, social-media, search-snippet, AI-generated, and aggregator content may su
 - Record retrieval date for volatile facts and exact version, edition, commit, jurisdiction, or environment when material
 - Seek independent corroboration for high-impact claims and actively search for disconfirming evidence
 - For inaccessible or paywalled material, report only verified metadata and mark unavailable content
+- Redact secrets and unnecessary personal or infrastructure identifiers from captured commands, output, screenshots, and excerpts while retaining the source anchor and reproducibility boundary
 
 **Completion criterion:** every cited source has been inspected at the level needed for the claim, volatile context is recorded, and material counterevidence or access limits are captured.
 
@@ -84,6 +85,7 @@ Assess each material source for authority, currency, directness, independence, a
 - List evidence gaps, verification actions, and what would change the conclusion
 - For multi-stage work, maintain one canonical evidence package in the repository's established location and link supporting notes rather than scattering final claims across temporary files
 - Keep raw notes separate from publication-ready prose; use `rd-writing` for the final narrative and `rd-review` for an independent verdict
+- Quote or preserve only the signal needed to support a claim; point to controlled raw evidence instead of copying sensitive or voluminous output into the handoff
 
 **Completion criterion:** each research question has a bounded answer, evidence link, confidence or limitation, falsifier or follow-up where material, and one identifiable downstream handoff.
 
@@ -103,6 +105,7 @@ Assess each material source for authority, currency, directness, independence, a
 - [ ] Primary and independent sources are distinguished; conflicts are preserved
 - [ ] Counterevidence and alternative explanations were actively tested for high-impact claims
 - [ ] Reproducibility limits, inaccessible evidence, and follow-up actions are explicit
+- [ ] Evidence excerpts and handoffs exclude secrets and unnecessary sensitive identifiers
 - [ ] Multi-stage work has one identifiable canonical evidence package rather than competing summaries
 - [ ] No fabricated citations, quotations, clauses, dates, versions, metrics, or behavior
 

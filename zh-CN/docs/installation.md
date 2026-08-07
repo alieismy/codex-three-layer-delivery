@@ -18,6 +18,8 @@ cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
 
 如果目标项目已有 `AGENTS.md`，请手动合并并保留项目特定约束。
 
+Codex 加载全局和适用的项目 `AGENTS.md` 规则链，这一过程不依赖是否选中 Skill。因此，全局 v7.2 模板把真实性纪律、响应模式、上下文健康、输出前审核、输出规则和精简的 RD 交付基线作为常驻能力：未触发 RD Skill 时仍然生效；触发匹配 Skill 后，只叠加完整专业工作流，不会替代或补回这些控制规则的唯一副本。
+
 ## Codex Skills
 
 全局安装：
@@ -25,6 +27,15 @@ cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
 ```bash
 cp -r zh-CN/skills/rd-* ~/.agents/skills/
 ```
+
+在 PowerShell 中，推荐使用带完整校验的用户级安装脚本：
+
+```powershell
+pwsh -File ./scripts/install-rd-skills.ps1 -Language zh-CN
+pwsh -File ./scripts/install-rd-skills.ps1 -Language zh-CN -CheckOnly
+```
+
+该脚本只管理声明的 9 个 `rd-*` 目录：先在 `$HOME/.agents/backups` 下建立并校验 SHA-256 备份，再暂存并校验待安装文件；替换失败时恢复原安装，成功后逐文件比对安装树与所选源目录。`-CheckOnly` 只执行最终比对，不写入文件。
 
 项目级安装：
 

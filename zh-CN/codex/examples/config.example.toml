@@ -1,6 +1,6 @@
 #:schema https://learn.chatgpt.com/docs/config-schema.json
 # 公开版 Codex 配置示例。
-# 已于 2026-07-29 基于 codex-cli 0.146.0 核查。
+# 已于 2026-08-07 基于 codex-cli 0.147.0 核查。
 # 使用时请手动合并到 ~/.codex/config.toml，不要盲目覆盖已有配置。
 
 # 选择你的 Codex 账号可用的模型。
@@ -22,7 +22,8 @@ model_reasoning_summary = "none"
 model_verbosity = "high"
 personality = "pragmatic"
 # 对复杂任务，可通过 codex --profile high 叠加 $CODEX_HOME/high.config.toml。
-# 标准速度是默认值。只有明确使用 Fast/Flex 时才配置 service_tier。
+# 省略 service_tier 时仍使用标准处理。
+# 仅当当前模型明确支持对应层级时，才通过 Fast 界面/命令或显式服务层级设置启用。
 
 # 需要最新外部证据时适合使用实时检索；如果不要求时效性，或需要更严格地
 # 限制外部检索，可改用 cached 或 indexed。

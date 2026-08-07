@@ -5,7 +5,7 @@ description: >-
   evaluations, technical proposals, detailed designs, standards, technical
   articles, or public-affairs articles. Use when findings must identify location,
   evidence, impact, severity, remediation, and a defensible approval or
-  publication verdict. Do not use when authoring is the primary goal.
+  publication verdict. Route primary authoring to the owning creation workflow.
 ---
 
 # rd-review
@@ -94,6 +94,7 @@ Default document verdicts are **Approved / Conditionally Approved / Rejected**. 
 - Use `rd-research` when standards, law, policy, source code, current technology behavior, quotations, timelines, or public facts materially affect a finding
 - Prefer primary sources and use independent sources to test self-interested or disputed claims
 - If authoritative evidence is inaccessible, narrow the finding and verdict instead of filling the gap
+- Redact secrets and unnecessary personal or infrastructure identifiers from findings and evidence excerpts; preserve a controlled source pointer when reviewers need the raw material
 
 ## Quality Gates
 
@@ -104,6 +105,7 @@ Default document verdicts are **Approved / Conditionally Approved / Rejected**. 
 - [ ] Findings lead; strengths and supporting observations follow
 - [ ] Verdict follows from unresolved impact and evidence limits, not issue count or reviewer preference
 - [ ] Facts, quotations, dates, versions, and external claims are verified or explicitly bounded
+- [ ] Findings and evidence excerpts contain no secrets or unnecessary sensitive identifiers
 
 ## Out of Scope
 

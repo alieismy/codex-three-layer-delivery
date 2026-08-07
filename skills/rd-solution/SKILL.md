@@ -5,8 +5,9 @@ description: >-
   proposal, high-level design, solution architecture, outline design, or
   construction plan. Use when real alternatives, architecture decisions,
   operating boundaries, and a design-ready recommendation are needed for
-  software, infrastructure, networking, or AI-enabled systems. Do not use for
-  feasibility, detailed design, independent review, prose-first articles, or execution.
+  software, infrastructure, networking, or AI-enabled systems. Route feasibility,
+  detailed design, independent review, prose-first writing, and execution to
+  their owning workflows.
 ---
 
 # rd-solution
@@ -39,7 +40,7 @@ Produce decision-ready **technical proposals, high-level designs, solution archi
 
 - Generate at least **2 candidate solutions** when a real architectural or technical choice exists
 - Each solution should include: architecture overview, core components, data/interface boundaries, technology choices, deployment or operating assumptions
-- Use search tools to verify the feasibility and maturity of key technology selections
+- Route decision-material maturity, compatibility, policy, cost, or current-version claims to `rd-research`; do not turn candidate generation into an unbounded search phase
 - For infrastructure, networking, proxy, VPN, VPS, or AI-tool solutions, model trust boundaries, control/data flows, credential ownership, platform/version constraints, observability, recovery, and exit path
 
 **Completion criterion:** every real decision has at least two viable candidates or a documented reason only one remains, and each candidate states the same material boundaries and assumptions.
@@ -117,7 +118,7 @@ Select the appropriate template based on document type:
 
 **Completion criterion:** the chosen structure contains every decision-relevant section, stays at proposal or high-level depth, and gives detailed design an approved set of boundaries and decisions.
 
-## Spec Injection Check
+## Context and Baseline Check
 
 Pre-execution checks:
 - Whether the project has technical proposal templates or formatting requirements

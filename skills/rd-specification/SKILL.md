@@ -4,8 +4,8 @@ description: >-
   Draft or revise national, industry, enterprise, internal, or project
   standards, specifications, guidelines, and normative clauses. Use when
   authority, scope, terminology, references, conformity criteria, or normative
-  wording must be established or changed. Use rd-review for an independent
-  verdict; do not use for implementation or execution.
+  wording must be established or changed. Route an independent verdict to
+  `rd-review`, and route implementation or execution to their owning workflows.
 ---
 
 # rd-specification
@@ -33,19 +33,18 @@ Support **standards and specification work** with clause-level rigor, evidence d
 
 **Completion criterion:** document type, status, authority, task mode, drafting rules, jurisdiction, edition, and applicability are either verified or explicitly bounded.
 
-### 2. Evidence Source Hierarchy
+### 2. Target and Authority Hierarchy
 
-Prefer sources in this order:
+Treat the current target text and clause numbering as the object under change, not as proof of its own authority. Establish governing authority in this order:
 
-1. Current target document text and clause numbering
-2. Binding laws, regulations, standards, or official specifications
-3. Referenced standards and normative documents
-4. Approved upstream project documents or organizational rules
-5. Expert judgment, clearly labeled as judgment rather than fact
+1. Binding laws, regulations, standards, official specifications, or formally delegated authority
+2. Applicable referenced standards and normative documents
+3. Approved upstream project documents or organizational rules within their delegated scope
+4. Expert judgment, clearly labeled as judgment rather than fact
 
 When evidence is missing, mark "insufficient evidence, requires human verification" instead of inventing a basis.
 
-**Completion criterion:** every material clause or revision proposal has an identified authority level, and unavailable authority is visible as a verification gap.
+**Completion criterion:** every material clause or revision proposal identifies its target anchor and governing authority level; conflicts between the target and a higher authority, and unavailable authority, remain visible as verification gaps.
 
 ### 3. Clause-Level Analysis
 
@@ -78,7 +77,7 @@ For each issue or proposal:
 
 **Completion criterion:** terminology, references, cross-clause obligations, and conformity methods are consistent, with every unresolved conflict assigned or explicitly unassigned for human decision.
 
-## Spec Injection Check
+## Context and Baseline Check
 
 Pre-execution checks:
 
@@ -105,6 +104,7 @@ Pre-delivery checklist:
 - [ ] Replacement wording is provided for major issues when possible
 - [ ] Mandatory, recommended, and informative content are not mixed
 - [ ] Jurisdiction, edition, applicability, and conformity method are explicit where material
+- [ ] Target text is not treated as self-authorizing, and conflicts with governing authority are resolved or exposed
 - [ ] No invented standard clauses, document statuses, or source claims
 
 ## Out of Scope

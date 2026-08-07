@@ -5,7 +5,8 @@ description: >-
   reports, decision briefs, and other professional explanatory documents. Use
   when verified evidence must be shaped for a real audience and publication or
   decision purpose without losing uncertainty, counterarguments, or traceability.
-  Do not use for PRDs, architecture selection, detailed design, standards, or review.
+  Route PRDs, architecture selection, detailed design, standards, and independent
+  review to their owning workflows.
 ---
 
 # rd-writing
@@ -72,7 +73,8 @@ Read only the reference needed for the target:
 - Check factual accuracy, citation entailment, chronology, causal logic, internal consistency, terminology, and numerical units
 - Remove promotional, slogan-like, template-like, repetitive, and unsupported language
 - Confirm the conclusion does not exceed the evidence and that limitations are specific rather than boilerplate
-- Preserve a claim-source map for high-impact or contested documents
+- Preserve one canonical claim-source map for high-impact or contested documents
+- Remove secrets and unnecessary personal or infrastructure identifiers from publishable prose, quotations, screenshots, and appendices without obscuring material evidence limits
 
 **Completion criterion:** every material claim, citation, number, quotation, term, and conclusion passes the final accuracy and entailment check, with unresolved limitations still visible.
 
@@ -92,6 +94,7 @@ Read only the reference needed for the target:
 - [ ] Citations support the adjacent claims and volatile facts carry time/version context
 - [ ] Tone is professional and specific, without promotional or template filler
 - [ ] Final conclusion stays within the evidence boundary
+- [ ] Publication content contains no secrets or unnecessary sensitive identifiers
 
 ## Out of Scope
 

@@ -5,7 +5,8 @@ description: >-
   infrastructure change, or candidate option is viable, and produce a
   decision-ready feasibility conclusion. Use when technical, economic, schedule,
   operational, security, compliance, and risk evidence must be compared before
-  commitment. Do not use for requirements, design, review, or execution.
+  commitment. Route requirements, design, independent review, and execution to
+  their owning workflows.
 ---
 
 # rd-feasibility
@@ -59,6 +60,7 @@ Evaluate the option or project across these dimensions:
 ### 4. Evidence and Estimation Discipline
 
 - Cite source material for factual claims, version-sensitive facts, standards, and market or cost data
+- Separate retrievable facts from owner-made decisions and record the authority for each accepted condition or risk
 - Mark estimates as estimates and state the estimation basis
 - If exact data is unavailable, use ranges and sensitivity analysis instead of false precision
 - Clearly label unsupported assumptions and list how to verify them
@@ -75,7 +77,7 @@ Evaluate the option or project across these dimensions:
 
 **Completion criterion:** the verdict, confidence, proceed conditions, blockers, residual risks, and next verification actions follow from the comparison rather than from preference.
 
-## Spec Injection Check
+## Context and Baseline Check
 
 Pre-execution checks:
 
@@ -97,6 +99,7 @@ Pre-delivery checklist:
 
 - [ ] Decision question and scope are explicit
 - [ ] Facts, assumptions, estimates, and unresolved questions are separated
+- [ ] Material decisions and accepted risks identify their authority
 - [ ] Core feasibility dimensions are covered or exclusions are justified
 - [ ] At least two options are compared when a choice exists
 - [ ] Key data and standards claims have source attribution

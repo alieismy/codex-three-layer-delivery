@@ -86,6 +86,13 @@ mkdir -p /path/to/your-project/.agents/skills
 cp -r skills/rd-* /path/to/your-project/.agents/skills/
 ```
 
+For a verified PowerShell user-level install with backup and exact tree comparison:
+
+```powershell
+pwsh -File ./scripts/install-rd-skills.ps1 -Language en
+pwsh -File ./scripts/install-rd-skills.ps1 -Language en -CheckOnly
+```
+
 ### 3. Review Codex config examples
 
 Start from the safe example:

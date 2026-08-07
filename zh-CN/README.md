@@ -70,6 +70,13 @@ cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
 cp -r zh-CN/skills/rd-* ~/.agents/skills/
 ```
 
+PowerShell 用户可使用带备份和安装树精确比对的脚本：
+
+```powershell
+pwsh -File ./scripts/install-rd-skills.ps1 -Language zh-CN
+pwsh -File ./scripts/install-rd-skills.ps1 -Language zh-CN -CheckOnly
+```
+
 如目标文件已存在，请手动合并，不要直接覆盖。
 
 ### Claude Code

@@ -5,8 +5,8 @@ description: >-
   and architecture decisions. Use when interface contracts, schemas, critical
   flows, state machines, configuration contracts, trust boundaries, errors,
   security, observability, concurrency, or recovery behavior must be specified
-  for software or infrastructure. Do not use for requirements, option selection,
-  review, implementation, or operational execution.
+  for software or infrastructure. Route requirements, option selection, review,
+  implementation, and operational execution to their owning workflows.
 ---
 
 # rd-design
@@ -110,7 +110,7 @@ General software security design considerations:
 
 **Completion criterion:** reviewers can verify every material contract and traceability claim, and no unresolved item lacks an assignment state, dependency, and verification action.
 
-## Spec Injection Check
+## Context and Baseline Check
 
 Pre-execution checks:
 - Project design conventions and naming standards
@@ -138,7 +138,7 @@ Pre-delivery checklist:
 - [ ] Error handling strategy is explicit
 - [ ] Configuration, migration, recovery, and rollback contracts are explicit when applicable
 - [ ] Design is traceable to requirements (each module maps to a requirement item)
-- [ ] Unresolved design decisions have owner, deadline, and dependency
+- [ ] Unresolved design decisions have assignment state, dependency, verification action, and owner or target date when known
 - [ ] The document gives reviewers enough detail to assess feasibility and consistency
 
 ## Out of Scope

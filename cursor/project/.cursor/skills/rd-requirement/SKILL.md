@@ -5,7 +5,8 @@ description: >-
   into a PRD, SRS, structured requirements, or traceability material. Use when
   scope, actors, rules, constraints, priorities, and acceptance must be made
   explicit and verifiable, including product, system, infrastructure, or AI-tool
-  requirements. Do not use for feasibility conclusions, design, review, or implementation.
+  requirements. Route feasibility judgments, design, review, and implementation
+  to their owning workflows.
 ---
 
 # rd-requirement
@@ -79,15 +80,15 @@ Attach verifiable acceptance criteria to each functional requirement:
 
 **Completion criterion:** every requirement has a checkable acceptance or evaluation method covering the material normal, exception, and boundary behavior, or is explicitly unresolved with a verification action.
 
-### 5. Feasibility Pre-Assessment
+### 5. Feasibility and Evidence Flags
 
-Perform a preliminary feasibility judgment on key requirements:
+Flag requirements that need evidence or a later feasibility decision without deciding viability here:
 
-- Feasibility signal: whether the requirement appears feasible, conditionally feasible, or uncertain
-- Risk flagging: identify requirements that need feasibility analysis, stakeholder confirmation, or standard/legal verification
+- Evidence status: verified, assumed, disputed, unknown, or decision-owned
+- Risk routing: identify requirements that need `rd-feasibility`, stakeholder confirmation, or standards/legal verification
 - Dependency flagging: identify upstream decisions, external systems, approvals, and standards references
 
-**Completion criterion:** every requirement that could materially fail or block delivery has a feasibility signal, risk or evidence flag, and named dependency or follow-up action.
+**Completion criterion:** every requirement that could materially fail or block delivery has an evidence status, a named dependency or follow-up action, and an explicit downstream route where a feasibility verdict is needed; this artifact does not make that verdict.
 
 ### 6. Requirements Convergence Pass
 
@@ -100,7 +101,7 @@ Before delivery, rewrite the structured requirements once as a lossless authorit
 
 **Completion criterion:** one authoritative, internally consistent baseline remains, with no lost identifiers or mappings and no unresolved blocker hidden in temporary notes.
 
-## Spec Injection Check
+## Context and Baseline Check
 
 Pre-execution checks:
 - Applicable project guidance, templates, and rules for requirements work
@@ -121,7 +122,7 @@ Pre-delivery checklist:
 
 - [ ] Every identified in-scope core scenario is covered and traceable to a source or decision
 - [ ] Every functional requirement has acceptance criteria
-- [ ] Priorities labeled, no P0 requirements missing
+- [ ] Priorities use stated criteria, and every identified P0 need maps to a requirement or an explicit exclusion
 - [ ] Assumptions and exclusions explicitly listed
 - [ ] Every requirement has an acceptance method, or is explicitly marked as unresolved with a verification action
 - [ ] Proposed products, models, vendors, tools, or configurations are separated from the underlying need unless approved as constraints

@@ -1,6 +1,6 @@
 #:schema https://learn.chatgpt.com/docs/config-schema.json
 # Advanced high-permission profile.
-# Verified against codex-cli 0.146.0 on 2026-07-29.
+# Verified against codex-cli 0.147.0 on 2026-08-07.
 # Use only for trusted local workspaces after reviewing the risks.
 
 approval_policy = "on-request"

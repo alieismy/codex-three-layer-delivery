@@ -1,6 +1,6 @@
 # RD Skills 评估与演进说明
 
-状态：已实施基线，2026-07-31 更新。
+状态：已实施基线，2026-08-07 更新。
 
 ## 结论
 
@@ -38,20 +38,22 @@
 - 当前 [OpenAI Codex Skill 指南](https://learn.chatgpt.com/docs/build-skills) 要求描述前置核心用途，因为 Skill 较多时初始列表可能缩短描述或省略部分 Skill；该指南还说明了面向 ChatGPT/Codex 桌面的可选 `agents/openai.yaml` 元数据。
 - 原 [openai/skills 仓库](https://github.com/openai/skills) 已标记为不再用于当前分发示例；[openai/plugins](https://github.com/openai/plugins) 是当前打包参考。本项目为跨客户端编写和适配保留直接 Skill 目录，插件化属于独立的分发决策。
 - Anthropic 的 [Agent Skills 工程指南](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) 建议从观察到的能力缺口出发，使用代表性任务评测，并把互斥上下文拆为按需资源。
-- Matt Pocock 当前的 [research Skill](https://github.com/mattpocock/skills/blob/main/skills/engineering/research/SKILL.md) 强调一手来源研究和单一带引用制品；其 [Skill 设计指南](https://github.com/mattpocock/skills/blob/main/skills/productivity/writing-great-skills/SKILL.md) 区分显式编排器与模型自动触发的专业纪律，要求可检查的完成标准，把上下文负载视为设计成本，并主动清理重复、无效指令和历史沉积。2026-07-31 审计把 `main` 固定到 Commit [`2ab958093e83e0ec752e6c1c5932da465bf23e0c`](https://github.com/mattpocock/skills/commit/2ab958093e83e0ec752e6c1c5932da465bf23e0c)，只独立吸收适合文档交付的机制。
+- Matt Pocock 的 [research Skill](https://github.com/mattpocock/skills/blob/v1.2.3/skills/engineering/research/SKILL.md) 强调一手来源研究和单一带引用制品；更名后的 [writing-for-agents 指南](https://github.com/mattpocock/skills/blob/v1.2.3/skills/productivity/writing-for-agents/SKILL.md) 把 Agent 指令视为信息架构问题：前置触发上下文，只加载影响决策的细节，规定完备的完成检查，维持单一事实来源，并清理重复或陈旧说明。2026-08-07 审计把 `v1.2.3` 固定到 Commit [`6acc160e4e0cd062dbbbd7a1b26ae92855edf07e`](https://github.com/mattpocock/skills/commit/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e)，只独立吸收适合文档交付的机制。
 - [Trellis](https://github.com/mindfold-ai/Trellis) 将范围化规范、任务制品、验证上下文和会话交接持久化，并采用 Plan / Implement / Verify / Finish 阶段边界。本项目只适配文档交付机制：权威制品、决策闭环工作包、阶段门禁、状态纪律和持久化交接；不复制 `.trellis/` 目录模型、任务脚本、编码流程或强制批准状态机。
 
-## Matt Pocock Skills 1.1.0 与 main 审计
+## Matt Pocock Skills 1.2.0—1.2.3 审计
 
-截至 2026-07-31，观察到的最新标记发布版本是 [`v1.1.0`](https://github.com/mattpocock/skills/releases/tag/v1.1.0)。被检查的 `main` Commit 更新，且在该版本发布后修改了安装文档；因此本次以固定的 `main` 源码判断当前行为，只把发布说明作为变更历史证据。
+本次先检查引入可移植 `agents/openai.yaml` 元数据和 Codex 仅显式调用策略的 [`v1.2.0`](https://github.com/mattpocock/skills/releases/tag/v1.2.0)，再核实最新 [`v1.2.3`](https://github.com/mattpocock/skills/releases/tag/v1.2.3) 标签及 Commit `6acc160` 源码。`v1.2.2` 恢复 `writing-for-agents` 的模型调用；`v1.2.3` 加强密钥脱敏并移除子代理说明中的 Claude 专用表述。检查时 GitHub 不存在 `v1.2.1` Release。
 
 | 机制 | 决定 | 本项目适配 |
 |---|---|---|
 | 用户显式调用的编排与模型自动调用的复用纪律分离 | 采纳 | `rd-delivery` 继续保持仅显式调用。Codex 使用 `agents/openai.yaml`；Claude 和 Cursor 适配器使用 `disable-model-invocation: true`。标准/Codex Skill 根目录继续只使用可移植的 `name` 和 `description` Frontmatter。 |
 | 每个步骤具备可检查且要求充分的完成标准 | 采纳 | 9 个主 Skill 的每个编号步骤都具备一个英文或中文完成标准，仓库验证在所有适配器中强制每一步恰好包含一个完成标准。 |
 | 单一事实来源；关系图和交接作为索引而非内容仓库 | 采纳 | 交付记录指向权威制品和决策记录，不重复维护完整内容。 |
+| Agent 文档作为上下文与认知负载路由器 | 采纳 | 项目 `AGENTS.md` 只维护稳定的效力、路由和完成规则；RD 详细流程由 9 个 Skills 单一维护。环境可发现事实在使用时检查，不缓存为长期说明。 |
+| 诊断和交接中的密钥与敏感标识脱敏 | 采纳并扩展 | 研究、写作、评审和交付均隐藏密钥及非必要的个人或基础设施标识，同时保留受控证据指针和复现边界。 |
 | 在不确定性下按工作前沿逐步规划 | 按文档语义采纳 | `rd-delivery` 区分可定义工作、尚不足以精确定义的范围内工作和范围外工作；只有精确且可独立评审的产出才进入工作包。 |
-| 事实由环境与来源核实，干系人决策仍归人类所有 | 保留并加强 | 需求、方案、评审和交付流程已经区分可查事实，以及范围、优先级、风险、批准等需要授权的决策。 |
+| 事实由环境与来源核实，干系人决策仍归人类所有 | 保留并加强 | 需求只标记证据并路由可行性决策，不再提前作出结论；可研记录决策权限；其他流程继续区分可查事实和授权决策。 |
 | 一手来源研究并形成单一带引用制品 | 已采纳 | `rd-research` 已包含来源层级、反证、日期/版本背景、单一权威证据包和下游交接。 |
 | 双轴评审 | 已覆盖更广范围 | `rd-review` 把对齐/证据轴与内在质量/论证轴用于需求、可研、研究、方案、设计、标准和文章，而非只评审代码差异。 |
 | 为大量手动命令增加 Router Skill | 暂不采纳 | 只有 `rd-delivery` 仅显式调用；8 个专业 Skill 可由模型独立触发，增加第二个路由器没有独立交付物，只会增加认知与维护成本。 |
@@ -59,7 +61,7 @@
 | Issue Tracker 状态机、编码流程、TDD、实现和代码评审 | 不采纳 | 与仓库明确限定的文档交付和系统设计范围冲突。 |
 | Tracker 专用关系图、标签、任务认领和自动外部写入 | 不采纳 | 持久化仓库制品和明确权威边界可移植；外部 Tracker 变更仍取决于具体任务与授权。 |
 
-Release Notes 称 Commit `af6d692` 同时加入 “Negation” 和 “Negative Space”，但该 Commit 的实际标题是 “Drop Negative Space; keep Negation only”，固定 `main` 中的 `SKILL.md` 和 `GLOSSARY.md` 也只包含 Negation。当前源码优先于不一致的 Release Notes；本项目没有声称或复制当前源码中不存在的规则。
+本项目不复制上游的编码、工单、TDD、向导或强制子代理工作流，只吸收可移植的指令机制，并保持本仓库的文档交付和系统设计范围为最高约束。
 
 ## VibeCoding 9.9.6 参考审计
 
@@ -92,7 +94,9 @@ Release Notes 称 Commit `af6d692` 同时加入 “Negation” 和 “Negative S
 - `rd-research`、`rd-review`、`rd-writing` 和 `rd-delivery` 使用聚焦的 `references/`
 - `agents/openai.yaml` 提供 UI 元数据且不声明 MCP 依赖；专业 Skill 保持默认调用策略
 - 只有 `rd-delivery` 禁止隐式调用：Codex 使用 `policy.allow_implicit_invocation: false`，Claude/Cursor 适配器使用 `disable-model-invocation: true`
+- 全局 `AGENTS.md` v7.2 常驻真实性纪律、响应模式、上下文健康、输出前审核、输出规则、任务路由和按领域划分的精简基线，不复制完整 Skill 工作流；Skill 未被选择或不可用时会显式降级，而不是丢失控制面
 - 除经过验证的 `rd-delivery` 平台专用调用字段外，Claude/Cursor 适配树与中英文主 Skill 精确镜像
+- PowerShell 安装脚本把替换范围限制在声明的 9 个 Skills，校验备份和暂存树，在替换失败时恢复原安装，并支持只读的安装树精确检查
 - 仓库验证覆盖 Frontmatter、描述边界、逐步骤完成标准、调用策略对齐、元数据、评测、Skill 集合、LF 换行和镜像一致性
 
 下一轮有意义的优化应来自真实误触发、漏触发、步骤过早结束、交接断裂、权威记录重复或低质量输出。没有独立可触发的交付物或工作流证据就继续增加顶层 Skill，属于推测性扩展。

@@ -1,6 +1,6 @@
 #:schema https://learn.chatgpt.com/docs/config-schema.json
 # Public Codex configuration example.
-# Verified against codex-cli 0.146.0 on 2026-07-29.
+# Verified against codex-cli 0.147.0 on 2026-08-07.
 # Merge into ~/.codex/config.toml manually. Do not overwrite an existing config blindly.
 
 # Choose a model that is available to your Codex account.
@@ -22,7 +22,8 @@ model_reasoning_summary = "none"
 model_verbosity = "high"
 personality = "pragmatic"
 # For complex work, layer $CODEX_HOME/high.config.toml with codex --profile high.
-# Standard speed is the default. Configure service_tier only when you intentionally use Fast/Flex.
+# Standard processing remains the default when service_tier is omitted.
+# Select Fast through the UI/command or an explicit service-tier setting only when the active model advertises it.
 
 # Live search is appropriate when current external evidence matters. Use cached or indexed
 # instead when freshness is not required or external retrieval should be more constrained.

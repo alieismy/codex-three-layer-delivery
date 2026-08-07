@@ -352,6 +352,59 @@ Assert-MirroredSkillTree -SourceRoot (Join-Path $root "skills") -TargetRoot (Joi
 Assert-MirroredSkillTree -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot (Join-Path $root "zh-CN/claude/project/.claude/skills") -AllowPlatformInvocationDifference
 Assert-MirroredSkillTree -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot (Join-Path $root "cursor/zh-CN/.cursor/skills") -AllowPlatformInvocationDifference
 
+$globalAgentBaselines = @(
+    @{
+        Path = Join-Path $root "codex/global/AGENTS.md"
+        Headings = @("## Truthfulness Discipline", "## Response Modes", "## Task Identification and Skill Routing", "## Minimum RD Delivery Baseline", "## Context Health", "## Pre-Output Self-Review", "## Output Contract")
+        Domains = @("Requirements", "Feasibility", "Research", "Solution", "Design", "Specification", "Writing", "Review", "Delivery orchestration")
+        Markers = @("Say when something is unknown or cannot be confirmed", "**Fast mode:**", "**Deep mode:**", "**Clarification mode:**", "**Guidance mode:**", "1. Does the response answer the current request", "8. Does the output expose any secret")
+        Colon = ":"
+    },
+    @{
+        Path = Join-Path $root "zh-CN/codex/global/AGENTS.md"
+        Headings = @("## 真实性纪律", "## 响应模式", "## 任务识别与 Skill 路由", "## RD 交付最小基线", "## 上下文健康", "## 输出前自我审核", "## 输出格式")
+        Domains = @("需求", "可研", "研究", "方案", "设计", "标准", "写作", "评审", "交付编排")
+        Markers = @("不知道就明确说不知道；不能确认就明确说不能确认", "**快速模式：**", "**深度模式：**", "**澄清模式：**", "**引导模式：**", "1. 是否回答当前请求", "8. 输出是否泄露密钥")
+        Colon = "："
+    }
+)
+foreach ($baseline in $globalAgentBaselines) {
+    if (-not (Test-Path -LiteralPath $baseline.Path)) {
+        Add-Failure "Missing global AGENTS.md baseline: $($baseline.Path)"
+        continue
+    }
+
+    $baselineText = Get-Content -LiteralPath $baseline.Path -Raw
+    foreach ($heading in $baseline.Headings) {
+        if (-not $baselineText.Contains($heading)) {
+            Add-Failure "Global AGENTS.md is missing required routing or fallback heading '$heading': $($baseline.Path)"
+        }
+    }
+    foreach ($domain in $baseline.Domains) {
+        $domainMarker = "- **{0}{1}**" -f $domain, $baseline.Colon
+        if (-not $baselineText.Contains($domainMarker)) {
+            Add-Failure "Global AGENTS.md is missing minimum RD domain '$domain': $($baseline.Path)"
+        }
+    }
+    foreach ($marker in $baseline.Markers) {
+        if (-not $baselineText.Contains($marker)) {
+            Add-Failure "Global AGENTS.md is missing required always-on behavior '$marker': $($baseline.Path)"
+        }
+    }
+}
+
+$activeProjectAgents = Join-Path $root "AGENTS.md"
+if (Test-Path -LiteralPath $activeProjectAgents) {
+    $activeText = Get-Content -LiteralPath $activeProjectAgents -Raw
+    $acceptedProjectTemplates = @(
+        (Get-Content -LiteralPath (Join-Path $root "codex/project/AGENTS.md") -Raw),
+        (Get-Content -LiteralPath (Join-Path $root "zh-CN/codex/project/AGENTS.md") -Raw)
+    )
+    if ($acceptedProjectTemplates -notcontains $activeText) {
+        Add-Failure "Repository-root AGENTS.md must match an authoritative project template when present: $activeProjectAgents"
+    }
+}
+
 $cursorPlatformFiles = @(
     (Join-Path $root "cursor/project/PROMPTS.md"),
     (Join-Path $root "cursor/zh-CN/PROMPTS.md")
