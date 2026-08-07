@@ -46,6 +46,6 @@ Avoid burying verification results under long narration.
 ## Diff Hygiene
 
 - Keep diffs scoped to the task.
-- Re-read changed files before finishing.
+- Re-read changed files before finishing. Inspect the final diff for missed references, accidental coupling, duplicated logic, unrelated formatting, generated noise, local-only paths, and suspected secrets.
 - Run whitespace and syntax checks when the repository provides them.
 - Do not revert unrelated user changes.

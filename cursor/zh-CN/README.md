@@ -6,12 +6,12 @@
 
 - `.cursor/rules/*.mdc`：按 Cursor 规则文件拆分的文档交付纪律。
 - `.cursor/skills/rd-*/SKILL.md`：Cursor 版 `rd-*` 技能。
-- `.cursor/mcp.example.json`：显式 opt-in（选择启用）的 MCP 示例配置。
+- `.cursor/mcp.example.json`：显式选择启用（opt-in）的 MCP 示例配置。
 - `PROMPTS.md`：中文提示词模板。
 
 ## Cursor 官方文档基线
 
-已于 2026-05-29 核查：
+已于 2026-07-10 核查：
 
 - [Rules](https://cursor.com/docs/context/rules)：项目规则位于 `.cursor/rules`，支持 `.md` 和 `.mdc`；`.mdc` frontmatter 可声明 `description`、`globs` 等元数据。
 - [Skills](https://cursor.com/docs/skills)：Agent Skills 是可版本化的能力包，可包含脚本、模板和参考资料。
@@ -45,4 +45,4 @@ cp cursor/zh-CN/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
 
 ## 公开发布说明
 
-此适配包保留中文内容。英文 Cursor adapter 位于 `cursor/project/`；英文根目录仍是 canonical baseline（权威基线）。
+此适配包保留中文内容。英文 Cursor 适配包（adapter）位于 `cursor/project/`；英文根目录仍是权威基线（canonical baseline）。

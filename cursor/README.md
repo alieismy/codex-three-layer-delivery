@@ -27,7 +27,7 @@ cursor/zh-CN/
 
 ## Cursor Documentation Baseline
 
-Cursor documentation checked on 2026-05-29:
+Cursor documentation checked on 2026-07-10:
 
 - [Rules](https://cursor.com/docs/context/rules): Project Rules live in `.cursor/rules`; `.md` and `.mdc` are supported; `.mdc` frontmatter can specify metadata such as `description` and `globs`.
 - [Skills](https://cursor.com/docs/skills): Agent Skills are portable, version-controlled packages that can include scripts, templates, and references.

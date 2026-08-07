@@ -6,7 +6,7 @@ This repository packages a three-layer operating model:
 
 1. **Global directives**: personal behavioral rules for accuracy, evidence discipline, and response style.
 2. **Project document-delivery discipline**: project-level `AGENTS.md` rules for scope control, quality gates, security, MCP routing, and verification.
-3. **Document delivery skills**: seven independent `rd-*` skills for requirements, feasibility studies, research evidence, technical proposals, detailed designs, standards work, and document review.
+3. **Research and document-delivery skills**: eight independent specialist `rd-*` skills plus one explicit delivery orchestrator for requirements, feasibility studies, evidence research, technical proposals, detailed designs, standards work, professional writing, independent review, and cross-session handoff.
 
 It also includes optional Cursor and Claude Code adapter areas for teams that want to port the same document-delivery discipline to other agent environments.
 
@@ -50,7 +50,9 @@ Layer 3: Document Delivery Skills
   - rd-solution
   - rd-design
   - rd-specification
+  - rd-writing
   - rd-review
+  - rd-delivery (explicit orchestration only)
 
 Adapter mappings:
   Cursor: cursor/project/.cursor/rules/ and cursor/project/.cursor/skills/
@@ -82,6 +84,13 @@ cp -r skills/rd-* ~/.agents/skills/
 # Or project-level install
 mkdir -p /path/to/your-project/.agents/skills
 cp -r skills/rd-* /path/to/your-project/.agents/skills/
+```
+
+For a verified PowerShell user-level install with backup and exact tree comparison:
+
+```powershell
+pwsh -File ./scripts/install-rd-skills.ps1 -Language en
+pwsh -File ./scripts/install-rd-skills.ps1 -Language en -CheckOnly
 ```
 
 ### 3. Review Codex config examples
@@ -136,13 +145,19 @@ cursor/zh-CN/
 |---|---|---|
 | `$rd-requirement` | Structured requirements / PRD | turn raw user needs into verifiable requirements |
 | `$rd-feasibility` | Feasibility study / feasibility analysis | evaluate technical, economic, schedule, compliance, operational, and risk feasibility |
-| `$rd-research` | Evidence package / literature and source notes | collect and validate evidence for feasibility, solution, standards, or fact-dependent review work |
+| `$rd-research` | Evidence package / research notes / fact-check matrix | research standards, open source, AI tools, configuration behavior, and contested claims |
 | `$rd-solution` | Technical proposal / high-level design / construction plan | compare candidate solutions and produce design-ready technical documents |
 | `$rd-design` | Detailed design | define interfaces, data models, flows, errors, security, and concurrency |
-| `$rd-specification` | Standards/specification draft or clause review | draft, revise, or review standards and normative clauses |
-| `$rd-review` | Document review findings | review requirements, feasibility reports, proposals, designs, or standards |
+| `$rd-specification` | Standards/specification draft or clause revision | draft or revise standards and normative clauses |
+| `$rd-writing` | Technical article / white paper / evidence report / decision brief | turn verified material into audience-ready professional documents |
+| `$rd-review` | Independent review findings | review engineering documents, research reports, standards, and technical or public-affairs articles |
+| `$rd-delivery` | Delivery charter / artifact map / phase gates / handoff | explicitly coordinate multi-stage, multi-document, or cross-session engagements |
 
-The skills are independent. They are not a forced pipeline. Use `$rd-research` when external evidence is needed; it is a recommended companion for feasibility studies, technical proposals, standards work, and fact-dependent reviews, not a mandatory first step for every task.
+The eight specialist Skills are independent and are not a forced pipeline. Use `$rd-research` when external or contested evidence is needed, `$rd-writing` when verified evidence must become an audience-ready narrative, and `$rd-review` when an independent verdict is required. Invoke `$rd-delivery` only when the user explicitly requests cross-artifact orchestration, phase gates, or a durable handoff. This boundary is encoded with `agents/openai.yaml` for Codex and with platform-specific `disable-model-invocation: true` frontmatter in the Claude and Cursor adapters.
+
+Each skill includes output and trigger-boundary cases under `evals/` plus ChatGPT/Codex desktop metadata under `agents/openai.yaml`. Multi-mode Skills keep their common workflow in `SKILL.md` and load only the selected checklist from `references/`. Shared bodies use neutral `rd-*` identifiers; Codex examples use `$rd-*`, while explicit Cursor and Claude Code invocation uses `/rd-*`.
+
+See [RD Skills Assessment and Evolution](docs/rd-skills-assessment.md) for the role-coverage matrix, non-goals, external design evidence, and the reason the taxonomy contains eight specialist Skills plus one explicit orchestrator.
 
 ## Cursor Adapter
 

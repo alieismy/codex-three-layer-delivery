@@ -9,7 +9,7 @@ alwaysApply: true
 
 - Use full file paths in plans, review reports, and final reports.
 - Summarize key constraints before complex multi-step work.
-- Refresh context when the task changes between requirements, feasibility, proposal, detailed design, standards work, and review.
+- Refresh context when the task changes between requirements, feasibility, research, proposal, detailed design, standards work, professional writing, review, and delivery orchestration.
 - If answer quality degrades or the same issue fails twice, stop and reassess context before continuing.
 
 ## Session Strategy

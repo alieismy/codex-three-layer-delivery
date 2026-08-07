@@ -1,5 +1,5 @@
 ---
-description: Quality gates for requirements, feasibility, research evidence, proposal, detailed design, standards work, document review, and final verification.
+description: Quality gates for specialist document work, explicit delivery orchestration, and final verification.
 alwaysApply: true
 ---
 
@@ -12,18 +12,21 @@ Before completing requirements, feasibility, research, design, standards, or rev
 - Relevant boundary conditions, compliance constraints, and risks are covered.
 - Unconfirmed points are listed with verification actions.
 - Verification actions and results are recorded.
+- Match verification scope to change risk and blast radius. Start with the minimum sufficient checks directly relevant to the change, and broaden verification for shared behavior, cross-module contracts, security-critical paths, or build and release contracts. Do not skip necessary checks to save time or run expensive repository-wide checks without justification.
 
 ## Skill-Specific Gates
 
 | Work type | Minimum quality gate |
 |---|---|
-| `$rd-requirement` | Core scenarios covered; priorities, assumptions, exclusions, acceptance criteria, and traceability explicit |
-| `$rd-feasibility` | Decision question clear; dimensions covered; options compared; conclusion, confidence, conditions, risks, and verification actions explicit |
-| `$rd-research` | Research questions, source authority, date/version context, relevance, confidence, conflicts, gaps, and downstream usage are explicit |
-| `$rd-solution` | Candidate comparison and recommendation rationale clear; architecture, security, cost, risk, and exit path addressed |
-| `$rd-design` | Interfaces, data models, critical flows, failure paths, security, auditability, concurrency, and unresolved decisions specified |
-| `$rd-specification` | Clause-level evidence, normative wording, terminology, references, conflicts, and human-verification gaps handled |
-| `$rd-review` | Correct review mode selected; findings are severity-graded with location, evidence, impact, and recommendation; verdict is explicit |
+| `/rd-requirement` | Core scenarios covered; priorities, assumptions, exclusions, acceptance criteria, and traceability explicit |
+| `/rd-feasibility` | Decision question clear; dimensions covered; options compared; conclusion, confidence, conditions, risks, and verification actions explicit |
+| `/rd-research` | Mode, source authority, date/version/environment, applicability, reproducibility, counterevidence, confidence, gaps, and downstream usage are explicit |
+| `/rd-solution` | Candidate comparison and recommendation rationale clear; architecture, security, cost, risk, and exit path addressed |
+| `/rd-design` | Interfaces, data models, critical flows, failure paths, trust boundaries, security, auditability, concurrency, and unresolved decisions specified |
+| `/rd-specification` | Clause-level evidence, normative wording, terminology, references, conflicts, and human-verification gaps handled |
+| `/rd-writing` | Audience, purpose, claim architecture, evidence, counterargument, limitations, and conclusion boundary are explicit |
+| `/rd-review` | Alignment/evidence and intrinsic-quality/argument assessed; findings include location, evidence, impact, severity rationale, and action; verdict follows unresolved impact |
+| `/rd-delivery` | Explicit request confirmed; artifact paths, statuses, authority layers, dependencies, machine or human gates, waivers, re-review triggers, authoritative pointers, verification, and durable handoff are current; only required specialist Skills are invoked |
 
 ## Completion Report
 

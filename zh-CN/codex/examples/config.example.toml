@@ -1,11 +1,10 @@
-#:schema https://developers.openai.com/codex/config-schema.json
+#:schema https://learn.chatgpt.com/docs/config-schema.json
 # 公开版 Codex 配置示例。
-# 已于 2026-05-28 基于 @openai/codex 0.134.0 核查。
+# 已于 2026-08-07 基于 codex-cli 0.147.0 核查。
 # 使用时请手动合并到 ~/.codex/config.toml，不要盲目覆盖已有配置。
 
 # 选择你的 Codex 账号可用的模型。
-# model = "gpt-5-codex"
-# review_model = "gpt-5-codex"
+# model = "gpt-5.6-sol"
 model_provider = "openai"
 
 approval_policy = "on-request"
@@ -14,31 +13,46 @@ developer_instructions = "请用清晰、准确、可验证的方式回答；事
 
 project_doc_fallback_filenames = ["CLAUDE.md"]
 project_doc_max_bytes = 65536
-tool_output_token_limit = 40000
+tool_output_token_limit = 10000
 
 hide_agent_reasoning = true
-model_reasoning_effort = "high"
-model_reasoning_summary = "auto"
+model_reasoning_effort = "medium"
+plan_mode_reasoning_effort = "high"
+model_reasoning_summary = "none"
 model_verbosity = "high"
-# 根据你的 Codex 版本和账号策略启用 web search。
-# web_search = "enabled"
+personality = "pragmatic"
+# 对复杂任务，可通过 codex --profile high 叠加 $CODEX_HOME/high.config.toml。
+# 省略 service_tier 时仍使用标准处理。
+# 仅当当前模型明确支持对应层级时，才通过 Fast 界面/命令或显式服务层级设置启用。
+
+# 需要最新外部证据时适合使用实时检索；如果不要求时效性，或需要更严格地
+# 限制外部检索，可改用 cached 或 indexed。
+web_search = "live"
 
 check_for_update_on_startup = true
 
 [shell_environment_policy]
 inherit = "all"
 
+[sandbox_workspace_write]
+# 默认不开放 shell 命令的网络访问；内置 web_search 工具是独立能力。
+network_access = false
+
 [features]
 memories = true
-undo = true
 unified_exec = true
-apply_patch_freeform = true
-child_agents_md = true
-goals = true
+
+[features.multi_agent_v2]
+enabled = true
+min_wait_timeout_ms = 10000
+default_wait_timeout_ms = 60000
+max_wait_timeout_ms = 120000
 
 [agents]
-max_threads = 5
-max_depth = 2
+max_concurrent_threads_per_session = 5
+default_subagent_reasoning_effort = "medium"
+# 仅当所有子代理都应默认使用 GPT-5.6 Sol 时，才启用以下配置。
+# default_subagent_model = "gpt-5.6-sol"
 
 [agents.default]
 description = "General-purpose helper."
@@ -60,50 +74,49 @@ enabled = false
 
 # --- MCP Servers ---
 # 公开默认值：所有外部 MCP 服务器在凭据和数据流影响审查前均禁用。
-# 版本固定策略：npm MCP 示例中不要使用 @latest。
+# 在 Codex App 中优先使用 Context7/Tavily App，避免与独立 MCP 重复。
+# 版本策略：仅 Context7 固定已测试版本；其它 npm MCP 包不固定版本。
+# Context7 3.2.5 要求 Node.js >= 20.18.1。
 
 [mcp_servers.context7]
 command = "npx"
-args = ["-y", "@upstash/context7-mcp@2.3.0"]
+args = ["-y", "@upstash/context7-mcp@3.2.5"]
 enabled = false
 tool_timeout_sec = 60
 env_vars = ["CONTEXT7_API_KEY"]
 
 [mcp_servers.tavily]
 command = "npx"
-args = ["-y", "tavily-mcp@0.2.19"]
+args = ["-y", "tavily-mcp"]
 enabled = false
 tool_timeout_sec = 30
 env_vars = ["TAVILY_API_KEY"]
 
-[mcp_servers.sequential-thinking]
-command = "npx"
-args = ["-y", "@modelcontextprotocol/server-sequential-thinking@2025.12.18"]
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
 enabled = false
+enabled_tools = ["search_openai_docs", "fetch_openai_doc", "get_openapi_spec"]
+
+[mcp_servers.microsoft-learn]
+url = "https://learn.microsoft.com/api/mcp"
+enabled = false
+enabled_tools = ["microsoft_docs_search", "microsoft_docs_fetch", "microsoft_code_sample_search"]
 
 [mcp_servers.deepwiki]
 url = "https://mcp.deepwiki.com/mcp"
 enabled = false
 enabled_tools = ["read_wiki_structure", "read_wiki_contents", "ask_question"]
 
-[mcp_servers.brave-search]
-command = "npx"
-args = ["-y", "@brave/brave-search-mcp-server@2.0.82", "--transport", "stdio"]
-enabled = false
-tool_timeout_sec = 30
-env_vars = ["BRAVE_API_KEY"]
-
 [mcp_servers.playwright]
 command = "npx"
-args = ["-y", "@playwright/mcp@0.0.75"]
+args = ["-y", "@playwright/mcp"]
 enabled = false
 tool_timeout_sec = 120
 
 [mcp_servers.chrome-devtools]
 command = "npx"
-args = ["-y", "chrome-devtools-mcp@1.1.1"]
+args = ["-y", "chrome-devtools-mcp"]
 enabled = false
 
-# Augment Context Engine 有意不放入默认可运行示例，
-# 因为 relay URL 和 token 处理取决于具体部署。
-# 如需启用，请使用环境变量，不要提交私有 relay URL。
+# Sequential Thinking、Brave Search 和第三方 ACE relay 有意不放入默认示例：
+# 前两者与现有推理/检索能力重复；后者需要单独完成代码数据流和信任边界审查。

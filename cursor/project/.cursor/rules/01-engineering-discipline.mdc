@@ -20,6 +20,8 @@ alwaysApply: true
 - Do not add sections or process overhead because a future need is merely possible.
 - Do not reformat unrelated content.
 - Clean up inconsistencies caused by your change; leave pre-existing unrelated issues alone.
+- Respect `.gitignore`, `.ignore`, `.rgignore`, and tool-specific ignore rules by default. Inspect dependency directories, generated code, build outputs, caches, coverage output, or packaged artifacts only when the task or evidence requires it, and keep that access bounded.
+- Preserve the target file's encoding, line endings, and local formatting. Do not run repository-wide formatters, auto-fixes, or mechanical reordering unless explicitly requested or required by a project validation entry point. Update dependencies and lockfiles only when an approved dependency change requires it.
 
 ## Goal-Driven Execution
 

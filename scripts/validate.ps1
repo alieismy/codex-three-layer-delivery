@@ -41,11 +41,97 @@ function Test-SkillFrontmatter {
     $skillFiles = Get-ChildItem -LiteralPath $SkillRoot -Recurse -File -Filter "SKILL.md" -Force
     foreach ($skill in $skillFiles) {
         $content = Get-Content -LiteralPath $skill.FullName -Raw
-        $hasName = $content -match "(?m)^name:\s*rd-[^\r\n]+"
-        $hasDescription = $content -match "(?m)^description:\s*(Use when|>-)"
-        $descriptionMentionsTrigger = $content -match "Use when"
-        if (-not ($hasName -and $hasDescription -and $descriptionMentionsTrigger)) {
-            Add-Failure "Skill frontmatter must include name and trigger-oriented description: $($skill.FullName)"
+        $frontmatter = [regex]::Match($content, "(?s)\A---\n(?<body>.*?)\n---\n")
+        if (-not $frontmatter.Success) {
+            Add-Failure "Skill must start with valid LF-delimited frontmatter: $($skill.FullName)"
+            continue
+        }
+
+        $frontmatterBody = $frontmatter.Groups["body"].Value
+        $nameMatch = [regex]::Match($frontmatterBody, "(?m)^name:\s*(?<name>[a-z0-9]+(?:-[a-z0-9]+)*)\s*$")
+        $descriptionMatch = [regex]::Match(
+            $frontmatterBody,
+            "(?ms)^description:\s*>-\s*\n(?<description>(?: {2}.+(?:\n|$))+?)(?=^[A-Za-z0-9_-]+:|\z)"
+        )
+        if (-not ($nameMatch.Success -and $descriptionMatch.Success)) {
+            Add-Failure "Skill frontmatter must contain a valid name and block description: $($skill.FullName)"
+            continue
+        }
+
+        $name = $nameMatch.Groups["name"].Value
+        if ($name -ne $skill.Directory.Name) {
+            Add-Failure "Skill name must match its parent directory: $($skill.FullName)"
+        }
+
+        $isPlatformAdapter = $skill.FullName -match "[\\/]\.(claude|cursor)[\\/]skills[\\/]"
+        $hasExplicitInvocationField = $frontmatterBody -match "(?m)^disable-model-invocation:\s*true\s*$"
+        $topLevelKeys = [regex]::Matches($frontmatterBody, "(?m)^(?<key>[A-Za-z0-9_-]+):") |
+            ForEach-Object { $_.Groups["key"].Value }
+        foreach ($key in $topLevelKeys) {
+            $isAllowedInvocationKey = (
+                $key -eq "disable-model-invocation" -and
+                $isPlatformAdapter -and
+                $name -eq "rd-delivery"
+            )
+            if ($key -notin @("name", "description") -and -not $isAllowedInvocationKey) {
+                Add-Failure "Unexpected skill frontmatter field '$key': $($skill.FullName)"
+            }
+        }
+        if ($isPlatformAdapter -and $name -eq "rd-delivery" -and -not $hasExplicitInvocationField) {
+            Add-Failure "Claude and Cursor rd-delivery adapters must disable model invocation: $($skill.FullName)"
+        }
+        if (($name -ne "rd-delivery" -or -not $isPlatformAdapter) -and $hasExplicitInvocationField) {
+            Add-Failure "Only Claude and Cursor rd-delivery adapters may disable model invocation in SKILL.md: $($skill.FullName)"
+        }
+
+        $description = (($descriptionMatch.Groups["description"].Value -split "\n") |
+            ForEach-Object { $_.Trim() } |
+            Where-Object { $_ }) -join " "
+        if ($description.Length -lt 1 -or $description.Length -gt 1024) {
+            Add-Failure "Skill description must contain 1-1024 characters: $($skill.FullName)"
+        }
+
+        $isChinese = $skill.FullName -match "[\\/]zh-CN[\\/]"
+        if ($isChinese -and $description -notmatch "[\u4e00-\u9fff]") {
+            Add-Failure "Chinese skill description must contain Simplified Chinese trigger text: $($skill.FullName)"
+        }
+        if (-not $isChinese -and $description -notmatch '\bUse (when|for)\b') {
+            Add-Failure "English skill description must state when or what target to use it for: $($skill.FullName)"
+        }
+
+        if (($content -split "\n").Count -gt 500) {
+            Add-Failure "SKILL.md exceeds the 500-line progressive-disclosure limit: $($skill.FullName)"
+        }
+        $stepMatches = [regex]::Matches($content, "(?m)^### \d+\..*$")
+        $completionCriterionMatches = [regex]::Matches(
+            $content,
+            "(?m)^\*\*(Completion criterion:|完成标准：)\*\*"
+        )
+        if ($stepMatches.Count -ne $completionCriterionMatches.Count) {
+            Add-Failure "Numbered Skill steps and completion criteria must have a one-to-one count: $($skill.FullName)"
+        }
+        for ($stepIndex = 0; $stepIndex -lt $stepMatches.Count; $stepIndex++) {
+            $stepMatch = $stepMatches[$stepIndex]
+            $segmentEnd = if ($stepIndex + 1 -lt $stepMatches.Count) {
+                $stepMatches[$stepIndex + 1].Index
+            }
+            else {
+                $content.Length
+            }
+            $stepSegment = $content.Substring($stepMatch.Index, $segmentEnd - $stepMatch.Index)
+            $stepCriterionCount = [regex]::Matches(
+                $stepSegment,
+                "(?m)^\*\*(Completion criterion:|完成标准：)\*\*"
+            ).Count
+            if ($stepCriterionCount -ne 1) {
+                Add-Failure "Each numbered Skill step must contain exactly one completion criterion ('$($stepMatch.Value)'): $($skill.FullName)"
+            }
+        }
+        if ($content -match '\$rd-') {
+            Add-Failure "Shared skill bodies must use neutral rd-* identifiers, not platform invocation syntax: $($skill.FullName)"
+        }
+        if ($content -match "(?m)^## (MCP Tool Usage|MCP 工具使用)$" -or $content.Contains("Codex built-in")) {
+            Add-Failure "Platform-specific or hard-coded tool routing found in shared skill: $($skill.FullName)"
         }
     }
 }
@@ -62,6 +148,93 @@ foreach ($skillRoot in $skillRoots) {
     Test-SkillFrontmatter -SkillRoot $skillRoot
 }
 
+function Test-SkillEvals {
+    param([string]$SkillRoot)
+
+    foreach ($skillDirectory in Get-ChildItem -LiteralPath $SkillRoot -Directory -Force) {
+        $evalsPath = Join-Path $skillDirectory.FullName "evals/evals.json"
+        $triggerPath = Join-Path $skillDirectory.FullName "evals/trigger-evals.json"
+        foreach ($requiredPath in @($evalsPath, $triggerPath)) {
+            if (-not (Test-Path -LiteralPath $requiredPath)) {
+                Add-Failure "Missing required skill evaluation file: $requiredPath"
+            }
+        }
+        if (-not ((Test-Path -LiteralPath $evalsPath) -and (Test-Path -LiteralPath $triggerPath))) {
+            continue
+        }
+
+        try {
+            $evals = Get-Content -LiteralPath $evalsPath -Raw | ConvertFrom-Json
+            $triggers = @(Get-Content -LiteralPath $triggerPath -Raw | ConvertFrom-Json)
+        }
+        catch {
+            Add-Failure "Invalid skill evaluation JSON in $($skillDirectory.FullName): $($_.Exception.Message)"
+            continue
+        }
+
+        if ($evals.skill_name -ne $skillDirectory.Name -or @($evals.evals).Count -lt 3) {
+            Add-Failure "Skill output evals must match the skill name and contain at least three cases: $evalsPath"
+        }
+        foreach ($eval in @($evals.evals)) {
+            if (-not $eval.prompt -or -not $eval.expected_output -or @($eval.assertions).Count -lt 1) {
+                Add-Failure "Each output eval needs a prompt, expected output, and assertions: $evalsPath"
+            }
+        }
+        $positiveCount = @($triggers | Where-Object { $_.should_trigger -eq $true }).Count
+        $negativeCount = @($triggers | Where-Object { $_.should_trigger -eq $false }).Count
+        if ($triggers.Count -lt 8 -or $positiveCount -lt 3 -or $negativeCount -lt 3) {
+            Add-Failure "Trigger evals need at least eight cases, including three positive and three near-miss negative cases: $triggerPath"
+        }
+    }
+}
+
+foreach ($skillRoot in $skillRoots) {
+    Test-SkillEvals -SkillRoot $skillRoot
+}
+
+function Test-SkillOpenAiMetadata {
+    param([string]$SkillRoot)
+
+    foreach ($skillDirectory in Get-ChildItem -LiteralPath $SkillRoot -Directory -Force) {
+        $metadataPath = Join-Path $skillDirectory.FullName "agents/openai.yaml"
+        if (-not (Test-Path -LiteralPath $metadataPath)) {
+            Add-Failure "Missing ChatGPT/Codex skill metadata: $metadataPath"
+            continue
+        }
+
+        $metadata = Get-Content -LiteralPath $metadataPath -Raw
+        foreach ($requiredKey in @("interface:", "display_name:", "short_description:", "default_prompt:")) {
+            if (-not $metadata.Contains($requiredKey)) {
+                Add-Failure "Missing '$requiredKey' in skill metadata: $metadataPath"
+            }
+        }
+        $shortDescriptionMatch = [regex]::Match($metadata, '(?m)^\s{2}short_description:\s*"(?<value>[^"]+)"\s*$')
+        if (-not $shortDescriptionMatch.Success -or $shortDescriptionMatch.Groups["value"].Value.Length -lt 25 -or $shortDescriptionMatch.Groups["value"].Value.Length -gt 64) {
+            Add-Failure "Skill short_description must be a quoted 25-64 character string: $metadataPath"
+        }
+        $defaultPromptMatch = [regex]::Match($metadata, '(?m)^\s{2}default_prompt:\s*"(?<value>[^"]+)"\s*$')
+        if (-not $defaultPromptMatch.Success -or -not $defaultPromptMatch.Groups["value"].Value.Contains("`$$($skillDirectory.Name)")) {
+            Add-Failure "Skill default_prompt must be quoted and explicitly mention `$$($skillDirectory.Name): $metadataPath"
+        }
+        if ($metadata -match "(?m)^dependencies:") {
+            Add-Failure "Skill metadata must not add tool dependencies without a documented need: $metadataPath"
+        }
+        $hasInvocationPolicy = $metadata -match "(?m)^policy:"
+        if ($skillDirectory.Name -eq "rd-delivery") {
+            if (-not ($metadata -match "(?ms)^policy:\n\s{2}allow_implicit_invocation:\s*false\s*$")) {
+                Add-Failure "rd-delivery must disable implicit invocation because it is an explicit orchestrator: $metadataPath"
+            }
+        }
+        elseif ($hasInvocationPolicy) {
+            Add-Failure "Specialist Skills must retain the default invocation policy: $metadataPath"
+        }
+    }
+}
+
+foreach ($skillRoot in $skillRoots) {
+    Test-SkillOpenAiMetadata -SkillRoot $skillRoot
+}
+
 $expectedSkillNames = @(
     "rd-requirement",
     "rd-feasibility",
@@ -69,7 +242,9 @@ $expectedSkillNames = @(
     "rd-solution",
     "rd-design",
     "rd-specification",
-    "rd-review"
+    "rd-writing",
+    "rd-review",
+    "rd-delivery"
 )
 
 function Assert-ExpectedSkillSet {
@@ -122,11 +297,125 @@ function Assert-MirroredSkillSet {
     }
 }
 
+function Assert-MirroredSkillTree {
+    param(
+        [string]$SourceRoot,
+        [string]$TargetRoot,
+        [switch]$AllowPlatformInvocationDifference
+    )
+
+    $sourceFiles = Get-ChildItem -LiteralPath $SourceRoot -Recurse -File -Force
+    $targetFiles = Get-ChildItem -LiteralPath $TargetRoot -Recurse -File -Force
+    $sourceMap = @{}
+    $targetMap = @{}
+    foreach ($file in $sourceFiles) {
+        $relative = $file.FullName.Substring($SourceRoot.Length).TrimStart("\", "/")
+        $normalizedRelative = $relative.Replace("\", "/")
+        $content = Get-Content -LiteralPath $file.FullName -Raw
+        if ($AllowPlatformInvocationDifference -and $normalizedRelative -eq "rd-delivery/SKILL.md") {
+            $content = $content -replace "(?m)^disable-model-invocation:\s*true\n", ""
+        }
+        $sourceMap[$relative] = $content
+    }
+    foreach ($file in $targetFiles) {
+        $relative = $file.FullName.Substring($TargetRoot.Length).TrimStart("\", "/")
+        $normalizedRelative = $relative.Replace("\", "/")
+        $content = Get-Content -LiteralPath $file.FullName -Raw
+        if ($AllowPlatformInvocationDifference -and $normalizedRelative -eq "rd-delivery/SKILL.md") {
+            $content = $content -replace "(?m)^disable-model-invocation:\s*true\n", ""
+        }
+        $targetMap[$relative] = $content
+    }
+    foreach ($relative in $sourceMap.Keys) {
+        if (-not $targetMap.ContainsKey($relative)) {
+            Add-Failure "Missing mirrored skill file '$relative' in $TargetRoot"
+        }
+        elseif ($sourceMap[$relative] -ne $targetMap[$relative]) {
+            Add-Failure "Mirrored skill file differs from canonical source: $relative in $TargetRoot"
+        }
+    }
+    foreach ($relative in $targetMap.Keys) {
+        if (-not $sourceMap.ContainsKey($relative)) {
+            Add-Failure "Unexpected mirrored skill file '$relative' in $TargetRoot"
+        }
+    }
+}
+
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "claude/project/.claude/skills")
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "cursor/project/.cursor/skills")
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot (Join-Path $root "cursor/zh-CN/.cursor/skills")
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "zh-CN/skills")
 Assert-MirroredSkillSet -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "zh-CN/claude/project/.claude/skills")
+
+Assert-MirroredSkillTree -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "claude/project/.claude/skills") -AllowPlatformInvocationDifference
+Assert-MirroredSkillTree -SourceRoot (Join-Path $root "skills") -TargetRoot (Join-Path $root "cursor/project/.cursor/skills") -AllowPlatformInvocationDifference
+Assert-MirroredSkillTree -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot (Join-Path $root "zh-CN/claude/project/.claude/skills") -AllowPlatformInvocationDifference
+Assert-MirroredSkillTree -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoot (Join-Path $root "cursor/zh-CN/.cursor/skills") -AllowPlatformInvocationDifference
+
+$globalAgentBaselines = @(
+    @{
+        Path = Join-Path $root "codex/global/AGENTS.md"
+        Headings = @("## Truthfulness Discipline", "## Response Modes", "## Task Identification and Skill Routing", "## Minimum RD Delivery Baseline", "## Context Health", "## Pre-Output Self-Review", "## Output Contract")
+        Domains = @("Requirements", "Feasibility", "Research", "Solution", "Design", "Specification", "Writing", "Review", "Delivery orchestration")
+        Markers = @("Say when something is unknown or cannot be confirmed", "**Fast mode:**", "**Deep mode:**", "**Clarification mode:**", "**Guidance mode:**", "1. Does the response answer the current request", "8. Does the output expose any secret")
+        Colon = ":"
+    },
+    @{
+        Path = Join-Path $root "zh-CN/codex/global/AGENTS.md"
+        Headings = @("## 真实性纪律", "## 响应模式", "## 任务识别与 Skill 路由", "## RD 交付最小基线", "## 上下文健康", "## 输出前自我审核", "## 输出格式")
+        Domains = @("需求", "可研", "研究", "方案", "设计", "标准", "写作", "评审", "交付编排")
+        Markers = @("不知道就明确说不知道；不能确认就明确说不能确认", "**快速模式：**", "**深度模式：**", "**澄清模式：**", "**引导模式：**", "1. 是否回答当前请求", "8. 输出是否泄露密钥")
+        Colon = "："
+    }
+)
+foreach ($baseline in $globalAgentBaselines) {
+    if (-not (Test-Path -LiteralPath $baseline.Path)) {
+        Add-Failure "Missing global AGENTS.md baseline: $($baseline.Path)"
+        continue
+    }
+
+    $baselineText = Get-Content -LiteralPath $baseline.Path -Raw
+    foreach ($heading in $baseline.Headings) {
+        if (-not $baselineText.Contains($heading)) {
+            Add-Failure "Global AGENTS.md is missing required routing or fallback heading '$heading': $($baseline.Path)"
+        }
+    }
+    foreach ($domain in $baseline.Domains) {
+        $domainMarker = "- **{0}{1}**" -f $domain, $baseline.Colon
+        if (-not $baselineText.Contains($domainMarker)) {
+            Add-Failure "Global AGENTS.md is missing minimum RD domain '$domain': $($baseline.Path)"
+        }
+    }
+    foreach ($marker in $baseline.Markers) {
+        if (-not $baselineText.Contains($marker)) {
+            Add-Failure "Global AGENTS.md is missing required always-on behavior '$marker': $($baseline.Path)"
+        }
+    }
+}
+
+$activeProjectAgents = Join-Path $root "AGENTS.md"
+if (Test-Path -LiteralPath $activeProjectAgents) {
+    $activeText = Get-Content -LiteralPath $activeProjectAgents -Raw
+    $acceptedProjectTemplates = @(
+        (Get-Content -LiteralPath (Join-Path $root "codex/project/AGENTS.md") -Raw),
+        (Get-Content -LiteralPath (Join-Path $root "zh-CN/codex/project/AGENTS.md") -Raw)
+    )
+    if ($acceptedProjectTemplates -notcontains $activeText) {
+        Add-Failure "Repository-root AGENTS.md must match an authoritative project template when present: $activeProjectAgents"
+    }
+}
+
+$cursorPlatformFiles = @(
+    (Join-Path $root "cursor/project/PROMPTS.md"),
+    (Join-Path $root "cursor/zh-CN/PROMPTS.md")
+) + @(Get-ChildItem -LiteralPath (Join-Path $root "cursor/project/.cursor/rules") -File -Force) +
+    @(Get-ChildItem -LiteralPath (Join-Path $root "cursor/zh-CN/.cursor/rules") -File -Force)
+foreach ($cursorFile in $cursorPlatformFiles) {
+    $cursorPath = if ($cursorFile -is [System.IO.FileInfo]) { $cursorFile.FullName } else { $cursorFile }
+    if ((Get-Content -LiteralPath $cursorPath -Raw).Contains('$rd-')) {
+        Add-Failure "Cursor platform files must use /rd-* invocation syntax: $cursorPath"
+    }
+}
 
 $publicConfigs = @(
     (Join-Path $root "codex/examples/config.example.toml"),

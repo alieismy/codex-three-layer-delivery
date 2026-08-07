@@ -18,6 +18,8 @@ cp codex/project/AGENTS.md /path/to/your-project/AGENTS.md
 
 If your destination already has `AGENTS.md`, merge manually and keep project-specific constraints.
 
+Codex loads the global and applicable project `AGENTS.md` chain independently of Skill selection. The global v7.2 template therefore keeps truthfulness, response modes, context health, pre-output review, output rules, and a compact RD delivery baseline active even when no RD Skill is selected; a matching Skill adds the full specialist workflow rather than supplying the only copy of these controls.
+
 ## Skills
 
 Global install:
@@ -25,6 +27,15 @@ Global install:
 ```bash
 cp -r skills/rd-* ~/.agents/skills/
 ```
+
+On PowerShell, the preferred user-level installation is the verified installer:
+
+```powershell
+pwsh -File ./scripts/install-rd-skills.ps1 -Language en
+pwsh -File ./scripts/install-rd-skills.ps1 -Language en -CheckOnly
+```
+
+The installer manages only the nine declared `rd-*` directories, verifies a SHA-256 backup under `$HOME/.agents/backups`, stages and verifies the replacement, restores the previous installation if replacement fails, and then compares every installed file with the selected source tree. `-CheckOnly` performs the final comparison without writing.
 
 Project-level install:
 

@@ -1,14 +1,15 @@
 ---
 name: rd-requirement
 description: >-
-  Use when analyzing user needs, structuring requirements, writing PRDs, SRS
-  documents, or requirement traceability materials. Use when raw user
-  statements, meeting notes, stakeholder feedback, or business scenarios need
-  to be structured, prioritized, and made verifiable. Do not use for solution
-  design, feasibility studies, detailed design, or code implementation.
+  Turn raw needs, meeting notes, stakeholder feedback, or business scenarios
+  into a PRD, SRS, structured requirements, or traceability material. Use when
+  scope, actors, rules, constraints, priorities, and acceptance must be made
+  explicit and verifiable, including product, system, infrastructure, or AI-tool
+  requirements. Route feasibility judgments, design, review, and implementation
+  to their owning workflows.
 ---
 
-# $rd-requirement
+# rd-requirement
 
 Transform raw user needs into **structured, traceable, and verifiable requirements documents**.
 
@@ -25,8 +26,12 @@ Transform raw user needs into **structured, traceable, and verifiable requiremen
 
 - Distinguish between the user's original phrasing and structured requirements; preserve original phrasing without altering intent
 - Identify implicit assumptions and list them explicitly
-- Ask targeted questions for decision-critical ambiguity; if risk is low, state assumptions and proceed
+- Resolve discoverable facts from supplied materials and the project before asking the user
+- Ask only for decisions or decision-critical ambiguity; handle one high-impact decision branch at a time, and if risk is low, state assumptions and proceed
+- Identify overloaded or conflicting domain terms and propose a canonical term without inventing business meaning
 - Use the 5W1H framework (Who / What / Why / When / Where / How) to ensure full dimensional coverage
+
+**Completion criterion:** every decision-critical ambiguity is resolved or explicitly owned as an assumption, open decision, or verification action; discoverable facts are not left as user questions.
 
 ### 2. Requirements Classification & Structuring
 
@@ -39,6 +44,7 @@ Classify and organize along the following dimensions:
 | Constraints | Tech stack, platform, regulations, budget, timeline |
 | Assumptions | Unconfirmed premises that affect design |
 | Exclusions | Items explicitly out of scope |
+| Operating context | environment, topology, user capability, support, migration, and lifecycle constraints |
 
 For document-centered projects, also classify:
 
@@ -49,6 +55,8 @@ For document-centered projects, also classify:
 | Data and interfaces | required data objects, external systems, exchange boundaries |
 | Evidence sources | meeting notes, standards, existing documents, laws, product decisions |
 
+**Completion criterion:** every in-scope scenario maps to identified actors, rules, data or interface boundaries, and at least one classified requirement or explicit exclusion.
+
 ### 3. Priority Labeling
 
 Label each requirement with a priority:
@@ -58,6 +66,8 @@ Label each requirement with a priority:
 - **P2 (Nice to Have)**: Beneficial if included
 - **P3 (Won't Have)**: Identified but explicitly excluded
 
+**Completion criterion:** every requirement has an explicit priority under the chosen scheme, and any priority conflict or missing decision authority is recorded instead of silently resolved.
+
 ### 4. Acceptance Criteria Definition
 
 Attach verifiable acceptance criteria to each functional requirement:
@@ -66,41 +76,60 @@ Attach verifiable acceptance criteria to each functional requirement:
 - Include normal path, exception path, boundary condition, and review/approval evidence
 - For non-functional requirements, define measurable thresholds or explicit evaluation methods
 - For policy or document requirements, define the review criterion and evidence needed for acceptance
+- For installation, configuration, migration, or integration requirements, define the observable end state, verification method, failure behavior, and rollback expectation without prescribing an unapproved implementation
 
-### 5. Feasibility Pre-Assessment
+**Completion criterion:** every requirement has a checkable acceptance or evaluation method covering the material normal, exception, and boundary behavior, or is explicitly unresolved with a verification action.
 
-Perform a preliminary feasibility judgment on key requirements:
+### 5. Feasibility and Evidence Flags
 
-- Feasibility signal: whether the requirement appears feasible, conditionally feasible, or uncertain
-- Risk flagging: identify requirements that need feasibility analysis, stakeholder confirmation, or standard/legal verification
+Flag requirements that need evidence or a later feasibility decision without deciding viability here:
+
+- Evidence status: verified, assumed, disputed, unknown, or decision-owned
+- Risk routing: identify requirements that need `rd-feasibility`, stakeholder confirmation, or standards/legal verification
 - Dependency flagging: identify upstream decisions, external systems, approvals, and standards references
 
-## Spec Injection Check
+**Completion criterion:** every requirement that could materially fail or block delivery has an evidence status, a named dependency or follow-up action, and an explicit downstream route where a feasibility verdict is needed; this artifact does not make that verdict.
+
+### 6. Requirements Convergence Pass
+
+Before delivery, rewrite the structured requirements once as a lossless authoritative baseline:
+
+- Collapse duplicated facts, rules, and scenarios into one owning section
+- Remove resolved questions and temporary elicitation notes after preserving their decisions
+- Preserve every requirement ID, source anchor, decision, constraint, priority, and acceptance mapping
+- Re-read the document end to end and reopen any contradiction, missing acceptance method, or unresolved blocking decision
+
+**Completion criterion:** one authoritative, internally consistent baseline remains, with no lost identifiers or mappings and no unresolved blocker hidden in temporary notes.
+
+## Context and Baseline Check
 
 Pre-execution checks:
-- Whether project AGENTS.md specifies requirements template conventions
+- Applicable project guidance, templates, and rules for requirements work
 - Whether established product standards or quality attribute baselines exist
 - Existing requirements document format and naming conventions
 - Existing glossary, stakeholder map, review checklist, or standard terminology constraints
 
-## MCP Tool Usage
+## Tool Selection
 
-- **Context7**: Query similar product requirement patterns and best practices
-- **Sequential Thinking**: Complex requirement decomposition and dependency analysis
-- **DeepWiki**: Reference how open-source projects organize requirements
+- Inspect user-provided and local project sources before external retrieval
+- Use `rd-research` when laws, standards, policy, external interfaces, or other evidence materially affect a requirement
+- Use only configured tools, prefer primary sources, and use library/API documentation retrieval only for current interface facts
+- If retrieval is unavailable, mark the evidence gap instead of inventing a requirement
 
 ## Quality Gates
 
 Pre-delivery checklist:
 
-- [ ] 100% coverage of core scenarios
+- [ ] Every identified in-scope core scenario is covered and traceable to a source or decision
 - [ ] Every functional requirement has acceptance criteria
-- [ ] Priorities labeled, no P0 requirements missing
+- [ ] Priorities use stated criteria, and every identified P0 need maps to a requirement or an explicit exclusion
 - [ ] Assumptions and exclusions explicitly listed
-- [ ] All requirements are verifiable (no untestable requirements exist)
+- [ ] Every requirement has an acceptance method, or is explicitly marked as unresolved with a verification action
+- [ ] Proposed products, models, vendors, tools, or configurations are separated from the underlying need unless approved as constraints
 - [ ] Key terms, stakeholder roles, and business rules are consistent
 - [ ] Decision-critical ambiguity is either resolved or explicitly listed
 - [ ] Requirements are traceable to original user statements or cited source material
+- [ ] The final convergence pass removed duplication without losing IDs, source anchors, decisions, or acceptance mappings
 
 ## Out of Scope
 

@@ -26,6 +26,7 @@ This adapter intentionally excludes coding, code review, test authoring/executio
 | Assess feasibility | Feasible / conditionally feasible / not feasible conclusion with evidence, conditions, and risks |
 | Write proposal | Candidate solution comparison and justified recommendation |
 | Write detailed design | Interfaces, data, flows, errors, security, and unresolved decisions |
+| Write professional article or brief | Audience-ready claims with evidence, counterarguments, and bounded conclusions |
 | Review document | Severity-graded findings with evidence, impact, and recommendations |
 | Review standard | Exact clause references and normative replacement wording where possible |
 
@@ -98,13 +99,17 @@ Before completing requirements, feasibility, design, standards, or review work, 
 |---|---|---|
 | `rd-requirement` | Structured requirements / PRD / SRS | Requirements analysis and product/design input |
 | `rd-feasibility` | Feasibility study / feasibility analysis report | Project feasibility and decision support |
-| `rd-research` | Evidence package / source notes | Literature, standards, policy, vendor, market, and technical evidence for downstream documents |
+| `rd-research` | Evidence package / research notes / fact-check matrix | Standards, open source, AI tools, configuration behavior, and contested claims |
 | `rd-solution` | Technical proposal / high-level design / construction plan | System architecture and solution documentation |
 | `rd-design` | Detailed design document | Interface, data, flow, error, security, and concurrency design |
-| `rd-specification` | Standards/specification draft or clause review | Standards formulation, revision, and clause-level review |
-| `rd-review` | Document review findings | Requirements, feasibility, proposal, design, and standards review |
+| `rd-specification` | Standards/specification draft or clause revision | Standards formulation, revision, and normative wording work |
+| `rd-writing` | Technical article / evidence report / decision brief | Audience-ready, source-backed professional writing |
+| `rd-review` | Independent review findings | Engineering documents, research reports, standards, and article review |
+| `rd-delivery` | Delivery charter / artifact map / phase gates / handoff | Explicit multi-stage and cross-session orchestration |
 
-Use a Skill when the task matches its trigger conditions. Do not force all Skills into a pipeline. Use `rd-research` when external evidence materially affects feasibility, solution, standards, design, or review conclusions; it is not a mandatory first stage.
+Use a specialist Skill when the task matches its trigger conditions. Do not force them into a pipeline. Use `rd-research` for external or contested evidence, `rd-writing` for audience-ready narrative, and `rd-review` for an independent verdict. Use `rd-delivery` only when the user explicitly asks to coordinate multiple artifacts, phase gates, or a durable handoff.
+
+For `rd-delivery`, keep long-lived needs, current-state architecture, engagement-specific change design, decision rationale, evidence, and review findings in distinct authority layers. Distinguish reproducible machine checks from explicit human decisions; record authorized waivers and re-review triggers; invalidate affected downstream reviews after material upstream changes; and reject stale, missing, or repository-escaping authoritative pointers.
 
 ## Security and AI System Design
 

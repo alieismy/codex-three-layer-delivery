@@ -1,247 +1,115 @@
 ---
 name: rd-review
 description: >-
-  Use when reviewing requirements documents, PRDs, feasibility reports,
-  technical proposals, high-level designs, detailed designs, standards,
-  specifications, or other system-design documents. Performs structured,
-  evidence-based document review with severity grading. Do not use for code
-  review, testing, deployment, or implementation tasks.
+  Independently review requirements, feasibility studies, research or tool
+  evaluations, technical proposals, detailed designs, standards, technical
+  articles, or public-affairs articles. Use when findings must identify location,
+  evidence, impact, severity, remediation, and a defensible approval or
+  publication verdict. Route primary authoring to the owning creation workflow.
 ---
 
-# $rd-review
+# rd-review
 
-Perform **structured reviews** of requirements, feasibility, design, and standards documents, producing severity-graded findings and actionable revisions.
-
-## Applicable Document Types
-
-| Mode | Review Target | Upstream Skill |
-|------|---------------|----------------|
-| **Requirements Review** | PRD / SRS / Requirements document | `$rd-requirement` |
-| **Feasibility Review** | Feasibility study / feasibility analysis report | `$rd-feasibility` |
-| **Proposal Review** | Technical proposal / High-level design / construction plan | `$rd-solution` |
-| **Design Review** | Detailed design document | `$rd-design` |
-| **Standards Review** | Standard / specification / guideline / normative clause draft | `$rd-specification` |
+Perform an independent, evidence-based review with severity-graded findings, actionable remediation, and a defensible verdict.
 
 ## Deliverables
 
-- Structured review report (graded issue list + improvement recommendations)
-- Review verdict (Approved / Conditionally Approved / Rejected)
-- Optional clause-level or section-level revision table
+- Findings-first review report
+- Verdict and explicit conditions for approval, publication, or re-review
+- Optional clause-, claim-, or section-level revision table
+- Evidence gaps, unresolved risks, and verification actions
 
----
+## Select One Review Mode
+
+Read only the reference for the selected target:
+
+| Mode | Target | Reference |
+|------|--------|-----------|
+| Requirements | PRD / SRS / requirements | [requirements-review.md](references/requirements-review.md) |
+| Feasibility | Feasibility study / analysis | [feasibility-review.md](references/feasibility-review.md) |
+| Research | research report / open-source, product, or AI-tool evaluation | [research-review.md](references/research-review.md) |
+| Proposal | technical proposal / high-level design / construction plan | [proposal-review.md](references/proposal-review.md) |
+| Design | detailed design | [design-review.md](references/design-review.md) |
+| Standards | standard / specification / guideline / normative clauses | [standards-review.md](references/standards-review.md) |
+| Article | technical article / white paper / public-affairs article / fact-check | [article-review.md](references/article-review.md) |
+
+If the target spans modes, identify the primary mode and load one additional reference only for a material secondary section.
 
 ## Common Review Framework
 
-Shared review methodology across all document types:
+### 1. Pin the Review Basis
 
-### 1. Review Scope Confirmation
+- Identify the exact target, version, scope, audience, intended decision, and review authority
+- Read applicable upstream requirements, decisions, source material, templates, standards, and review policy
+- Distinguish a content review from copyediting, fact-checking, compliance checking, and design approval
+- Resolve discoverable facts from the materials; ask only for missing authority or intent that blocks the verdict
+- Preserve approved intent and separate bounded remediation from redesign or ghostwriting
 
-- Clarify the review target and its version
-- Confirm review dimensions (comprehensive / focused on specific dimensions)
-- Obtain relevant context (upstream documents, constraints)
-- Preserve the reviewed text's intent; do not silently rewrite scope or business decisions
+**Completion criterion:** the exact target, version, scope, mode, authority, upstream basis, and verdict vocabulary are fixed before findings are graded.
 
-### 2. Implicit Assumption Mining
+### 2. Review on Two Independent Axes
 
-- Identify **implicit assumptions** in the document
-- Classify each assumption: verified / reasonable but unverified / questionable
-- List questionable assumptions as risk items
+- **Alignment/evidence axis**: Does the target match upstream intent and authoritative evidence?
+- **Intrinsic-quality/argument axis**: Is it internally complete, consistent, feasible, logically valid, understandable, and verifiable?
+- Apply the mode reference to refine these axes; strength on one axis cannot hide failure on the other
 
-### 3. Refutation First
+**Completion criterion:** every material section is assessed on both axes or explicitly marked not applicable, and neither axis is collapsed into the other.
 
-- **Start by assuming the document has problems** — find the most likely weak points
-- Then perform supportive analysis
-- Conclude with a synthesized judgment and confidence level
+### 3. Test Failure Hypotheses
 
-### 4. Issue Grading
+- Classify material assumptions as verified, reasonable but unverified, questionable, or contradicted
+- Test the strongest plausible counterexample, failure path, boundary condition, alternative explanation, and evidence gap
+- For causal claims, test chronology, mechanism, confounders, and whether evidence supports causation rather than correlation
+- Report a finding only when its location, evidence, and impact can be stated; do not manufacture findings to appear thorough
 
-| Severity | Meaning | Requirement |
-|----------|---------|-------------|
-| **Blocker** | Fundamental flaw, cannot proceed as-is | Must be rewritten / redesigned |
-| **Critical** | Major omission or error | Must be fixed before proceeding |
-| **Major** | Significant room for improvement | Should be fixed |
-| **Minor** | Suggested optimization | Optional |
+**Completion criterion:** every material assumption and central conclusion has been tested against the strongest plausible counterexample, failure path, boundary condition, or alternative explanation.
 
-Each finding should include:
+### 4. Grade Findings by Impact
 
-- Location: section, clause, table, figure, or paragraph
-- Problem: what is wrong or missing
-- Evidence: source text, upstream requirement, standard, or reasoning
-- Impact: why it matters
-- Recommendation: concrete revision or next action
+| Severity | Meaning |
+|----------|---------|
+| **Blocker** | Invalidates the decision or publication basis, or makes safe progression impossible without fundamental rework |
+| **Critical** | Can materially change scope, correctness, safety, compliance, feasibility, or a central conclusion and must be resolved |
+| **Major** | Substantial weakness that should be corrected or explicitly accepted but does not alone invalidate the core result |
+| **Minor** | Local improvement with limited effect on the decision, argument, or document usability |
 
-### 5. Review Verdict
+Each finding must include location, axis, problem, evidence, impact, severity rationale, concrete remediation or verification action, and owner/date when known.
 
-| Verdict | Conditions |
-|---------|------------|
-| **Approved** | No Blocker/Critical, Major ≤ 2 with clear remediation plans |
-| **Conditionally Approved** | No Blocker, Critical issues have clear remediation plans |
-| **Rejected** | Blocker exists, or too many Critical issues |
+**Completion criterion:** every retained finding is reproducible from its location and evidence, has an impact-based severity rationale, and names a bounded corrective or verification action.
 
----
+### 5. Determine the Verdict
 
-## Mode 1: Requirements Review
+Default document verdicts are **Approved / Conditionally Approved / Rejected**. Article mode may use **Publishable / Publishable after revision / Not publishable**. In either form:
 
-Review PRD / SRS / requirements documents produced by `$rd-requirement`.
+- No unresolved Blocker is compatible with approval or publication
+- Unresolved Critical findings normally require rejection or revision before approval
+- Conditional approval requires bounded conditions, verification actions, assignment state, and a re-review trigger
+- Project policy overrides these defaults; never use a universal issue-count threshold
 
-### Review Dimensions
+**Completion criterion:** the verdict follows from unresolved impact and evidence limits, and every condition has an action, assignment state, and re-review trigger.
 
-| Dimension | Checkpoints |
-|-----------|-------------|
-| **Completeness** | Are all P0 requirements covered? Are FR / NFR / constraints / assumptions / exclusions all present? |
-| **Verifiability** | Does every functional requirement have executable acceptance criteria (Given/When/Then)? |
-| **Consistency** | Are there contradictions between requirements? Is terminology consistent? |
-| **Priority Reasonableness** | Is the P0/P1/P2 classification reasonable? Is there a "everything is P0" problem? |
-| **Feasibility** | Are there obviously unimplementable or high-risk requirements left unflagged? |
-| **Boundary Clarity** | Are exclusions explicit? Are interface boundaries clear? |
-| **User Perspective** | Is it written from a user/business perspective rather than a technical one? |
+## Tool Selection
 
-### Common Issue Patterns
-
-- Requirements described too vaguely ("the system should be high-performance") → demand quantification
-- Missing or non-executable acceptance criteria
-- Implicit non-functional requirements not made explicit
-- Hidden dependencies between requirements not annotated
-
----
-
-## Mode 2: Feasibility Review
-
-Review feasibility studies or feasibility analysis reports produced by `$rd-feasibility`.
-
-### Review Dimensions
-
-| Dimension | Checkpoints |
-|-----------|-------------|
-| **Decision Clarity** | Is the feasibility question explicit? Is the verdict clear? |
-| **Evidence Quality** | Are facts, estimates, assumptions, and unknowns separated? |
-| **Dimension Coverage** | Are technical, economic, schedule, operational, compliance, and risk dimensions covered? |
-| **Option Comparison** | Are viable alternatives compared, including current-state baseline when relevant? |
-| **Cost and Schedule Basis** | Are numbers sourced, estimated transparently, or marked as assumptions? |
-| **Risk Handling** | Are blockers, conditions, mitigation actions, and verification steps explicit? |
-| **Conclusion Discipline** | Does the conclusion follow from the analysis rather than preference? |
-
-### Common Issue Patterns
-
-- "Feasible" conclusion without conditions or evidence
-- Cost or schedule numbers with no source or estimation basis
-- Ignoring current-state baseline
-- Risks listed but not tied to mitigation or verification actions
-
----
-
-## Mode 3: Proposal Review
-
-Review technical proposals / high-level designs / construction plans produced by `$rd-solution`.
-
-### Review Dimensions
-
-| Dimension | Checkpoints |
-|-----------|-------------|
-| **Requirements Coverage** | Are all P0/P1 requirements covered? Are any requirements missing or misinterpreted? |
-| **Candidate Solution Sufficiency** | Are there ≥2 candidate solutions? Is the comparison objective and fair? |
-| **Architectural Soundness** | Component decomposition, separation of concerns, coupling, communication patterns |
-| **Scalability** | Horizontal/vertical scaling paths; is capacity planning reasonable? |
-| **Reliability** | Single-point-of-failure analysis; disaster recovery strategy; data consistency |
-| **Security** | Authentication & authorization, data protection, API security |
-| **Deployment Architecture** (construction plan) | Infrastructure topology, deployment strategy at design level, environment planning, capacity estimation |
-| **Cost** | Are development / operational / licensing cost estimates reasonable? |
-| **Risk** | Is risk identification thorough? Are mitigation measures viable? |
-| **Exit Path** | Does an alternative path exist if the solution fails validation or is rejected? |
-
-### Common Issue Patterns
-
-- Only one "optimal solution" presented with no comparison
-- Performance figures without source attribution (fabricated benchmarks)
-- Operational complexity overlooked
-- Construction plan missing deployment architecture and environment planning
-
----
-
-## Mode 4: Design Review
-
-Review detailed design documents produced by `$rd-design`.
-
-### Review Dimensions
-
-| Dimension | Checkpoints |
-|-----------|-------------|
-| **Interface Completeness** | Are inputs / outputs / error codes / idempotency complete? Is versioning strategy clear? |
-| **Data Model** | ER design soundness; field completeness; index design; normalization/denormalization rationale |
-| **Flow Correctness** | Do critical flows cover happy / error / timeout paths? |
-| **Concurrency Control** | Lock strategy, optimistic/pessimistic choice, race condition analysis |
-| **Idempotency Design** | Do operations requiring idempotency have guarantee mechanisms? |
-| **Security Design** | Authentication, authorization, input validation, data protection |
-| **Error Handling** | Error classification, propagation strategy, degradation paths |
-| **Implementability** | Does the design account for actual tech stack constraints and capabilities? |
-| **Verifiability** | Can reviewers verify the design against requirements, constraints, and standards? |
-
-### Common Issue Patterns
-
-- Interface definitions missing error codes
-- Concurrency scenarios not analyzed
-- Error handling only considers "normal failures," ignoring timeouts and partial successes
-- Data model denormalization without performance rationale
-- Design items left as "TBD" without an owner or deadline
-
----
-
-## Mode 5: Standards Review
-
-Review standards, specifications, guidelines, or normative clause drafts produced or revised with `$rd-specification`.
-
-### Review Dimensions
-
-| Dimension | Checkpoints |
-|-----------|-------------|
-| **Authority and Scope** | Is the document type, scope, and authority clear? |
-| **Clause Correctness** | Are clauses technically correct and aligned with referenced documents? |
-| **Normative Clarity** | Are mandatory, recommended, and informative statements clearly separated? |
-| **Verifiability** | Are requirements inspectable, testable, or auditable? |
-| **Terminology Consistency** | Are terms, abbreviations, symbols, tables, and figures consistent? |
-| **Reference Integrity** | Are normative references accurate, current when required, and actually used? |
-| **Conflict Detection** | Are internal contradictions or conflicts with upstream standards identified? |
-
-### Common Issue Patterns
-
-- Vague mandatory clauses using "support", "optimize", or "improve" without criteria
-- Citing standards without verifying title, status, clause, or applicability
-- Mixing informative background with enforceable requirements
-- Proposing implementation details that exceed the intended standard scope
-
----
-
-## Spec Injection Check
-
-Pre-execution checks:
-- Whether the project has review standards or checklist templates
-- Existing Architecture Decision Records (ADRs)
-- Previously approved documents of the same type (as baseline reference)
-- For standards: glossary, normative reference list, clause numbering, and comment-table format
-
-## MCP Tool Usage
-
-- **DeepWiki**: Query reference architectures of similar systems
-- **Sequential Thinking**: Complex trade-off reasoning and multi-solution comparison
-- **Context7**: Verify technology selection feasibility
-- **web_search / Tavily / Brave Search**: External verification of standards, policies, market facts, or technical feasibility
+- Inspect the target and applicable upstream sources before external retrieval
+- Use `rd-research` when standards, law, policy, source code, current technology behavior, quotations, timelines, or public facts materially affect a finding
+- Prefer primary sources and use independent sources to test self-interested or disputed claims
+- If authoritative evidence is inaccessible, narrow the finding and verdict instead of filling the gap
+- Redact secrets and unnecessary personal or infrastructure identifiers from findings and evidence excerpts; preserve a controlled source pointer when reviewers need the raw material
 
 ## Quality Gates
 
-Pre-delivery checklist:
-
-- [ ] Correct review mode selected based on document type
-- [ ] Implicit assumptions identified and classified
-- [ ] Refutation analysis completed (find problems first, then strengths)
-- [ ] Each issue has a severity level and specific improvement recommendation
-- [ ] Review verdict is clear (Approved / Conditionally Approved / Rejected)
-- [ ] Blocker/Critical issues have recommended action items
-- [ ] Standards or external claims are either cited, verified, or explicitly marked as requiring human verification
+- [ ] Primary mode, target version, scope, authority, and verdict vocabulary are explicit
+- [ ] Evidence/alignment and intrinsic-quality/argument axes were both evaluated
+- [ ] Material assumptions, counterexamples, failure paths, and alternative explanations were tested
+- [ ] Every finding has location, evidence, impact, severity rationale, and action
+- [ ] Findings lead; strengths and supporting observations follow
+- [ ] Verdict follows from unresolved impact and evidence limits, not issue count or reviewer preference
+- [ ] Facts, quotations, dates, versions, and external claims are verified or explicitly bounded
+- [ ] Findings and evidence excerpts contain no secrets or unnecessary sensitive identifiers
 
 ## Out of Scope
 
-- Do not conduct "nitpicking" reviews — every finding must include a constructive recommendation
-- Do not redesign during review — review is evaluation, not replacement
-- Do not override well-supported decisions based on reviewer preference
-- Do not just say "looks good overall" — provide a structured review
-- Do not fabricate standards clauses, source evidence, or document status
+- Do not redesign or rewrite the whole target during independent review; propose bounded remediation instead
+- Do not override well-supported decisions or arguments based on reviewer preference or political agreement
+- Do not report style-only findings unless they materially affect meaning, credibility, accessibility, or usability
+- Do not fabricate evidence, sources, standards clauses, quotations, owners, dates, or document status
