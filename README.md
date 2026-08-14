@@ -66,14 +66,19 @@ Adapter mappings:
 ### 1. Install Codex rules
 
 ```bash
-# Global directives
-cp codex/global/AGENTS.md ~/.codex/AGENTS.md
+# Global directives: first-time install only
+mkdir -p ~/.codex
+if [ ! -e ~/.codex/AGENTS.md ]; then
+  cp codex/global/AGENTS.md ~/.codex/AGENTS.md
+fi
 
-# Project document-delivery discipline
-cp codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+# Project document-delivery discipline: only when the target does not exist
+if [ ! -e /path/to/your-project/AGENTS.md ]; then
+  cp codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+fi
 ```
 
-If the destination files already exist, merge the content manually. Do not blindly overwrite existing project rules.
+If a destination already exists, create a separate backup first, then merge only the relevant sections. Do not replace an existing personal global file or project rules blindly. These templates contain opinionated defaults for role, language behavior, reasoning depth, authorization, and delivery discipline; adapt them to the user, team, and repository. The English global template is language-neutral, while the `zh-CN/` template intentionally defaults to Simplified Chinese.
 
 ### 2. Install skills
 
@@ -222,7 +227,8 @@ The public configuration intentionally uses conservative defaults:
 - optional MCP servers are disabled until credentials and use cases are reviewed;
 - Cursor adapter MCP config is shipped as `mcp.example.json`, not as an active `.cursor/mcp.json`;
 - Claude Code project settings deny common secret files and require confirmation for commit, push, tag, publish, and delete operations;
-- package versions are documented in `docs/compatibility.md` and should be refreshed before release.
+- package versions are documented in `docs/compatibility.md` and should be refreshed before release;
+- Context7's tested version is pinned consistently across the compatibility documents and all Codex/Cursor examples, with client-runtime acceptance kept as a separate evidence layer.
 
 ## Repository Layout
 
@@ -262,8 +268,10 @@ codex-three-layer-delivery/
     installation.md
     mcp-routing.md
     design-principles.md
+    release-checklist.md
   scripts/
     validate.ps1
+    test-validator.ps1
   PROMPTS.md
   ATTRIBUTION.md
   CONTRIBUTING.md
@@ -277,22 +285,30 @@ Run the local repository checks:
 
 ```powershell
 pwsh ./scripts/validate.ps1
+pwsh ./scripts/test-validator.ps1
 ```
 
 The validator checks common release blockers:
 
 - CRLF drift in Markdown, TOML, MDC, and script files;
-- missing skill frontmatter;
-- inconsistent mirrored skill directory sets;
+- missing or invalid Skill frontmatter, per-step completion criteria, metadata, and eval coverage;
+- inconsistent mirrored Skill directory sets or file content;
+- missing always-on evidence-state and no-change controls across Codex, Claude, and Cursor surfaces;
+- Context7 version drift across compatibility documents and Codex/Cursor examples;
 - unsafe defaults in the public Codex config example;
+- a missing `.tmp/local/` boundary;
 - obvious secret leaks;
 - stale private/internal strings.
+
+The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects six regression cases: distribution-preserving completion-criterion drift, Context7 cross-file version drift, an `rd-delivery` invocation-policy regression, loss of the always-on evidence/no-change contract, loss of the RD specialist Skill/eval/near-miss contract, and loss of the `.tmp/local/` boundary.
 
 ## Versioning
 
 Use GitHub releases and tags for versions, for example `v4.0.0`.
 
 Avoid encoding version or language into the repository name. Keep the repository name stable and put edition-specific details in documentation or release notes.
+
+Repository maintainers should follow the [release checklist](docs/release-checklist.md). It governs publication of this repository and does not expand the RD Skills into release-operation workflows.
 
 ## License
 

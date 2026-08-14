@@ -10,11 +10,20 @@ function Add-Failure {
 
 function Get-TextFiles {
     $patterns = @("*.md", "*.mdc", "*.mdx", "*.markdown", "*.toml", "*.json", "*.jsonc", "*.yaml", "*.yml", "*.ps1")
-    foreach ($pattern in $patterns) {
-        Get-ChildItem -LiteralPath $root -Recurse -File -Filter $pattern -Force
+    $candidates = @(
+        foreach ($pattern in $patterns) {
+            Get-ChildItem -LiteralPath $root -Recurse -File -Filter $pattern -Force
+        }
+        Get-ChildItem -LiteralPath $root -Force -File |
+            Where-Object { $_.Name -in @(".gitattributes", ".gitignore", ".env.example") }
+    )
+
+    foreach ($candidate in $candidates) {
+        $relative = [System.IO.Path]::GetRelativePath([string]$root, $candidate.FullName).Replace("\", "/")
+        if ($relative -notlike ".git/*" -and $relative -notlike ".tmp/local/*") {
+            $candidate
+        }
     }
-    Get-ChildItem -LiteralPath $root -Force -File |
-        Where-Object { $_.Name -in @(".gitattributes", ".gitignore", ".env.example") }
 }
 
 $textFiles = Get-TextFiles | Sort-Object -Property FullName -Unique
@@ -192,6 +201,112 @@ foreach ($skillRoot in $skillRoots) {
     Test-SkillEvals -SkillRoot $skillRoot
 }
 
+function Test-ContainsAllMarkers {
+    param(
+        [string]$Text,
+        [string[]]$Markers
+    )
+
+    foreach ($marker in $Markers) {
+        if ($Text.IndexOf($marker, [System.StringComparison]::OrdinalIgnoreCase) -lt 0) {
+            return $false
+        }
+    }
+    return $true
+}
+
+$rdEvidenceContractBaselines = @(
+    @{
+        Name = "rd-research"
+        SkillPath = "skills/rd-research/SKILL.md"
+        EvalPath = "skills/rd-research/evals/evals.json"
+        TriggerPath = "skills/rd-research/evals/trigger-evals.json"
+        SkillMarkers = @("highest evidence state", "final generated or effective configuration", "runtime state", "business/production acceptance", "no-change")
+        EvalMarkers = @("highest established evidence state", "runtime or production", "no-change")
+        TriggerMarkers = @("verified and approved", "apply", "research report")
+    },
+    @{
+        Name = "rd-review"
+        SkillPath = "skills/rd-review/SKILL.md"
+        EvalPath = "skills/rd-review/evals/evals.json"
+        TriggerPath = "skills/rd-review/evals/trigger-evals.json"
+        SkillMarkers = @("highest evidence state", "final generated or effective configuration", "runtime", "business/production acceptance", "no-change")
+        EvalMarkers = @("highest established evidence state", "runtime or production", "no-change")
+        TriggerMarkers = @("approved patch", "apply", "review verdict")
+    },
+    @{
+        Name = "rd-research"
+        SkillPath = "zh-CN/skills/rd-research/SKILL.md"
+        EvalPath = "zh-CN/skills/rd-research/evals/evals.json"
+        TriggerPath = "zh-CN/skills/rd-research/evals/trigger-evals.json"
+        SkillMarkers = @("最高证据状态", "最终生成或实际生效配置", "运行状态", "业务/生产验收", "无需修改")
+        EvalMarkers = @("最高证据状态", "运行或生产", "无需修改")
+        TriggerMarkers = @("核实并批准", "直接应用", "研究报告")
+    },
+    @{
+        Name = "rd-review"
+        SkillPath = "zh-CN/skills/rd-review/SKILL.md"
+        EvalPath = "zh-CN/skills/rd-review/evals/evals.json"
+        TriggerPath = "zh-CN/skills/rd-review/evals/trigger-evals.json"
+        SkillMarkers = @("最高证据状态", "最终生成或实际生效配置", "运行状态", "业务/生产验收", "无需修改")
+        EvalMarkers = @("最高证据状态", "运行或生产", "无需修改")
+        TriggerMarkers = @("已批准补丁", "直接应用", "评审结论")
+    }
+)
+foreach ($baseline in $rdEvidenceContractBaselines) {
+    $skillPath = Join-Path $root $baseline.SkillPath
+    $evalPath = Join-Path $root $baseline.EvalPath
+    $triggerPath = Join-Path $root $baseline.TriggerPath
+
+    if (-not (Test-Path -LiteralPath $skillPath)) {
+        Add-Failure "Missing RD specialist contract: $skillPath"
+    }
+    else {
+        $skillText = Get-Content -LiteralPath $skillPath -Raw
+        foreach ($marker in $baseline.SkillMarkers) {
+            if ($skillText.IndexOf($marker, [System.StringComparison]::OrdinalIgnoreCase) -lt 0) {
+                Add-Failure "RD specialist contract is missing '$marker': $skillPath"
+            }
+        }
+    }
+
+    if (Test-Path -LiteralPath $evalPath) {
+        try {
+            $evalDocument = Get-Content -LiteralPath $evalPath -Raw | ConvertFrom-Json
+            $boundaryEvals = @(
+                $evalDocument.evals | Where-Object {
+                    $evalText = $_ | ConvertTo-Json -Depth 20 -Compress
+                    Test-ContainsAllMarkers -Text $evalText -Markers $baseline.EvalMarkers
+                }
+            )
+            if ($boundaryEvals.Count -lt 1) {
+                Add-Failure "$($baseline.Name) must include the evidence-boundary/no-change output eval: $evalPath"
+            }
+        }
+        catch {
+            Add-Failure "Unable to inspect RD specialist output eval contract in $evalPath`: $($_.Exception.Message)"
+        }
+    }
+
+    if (Test-Path -LiteralPath $triggerPath) {
+        try {
+            $triggerDocument = @(Get-Content -LiteralPath $triggerPath -Raw | ConvertFrom-Json)
+            $implementationNearMisses = @(
+                $triggerDocument | Where-Object {
+                    $_.should_trigger -eq $false -and
+                    (Test-ContainsAllMarkers -Text $_.query -Markers $baseline.TriggerMarkers)
+                }
+            )
+            if ($implementationNearMisses.Count -lt 1) {
+                Add-Failure "$($baseline.Name) trigger evals must keep the approved-fix implementation near-miss negative: $triggerPath"
+            }
+        }
+        catch {
+            Add-Failure "Unable to inspect RD specialist trigger contract in $triggerPath`: $($_.Exception.Message)"
+        }
+    }
+}
+
 function Test-SkillOpenAiMetadata {
     param([string]$SkillRoot)
 
@@ -357,14 +472,14 @@ $globalAgentBaselines = @(
         Path = Join-Path $root "codex/global/AGENTS.md"
         Headings = @("## Truthfulness Discipline", "## Response Modes", "## Task Identification and Skill Routing", "## Minimum RD Delivery Baseline", "## Context Health", "## Pre-Output Self-Review", "## Output Contract")
         Domains = @("Requirements", "Feasibility", "Research", "Solution", "Design", "Specification", "Writing", "Review", "Delivery orchestration")
-        Markers = @("Say when something is unknown or cannot be confirmed", "**Fast mode:**", "**Deep mode:**", "**Clarification mode:**", "**Guidance mode:**", "1. Does the response answer the current request", "8. Does the output expose any secret")
+        Markers = @("Say when something is unknown or cannot be confirmed", "Keep evidence states separate:", "retaining the current state is a valid professional conclusion", "**Fast mode:**", "**Deep mode:**", "**Clarification mode:**", "**Guidance mode:**", "1. Does the response answer the current request", "8. Does the output expose any secret")
         Colon = ":"
     },
     @{
         Path = Join-Path $root "zh-CN/codex/global/AGENTS.md"
         Headings = @("## 真实性纪律", "## 响应模式", "## 任务识别与 Skill 路由", "## RD 交付最小基线", "## 上下文健康", "## 输出前自我审核", "## 输出格式")
         Domains = @("需求", "可研", "研究", "方案", "设计", "标准", "写作", "评审", "交付编排")
-        Markers = @("不知道就明确说不知道；不能确认就明确说不能确认", "**快速模式：**", "**深度模式：**", "**澄清模式：**", "**引导模式：**", "1. 是否回答当前请求", "8. 输出是否泄露密钥")
+        Markers = @("不知道就明确说不知道；不能确认就明确说不能确认", "严格区分证据状态：", "保持现状", "合法的专业结论", "**快速模式：**", "**深度模式：**", "**澄清模式：**", "**引导模式：**", "1. 是否回答当前请求", "8. 输出是否泄露密钥")
         Colon = "："
     }
 )
@@ -389,6 +504,51 @@ foreach ($baseline in $globalAgentBaselines) {
     foreach ($marker in $baseline.Markers) {
         if (-not $baselineText.Contains($marker)) {
             Add-Failure "Global AGENTS.md is missing required always-on behavior '$marker': $($baseline.Path)"
+        }
+    }
+}
+
+$evidenceContractBaselines = @(
+    @{
+        Paths = @(
+            "codex/global/AGENTS.md",
+            "codex/project/AGENTS.md",
+            "claude/global/CLAUDE.md",
+            "claude/project/CLAUDE.md",
+            "cursor/project/.cursor/rules/05-research-evidence.mdc"
+        )
+        Markers = @("documentation", "source", "static configuration", "final generated or effective configuration", "runtime", "production acceptance")
+        NoChangeMarkers = @("no-change", "retaining the current state")
+    },
+    @{
+        Paths = @(
+            "zh-CN/codex/global/AGENTS.md",
+            "zh-CN/codex/project/AGENTS.md",
+            "zh-CN/claude/global/CLAUDE.md",
+            "zh-CN/claude/project/CLAUDE.md",
+            "cursor/zh-CN/.cursor/rules/05-research-evidence.mdc"
+        )
+        Markers = @("文档声明", "源码实现", "静态配置", "最终生成或实际生效配置", "运行状态", "生产验收")
+        NoChangeMarkers = @("无需修改", "保持现状")
+    }
+)
+foreach ($baseline in $evidenceContractBaselines) {
+    foreach ($relativePath in $baseline.Paths) {
+        $path = Join-Path $root $relativePath
+        if (-not (Test-Path -LiteralPath $path)) {
+            Add-Failure "Missing evidence-contract surface: $path"
+            continue
+        }
+
+        $text = Get-Content -LiteralPath $path -Raw
+        foreach ($marker in $baseline.Markers) {
+            if (-not $text.Contains($marker)) {
+                Add-Failure "Evidence-contract surface is missing '$marker': $path"
+            }
+        }
+        $hasNoChangeMarker = @($baseline.NoChangeMarkers | Where-Object { $text.Contains($_) }).Count -gt 0
+        if (-not $hasNoChangeMarker) {
+            Add-Failure "Evidence-contract surface must allow a supported no-change conclusion: $path"
         }
     }
 }
@@ -441,6 +601,90 @@ foreach ($publicConfig in $publicConfigs) {
         if ($configText.Contains($blocked)) {
             Add-Failure "Unsafe or private default found in public config $publicConfig`: $blocked"
         }
+    }
+}
+
+function Get-SingleRegexCapture {
+    param(
+        [string]$Path,
+        [string]$Pattern,
+        [string]$GroupName,
+        [string]$Label
+    )
+
+    if (-not (Test-Path -LiteralPath $Path)) {
+        Add-Failure "Missing $Label file: $Path"
+        return $null
+    }
+
+    $matches = [regex]::Matches((Get-Content -LiteralPath $Path -Raw), $Pattern)
+    if ($matches.Count -ne 1) {
+        Add-Failure "$Label must contain exactly one machine-checkable version value: $Path"
+        return $null
+    }
+
+    return $matches[0].Groups[$GroupName].Value
+}
+
+$semverPattern = '[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?'
+$context7TablePattern = "(?m)^\| Context7\s*\|\s*[^|]+\|\s*[^0-9|]*(?<tested>$semverPattern)[^|]*\|\s*[^0-9|]*(?<latest>$semverPattern)[^|]*\|"
+$context7PackagePattern = "@upstash/context7-mcp@(?<version>$semverPattern)"
+$context7CompatibilityPaths = @(
+    (Join-Path $root "docs/compatibility.md"),
+    (Join-Path $root "zh-CN/docs/compatibility.md")
+)
+$context7ConfigPaths = @(
+    (Join-Path $root "codex/examples/config.example.toml"),
+    (Join-Path $root "zh-CN/codex/examples/config.example.toml"),
+    (Join-Path $root "cursor/project/.cursor/mcp.example.json"),
+    (Join-Path $root "cursor/zh-CN/.cursor/mcp.example.json")
+)
+$context7TestedVersions = @(
+    foreach ($path in $context7CompatibilityPaths) {
+        Get-SingleRegexCapture -Path $path -Pattern $context7TablePattern -GroupName "tested" -Label "Context7 compatibility table"
+    }
+) | Where-Object { $_ }
+$context7LatestVersions = @(
+    foreach ($path in $context7CompatibilityPaths) {
+        Get-SingleRegexCapture -Path $path -Pattern $context7TablePattern -GroupName "latest" -Label "Context7 compatibility table"
+    }
+) | Where-Object { $_ }
+$context7PinnedVersions = @(
+    foreach ($path in $context7ConfigPaths) {
+        Get-SingleRegexCapture -Path $path -Pattern $context7PackagePattern -GroupName "version" -Label "Context7 config example"
+    }
+) | Where-Object { $_ }
+
+$uniqueContext7Tested = @($context7TestedVersions | Sort-Object -Unique)
+$uniqueContext7Latest = @($context7LatestVersions | Sort-Object -Unique)
+$uniqueContext7Pinned = @($context7PinnedVersions | Sort-Object -Unique)
+if ($uniqueContext7Tested.Count -ne 1 -or $uniqueContext7Latest.Count -ne 1 -or $uniqueContext7Pinned.Count -ne 1) {
+    Add-Failure "Context7 version mismatch across compatibility documents or configuration examples."
+}
+elseif ($uniqueContext7Tested[0] -ne $uniqueContext7Pinned[0]) {
+    Add-Failure "Context7 version mismatch: config examples pin $($uniqueContext7Pinned[0]) but compatibility documents identify $($uniqueContext7Tested[0]) as tested."
+}
+
+$tmpPolicyPath = Join-Path $root ".tmp/README.md"
+if (-not (Test-Path -LiteralPath $tmpPolicyPath)) {
+    Add-Failure "Missing .tmp permanent/local boundary policy: $tmpPolicyPath"
+}
+else {
+    $tmpPolicyText = Get-Content -LiteralPath $tmpPolicyPath -Raw
+    foreach ($marker in @("not a blanket disposable directory", ".tmp/local/", "authoritative documents", "credentials", "only copy")) {
+        if ($tmpPolicyText.IndexOf($marker, [System.StringComparison]::OrdinalIgnoreCase) -lt 0) {
+            Add-Failure ".tmp boundary policy is missing '$marker': $tmpPolicyPath"
+        }
+    }
+}
+$gitignorePath = Join-Path $root ".gitignore"
+if (-not (Test-Path -LiteralPath $gitignorePath)) {
+    Add-Failure "Missing repository ignore policy: $gitignorePath"
+}
+else {
+    $gitignoreLines = @(Get-Content -LiteralPath $gitignorePath | ForEach-Object { $_.Trim() })
+    if ($gitignoreLines -notcontains ".tmp/local/") {
+        Add-Failure ".gitignore must reserve .tmp/local/ for ignored task-local data: $gitignorePath"
     }
 }
 

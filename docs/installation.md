@@ -7,18 +7,23 @@ This repository provides templates. Merge them into your local Codex and project
 Install global rules:
 
 ```bash
-cp codex/global/AGENTS.md ~/.codex/AGENTS.md
+mkdir -p ~/.codex
+if [ ! -e ~/.codex/AGENTS.md ]; then
+  cp codex/global/AGENTS.md ~/.codex/AGENTS.md
+fi
 ```
 
 Install project rules:
 
 ```bash
-cp codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+if [ ! -e /path/to/your-project/AGENTS.md ]; then
+  cp codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+fi
 ```
 
-If your destination already has `AGENTS.md`, merge manually and keep project-specific constraints.
+If either destination already has `AGENTS.md`, create a separate backup first, then merge only the relevant sections and preserve existing personal or project-specific constraints. Do not blindly replace an existing global file. The templates contain opinionated defaults for role, language behavior, reasoning depth, authorization, and delivery discipline; adapt them to the user, team, and repository. The English global template is language-neutral, while the `zh-CN/` template intentionally defaults to Simplified Chinese.
 
-Codex loads the global and applicable project `AGENTS.md` chain independently of Skill selection. The global v7.2 template therefore keeps truthfulness, response modes, context health, pre-output review, output rules, and a compact RD delivery baseline active even when no RD Skill is selected; a matching Skill adds the full specialist workflow rather than supplying the only copy of these controls.
+Codex loads the global and applicable project `AGENTS.md` chain independently of Skill selection. The global v7.4 template therefore keeps truthfulness, response modes, context health, pre-output review, output rules, evidence-state boundaries, no-change legitimacy, and a compact RD delivery baseline active even when no RD Skill is selected; a matching Skill adds the full specialist workflow rather than supplying the only copy of these controls.
 
 ## Skills
 
@@ -111,9 +116,16 @@ zh-CN/
 Install Chinese Codex rules:
 
 ```bash
-cp zh-CN/codex/global/AGENTS.md ~/.codex/AGENTS.md
-cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+mkdir -p ~/.codex
+if [ ! -e ~/.codex/AGENTS.md ]; then
+  cp zh-CN/codex/global/AGENTS.md ~/.codex/AGENTS.md
+fi
+if [ ! -e /path/to/your-project/AGENTS.md ]; then
+  cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+fi
 ```
+
+If either target already exists, back it up and merge manually. Do not use the translation pack to overwrite personal or repository-specific rules.
 
 Install Chinese shared skills:
 

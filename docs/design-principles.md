@@ -40,6 +40,8 @@ For standards work, do not invent clause text, document status, publication date
 
 Use evidence-package work when external facts, standards metadata, literature, policy, market data, or vendor claims materially affect a downstream document. Evidence collection supports feasibility studies, technical proposals, standards work, and reviews, but it is not a mandatory first stage for every task.
 
+Source authority and evidence state are separate dimensions. Record the highest state actually established: documentation claim, source implementation, static configuration, final generated or effective configuration, runtime state, or business/production acceptance. A lower state never proves a higher one. If the evidence supports retaining the current state, a bounded no-change conclusion is valid and should not be replaced with manufactured optimization work.
+
 ## Safety Defaults
 
 Public templates must be safer than private local setups:
@@ -58,4 +60,4 @@ Rules that encode project-inherent document-delivery discipline should remain st
 
 ## Excluded Work
 
-This repository intentionally excludes coding, code review, test authoring/execution, deployment execution, and release operations. Deployment architecture may appear inside a construction plan, but deployment runbooks and operational commands are out of scope.
+The RD Skills intentionally exclude coding, code review, test authoring/execution, deployment execution, and release execution. Deployment architecture may appear inside a construction plan, but deployment runbooks and operational commands are out of scope. Repository maintainers use the separate [release checklist](release-checklist.md) to publish this framework; that governance process is not an RD Skill deliverable and does not expand Skill responsibility.

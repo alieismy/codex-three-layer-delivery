@@ -94,9 +94,11 @@ The source `config.toml` also failed current schema validation because `windows_
 - Focused `references/` for research, review, writing, and delivery modes
 - `agents/openai.yaml` UI metadata without MCP dependencies; specialist Skills retain default invocation policy
 - `rd-delivery` alone disables implicit invocation: by `policy.allow_implicit_invocation: false` for Codex and by `disable-model-invocation: true` in Claude/Cursor adapters
-- Global `AGENTS.md` v7.2 keeps truthfulness, response modes, context health, pre-output review, output rules, task routing, and a compact per-domain baseline active without duplicating full Skill workflows; unavailable or unselected Skills therefore degrade explicitly instead of removing the control plane
+- Global `AGENTS.md` v7.4 keeps truthfulness, response modes, context health, pre-output review, output rules, evidence-state boundaries, no-change legitimacy, task routing, and a compact per-domain baseline active without duplicating full Skill workflows; unavailable or unselected Skills therefore degrade explicitly instead of removing the control plane
+- Codex, Claude, and Cursor control surfaces distinguish documentation, source, static/effective configuration, runtime, and production acceptance, and accept a supported no-change conclusion
 - Exact English and Chinese adapter mirrors except the validated, platform-specific `rd-delivery` invocation field
 - A PowerShell installer limits replacement to the declared nine Skills, verifies backups and staging trees, restores on replacement failure, and supports a read-only exact-tree check
-- Repository validation for frontmatter, description boundaries, per-step completion criteria, invocation parity, metadata, evals, Skill set, LF endings, and mirror equality
+- Repository validation for frontmatter, description boundaries, per-step completion criteria, invocation parity, metadata, evals, Skill set, LF endings, mirror equality, Context7 version consistency, and the `.tmp/local/` boundary
+- A separate six-case negative regression runner proves the validator rejects completion-criterion misdistribution, Context7 document/config drift, `rd-delivery` invocation-policy regression, loss of the always-on evidence/no-change contract, loss of the RD specialist Skill/eval/near-miss contract, and loss of the `.tmp/local/` boundary
 
 The next meaningful optimization should come from observed false triggers, missed triggers, premature step completion, broken handoffs, duplicate authority records, or low-quality real outputs. Adding another top-level Skill without an independently triggerable deliverable or workflow would be speculative.

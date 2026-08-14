@@ -52,6 +52,7 @@ If the target spans modes, identify the primary mode and load one additional ref
 - **Alignment/evidence axis**: Does the target match upstream intent and authoritative evidence?
 - **Intrinsic-quality/argument axis**: Is it internally complete, consistent, feasible, logically valid, understandable, and verifiable?
 - Apply the mode reference to refine these axes; strength on one axis cannot hide failure on the other
+- Track the highest evidence state supporting each behavior claim: documentation, source, static configuration, final generated or effective configuration, runtime, or business/production acceptance. A lower state cannot establish a higher one.
 
 **Completion criterion:** every material section is assessed on both axes or explicitly marked not applicable, and neither axis is collapsed into the other.
 
@@ -85,6 +86,7 @@ Default document verdicts are **Approved / Conditionally Approved / Rejected**. 
 - Unresolved Critical findings normally require rejection or revision before approval
 - Conditional approval requires bounded conditions, verification actions, assignment state, and a re-review trigger
 - Project policy overrides these defaults; never use a universal issue-count threshold
+- A well-supported finding-free or no-change outcome is valid. Do not force remediation when the evidence supports the current state.
 
 **Completion criterion:** the verdict follows from unresolved impact and evidence limits, and every condition has an action, assignment state, and re-review trigger.
 
@@ -100,10 +102,12 @@ Default document verdicts are **Approved / Conditionally Approved / Rejected**. 
 
 - [ ] Primary mode, target version, scope, authority, and verdict vocabulary are explicit
 - [ ] Evidence/alignment and intrinsic-quality/argument axes were both evaluated
+- [ ] Claimed behavior is bounded to the highest evidence state actually established
 - [ ] Material assumptions, counterexamples, failure paths, and alternative explanations were tested
 - [ ] Every finding has location, evidence, impact, severity rationale, and action
 - [ ] Findings lead; strengths and supporting observations follow
 - [ ] Verdict follows from unresolved impact and evidence limits, not issue count or reviewer preference
+- [ ] No finding or modification is invented when evidence supports no change
 - [ ] Facts, quotations, dates, versions, and external claims are verified or explicitly bounded
 - [ ] Findings and evidence excerpts contain no secrets or unnecessary sensitive identifiers
 

@@ -76,11 +76,11 @@ enabled = false
 # 公开默认值：所有外部 MCP 服务器在凭据和数据流影响审查前均禁用。
 # 在 Codex App 中优先使用 Context7/Tavily App，避免与独立 MCP 重复。
 # 版本策略：仅 Context7 固定已测试版本；其它 npm MCP 包不固定版本。
-# Context7 3.2.5 要求 Node.js >= 20.18.1。
+# Context7 4.0.2 要求 Node.js >= 20.18.1。
 
 [mcp_servers.context7]
 command = "npx"
-args = ["-y", "@upstash/context7-mcp@3.2.5"]
+args = ["-y", "@upstash/context7-mcp@4.0.2"]
 enabled = false
 tool_timeout_sec = 60
 env_vars = ["CONTEXT7_API_KEY"]

@@ -6,6 +6,11 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+- Updated the public global AGENTS templates to v7.4 and synchronized Codex, Claude, Cursor, English, and Simplified Chinese evidence-state and no-change controls.
+- Upgraded the Context7 example baseline to `4.0.2`, documented the bounded stdio probe, and added cross-file version enforcement.
+- Added RD research/review evals for evidence-layer boundaries and supported no-change outcomes, plus a real negative regression suite for the repository validator.
+- Defined `.tmp/local/` as ignored task-local storage and added a bilingual maintainer release checklist without expanding RD Skill scope.
+
 ## 1.0.0 - 2026-08-07
 
 - Created the public `codex-three-layer-delivery` repository layout.

@@ -71,6 +71,8 @@ Before executing document-delivery Skills:
 - If a fact can be confirmed from the target document, cite the document first.
 - If a fact can be confirmed via official documentation, standards, laws, regulations, RFCs, or papers, check the original source first.
 - Distinguish facts, assumptions, estimates, inferences, and unresolved questions.
+- Keep documentation claims, source implementation, static configuration, final generated or effective configuration, runtime state, and business or production acceptance separate. Report the highest state actually observed; a lower state cannot establish a higher one.
+- Treat a well-supported no-change conclusion as valid. Do not invent a modification when the evidence supports retaining the current state.
 - For standards work, do not invent clauses, document status, publication dates, or authority. Mark missing evidence as requiring human verification.
 
 ## MCP and Tool Routing

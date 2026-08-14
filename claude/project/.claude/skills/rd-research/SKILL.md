@@ -75,6 +75,8 @@ Forum, social-media, search-snippet, AI-generated, and aggregator content may su
 
 Assess each material source for authority, currency, directness, independence, applicability, reproducibility, and conflict of interest. Map each conclusion to evidence and label it as fact, estimate, inference, judgment, or unknown.
 
+- Record the highest evidence state actually reached: documentation claim, source implementation, static configuration, final generated or effective configuration, runtime state, or business/production acceptance. Never use a lower state to claim a higher one.
+
 **Completion criterion:** every material conclusion has an evidence-strength and claim-type label, with conflicts and applicability limits preserved.
 
 ### 5. Synthesize and Hand Off
@@ -82,6 +84,7 @@ Assess each material source for authority, currency, directness, independence, a
 - Answer each research question directly and state the evidence strength
 - Preserve disagreements and explain why one source should dominate, if justified
 - Separate observed behavior from documented behavior and both from recommendation
+- When the evidence does not justify a modification, state a bounded no-change conclusion and what new evidence would reopen it; do not manufacture an optimization
 - List evidence gaps, verification actions, and what would change the conclusion
 - For multi-stage work, maintain one canonical evidence package in the repository's established location and link supporting notes rather than scattering final claims across temporary files
 - Keep raw notes separate from publication-ready prose; use `rd-writing` for the final narrative and `rd-review` for an independent verdict
@@ -101,12 +104,14 @@ Assess each material source for authority, currency, directness, independence, a
 
 - [ ] Scope, decision dependency, mode, and stopping condition are explicit
 - [ ] Each material claim maps to inspected evidence or is labeled unverified
+- [ ] The highest evidence state is explicit, and no lower state is presented as runtime or production proof
 - [ ] Volatile facts include date/version/environment context where needed
 - [ ] Primary and independent sources are distinguished; conflicts are preserved
 - [ ] Counterevidence and alternative explanations were actively tested for high-impact claims
 - [ ] Reproducibility limits, inaccessible evidence, and follow-up actions are explicit
 - [ ] Evidence excerpts and handoffs exclude secrets and unnecessary sensitive identifiers
 - [ ] Multi-stage work has one identifiable canonical evidence package rather than competing summaries
+- [ ] A no-change conclusion is retained when evidence does not support modification
 - [ ] No fabricated citations, quotations, clauses, dates, versions, metrics, or behavior
 
 ## Out of Scope

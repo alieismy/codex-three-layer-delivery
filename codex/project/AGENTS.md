@@ -55,6 +55,8 @@ When a task crosses boundaries, keep one controlling deliverable and route only 
 - Express requirements and normative clauses in stable, testable language. Trace downstream design and verification back to their controlling requirement or decision.
 - If an upstream artifact changes, identify affected downstream outputs and revalidate them. Do not silently preserve invalidated conclusions.
 - Where evidence remains incomplete, distinguish unknown, unverified, disputed, and accepted risk. Do not convert absence of evidence into approval.
+- Keep documentation claims, source implementation, static configuration, final generated or effective configuration, runtime state, and business or production acceptance as distinct evidence states. State the highest state actually observed; never infer a higher state from a lower one.
+- If the available evidence does not justify a modification, record a bounded no-change conclusion and the evidence that would reopen it. Do not manufacture improvements.
 
 ## Execution and Validation
 

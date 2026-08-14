@@ -55,13 +55,18 @@ Layer 3: 文档交付 Skills
 安装全局指令：
 
 ```bash
-cp zh-CN/codex/global/AGENTS.md ~/.codex/AGENTS.md
+mkdir -p ~/.codex
+if [ ! -e ~/.codex/AGENTS.md ]; then
+  cp zh-CN/codex/global/AGENTS.md ~/.codex/AGENTS.md
+fi
 ```
 
 安装项目规则：
 
 ```bash
-cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+if [ ! -e /path/to/your-project/AGENTS.md ]; then
+  cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+fi
 ```
 
 安装 Skills：
@@ -77,7 +82,7 @@ pwsh -File ./scripts/install-rd-skills.ps1 -Language zh-CN
 pwsh -File ./scripts/install-rd-skills.ps1 -Language zh-CN -CheckOnly
 ```
 
-如目标文件已存在，请手动合并，不要直接覆盖。
+如目标文件已存在，请先创建独立备份，再只合并需要的章节，不要直接替换现有个人全局指令或项目规则。模板包含角色、语言、推理深度、授权和交付纪律等观点化默认值，应按实际用户、团队与仓库调整；`zh-CN/` 全局模板有意默认使用简体中文。
 
 ### Claude Code
 
@@ -141,6 +146,7 @@ zh-CN/
     installation.md
     mcp-routing.md
     design-principles.md
+    release-checklist.md
 ```
 
 ## 安全默认值
@@ -150,7 +156,18 @@ zh-CN/
 - Cursor 适配包只发布 `.cursor/mcp.example.json`，不直接发布活动 `.cursor/mcp.json`。
 - 不使用 `@latest` 作为 npm MCP 包版本。
 - Claude Code 项目设置默认禁止读取 `.env` 和 `secrets/`，并对 commit、push、tag、publish、delete 操作要求确认。
-- Context7 保持当前已验证固定版本：`@upstash/context7-mcp@2.3.0`，不升级到 `3.0.0`，直到工具名、认证方式和平台兼容性重新验证完成。
+- Context7 的已测试版本以[兼容性文档](docs/compatibility.md)为准，并与全部 Codex/Cursor 示例保持一致；真实客户端运行验收仍是更高且独立的证据层级。
+
+## 验证
+
+运行仓库正向门禁和 Validator 负向回归：
+
+```powershell
+pwsh ./scripts/validate.ps1
+pwsh ./scripts/test-validator.ps1
+```
+
+六项负向回归会证明 Validator 能拒绝：完成标准总数不变但步骤分布错误、Context7 文档/配置版本漂移、`rd-delivery` 调用策略退化、常驻证据/“无需修改”契约缺失、RD 专业 Skill/Eval/近失配契约缺失，以及 `.tmp/local/` 边界缺失。
 
 ## 版本维护
 
@@ -164,3 +181,5 @@ zh-CN/
 - 不引入真实 secrets、私有 relay URL 或旧仓库名；
 - 不重新引入编码开发、代码评审、测试执行或部署执行类 Skill；
 - 不把灵感参考写成直接派生或上游背书。
+
+仓库维护者发布本项目时应使用[发布检查清单](docs/release-checklist.md)。该清单只治理仓库发布，不扩展 RD Skills 的职责。
