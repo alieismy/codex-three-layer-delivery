@@ -66,6 +66,14 @@ Before executing document-delivery Skills:
 
 `CLAUDE.md` is for agents: stable document-delivery constraints, directory conventions, risk points, and verification commands. `README.md` is for humans: what the project is, why it exists, and how to get started.
 
+## Context Reuse and Task State
+
+- Reuse previously inspected stable project context only when its authoritative source, revision, and applicability remain known.
+- Before substantive work, use applicable low-cost change detectors such as branch and HEAD, worktree status, changed paths, and relevant source revisions to scope the refresh; do not rescan the entire repository by default.
+- Re-read affected or decision-critical sources after revision changes, external edits, new evidence, context compaction, task redirection, or conflicting observations. Do not claim prior context remains current when applicable change detectors have not been checked.
+- For complex or high-impact work, briefly identify the reused baseline and newly refreshed dynamic evidence at the first meaningful checkpoint when that improves reviewability; do not impose a fixed context-accounting format on simple tasks.
+- Keep current goals, progress, branch or commit snapshots, test results, known issues, failed approaches, and next actions in a task plan or delivery record, not in this file. This file may define when and where to read that state but must remain limited to durable project rules.
+
 ## Evidence Discipline
 
 - If a fact can be confirmed from the target document, cite the document first.

@@ -189,6 +189,97 @@ try {
         Set-LfText -Path $triggerPath -Content ($triggers | ConvertTo-Json -Depth 20 -Compress)
     }
 
+    Invoke-NegativeCase -Name "root-agents-missing" -ExpectedPattern "Missing repository-root maintainer AGENTS\.md" -Mutate {
+        param($caseRoot)
+
+        $path = Join-Path $caseRoot "AGENTS.md"
+        if (-not (Test-Path -LiteralPath $path)) {
+            throw "Fixture requires the repository-root maintainer AGENTS.md."
+        }
+        Remove-Item -LiteralPath $path -Force
+    }
+
+    Invoke-NegativeCase -Name "root-agents-maintainer-contract" -ExpectedPattern "Repository-root maintainer AGENTS\.md is missing required contract 'The English root is the canonical baseline'" -Mutate {
+        param($caseRoot)
+
+        $path = Join-Path $caseRoot "AGENTS.md"
+        $content = Get-Content -LiteralPath $path -Raw
+        $mutated = $content.Replace(
+            "The English root is the canonical baseline.",
+            "English sources provide the initial material."
+        )
+        if ($mutated -eq $content -or $mutated.Contains("The English root is the canonical baseline")) {
+            throw "Fixture could not remove the root maintainer authority contract."
+        }
+        Set-LfText -Path $path -Content $mutated
+    }
+
+    Invoke-NegativeCase -Name "context-reuse-invalidation-contract" -ExpectedPattern @(
+        "Context-reuse surface is missing 'context compaction'",
+        "Context-reuse surface is missing 'first meaningful checkpoint'",
+        "Context-reuse surface is missing 'task plan or delivery record'"
+    ) -Mutate {
+        param($caseRoot)
+
+        $path = Join-Path $caseRoot "codex/project/AGENTS.md"
+        $content = Get-Content -LiteralPath $path -Raw
+        $mutated = $content.Replace("context compaction", "context reduction")
+        $mutated = $mutated.Replace("first meaningful checkpoint", "initial update")
+        $mutated = $mutated.Replace("task plan or delivery record", "task-specific state record")
+        if (
+            $mutated -eq $content -or
+            $mutated.Contains("context compaction") -or
+            $mutated.Contains("first meaningful checkpoint") -or
+            $mutated.Contains("task plan or delivery record")
+        ) {
+            throw "Fixture could not remove the complete context-reuse invalidation contract."
+        }
+        Set-LfText -Path $path -Content $mutated
+    }
+
+    Invoke-NegativeCase -Name "greenfield-research-gate" -ExpectedPattern @(
+        "Greenfield research-gate surface is missing 'GitHub is a candidate source, not the sole authority\.'",
+        "Greenfield research-gate surface is missing 'Implementation is outside the RD Skills' delivery boundary'"
+    ) -Mutate {
+        param($caseRoot)
+
+        $path = Join-Path $caseRoot "PROMPTS.md"
+        $content = Get-Content -LiteralPath $path -Raw
+        $mutated = $content.Replace("GitHub is a candidate source, not the sole authority.", "GitHub provides the source list.")
+        $mutated = $mutated.Replace("Implementation is outside the RD Skills' delivery boundary", "Implementation follows later")
+        if (
+            $mutated -eq $content -or
+            $mutated.Contains("GitHub is a candidate source, not the sole authority.") -or
+            $mutated.Contains("Implementation is outside the RD Skills' delivery boundary")
+        ) {
+            throw "Fixture could not remove the complete greenfield research/approval contract."
+        }
+        Set-LfText -Path $path -Content $mutated
+    }
+
+    Invoke-NegativeCase -Name "adversarial-clarification-preamble" -ExpectedPattern @(
+        "Adversarial clarification-preamble surface is missing 'This is an optional preamble, not a standalone Skill\.'",
+        "Adversarial clarification-preamble surface is missing 'Do not manufacture symmetry'",
+        "Adversarial clarification-preamble surface is missing 'If exactly one unresolved decision that only I can make blocks the final judgment'"
+    ) -Mutate {
+        param($caseRoot)
+
+        $path = Join-Path $caseRoot "PROMPTS.md"
+        $content = Get-Content -LiteralPath $path -Raw
+        $mutated = $content.Replace("This is an optional preamble, not a standalone Skill.", "This is a standalone mandatory workflow.")
+        $mutated = $mutated.Replace("Do not manufacture symmetry", "Present both sides symmetrically")
+        $mutated = $mutated.Replace("If exactly one unresolved decision that only I can make blocks the final judgment", "Before every final judgment")
+        if (
+            $mutated -eq $content -or
+            $mutated.Contains("This is an optional preamble, not a standalone Skill.") -or
+            $mutated.Contains("Do not manufacture symmetry") -or
+            $mutated.Contains("If exactly one unresolved decision that only I can make blocks the final judgment")
+        ) {
+            throw "Fixture could not remove the complete adversarial clarification contract."
+        }
+        Set-LfText -Path $path -Content $mutated
+    }
+
     Invoke-NegativeCase -Name "tmp-local-boundary" -ExpectedPattern @(
         "Missing .tmp permanent/local boundary policy",
         "\.gitignore must reserve \.tmp/local/"
@@ -210,7 +301,7 @@ try {
         Set-LfText -Path $gitignorePath -Content $mutatedGitignore
     }
 
-    Write-Host "Validator negative tests passed (6/6)." -ForegroundColor Green
+    Write-Host "Validator negative tests passed (11/11)." -ForegroundColor Green
 }
 finally {
     $resolvedRunRoot = [System.IO.Path]::GetFullPath($runRoot)

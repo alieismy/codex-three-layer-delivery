@@ -4,7 +4,7 @@ Contributions are welcome when they improve the framework without weakening its 
 
 ## Contribution Types
 
-- rules improvements for `codex/global/AGENTS.md` or `codex/project/AGENTS.md`;
+- maintainer-rule improvements for the root `AGENTS.md`, or distributable-rule improvements for `codex/global/AGENTS.md` and `codex/project/AGENTS.md`;
 - skill improvements under `skills/rd-*`;
 - Cursor adapter updates under `cursor/`;
 - documentation updates under `docs/`;

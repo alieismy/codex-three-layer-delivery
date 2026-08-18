@@ -38,7 +38,7 @@
 - 当前 [OpenAI Codex Skill 指南](https://learn.chatgpt.com/docs/build-skills) 要求描述前置核心用途，因为 Skill 较多时初始列表可能缩短描述或省略部分 Skill；该指南还说明了面向 ChatGPT/Codex 桌面的可选 `agents/openai.yaml` 元数据。
 - 原 [openai/skills 仓库](https://github.com/openai/skills) 已标记为不再用于当前分发示例；[openai/plugins](https://github.com/openai/plugins) 是当前打包参考。本项目为跨客户端编写和适配保留直接 Skill 目录，插件化属于独立的分发决策。
 - Anthropic 的 [Agent Skills 工程指南](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) 建议从观察到的能力缺口出发，使用代表性任务评测，并把互斥上下文拆为按需资源。
-- Matt Pocock 的 [research Skill](https://github.com/mattpocock/skills/blob/v1.2.3/skills/engineering/research/SKILL.md) 强调一手来源研究和单一带引用制品；更名后的 [writing-for-agents 指南](https://github.com/mattpocock/skills/blob/v1.2.3/skills/productivity/writing-for-agents/SKILL.md) 把 Agent 指令视为信息架构问题：前置触发上下文，只加载影响决策的细节，规定完备的完成检查，维持单一事实来源，并清理重复或陈旧说明。2026-08-07 审计把 `v1.2.3` 固定到 Commit [`6acc160e4e0cd062dbbbd7a1b26ae92855edf07e`](https://github.com/mattpocock/skills/commit/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e)，只独立吸收适合文档交付的机制。
+- Matt Pocock 的 [research Skill](https://github.com/mattpocock/skills/blob/v1.2.3/skills/engineering/research/SKILL.md) 强调一手来源研究和单一带引用制品；更名后的 [writing-for-agents 指南](https://github.com/mattpocock/skills/blob/v1.2.3/skills/productivity/writing-for-agents/SKILL.md) 把 Agent 指令视为信息架构问题：前置触发上下文，只加载影响决策的细节，规定完备的完成检查，维持单一权威来源，并清理重复或陈旧说明。2026-08-07 审计把 `v1.2.3` 固定到 Commit [`6acc160e4e0cd062dbbbd7a1b26ae92855edf07e`](https://github.com/mattpocock/skills/commit/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e)，只独立吸收适合文档交付的机制。
 - [Trellis](https://github.com/mindfold-ai/Trellis) 将范围化规范、任务制品、验证上下文和会话交接持久化，并采用 Plan / Implement / Verify / Finish 阶段边界。本项目只适配文档交付机制：权威制品、决策闭环工作包、阶段门禁、状态纪律和持久化交接；不复制 `.trellis/` 目录模型、任务脚本、编码流程或强制批准状态机。
 
 ## Matt Pocock Skills 1.2.0—1.2.3 审计
@@ -49,17 +49,17 @@
 |---|---|---|
 | 用户显式调用的编排与模型自动调用的复用纪律分离 | 采纳 | `rd-delivery` 继续保持仅显式调用。Codex 使用 `agents/openai.yaml`；Claude 和 Cursor 适配器使用 `disable-model-invocation: true`。标准/Codex Skill 根目录继续只使用可移植的 `name` 和 `description` Frontmatter。 |
 | 每个步骤具备可检查且要求充分的完成标准 | 采纳 | 9 个主 Skill 的每个编号步骤都具备一个英文或中文完成标准，仓库验证在所有适配器中强制每一步恰好包含一个完成标准。 |
-| 单一事实来源；关系图和交接作为索引而非内容仓库 | 采纳 | 交付记录指向权威制品和决策记录，不重复维护完整内容。 |
+| 单一权威来源；关系图和交接作为索引而非内容仓库 | 采纳 | 交付记录指向权威制品和决策记录，不重复维护完整内容。 |
 | Agent 文档作为上下文与认知负载路由器 | 采纳 | 项目 `AGENTS.md` 只维护稳定的效力、路由和完成规则；RD 详细流程由 9 个 Skills 单一维护。环境可发现事实在使用时检查，不缓存为长期说明。 |
 | 诊断和交接中的密钥与敏感标识脱敏 | 采纳并扩展 | 研究、写作、评审和交付均隐藏密钥及非必要的个人或基础设施标识，同时保留受控证据指针和复现边界。 |
-| 在不确定性下按工作前沿逐步规划 | 按文档语义采纳 | `rd-delivery` 区分可定义工作、尚不足以精确定义的范围内工作和范围外工作；只有精确且可独立评审的产出才进入工作包。 |
+| 在不确定性下规划下一批可执行工作 | 按文档语义采纳 | `rd-delivery` 区分可定义工作、尚不足以精确定义的范围内工作和范围外工作；只有精确且可独立评审的产出才进入工作包。 |
 | 事实由环境与来源核实，干系人决策仍归人类所有 | 保留并加强 | 需求只标记证据并路由可行性决策，不再提前作出结论；可研记录决策权限；其他流程继续区分可查事实和授权决策。 |
 | 一手来源研究并形成单一带引用制品 | 已采纳 | `rd-research` 已包含来源层级、反证、日期/版本背景、单一权威证据包和下游交接。 |
 | 双轴评审 | 已覆盖更广范围 | `rd-review` 把对齐/证据轴与内在质量/论证轴用于需求、可研、研究、方案、设计、标准和文章，而非只评审代码差异。 |
 | 为大量手动命令增加 Router Skill | 暂不采纳 | 只有 `rd-delivery` 仅显式调用；8 个专业 Skill 可由模型独立触发，增加第二个路由器没有独立交付物，只会增加认知与维护成本。 |
 | 强制使用后台研究代理 | 不采纳 | 并行研究可能有价值，但 Skill 在子代理不可用、不适用或未获授权时仍必须正确运行。 |
 | Issue Tracker 状态机、编码流程、TDD、实现和代码评审 | 不采纳 | 与仓库明确限定的文档交付和系统设计范围冲突。 |
-| Tracker 专用关系图、标签、任务认领和自动外部写入 | 不采纳 | 持久化仓库制品和明确权威边界可移植；外部 Tracker 变更仍取决于具体任务与授权。 |
+| Tracker 专用关系图、标签、任务认领和自动外部写入 | 不采纳 | 持久化仓库制品和明确授权边界可移植；外部 Tracker 变更仍取决于具体任务与授权。 |
 
 本项目不复制上游的编码、工单、TDD、向导或强制子代理工作流，只吸收可移植的指令机制，并保持本仓库的文档交付和系统设计范围为最高约束。
 
@@ -67,7 +67,7 @@
 
 本次将本地 VibeCoding Codex 9.9.6 目录作为设计参考进行评审，不把它作为本项目的上游依赖。其最有价值的部分是以下文档治理机制：
 
-- 将长期需求与意图、当前架构、任务特定变更设计、决策理由、证据和评审发现置于不同权威层级。
+- 将长期需求与意图、当前架构、任务特定变更设计、决策理由、证据和评审发现置于不同效力层级。
 - 区分可复验的机器门禁与人工决策。豁免必须记录授权责任人、理由、有限范围、剩余风险和重新评审触发条件。
 - 门禁失败时返回最近的受影响工作包，不重启无关阶段；重复失败且无法解决时转为明确阻塞。
 - 上游发生实质变更后，使受影响的下游评审和批准失效。
@@ -98,7 +98,7 @@
 - Codex、Claude 和 Cursor 控制面区分文档、源码、静态/生效配置、运行和生产验收，并接受有证据支撑的“无需修改”结论
 - 除经过验证的 `rd-delivery` 平台专用调用字段外，Claude/Cursor 适配树与中英文主 Skill 精确镜像
 - PowerShell 安装脚本把替换范围限制在声明的 9 个 Skills，校验备份和暂存树，在替换失败时恢复原安装，并支持只读的安装树精确检查
-- 仓库验证覆盖 Frontmatter、描述边界、逐步骤完成标准、调用策略对齐、元数据、评测、Skill 集合、LF 换行、镜像一致性、Context7 版本一致性和 `.tmp/local/` 边界
-- 独立的六项负向回归脚本证明 Validator 能拒绝完成标准分布错误、Context7 文档/配置漂移、`rd-delivery` 调用策略退化、常驻证据/“无需修改”契约缺失、RD 专业 Skill/Eval/近失配契约缺失和 `.tmp/local/` 边界缺失
+- 仓库验证覆盖 Frontmatter、描述边界、逐步骤完成标准、调用策略对齐、元数据、评测、Skill 集合、LF 换行、镜像一致性、Context7 版本一致性、根维护者契约、带修订标识的上下文复用、绿地研究门禁和 `.tmp/local/` 边界
+- 独立的十项负向回归脚本证明 Validator 能拒绝完成标准分布错误、Context7 文档/配置漂移、`rd-delivery` 调用策略退化、常驻证据/“无需修改”契约缺失、RD 专业 Skill/Eval/近失配契约缺失、根维护者契约缺失或弱化、上下文失效与动态状态分离缺失、绿地研究/批准门禁缺失，以及 `.tmp/local/` 边界缺失
 
 下一轮有意义的优化应来自真实误触发、漏触发、步骤过早结束、交接断裂、权威记录重复或低质量输出。没有独立可触发的交付物或工作流证据就继续增加顶层 Skill，属于推测性扩展。

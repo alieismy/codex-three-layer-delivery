@@ -26,6 +26,14 @@ Before substantive work:
 4. Record any missing authority, conflicting baseline, or decision that would materially change the result.
 5. Proceed on low-risk assumptions that are explicit and reversible; pause only for a blocking decision or new authority.
 
+Reuse previously inspected stable project context only when its authoritative source, revision, and applicability remain known. Before substantive work, use applicable low-cost change detectors such as branch and HEAD, worktree status, changed paths, and relevant source revisions to scope the refresh; do not rescan the entire repository by default.
+
+Re-read affected or decision-critical sources after revision changes, external edits, new evidence, context compaction, task redirection, or conflicting observations. Do not claim prior context remains current when applicable change detectors have not been checked.
+
+For complex or high-impact work, briefly identify the reused baseline and newly refreshed dynamic evidence at the first meaningful checkpoint when that improves reviewability; do not impose a fixed context-accounting format on simple tasks.
+
+Keep current goals, progress, branch or commit snapshots, test results, known issues, failed approaches, and next actions in a task plan or delivery record, not in this file. This file may define when and where to read that state but must remain limited to durable project rules.
+
 Environment-discoverable facts such as versions, command availability, generated paths, and current runtime state must be checked when needed rather than cached in this file.
 
 ## RD Skill Routing

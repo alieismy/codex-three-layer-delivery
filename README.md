@@ -61,6 +61,8 @@ Adapter mappings:
   Simplified Chinese: zh-CN/
 ```
 
+The source repository's root `AGENTS.md` is a maintainer-specific Layer 2 instruction file. It governs changes to this repository and is intentionally distinct from the distributable `codex/project/AGENTS.md` template copied into downstream document-delivery projects.
+
 ## Quick Start
 
 ### 1. Install Codex rules
@@ -234,6 +236,7 @@ The public configuration intentionally uses conservative defaults:
 
 ```text
 codex-three-layer-delivery/
+  AGENTS.md
   codex/
     global/AGENTS.md
     project/AGENTS.md
@@ -268,8 +271,10 @@ codex-three-layer-delivery/
     installation.md
     mcp-routing.md
     design-principles.md
+    rd-skills-assessment.md
     release-checklist.md
   scripts/
+    install-rd-skills.ps1
     validate.ps1
     test-validator.ps1
   PROMPTS.md
@@ -294,13 +299,15 @@ The validator checks common release blockers:
 - missing or invalid Skill frontmatter, per-step completion criteria, metadata, and eval coverage;
 - inconsistent mirrored Skill directory sets or file content;
 - missing always-on evidence-state and no-change controls across Codex, Claude, and Cursor surfaces;
+- a missing or weakened repository-maintainer root `AGENTS.md`, revision-aware context-reuse contract, or dynamic task-state boundary;
+- loss of the optional greenfield open-source research and approval-gate prompt contract;
 - Context7 version drift across compatibility documents and Codex/Cursor examples;
 - unsafe defaults in the public Codex config example;
 - a missing `.tmp/local/` boundary;
 - obvious secret leaks;
 - stale private/internal strings.
 
-The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects six regression cases: distribution-preserving completion-criterion drift, Context7 cross-file version drift, an `rd-delivery` invocation-policy regression, loss of the always-on evidence/no-change contract, loss of the RD specialist Skill/eval/near-miss contract, and loss of the `.tmp/local/` boundary.
+The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects ten regression cases: distribution-preserving completion-criterion drift; Context7 cross-file version drift; an `rd-delivery` invocation-policy regression; loss of the always-on evidence/no-change contract; loss of the RD specialist Skill/eval/near-miss contract; a missing root maintainer `AGENTS.md`; loss of its maintainer-specific authority contract; loss of revision-aware context reuse and dynamic-state separation; loss of the greenfield research/approval gate; and loss of the `.tmp/local/` boundary.
 
 ## Versioning
 

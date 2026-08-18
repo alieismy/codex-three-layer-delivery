@@ -554,14 +554,171 @@ foreach ($baseline in $evidenceContractBaselines) {
 }
 
 $activeProjectAgents = Join-Path $root "AGENTS.md"
-if (Test-Path -LiteralPath $activeProjectAgents) {
+if (-not (Test-Path -LiteralPath $activeProjectAgents)) {
+    Add-Failure "Missing repository-root maintainer AGENTS.md: $activeProjectAgents"
+}
+else {
     $activeText = Get-Content -LiteralPath $activeProjectAgents -Raw
-    $acceptedProjectTemplates = @(
-        (Get-Content -LiteralPath (Join-Path $root "codex/project/AGENTS.md") -Raw),
-        (Get-Content -LiteralPath (Join-Path $root "zh-CN/codex/project/AGENTS.md") -Raw)
+    $rootMaintainerMarkers = @(
+        "Repository Maintainer Instructions",
+        "not a distributable project template",
+        "The English root is the canonical baseline",
+        "codex/global/AGENTS.md",
+        "codex/project/AGENTS.md",
+        ".tmp/local/",
+        "pwsh ./scripts/validate.ps1",
+        "pwsh ./scripts/test-validator.ps1",
+        "first meaningful checkpoint",
+        "current goals, progress",
+        "task plan or delivery record",
+        "docs/release-checklist.md",
+        "explicit authority"
     )
-    if ($acceptedProjectTemplates -notcontains $activeText) {
-        Add-Failure "Repository-root AGENTS.md must match an authoritative project template when present: $activeProjectAgents"
+    foreach ($marker in $rootMaintainerMarkers) {
+        if (-not $activeText.Contains($marker)) {
+            Add-Failure "Repository-root maintainer AGENTS.md is missing required contract '$marker': $activeProjectAgents"
+        }
+    }
+}
+
+$contextReuseBaselines = @(
+    @{
+        Paths = @(
+            "codex/project/AGENTS.md",
+            "claude/project/CLAUDE.md",
+            "cursor/project/.cursor/rules/04-context-session.mdc"
+        )
+        Markers = @(
+            "authoritative source, revision, and applicability",
+            "branch and HEAD",
+            "context compaction",
+            "first meaningful checkpoint",
+            "current goals, progress",
+            "task plan or delivery record"
+        )
+    },
+    @{
+        Paths = @(
+            "zh-CN/codex/project/AGENTS.md",
+            "zh-CN/claude/project/CLAUDE.md",
+            "cursor/zh-CN/.cursor/rules/04-context-session.mdc"
+        )
+        Markers = @(
+            "权威来源、修订标识和适用范围",
+            "分支与 HEAD",
+            "上下文压缩",
+            "第一个有意义的检查点",
+            "当前目标、进度",
+            "任务计划或交付记录"
+        )
+    }
+)
+foreach ($baseline in $contextReuseBaselines) {
+    foreach ($relativePath in $baseline.Paths) {
+        $path = Join-Path $root $relativePath
+        if (-not (Test-Path -LiteralPath $path)) {
+            Add-Failure "Missing context-reuse surface: $path"
+            continue
+        }
+
+        $text = Get-Content -LiteralPath $path -Raw
+        foreach ($marker in $baseline.Markers) {
+            if (-not $text.Contains($marker)) {
+                Add-Failure "Context-reuse surface is missing '$marker': $path"
+            }
+        }
+    }
+}
+
+$greenfieldPromptBaselines = @(
+    @{
+        Paths = @(
+            "PROMPTS.md",
+            "cursor/project/PROMPTS.md"
+        )
+        Markers = @(
+            "Greenfield Open-Source Landscape and Solution Gate",
+            "Do not use it for small fixes or implementation under an already approved architecture.",
+            "GitHub is a candidate source, not the sole authority.",
+            "Stop at the approval gate",
+            "Implementation is outside the RD Skills' delivery boundary",
+            ".tmp/local/"
+        )
+    },
+    @{
+        Paths = @(
+            "zh-CN/PROMPTS.md",
+            "cursor/zh-CN/PROMPTS.md"
+        )
+        Markers = @(
+            "绿地开源格局研究与方案门禁",
+            "不得用于小修复或已批准架构下的实现",
+            "GitHub 是候选来源，不是唯一权威",
+            "在批准门禁处停止",
+            "实现不属于 RD Skills 的交付边界",
+            ".tmp/local/"
+        )
+    }
+)
+foreach ($baseline in $greenfieldPromptBaselines) {
+    foreach ($relativePath in $baseline.Paths) {
+        $path = Join-Path $root $relativePath
+        if (-not (Test-Path -LiteralPath $path)) {
+            Add-Failure "Missing greenfield research-gate surface: $path"
+            continue
+        }
+
+        $text = Get-Content -LiteralPath $path -Raw
+        foreach ($marker in $baseline.Markers) {
+            if (-not $text.Contains($marker)) {
+                Add-Failure "Greenfield research-gate surface is missing '$marker': $path"
+            }
+        }
+    }
+}
+
+$adversarialClarificationPromptBaselines = @(
+    @{
+        Paths = @(
+            "PROMPTS.md",
+            "cursor/project/PROMPTS.md"
+        )
+        Markers = @(
+            "High-Impact Bidirectional Argument and Critical Clarification",
+            "This is an optional preamble, not a standalone Skill.",
+            "Do not manufacture symmetry",
+            "If exactly one unresolved decision that only I can make blocks the final judgment",
+            "Do not expose hidden chain of thought."
+        )
+    },
+    @{
+        Paths = @(
+            "zh-CN/PROMPTS.md",
+            "cursor/zh-CN/PROMPTS.md"
+        )
+        Markers = @(
+            "高影响决策的双向论证与关键澄清",
+            "这是可选前置段，不是独立 Skill。",
+            "不要为了形式制造对称",
+            "如果恰有一个仍未解决、只能由我作出且会阻塞最终判断的决策问题",
+            "不要输出隐藏思维链。"
+        )
+    }
+)
+foreach ($baseline in $adversarialClarificationPromptBaselines) {
+    foreach ($relativePath in $baseline.Paths) {
+        $path = Join-Path $root $relativePath
+        if (-not (Test-Path -LiteralPath $path)) {
+            Add-Failure "Missing adversarial clarification-preamble surface: $path"
+            continue
+        }
+
+        $text = Get-Content -LiteralPath $path -Raw
+        foreach ($marker in $baseline.Markers) {
+            if (-not $text.Contains($marker)) {
+                Add-Failure "Adversarial clarification-preamble surface is missing '$marker': $path"
+            }
+        }
     }
 }
 

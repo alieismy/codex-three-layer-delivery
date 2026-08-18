@@ -22,6 +22,8 @@
 12. [Professional Technical Writing](#12-professional-technical-writing-rd-writing)
 13. [Research or Article Review](#13-research-or-article-review-rd-review)
 14. [Multi-Document Delivery Orchestration](#14-multi-document-delivery-orchestration-rd-delivery)
+15. [Greenfield Open-Source Landscape and Solution Gate](#15-greenfield-open-source-landscape-and-solution-gate)
+16. [High-Impact Bidirectional Argument and Critical Clarification](#16-high-impact-bidirectional-argument-and-critical-clarification)
 
 ---
 
@@ -340,12 +342,12 @@ Use $rd-specification
 Provide clause-level suggestions, normative wording, terminology checks, unresolved issues, and evidence boundaries.
 ```
 
-### Template B: Clause-Level Standards Review
+### Template B: Clause-Level Standards Revision
 
 ```text
 Use $rd-specification
 
-Review the following standard/specification clauses objectively and rigorously.
+Analyze and revise the following standard/specification clauses objectively and rigorously.
 
 ## Clauses
 {Paste clauses, tables, figures, or terms}
@@ -445,6 +447,67 @@ Create a delivery charter, artifact/dependency map, decision-complete work packa
 
 ---
 
+## 15. Greenfield Open-Source Landscape and Solution Gate
+
+Use this only when a greenfield product or tool, or an unresolved architecture decision, would materially benefit from comparing external projects. Do not use it for small fixes or implementation under an already approved architecture.
+
+For one solution deliverable, use `$rd-solution` and route external evidence to `$rd-research`. Use `$rd-delivery` only when the user explicitly requests research, provisional MVP requirements, solution selection, and an approval gate as a coordinated multi-artifact engagement.
+
+```text
+Use $rd-delivery
+
+## Goal and Authority
+I want to develop {product or tool}. The current controlling goal is an evidence-backed solution decision, not implementation.
+
+## Research Boundary
+- Perform read-only research and solution definition only.
+- Do not modify the target project, create tracked or durable project files, emit implementation code, or begin implementation unless separately authorized. Return the decision package in chat by default.
+- Temporary read-only clones under `.tmp/local/` are {allowed / not allowed}. If they are not allowed, state the resulting source-inspection limits.
+
+## Needs and Constraints
+{users, problems, core scenarios, fixed business constraints, security/privacy requirements, target platforms, budget/schedule limits, integration constraints, exclusions, and success criteria}
+
+## Source Discipline
+GitHub is a candidate source, not the sole authority.
+- Record the inspection date and pin each material repository to a tag or commit.
+- Check official documentation, source, releases, issue/PR maintenance, security notices, license, dependencies, and reproducibility evidence as applicable.
+- Assess activity using release/commit recency, maintainer response, archive status, and unresolved critical issues; do not rank primarily by stars.
+- Distinguish maintainer claims and static source inspection from reproduced runtime behavior.
+
+## Candidate Analysis
+For each high-value candidate, explain the problem addressed, architecture, major dependencies, extension and trust boundaries, current maintenance state, design worth reusing, design to avoid, applicability gaps, license/security constraints, and exit or replacement path.
+
+## Required Decision Package
+1. A traceable evidence table and candidate shortlist, including rejected candidates and reasons.
+2. Recommended technology selection and strongest credible alternative.
+3. System context, component architecture, data/control flows, trust boundaries, and key failure paths.
+4. Provisional MVP scope tied to user needs, exclusions, assumptions, and verifiable acceptance conditions.
+5. A dependency-aware implementation handoff sequence, major risks, validation gates, and unresolved decisions.
+
+## Approval Gate
+Stop at the approval gate after presenting the decision package. Implementation is outside the RD Skills' delivery boundary and must not begin without separate confirmation and an implementation-capable workflow.
+```
+
+---
+
+## 16. High-Impact Bidirectional Argument and Critical Clarification
+
+This is an optional preamble, not a standalone Skill. Prepend it to an applicable `$rd-requirement`, `$rd-feasibility`, `$rd-solution`, or `$rd-review` prompt only when a high-impact question involves a genuine disagreement over positions or options and an unresolved critical variable could materially change the conclusion. Do not use it for clear factual queries, small corrections, implementation under an approved solution, or other low-risk work.
+
+```text
+Before making the final judgment:
+
+1. Preserve my original question and restate the objective as your "current interpretation." Separate the underlying need, my proposed solution, confirmed constraints, and unconfirmed assumptions. Do not invent an objective on my behalf.
+2. Identify implicit assumptions and decision-critical evidence gaps, and explain how different values or findings could change the conclusion. First resolve facts discoverable from the supplied materials, the current project, or authoritative sources; do not ask me to retrieve information you can inspect yourself.
+3. Give the strongest credible case for my current idea and the strongest credible, material counterargument, alternative explanation, or alternative option. Do not manufacture symmetry; if one side has materially weaker evidence, say so.
+4. State whether the real disagreement concerns facts, definitions, objectives, values, risk tolerance, or decision authority, and identify the variables most likely to change the conclusion. If the current problem and evidence support it, identify one error or failure mode most likely to distort the judgment; otherwise omit it.
+5. If exactly one unresolved decision that only I can make blocks the final judgment, ask only that question and pause. Otherwise, do not ask a question for form's sake; proceed with a bounded judgment, rationale, confidence, remaining uncertainty, and next action.
+
+Do not expose hidden chain of thought. Output only the reviewable current interpretation, assumptions, evidence, counterevidence, key variables, trade-offs, and conclusion summary.
+```
+
+---
+
 ## Combined Usage Example
 
 ```text
@@ -488,7 +551,7 @@ Review the detailed design for completeness, traceability, correctness, and unre
 
 # Optional: Standards Work
 Use $rd-specification
-Draft or review standard/specification clauses with clause-level evidence and normative wording.
+Draft or revise standard/specification clauses with clause-level evidence and normative wording.
 ```
 
 ---

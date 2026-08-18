@@ -1,18 +1,18 @@
 # Compatibility
 
-Package registry versions and the local Codex/Context7 probes were re-checked on 2026-08-14. Re-check registry latest versions and tool/API surfaces before each public release.
+Package registry versions and the installed Codex CLI were re-checked on 2026-08-17. The bounded local Context7 stdio probe remains dated 2026-08-14. Re-check registry latest versions and tool/API surfaces before each public release.
 
 ## Codex
 
 | Component | Tested version | Registry latest checked | Notes |
 |---|---:|---:|---|
-| `@openai/codex` npm package | `0.147.0` | `0.147.0` | Installed CLI and configuration examples re-verified on 2026-08-14. Do not hardcode this into the repository name or AGENTS rules. |
+| `@openai/codex` npm package | `0.147.0` | `0.147.0` | Installed CLI and registry version re-checked on 2026-08-17; configuration examples remain validated for `0.147.0`. Do not hardcode this into the repository name or AGENTS rules. |
 
 ## Claude Code
 
 | Component | Tested/pinned version | Registry latest checked | Notes |
 |---|---:|---:|---|
-| `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.232` | File conventions checked for `CLAUDE.md`, `.claude/settings.json`, and `.claude/skills/` on 2026-07-10. Re-check before changing adapter behavior. |
+| `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.233` | File conventions checked for `CLAUDE.md`, `.claude/settings.json`, and `.claude/skills/` on 2026-07-10. Re-check before changing adapter behavior. |
 
 Official Claude Code docs checked: [memory](https://code.claude.com/docs/en/memory), [settings](https://code.claude.com/docs/en/settings), and [skills](https://code.claude.com/docs/en/skills).
 

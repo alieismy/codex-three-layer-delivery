@@ -25,6 +25,8 @@ fi
 
 Codex 加载全局和适用的项目 `AGENTS.md` 规则链，这一过程不依赖是否选中 Skill。因此，全局 v7.4 模板把真实性纪律、响应模式、上下文健康、输出前审核、输出规则、证据状态边界、“无需修改”合法性和精简的 RD 交付基线作为常驻能力：未触发 RD Skill 时仍然生效；触发匹配 Skill 后，只叠加完整专业工作流，不会替代或补回这些控制规则的唯一副本。
 
+Codex 在每次运行开始时发现一次指令链。同一层级存在非空 `AGENTS.override.md` 时，它优先于 `AGENTS.md`；全局规则先加载，项目规则再从仓库根目录向当前工作目录依次加载，因此更靠近当前目录的规则优先级更高。合并内容达到 `project_doc_max_bytes` 后停止加载；修改指令文件后，需要新建运行或会话才会生效。详见 OpenAI 官方文档 [Custom instructions with AGENTS.md](https://learn.chatgpt.com/docs/agent-configuration/agents-md)。
+
 ## Codex Skills
 
 全局安装：

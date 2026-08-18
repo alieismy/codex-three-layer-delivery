@@ -25,6 +25,8 @@ If either destination already has `AGENTS.md`, create a separate backup first, t
 
 Codex loads the global and applicable project `AGENTS.md` chain independently of Skill selection. The global v7.4 template therefore keeps truthfulness, response modes, context health, pre-output review, output rules, evidence-state boundaries, no-change legitimacy, and a compact RD delivery baseline active even when no RD Skill is selected; a matching Skill adds the full specialist workflow rather than supplying the only copy of these controls.
 
+Codex discovers the instruction chain once at the start of each run. At a given level, a non-empty `AGENTS.override.md` takes precedence over `AGENTS.md`; global guidance is loaded before project files from the repository root toward the working directory, so closer project guidance has higher precedence. Loading stops at `project_doc_max_bytes`, and changed instructions require a new run or session to take effect. See the official OpenAI documentation for [custom instructions with AGENTS.md](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
+
 ## Skills
 
 Global install:

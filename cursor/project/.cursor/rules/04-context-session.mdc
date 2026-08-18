@@ -11,6 +11,14 @@ alwaysApply: true
 - Summarize key constraints before complex multi-step work.
 - Refresh context when the task changes between requirements, feasibility, research, proposal, detailed design, standards work, professional writing, review, and delivery orchestration.
 - If answer quality degrades or the same issue fails twice, stop and reassess context before continuing.
+- Reuse previously inspected stable project context only when its authoritative source, revision, and applicability remain known.
+- Before substantive work, use applicable low-cost change detectors such as branch and HEAD, worktree status, changed paths, and relevant source revisions to scope the refresh; do not rescan the entire repository by default.
+- Re-read affected or decision-critical sources after revision changes, external edits, new evidence, context compaction, task redirection, or conflicting observations. Do not claim prior context remains current when applicable change detectors have not been checked.
+- For complex or high-impact work, briefly identify the reused baseline and newly refreshed dynamic evidence at the first meaningful checkpoint when that improves reviewability; do not impose a fixed context-accounting format on simple tasks.
+
+## Task State Boundary
+
+- Keep current goals, progress, branch or commit snapshots, test results, known issues, failed approaches, and next actions in a task plan or delivery record, not in this file. This file may define when and where to read that state but must remain limited to durable project rules.
 
 ## Session Strategy
 

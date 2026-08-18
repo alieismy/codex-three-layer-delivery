@@ -23,6 +23,7 @@
 
 ```bash
 cp -r cursor/zh-CN/.cursor /path/to/your-project/.cursor
+cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
 ```
 
 如果目标项目已经有 `.cursor/`，请手动合并，不要直接覆盖。

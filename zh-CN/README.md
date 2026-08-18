@@ -7,8 +7,8 @@
 ## 使用边界
 
 - 英文根目录保持发布基线和结构基线。
+- 仓库根 `AGENTS.md` 只治理本源码仓库的维护工作，与供下游项目复制的 `codex/project/AGENTS.md` 模板保持不同责任。
 - `zh-CN/` 只翻译当前仓库的 Codex、Claude Code、Skills 和文档入口。
-- 归档目录 `codex-research-design-studio` 只作为中文术语和表达种子。
 - Cursor 英文适配包位于 `cursor/project/`；Cursor 平台专用中文兼容包继续保留在 `cursor/zh-CN/`。
 - 不把灵感参考表述为直接派生、实质移植或上游背书。
 
@@ -49,6 +49,8 @@ Layer 3: 文档交付 Skills
 角色任务覆盖矩阵、非目标、外部设计依据以及采用 8 个专业 Skill 加 1 个显式编排 Skill 的理由，见 [RD Skills 评估与演进说明](docs/rd-skills-assessment.md)。
 
 ## 快速开始
+
+完整的 Codex、Claude Code、Cursor、配置示例和环境变量安装说明见[安装说明](docs/installation.md)。
 
 ### Codex
 
@@ -117,6 +119,7 @@ cursor/zh-CN/
 
 ```bash
 cp -r cursor/zh-CN/.cursor /path/to/your-project/.cursor
+cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
 ```
 
 Cursor MCP 配置以 `mcp.example.json` 形式发布。需要启用时，先审查凭据和数据流，再复制为目标项目的 `.cursor/mcp.json`。
@@ -146,6 +149,7 @@ zh-CN/
     installation.md
     mcp-routing.md
     design-principles.md
+    rd-skills-assessment.md
     release-checklist.md
 ```
 
@@ -167,7 +171,7 @@ pwsh ./scripts/validate.ps1
 pwsh ./scripts/test-validator.ps1
 ```
 
-六项负向回归会证明 Validator 能拒绝：完成标准总数不变但步骤分布错误、Context7 文档/配置版本漂移、`rd-delivery` 调用策略退化、常驻证据/“无需修改”契约缺失、RD 专业 Skill/Eval/近失配契约缺失，以及 `.tmp/local/` 边界缺失。
+十项负向回归会证明 Validator 能拒绝：完成标准总数不变但步骤分布错误；Context7 文档/配置版本漂移；`rd-delivery` 调用策略退化；常驻证据/“无需修改”契约缺失；RD 专业 Skill/Eval/近失配契约缺失；根维护者 `AGENTS.md` 缺失；根维护者效力契约缺失；带修订标识的上下文复用和动态状态分离缺失；绿地开源研究/批准门禁缺失；以及 `.tmp/local/` 边界缺失。
 
 ## 版本维护
 

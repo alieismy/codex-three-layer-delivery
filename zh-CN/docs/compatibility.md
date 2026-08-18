@@ -1,18 +1,18 @@
 # 兼容性
 
-本文件中的包 registry 版本以及本机 Codex/Context7 探针已于 2026-08-14 重新核查。每次公开发布前都应重新核查 registry 最新版本和工具/API surface（API 表面，即可调用接口和行为）。
+本文件中的包 registry 版本和已安装 Codex CLI 已于 2026-08-17 重新核查；本机 Context7 有边界的 stdio 探针仍以 2026-08-14 的记录为准。每次公开发布前都应重新核查 registry 最新版本和工具/API surface（API 表面，即可调用接口和行为）。
 
 ## Codex
 
 | 组件 | 已测试版本 | registry 最新核查版本 | 备注 |
 |---|---:|---:|---|
-| `@openai/codex` npm 包 | `0.147.0` | `0.147.0` | 已于 2026-08-14 重新核查本机 CLI 和配置示例；不要把该版本写进仓库名或 AGENTS 规则。 |
+| `@openai/codex` npm 包 | `0.147.0` | `0.147.0` | 已于 2026-08-17 重新核查本机 CLI 和 registry 版本；配置示例仍按 `0.147.0` 验证。不要把该版本写进仓库名或 AGENTS 规则。 |
 
 ## Claude Code
 
 | 组件 | 已测试 / 已固定版本 | registry 最新核查版本 | 备注 |
 |---|---:|---:|---|
-| `@anthropic-ai/claude-code` npm 包 | 本仓库不固定 | `2.1.232` | 已于 2026-07-10 核查 `CLAUDE.md`、`.claude/settings.json`、`.claude/skills/` 文件约定。变更适配行为前需重新核查。 |
+| `@anthropic-ai/claude-code` npm 包 | 本仓库不固定 | `2.1.233` | 已于 2026-07-10 核查 `CLAUDE.md`、`.claude/settings.json`、`.claude/skills/` 文件约定。变更适配行为前需重新核查。 |
 
 Claude Code 官方文档核查入口：
 
