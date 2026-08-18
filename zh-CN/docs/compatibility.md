@@ -55,7 +55,7 @@ Context7 `4.0.2` 已对照 [npm 包元数据](https://www.npmjs.com/package/@ups
 
 上述结果只构成包、静态配置和 stdio 协议层证据，不证明已完成 Context7 鉴权查询、Codex/Cursor/Claude Code 宿主端到端集成或业务/生产验收。达到更高证据层级前，不得作相应成功声明。
 
-Codex 配置示例只固定 Context7。其它 npm MCP 包调用有意不固定版本；上表版本仍作为兼容性证据，发布前必须重新核查。
+Codex 配置示例只固定 Context7；这些 Codex 示例中的其它 npm MCP 包调用有意不固定版本，Cursor 示例则保留文档所列的包版本固定值。上表版本仍作为兼容性证据，发布前必须重新核查。
 
 ## 发布规则
 

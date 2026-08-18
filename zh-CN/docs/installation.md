@@ -7,21 +7,22 @@
 安装全局规则：
 
 ```bash
-mkdir -p ~/.codex
-if [ ! -e ~/.codex/AGENTS.md ]; then
-  cp zh-CN/codex/global/AGENTS.md ~/.codex/AGENTS.md
+codex_home="${CODEX_HOME:-$HOME/.codex}"
+mkdir -p "$codex_home"
+if [ ! -s "$codex_home/AGENTS.override.md" ] && [ ! -e "$codex_home/AGENTS.md" ]; then
+  cp zh-CN/codex/global/AGENTS.md "$codex_home/AGENTS.md"
 fi
 ```
 
 安装项目规则：
 
 ```bash
-if [ ! -e /path/to/your-project/AGENTS.md ]; then
+if [ ! -s /path/to/your-project/AGENTS.override.md ] && [ ! -e /path/to/your-project/AGENTS.md ]; then
   cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
 fi
 ```
 
-如果任一目标已有 `AGENTS.md`，请先创建独立备份，再只合并需要的章节，并保留现有个人或项目特定约束；不得直接替换个人全局文件。模板包含角色、语言、推理深度、授权和交付纪律等观点化默认值，应按实际用户、团队与仓库调整；`zh-CN/` 全局模板有意默认使用简体中文。
+如同一层级存在非空 `AGENTS.override.md`，它是当前生效的指令来源；应先创建独立备份并有意识地合并，不要创建不会生效的 `AGENTS.md`。如已有 `AGENTS.md`，也应先备份，再只合并需要的章节，并保留现有个人或项目特定约束；不得直接替换个人全局文件。模板包含角色、语言、推理深度、授权和交付纪律等观点化默认值，应按实际用户、团队与仓库调整；`zh-CN/` 全局模板有意默认使用简体中文。
 
 Codex 加载全局和适用的项目 `AGENTS.md` 规则链，这一过程不依赖是否选中 Skill。因此，全局 v7.4 模板把真实性纪律、响应模式、上下文健康、输出前审核、输出规则、证据状态边界、“无需修改”合法性和精简的 RD 交付基线作为常驻能力：未触发 RD Skill 时仍然生效；触发匹配 Skill 后，只叠加完整专业工作流，不会替代或补回这些控制规则的唯一副本。
 
@@ -56,10 +57,14 @@ cp -r zh-CN/skills/rd-* /path/to/your-project/.agents/skills/
 从安全示例开始：
 
 ```bash
-cp zh-CN/codex/examples/config.example.toml ~/.codex/config.toml
+codex_home="${CODEX_HOME:-$HOME/.codex}"
+mkdir -p "$codex_home"
+if [ ! -e "$codex_home/config.toml" ]; then
+  cp zh-CN/codex/examples/config.example.toml "$codex_home/config.toml"
+fi
 ```
 
-如果已有配置，只合并需要的片段。
+如果 `$CODEX_HOME/config.toml` 已存在（默认路径为 `~/.codex/config.toml`），只合并需要的片段。
 
 高权限配置档需要显式选择：
 

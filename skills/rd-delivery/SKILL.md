@@ -27,7 +27,7 @@ For a durable engagement record, read [delivery-record.md](references/delivery-r
 
 - Use this Skill only for explicit orchestration requests; route a single deliverable directly to its specialist Skill
 - Select only the stages required by the decision and deliverables; never force all `rd-*` Skills into a pipeline
-- Treat project files as the source of truth and chat as transient working context
+- Treat identified, current authoritative project artifacts as sources of truth and chat as transient working context
 - Keep authority explicit: an agent may draft, verify, or recommend, but only an authorized stakeholder can approve or baseline an artifact
 - Load the smallest relevant context set for the current stage, then refresh it at each phase boundary
 - Keep durable artifact classes distinct: long-lived need and intent, current-state architecture, engagement-specific change design, decision rationale, evidence, and review findings must not silently substitute for one another

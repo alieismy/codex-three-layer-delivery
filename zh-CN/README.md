@@ -57,16 +57,17 @@ Layer 3: 文档交付 Skills
 安装全局指令：
 
 ```bash
-mkdir -p ~/.codex
-if [ ! -e ~/.codex/AGENTS.md ]; then
-  cp zh-CN/codex/global/AGENTS.md ~/.codex/AGENTS.md
+codex_home="${CODEX_HOME:-$HOME/.codex}"
+mkdir -p "$codex_home"
+if [ ! -s "$codex_home/AGENTS.override.md" ] && [ ! -e "$codex_home/AGENTS.md" ]; then
+  cp zh-CN/codex/global/AGENTS.md "$codex_home/AGENTS.md"
 fi
 ```
 
 安装项目规则：
 
 ```bash
-if [ ! -e /path/to/your-project/AGENTS.md ]; then
+if [ ! -s /path/to/your-project/AGENTS.override.md ] && [ ! -e /path/to/your-project/AGENTS.md ]; then
   cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
 fi
 ```
@@ -84,7 +85,7 @@ pwsh -File ./scripts/install-rd-skills.ps1 -Language zh-CN
 pwsh -File ./scripts/install-rd-skills.ps1 -Language zh-CN -CheckOnly
 ```
 
-如目标文件已存在，请先创建独立备份，再只合并需要的章节，不要直接替换现有个人全局指令或项目规则。模板包含角色、语言、推理深度、授权和交付纪律等观点化默认值，应按实际用户、团队与仓库调整；`zh-CN/` 全局模板有意默认使用简体中文。
+如同一层级存在非空 `AGENTS.override.md`，它是当前生效的指令来源；应先备份并有意识地合并，不要创建不会生效的 `AGENTS.md`。如已有 `AGENTS.md`，也应先备份，再只合并需要的章节。不要直接替换现有个人全局指令或项目规则。模板包含角色、语言、推理深度、授权和交付纪律等观点化默认值，应按实际用户、团队与仓库调整；`zh-CN/` 全局模板有意默认使用简体中文。
 
 ### Claude Code
 

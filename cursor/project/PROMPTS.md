@@ -461,7 +461,8 @@ I want to develop {product or tool}. The current controlling goal is an evidence
 
 ## Research Boundary
 - Perform read-only research and solution definition only.
-- Do not modify the target project, create tracked or durable project files, emit implementation code, or begin implementation unless separately authorized. Return the decision package in chat by default.
+- Do not modify target-project source, configuration, or implementation artifacts, emit implementation code, or begin implementation unless separately authorized.
+- Durable handoff record: {approved path / not authorized; default: not authorized}. When `/rd-delivery` is used and a path is explicitly approved, write only the bounded delivery record needed to preserve artifact status, decisions, evidence gaps, and the approval gate; otherwise return the decision package in chat and state that no durable handoff was created.
 - Temporary read-only clones under `.tmp/local/` are {allowed / not allowed}. If they are not allowed, state the resulting source-inspection limits.
 
 ## Needs and Constraints

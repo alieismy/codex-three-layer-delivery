@@ -517,7 +517,7 @@ $evidenceContractBaselines = @(
             "claude/project/CLAUDE.md",
             "cursor/project/.cursor/rules/05-research-evidence.mdc"
         )
-        Markers = @("documentation", "source", "static configuration", "final generated or effective configuration", "runtime", "production acceptance")
+        Markers = @("documentation claim", "source implementation", "static configuration", "final generated or effective configuration", "runtime state", "production acceptance")
         NoChangeMarkers = @("no-change", "retaining the current state")
     },
     @{
@@ -774,13 +774,13 @@ function Get-SingleRegexCapture {
         return $null
     }
 
-    $matches = [regex]::Matches((Get-Content -LiteralPath $Path -Raw), $Pattern)
-    if ($matches.Count -ne 1) {
+    $versionMatches = [regex]::Matches((Get-Content -LiteralPath $Path -Raw), $Pattern)
+    if ($versionMatches.Count -ne 1) {
         Add-Failure "$Label must contain exactly one machine-checkable version value: $Path"
         return $null
     }
 
-    return $matches[0].Groups[$GroupName].Value
+    return $versionMatches[0].Groups[$GroupName].Value
 }
 
 $semverPattern = '[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?'

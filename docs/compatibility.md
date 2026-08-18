@@ -51,7 +51,7 @@ Context7 `4.0.2` was verified against the [npm package metadata](https://www.npm
 
 This is package, static-configuration, and stdio-protocol evidence. It does not prove authenticated Context7 queries, real Codex/Cursor/Claude Code host integration, or business/production acceptance. Those higher evidence layers must be tested in the target client before being claimed.
 
-The Codex config examples pin only Context7. Other npm MCP package invocations are intentionally unpinned; the versions above remain compatibility evidence and must be re-checked before release.
+The Codex config examples pin only Context7. Other npm MCP package invocations in those Codex examples are intentionally unpinned; Cursor examples retain their documented package pins. The versions above remain compatibility evidence and must be re-checked before release.
 
 ## Release Rule
 

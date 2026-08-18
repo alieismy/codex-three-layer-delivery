@@ -69,18 +69,19 @@ The source repository's root `AGENTS.md` is a maintainer-specific Layer 2 instru
 
 ```bash
 # Global directives: first-time install only
-mkdir -p ~/.codex
-if [ ! -e ~/.codex/AGENTS.md ]; then
-  cp codex/global/AGENTS.md ~/.codex/AGENTS.md
+codex_home="${CODEX_HOME:-$HOME/.codex}"
+mkdir -p "$codex_home"
+if [ ! -s "$codex_home/AGENTS.override.md" ] && [ ! -e "$codex_home/AGENTS.md" ]; then
+  cp codex/global/AGENTS.md "$codex_home/AGENTS.md"
 fi
 
 # Project document-delivery discipline: only when the target does not exist
-if [ ! -e /path/to/your-project/AGENTS.md ]; then
+if [ ! -s /path/to/your-project/AGENTS.override.md ] && [ ! -e /path/to/your-project/AGENTS.md ]; then
   cp codex/project/AGENTS.md /path/to/your-project/AGENTS.md
 fi
 ```
 
-If a destination already exists, create a separate backup first, then merge only the relevant sections. Do not replace an existing personal global file or project rules blindly. These templates contain opinionated defaults for role, language behavior, reasoning depth, authorization, and delivery discipline; adapt them to the user, team, and repository. The English global template is language-neutral, while the `zh-CN/` template intentionally defaults to Simplified Chinese.
+If a destination has a non-empty `AGENTS.override.md`, that file is the effective instruction source at the same scope; back it up and merge deliberately instead of creating an inactive `AGENTS.md`. If `AGENTS.md` already exists, back it up and merge only the relevant sections. Do not replace existing personal or project rules blindly. These templates contain opinionated defaults for role, language behavior, reasoning depth, authorization, and delivery discipline; adapt them to the user, team, and repository. The English global template is language-neutral, while the `zh-CN/` template intentionally defaults to Simplified Chinese.
 
 ### 2. Install skills
 
@@ -105,10 +106,14 @@ pwsh -File ./scripts/install-rd-skills.ps1 -Language en -CheckOnly
 Start from the safe example:
 
 ```bash
-cp codex/examples/config.example.toml ~/.codex/config.toml
+codex_home="${CODEX_HOME:-$HOME/.codex}"
+mkdir -p "$codex_home"
+if [ ! -e "$codex_home/config.toml" ]; then
+  cp codex/examples/config.example.toml "$codex_home/config.toml"
+fi
 ```
 
-If you already have `~/.codex/config.toml`, merge only the sections you need.
+If `$CODEX_HOME/config.toml` already exists (default: `~/.codex/config.toml`), merge only the sections you need.
 
 The high-permission profile is intentionally separate:
 

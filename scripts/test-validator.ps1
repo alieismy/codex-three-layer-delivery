@@ -110,8 +110,8 @@ try {
         foreach ($relativePath in $paths) {
             $path = Join-Path $caseRoot $relativePath
             $content = Get-Content -LiteralPath $path -Raw
-            $matches = [regex]::Matches($content, "@upstash/context7-mcp@[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?")
-            if ($matches.Count -ne 1) {
+            $pinMatches = [regex]::Matches($content, "@upstash/context7-mcp@[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?")
+            if ($pinMatches.Count -ne 1) {
                 throw "Fixture requires exactly one Context7 package pin in $relativePath."
             }
             $mutated = [regex]::Replace(

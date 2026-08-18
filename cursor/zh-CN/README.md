@@ -22,11 +22,15 @@
 将 `.cursor/` 目录复制到目标 Cursor 项目根目录：
 
 ```bash
-cp -r cursor/zh-CN/.cursor /path/to/your-project/.cursor
-cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
+if [ ! -e /path/to/your-project/.cursor ]; then
+  cp -r cursor/zh-CN/.cursor /path/to/your-project/.cursor
+fi
+if [ ! -e /path/to/your-project/PROMPTS.cursor.zh-CN.md ]; then
+  cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
+fi
 ```
 
-如果目标项目已经有 `.cursor/`，请手动合并，不要直接覆盖。
+如果目标项目已经有 `.cursor/` 或 `PROMPTS.cursor.zh-CN.md`，请先备份并手动合并，不要直接覆盖。
 
 ## 可选 MCP 配置
 
