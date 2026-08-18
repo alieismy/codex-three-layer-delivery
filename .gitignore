@@ -11,6 +11,9 @@ build/
 .coverage
 coverage/
 
+# Task-local scratch data
+.tmp/local/
+
 # Environment variables and secrets
 .env
 .env.*

@@ -7,18 +7,26 @@ This repository provides templates. Merge them into your local Codex and project
 Install global rules:
 
 ```bash
-cp codex/global/AGENTS.md ~/.codex/AGENTS.md
+codex_home="${CODEX_HOME:-$HOME/.codex}"
+mkdir -p "$codex_home"
+if [ ! -s "$codex_home/AGENTS.override.md" ] && [ ! -e "$codex_home/AGENTS.md" ]; then
+  cp codex/global/AGENTS.md "$codex_home/AGENTS.md"
+fi
 ```
 
 Install project rules:
 
 ```bash
-cp codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+if [ ! -s /path/to/your-project/AGENTS.override.md ] && [ ! -e /path/to/your-project/AGENTS.md ]; then
+  cp codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+fi
 ```
 
-If your destination already has `AGENTS.md`, merge manually and keep project-specific constraints.
+If a destination has a non-empty `AGENTS.override.md`, that file is the effective instruction source at the same scope; create a separate backup and merge deliberately instead of creating an inactive `AGENTS.md`. If `AGENTS.md` already exists, back it up and merge only the relevant sections while preserving existing personal or project-specific constraints. Do not blindly replace an existing global file. The templates contain opinionated defaults for role, language behavior, reasoning depth, authorization, and delivery discipline; adapt them to the user, team, and repository. The English global template is language-neutral, while the `zh-CN/` template intentionally defaults to Simplified Chinese.
 
-Codex loads the global and applicable project `AGENTS.md` chain independently of Skill selection. The global v7.2 template therefore keeps truthfulness, response modes, context health, pre-output review, output rules, and a compact RD delivery baseline active even when no RD Skill is selected; a matching Skill adds the full specialist workflow rather than supplying the only copy of these controls.
+Codex loads the global and applicable project `AGENTS.md` chain independently of Skill selection. The global v7.4 template therefore keeps truthfulness, response modes, context health, pre-output review, output rules, evidence-state boundaries, no-change legitimacy, and a compact RD delivery baseline active even when no RD Skill is selected; a matching Skill adds the full specialist workflow rather than supplying the only copy of these controls.
+
+Codex discovers the instruction chain once at the start of each run. At a given level, a non-empty `AGENTS.override.md` takes precedence over `AGENTS.md`; global guidance is loaded before project files from the repository root toward the working directory, so closer project guidance has higher precedence. Loading stops at `project_doc_max_bytes`, and changed instructions require a new run or session to take effect. See the official OpenAI documentation for [custom instructions with AGENTS.md](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
 
 ## Skills
 
@@ -49,10 +57,14 @@ cp -r skills/rd-* /path/to/your-project/.agents/skills/
 Start from the safe example:
 
 ```bash
-cp codex/examples/config.example.toml ~/.codex/config.toml
+codex_home="${CODEX_HOME:-$HOME/.codex}"
+mkdir -p "$codex_home"
+if [ ! -e "$codex_home/config.toml" ]; then
+  cp codex/examples/config.example.toml "$codex_home/config.toml"
+fi
 ```
 
-If a config already exists, merge only the relevant sections.
+If `$CODEX_HOME/config.toml` already exists (default: `~/.codex/config.toml`), merge only the relevant sections.
 
 The full-access profile is opt-in:
 
@@ -111,9 +123,17 @@ zh-CN/
 Install Chinese Codex rules:
 
 ```bash
-cp zh-CN/codex/global/AGENTS.md ~/.codex/AGENTS.md
-cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+codex_home="${CODEX_HOME:-$HOME/.codex}"
+mkdir -p "$codex_home"
+if [ ! -s "$codex_home/AGENTS.override.md" ] && [ ! -e "$codex_home/AGENTS.md" ]; then
+  cp zh-CN/codex/global/AGENTS.md "$codex_home/AGENTS.md"
+fi
+if [ ! -s /path/to/your-project/AGENTS.override.md ] && [ ! -e /path/to/your-project/AGENTS.md ]; then
+  cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+fi
 ```
+
+If a non-empty `AGENTS.override.md` exists at either scope, back up and merge that effective file rather than creating an inactive `AGENTS.md`. If `AGENTS.md` already exists, back it up and merge manually. Do not use the translation pack to overwrite personal or repository-specific rules.
 
 Install Chinese shared skills:
 

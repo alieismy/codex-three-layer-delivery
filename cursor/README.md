@@ -48,18 +48,26 @@ Treat Cursor support as optional and explicitly opt-in:
 Install the English adapter:
 
 ```bash
-cp -r cursor/project/.cursor /path/to/your-project/.cursor
-cp cursor/project/PROMPTS.md /path/to/your-project/PROMPTS.cursor.md
+if [ ! -e /path/to/your-project/.cursor ]; then
+  cp -r cursor/project/.cursor /path/to/your-project/.cursor
+fi
+if [ ! -e /path/to/your-project/PROMPTS.cursor.md ]; then
+  cp cursor/project/PROMPTS.md /path/to/your-project/PROMPTS.cursor.md
+fi
 ```
 
 Install the Simplified Chinese Cursor pack:
 
 ```bash
-cp -r cursor/zh-CN/.cursor /path/to/your-project/.cursor
-cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
+if [ ! -e /path/to/your-project/.cursor ]; then
+  cp -r cursor/zh-CN/.cursor /path/to/your-project/.cursor
+fi
+if [ ! -e /path/to/your-project/PROMPTS.cursor.zh-CN.md ]; then
+  cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
+fi
 ```
 
-If the target workspace already has `.cursor/`, merge manually.
+If the target workspace already has `.cursor/` or either prompt destination, back it up and merge manually.
 
 ## Optional MCP Setup
 

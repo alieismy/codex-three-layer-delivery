@@ -61,19 +61,27 @@ Adapter mappings:
   Simplified Chinese: zh-CN/
 ```
 
+The source repository's root `AGENTS.md` is a maintainer-specific Layer 2 instruction file. It governs changes to this repository and is intentionally distinct from the distributable `codex/project/AGENTS.md` template copied into downstream document-delivery projects.
+
 ## Quick Start
 
 ### 1. Install Codex rules
 
 ```bash
-# Global directives
-cp codex/global/AGENTS.md ~/.codex/AGENTS.md
+# Global directives: first-time install only
+codex_home="${CODEX_HOME:-$HOME/.codex}"
+mkdir -p "$codex_home"
+if [ ! -s "$codex_home/AGENTS.override.md" ] && [ ! -e "$codex_home/AGENTS.md" ]; then
+  cp codex/global/AGENTS.md "$codex_home/AGENTS.md"
+fi
 
-# Project document-delivery discipline
-cp codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+# Project document-delivery discipline: only when the target does not exist
+if [ ! -s /path/to/your-project/AGENTS.override.md ] && [ ! -e /path/to/your-project/AGENTS.md ]; then
+  cp codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+fi
 ```
 
-If the destination files already exist, merge the content manually. Do not blindly overwrite existing project rules.
+If a destination has a non-empty `AGENTS.override.md`, that file is the effective instruction source at the same scope; back it up and merge deliberately instead of creating an inactive `AGENTS.md`. If `AGENTS.md` already exists, back it up and merge only the relevant sections. Do not replace existing personal or project rules blindly. These templates contain opinionated defaults for role, language behavior, reasoning depth, authorization, and delivery discipline; adapt them to the user, team, and repository. The English global template is language-neutral, while the `zh-CN/` template intentionally defaults to Simplified Chinese.
 
 ### 2. Install skills
 
@@ -98,10 +106,14 @@ pwsh -File ./scripts/install-rd-skills.ps1 -Language en -CheckOnly
 Start from the safe example:
 
 ```bash
-cp codex/examples/config.example.toml ~/.codex/config.toml
+codex_home="${CODEX_HOME:-$HOME/.codex}"
+mkdir -p "$codex_home"
+if [ ! -e "$codex_home/config.toml" ]; then
+  cp codex/examples/config.example.toml "$codex_home/config.toml"
+fi
 ```
 
-If you already have `~/.codex/config.toml`, merge only the sections you need.
+If `$CODEX_HOME/config.toml` already exists (default: `~/.codex/config.toml`), merge only the sections you need.
 
 The high-permission profile is intentionally separate:
 
@@ -222,12 +234,14 @@ The public configuration intentionally uses conservative defaults:
 - optional MCP servers are disabled until credentials and use cases are reviewed;
 - Cursor adapter MCP config is shipped as `mcp.example.json`, not as an active `.cursor/mcp.json`;
 - Claude Code project settings deny common secret files and require confirmation for commit, push, tag, publish, and delete operations;
-- package versions are documented in `docs/compatibility.md` and should be refreshed before release.
+- package versions are documented in `docs/compatibility.md` and should be refreshed before release;
+- Context7's tested version is pinned consistently across the compatibility documents and all Codex/Cursor examples, with client-runtime acceptance kept as a separate evidence layer.
 
 ## Repository Layout
 
 ```text
 codex-three-layer-delivery/
+  AGENTS.md
   codex/
     global/AGENTS.md
     project/AGENTS.md
@@ -262,8 +276,12 @@ codex-three-layer-delivery/
     installation.md
     mcp-routing.md
     design-principles.md
+    rd-skills-assessment.md
+    release-checklist.md
   scripts/
+    install-rd-skills.ps1
     validate.ps1
+    test-validator.ps1
   PROMPTS.md
   ATTRIBUTION.md
   CONTRIBUTING.md
@@ -277,22 +295,33 @@ Run the local repository checks:
 
 ```powershell
 pwsh ./scripts/validate.ps1
+pwsh ./scripts/test-validator.ps1
 ```
 
 The validator checks common release blockers:
 
 - CRLF drift in Markdown, TOML, MDC, and script files;
-- missing skill frontmatter;
-- inconsistent mirrored skill directory sets;
+- missing or invalid Skill frontmatter, per-step completion criteria, metadata, and eval coverage;
+- inconsistent mirrored Skill directory sets or file content;
+- missing always-on evidence-state and no-change controls across Codex, Claude, and Cursor surfaces;
+- a missing or weakened repository-maintainer root `AGENTS.md`, revision-aware context-reuse contract, or dynamic task-state boundary;
+- loss of the optional greenfield open-source research and approval-gate prompt contract;
+- loss of the optional high-impact bidirectional-argument and critical-clarification prompt contract;
+- Context7 version drift across compatibility documents and Codex/Cursor examples;
 - unsafe defaults in the public Codex config example;
+- a missing `.tmp/local/` boundary;
 - obvious secret leaks;
 - stale private/internal strings.
+
+The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects eleven regression cases: distribution-preserving completion-criterion drift; Context7 cross-file version drift; an `rd-delivery` invocation-policy regression; loss of the always-on evidence/no-change contract; loss of the RD specialist Skill/eval/near-miss contract; a missing root maintainer `AGENTS.md`; loss of its maintainer-specific authority contract; loss of revision-aware context reuse and dynamic-state separation; loss of the greenfield research/approval gate; loss of the optional high-impact bidirectional-argument and critical-clarification contract; and loss of the `.tmp/local/` boundary.
 
 ## Versioning
 
 Use GitHub releases and tags for versions, for example `v4.0.0`.
 
 Avoid encoding version or language into the repository name. Keep the repository name stable and put edition-specific details in documentation or release notes.
+
+Repository maintainers should follow the [release checklist](docs/release-checklist.md). It governs publication of this repository and does not expand the RD Skills into release-operation workflows.
 
 ## License
 

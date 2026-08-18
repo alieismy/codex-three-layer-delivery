@@ -4,7 +4,7 @@ Contributions are welcome when they improve the framework without weakening its 
 
 ## Contribution Types
 
-- rules improvements for `codex/global/AGENTS.md` or `codex/project/AGENTS.md`;
+- maintainer-rule improvements for the root `AGENTS.md`, or distributable-rule improvements for `codex/global/AGENTS.md` and `codex/project/AGENTS.md`;
 - skill improvements under `skills/rd-*`;
 - Cursor adapter updates under `cursor/`;
 - documentation updates under `docs/`;
@@ -16,6 +16,7 @@ Before opening a pull request:
 
 ```powershell
 pwsh ./scripts/validate.ps1
+pwsh ./scripts/test-validator.ps1
 ```
 
 If you change MCP package versions, update `docs/compatibility.md` with:
@@ -23,7 +24,10 @@ If you change MCP package versions, update `docs/compatibility.md` with:
 - package name;
 - tested version;
 - verification date;
+- highest evidence state actually reached and unverified client/runtime layers;
 - whether the server is enabled by default.
+
+Use `.tmp/local/` for task-local clones, downloads, logs, and probes. Do not place durable artifacts or the only copy of evidence there. Files already tracked directly under `.tmp/` are not implicitly disposable.
 
 ## Rules and Skills Guidelines
 
@@ -43,3 +47,5 @@ Please include:
 - files touched;
 - validation performed;
 - known risks or unverified areas.
+
+Repository publication follows the [maintainer release checklist](docs/release-checklist.md). Pull-request approval does not by itself authorize merge, tag, or public Release creation.
