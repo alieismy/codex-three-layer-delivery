@@ -301,13 +301,14 @@ The validator checks common release blockers:
 - missing always-on evidence-state and no-change controls across Codex, Claude, and Cursor surfaces;
 - a missing or weakened repository-maintainer root `AGENTS.md`, revision-aware context-reuse contract, or dynamic task-state boundary;
 - loss of the optional greenfield open-source research and approval-gate prompt contract;
+- loss of the optional high-impact bidirectional-argument and critical-clarification prompt contract;
 - Context7 version drift across compatibility documents and Codex/Cursor examples;
 - unsafe defaults in the public Codex config example;
 - a missing `.tmp/local/` boundary;
 - obvious secret leaks;
 - stale private/internal strings.
 
-The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects ten regression cases: distribution-preserving completion-criterion drift; Context7 cross-file version drift; an `rd-delivery` invocation-policy regression; loss of the always-on evidence/no-change contract; loss of the RD specialist Skill/eval/near-miss contract; a missing root maintainer `AGENTS.md`; loss of its maintainer-specific authority contract; loss of revision-aware context reuse and dynamic-state separation; loss of the greenfield research/approval gate; and loss of the `.tmp/local/` boundary.
+The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects eleven regression cases: distribution-preserving completion-criterion drift; Context7 cross-file version drift; an `rd-delivery` invocation-policy regression; loss of the always-on evidence/no-change contract; loss of the RD specialist Skill/eval/near-miss contract; a missing root maintainer `AGENTS.md`; loss of its maintainer-specific authority contract; loss of revision-aware context reuse and dynamic-state separation; loss of the greenfield research/approval gate; loss of the optional high-impact bidirectional-argument and critical-clarification contract; and loss of the `.tmp/local/` boundary.
 
 ## Versioning
 

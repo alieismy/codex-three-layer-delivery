@@ -6,6 +6,8 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+## 1.1.0 - 2026-08-18
+
 - Added a repository-maintainer root `AGENTS.md`, revision-aware context reuse and dynamic-state boundaries across project adapters, a greenfield open-source research/solution-gate prompt, and an optional high-impact bidirectional-argument clarification preamble with negative validator coverage.
 - Corrected Simplified Chinese lifecycle-state, authority, source-of-truth, standards-routing, and platform-installation semantics across canonical Skills, evals, prompts, documentation, and maintained adapter mirrors.
 - Updated the public global AGENTS templates to v7.4 and synchronized Codex, Claude, Cursor, English, and Simplified Chinese evidence-state and no-change controls.
