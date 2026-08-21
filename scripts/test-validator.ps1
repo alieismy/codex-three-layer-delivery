@@ -189,6 +189,94 @@ try {
         Set-LfText -Path $triggerPath -Content ($triggers | ConvertTo-Json -Depth 20 -Compress)
     }
 
+    Invoke-NegativeCase -Name "global-implementation-discipline" -ExpectedPattern @(
+        "Global AGENTS\.md is missing required routing or fallback heading '## Implementation Discipline'",
+        "Global AGENTS\.md is missing required always-on behavior 'Personal Global Instructions \(v7\.5\)'",
+        "Global AGENTS\.md is missing required always-on behavior 'initial request and the initial interpretation may both be incomplete'",
+        "Global AGENTS\.md is missing required always-on behavior 'Do not add speculative features, extension points, abstractions, pass-through layers, or dependencies'",
+        "Global AGENTS\.md is missing required always-on behavior 'same domain concept and is expected to change for the same reason'",
+        "Global AGENTS\.md is missing required always-on behavior 'Use names that convey domain roles at the scope where ambiguity matters'",
+        "Global AGENTS\.md is missing required always-on behavior 'Validate and normalize untrusted or weakly typed data at trust or representation boundaries'",
+        "Global AGENTS\.md is missing required always-on behavior 'Once a domain value establishes its invariants, rely on them within the same trusted component'",
+        "Global AGENTS\.md is missing required always-on behavior 'Avoid boolean flags that select materially different behavior or create hidden modes'",
+        "Global AGENTS\.md is missing required always-on behavior 'Public API documentation still describes the contract'",
+        "Global AGENTS\.md is missing required always-on behavior 'Preserve uncommitted user or third-party work'",
+        "Global AGENTS\.md is missing required routing or fallback heading '## 实现纪律'",
+        "Global AGENTS\.md is missing required always-on behavior '个人全局指令（v7\.5）'",
+        "Global AGENTS\.md is missing required always-on behavior '初始诉求和首次理解都可能不完整'",
+        "Global AGENTS\.md is missing required always-on behavior '不添加投机性功能、扩展点、抽象、透传层或依赖'",
+        "Global AGENTS\.md is missing required always-on behavior '同一领域概念且预计会因同一原因变化'",
+        "Global AGENTS\.md is missing required always-on behavior '在歧义会影响理解的作用域使用能表达领域角色的名称'",
+        "Global AGENTS\.md is missing required always-on behavior '在信任边界或表示边界验证并规范化不可信或弱类型数据'",
+        "Global AGENTS\.md is missing required always-on behavior '领域值一旦建立不变量，同一可信组件内部应依赖这些不变量'",
+        "Global AGENTS\.md is missing required always-on behavior '避免使用会选择实质不同的行为或创建隐藏模式的 boolean flag'",
+        "Global AGENTS\.md is missing required always-on behavior '公共 API 文档仍应说明契约'",
+        "Global AGENTS\.md is missing required always-on behavior '保留用户或第三方的未提交工作'"
+    ) -Mutate {
+        param($caseRoot)
+
+        $surfaces = @(
+            @{
+                Path = "codex/global/AGENTS.md"
+                Version = "Personal Global Instructions (v7.5)"
+                OldVersion = "Personal Global Instructions (v7.4)"
+                Section = "(?ms)^## Implementation Discipline\n\n.*?(?=^## Repository and Editing Discipline)"
+                Interaction = "(?m)^- Assume the initial request and the initial interpretation may both be incomplete\..*\n"
+                Worktree = "(?m)^- Preserve uncommitted user or third-party work\..*\n"
+                RequiredAbsent = @(
+                    "## Implementation Discipline",
+                    "initial request and the initial interpretation may both be incomplete",
+                    "Do not add speculative features, extension points, abstractions, pass-through layers, or dependencies",
+                    "same domain concept and is expected to change for the same reason",
+                    "Use names that convey domain roles at the scope where ambiguity matters",
+                    "Validate and normalize untrusted or weakly typed data at trust or representation boundaries",
+                    "Once a domain value establishes its invariants, rely on them within the same trusted component",
+                    "Avoid boolean flags that select materially different behavior or create hidden modes",
+                    "Public API documentation still describes the contract",
+                    "Preserve uncommitted user or third-party work"
+                )
+            },
+            @{
+                Path = "zh-CN/codex/global/AGENTS.md"
+                Version = "个人全局指令（v7.5）"
+                OldVersion = "个人全局指令（v7.4）"
+                Section = "(?ms)^## 实现纪律\n\n.*?(?=^## 仓库与编辑纪律)"
+                Interaction = "(?m)^- 假设初始诉求和首次理解都可能不完整。.*\n"
+                Worktree = "(?m)^- 保留用户或第三方的未提交工作。.*\n"
+                RequiredAbsent = @(
+                    "## 实现纪律",
+                    "初始诉求和首次理解都可能不完整",
+                    "不添加投机性功能、扩展点、抽象、透传层或依赖",
+                    "同一领域概念且预计会因同一原因变化",
+                    "在歧义会影响理解的作用域使用能表达领域角色的名称",
+                    "在信任边界或表示边界验证并规范化不可信或弱类型数据",
+                    "领域值一旦建立不变量，同一可信组件内部应依赖这些不变量",
+                    "避免使用会选择实质不同的行为或创建隐藏模式的 boolean flag",
+                    "公共 API 文档仍应说明契约",
+                    "保留用户或第三方的未提交工作"
+                )
+            }
+        )
+
+        foreach ($surface in $surfaces) {
+            $path = Join-Path $caseRoot $surface.Path
+            $content = Get-Content -LiteralPath $path -Raw
+            $mutated = $content.Replace($surface.Version, $surface.OldVersion)
+            $mutated = [regex]::Replace($mutated, $surface.Section, "")
+            $mutated = [regex]::Replace($mutated, $surface.Interaction, "")
+            $mutated = [regex]::Replace($mutated, $surface.Worktree, "")
+            if ($mutated -eq $content -or $mutated.Contains($surface.Version)) {
+                throw "Fixture could not remove the versioned implementation contract from $($surface.Path)."
+            }
+            foreach ($marker in $surface.RequiredAbsent) {
+                if ($mutated.Contains($marker)) {
+                    throw "Fixture left implementation marker '$marker' in $($surface.Path)."
+                }
+            }
+            Set-LfText -Path $path -Content $mutated
+        }
+    }
+
     Invoke-NegativeCase -Name "root-agents-missing" -ExpectedPattern "Missing repository-root maintainer AGENTS\.md" -Mutate {
         param($caseRoot)
 
@@ -301,7 +389,7 @@ try {
         Set-LfText -Path $gitignorePath -Content $mutatedGitignore
     }
 
-    Write-Host "Validator negative tests passed (11/11)." -ForegroundColor Green
+    Write-Host "Validator negative tests passed (12/12)." -ForegroundColor Green
 }
 finally {
     $resolvedRunRoot = [System.IO.Path]::GetFullPath($runRoot)
