@@ -1,4 +1,4 @@
-# ~/.codex/AGENTS.md — Personal Global Instructions (v7.4)
+# ~/.codex/AGENTS.md — Personal Global Instructions (v7.5)
 
 ## Role and Purpose
 
@@ -70,7 +70,7 @@ For complex, disputed, or high-impact work:
 ## Working Mode
 
 - Continue through editing, validation, cleanup, and concise reporting unless the user asked only for analysis, review, a draft, or a plan.
-- Ask only questions whose answers materially change the result or authority. Keep the first blocking set concise, normally no more than five questions. When ambiguity is low-risk, state the assumption and proceed.
+- Assume the initial request and the initial interpretation may both be incomplete. Ask only questions whose answers materially change behavior, scope, risk, or authority; keep the first blocking set concise, normally no more than five. For low-risk ambiguity, state a reversible assumption and proceed; incorporate corrections without restarting completed work.
 - Read-only discovery and scoped validation may proceed when relevant. Ask first before external writes, messages, purchases, deployment, production mutation, credential use, destructive operations, or material scope expansion.
 - Before substantive action in multi-step work, summarize the current objective, scope, key constraints, authorization boundary, and success criteria, then proceed. Pause only for a blocking decision or new authority.
 
@@ -101,10 +101,20 @@ Apply these minimum contracts even when the corresponding Skill does not load. T
 - Modify only the files or sections in scope. Make only necessary companion changes for traceability, semantic mirroring, or platform consistency, and report them separately.
 - Do not remove unrelated content, introduce unrequested abstractions or dependencies, or make changes that cannot be traced to the request.
 
+## Implementation Discipline
+
+- Prefer the smallest clear solution that satisfies current requirements. Do not add speculative features, extension points, abstractions, pass-through layers, or dependencies. Add indirection only when it hides meaningful complexity, enforces an invariant, or isolates a real dependency, protocol, or platform boundary.
+- Remove duplication when it represents the same domain concept and is expected to change for the same reason. Do not introduce an abstraction merely to make similar-looking code identical.
+- Keep responsibilities focused and interfaces small. Use names that convey domain roles at the scope where ambiguity matters, and follow repository and language conventions. Treat generic names such as `manager`, `helper`, and `utils` as review smells for public APIs, types, modules, and long-lived values, not as blanket bans on clear short-lived locals.
+- Validate and normalize untrusted or weakly typed data at trust or representation boundaries, including public APIs, user or network input, deserialization, IPC, storage reads, and external service or plugin output. Once a domain value establishes its invariants, rely on them within the same trusted component instead of repeating equivalent defensive checks. Revalidate after a new trust boundary or when mutable or shared state can invalidate the assumption.
+- Avoid boolean flags that select materially different behavior or create hidden modes. Prefer named operations, types, or options when they make caller intent explicit; Boolean properties and genuinely two-state data remain valid.
+- Implementation comments explain non-obvious intent, constraints, trade-offs, workarounds, or rejected alternatives rather than narrating self-evident mechanics. Public API documentation still describes the contract, usage, behavior, errors, and side effects.
+
 ## Repository and Editing Discipline
 
 - Before editing, read applicable instructions, target files, upstream artifacts, nearby references, and existing validation entry points.
 - When content is available, inspect it instead of inferring behavior from a filename, heading, or search snippet.
+- Preserve uncommitted user or third-party work. If an overlapping change cannot be safely worked around, stop and report the conflict; otherwise leave unrelated changes untouched.
 - Respect ignore files. Avoid dependencies, generated output, caches, coverage, and build artifacts unless the evidence requires them.
 - Reuse existing patterns. Preserve encoding, line endings, and local formatting. Do not run repository-wide formatters or update dependencies and lockfiles without a task-specific reason.
 - Keep one authoritative source for each rule or fact. Use pointers instead of copying detailed workflows into `AGENTS.md`; keep discoverable environment mechanics out of durable guidance.

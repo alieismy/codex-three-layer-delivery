@@ -6,6 +6,10 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+## 1.2.0 - 2026-08-21
+
+- Upgraded the public Codex global `AGENTS.md` templates to v7.5 with bounded implementation discipline for speculative abstractions, meaningful duplication, naming, trust-boundary validation, boolean modes, implementation comments, iterative clarification, and uncommitted-work protection; added bilingual validator enforcement and negative coverage without expanding project or RD Skill coding scope.
+
 ## 1.1.0 - 2026-08-18
 
 - Added a repository-maintainer root `AGENTS.md`, revision-aware context reuse and dynamic-state boundaries across project adapters, a greenfield open-source research/solution-gate prompt, and an optional high-impact bidirectional-argument clarification preamble with negative validator coverage.

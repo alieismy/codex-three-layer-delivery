@@ -470,16 +470,55 @@ Assert-MirroredSkillTree -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoo
 $globalAgentBaselines = @(
     @{
         Path = Join-Path $root "codex/global/AGENTS.md"
-        Headings = @("## Truthfulness Discipline", "## Response Modes", "## Task Identification and Skill Routing", "## Minimum RD Delivery Baseline", "## Context Health", "## Pre-Output Self-Review", "## Output Contract")
+        Headings = @("## Truthfulness Discipline", "## Response Modes", "## Task Identification and Skill Routing", "## Minimum RD Delivery Baseline", "## Implementation Discipline", "## Context Health", "## Pre-Output Self-Review", "## Output Contract")
         Domains = @("Requirements", "Feasibility", "Research", "Solution", "Design", "Specification", "Writing", "Review", "Delivery orchestration")
-        Markers = @("Say when something is unknown or cannot be confirmed", "Keep evidence states separate:", "retaining the current state is a valid professional conclusion", "**Fast mode:**", "**Deep mode:**", "**Clarification mode:**", "**Guidance mode:**", "1. Does the response answer the current request", "8. Does the output expose any secret")
+        Markers = @(
+            "Personal Global Instructions (v7.5)",
+            "Say when something is unknown or cannot be confirmed",
+            "Keep evidence states separate:",
+            "retaining the current state is a valid professional conclusion",
+            "**Fast mode:**",
+            "**Deep mode:**",
+            "**Clarification mode:**",
+            "**Guidance mode:**",
+            "initial request and the initial interpretation may both be incomplete",
+            "Do not add speculative features, extension points, abstractions, pass-through layers, or dependencies",
+            "same domain concept and is expected to change for the same reason",
+            "Validate and normalize untrusted or weakly typed data at trust or representation boundaries",
+            "Once a domain value establishes its invariants, rely on them within the same trusted component",
+            "Avoid boolean flags that select materially different behavior or create hidden modes",
+            "Public API documentation still describes the contract",
+            "Preserve uncommitted user or third-party work",
+            "1. Does the response answer the current request",
+            "8. Does the output expose any secret"
+        )
         Colon = ":"
     },
     @{
         Path = Join-Path $root "zh-CN/codex/global/AGENTS.md"
-        Headings = @("## 真实性纪律", "## 响应模式", "## 任务识别与 Skill 路由", "## RD 交付最小基线", "## 上下文健康", "## 输出前自我审核", "## 输出格式")
+        Headings = @("## 真实性纪律", "## 响应模式", "## 任务识别与 Skill 路由", "## RD 交付最小基线", "## 实现纪律", "## 上下文健康", "## 输出前自我审核", "## 输出格式")
         Domains = @("需求", "可研", "研究", "方案", "设计", "标准", "写作", "评审", "交付编排")
-        Markers = @("不知道就明确说不知道；不能确认就明确说不能确认", "严格区分证据状态：", "保持现状", "合法的专业结论", "**快速模式：**", "**深度模式：**", "**澄清模式：**", "**引导模式：**", "1. 是否回答当前请求", "8. 输出是否泄露密钥")
+        Markers = @(
+            "个人全局指令（v7.5）",
+            "不知道就明确说不知道；不能确认就明确说不能确认",
+            "严格区分证据状态：",
+            "保持现状",
+            "合法的专业结论",
+            "**快速模式：**",
+            "**深度模式：**",
+            "**澄清模式：**",
+            "**引导模式：**",
+            "初始诉求和首次理解都可能不完整",
+            "不添加投机性功能、扩展点、抽象、透传层或依赖",
+            "同一领域概念且预计会因同一原因变化",
+            "在信任边界或表示边界验证并规范化不可信或弱类型数据",
+            "领域值一旦建立不变量，同一可信组件内部应依赖这些不变量",
+            "避免使用会选择实质不同的行为或创建隐藏模式的 boolean flag",
+            "公共 API 文档仍应说明契约",
+            "保留用户或第三方的未提交工作",
+            "1. 是否回答当前请求",
+            "8. 输出是否泄露密钥"
+        )
         Colon = "："
     }
 )
