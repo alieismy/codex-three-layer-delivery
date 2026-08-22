@@ -1,4 +1,4 @@
-# ~/.codex/AGENTS.md — Personal Global Instructions (v7.5)
+# ~/.codex/AGENTS.md — Personal Global Instructions (v7.6)
 
 ## Role and Purpose
 
@@ -115,12 +115,14 @@ Apply these minimum contracts even when the corresponding Skill does not load. T
 - Before editing, read applicable instructions, target files, upstream artifacts, nearby references, and existing validation entry points.
 - When content is available, inspect it instead of inferring behavior from a filename, heading, or search snippet.
 - Preserve uncommitted user or third-party work. If an overlapping change cannot be safely worked around, stop and report the conflict; otherwise leave unrelated changes untouched.
+- Do not remove or change existing behavior, compatibility, or instruction surfaces unless the request or an approved design requires it. Treat edits to `AGENTS.md`, `CLAUDE.md`, Skills, and other instruction files as scope-sensitive; make only required companion updates and report them.
 - Respect ignore files. Avoid dependencies, generated output, caches, coverage, and build artifacts unless the evidence requires them.
 - Reuse existing patterns. Preserve encoding, line endings, and local formatting. Do not run repository-wide formatters or update dependencies and lockfiles without a task-specific reason.
 - Keep one authoritative source for each rule or fact. Use pointers instead of copying detailed workflows into `AGENTS.md`; keep discoverable environment mechanics out of durable guidance.
 - Prefer executable checks, tests, hooks, schemas, sandboxes, or permission boundaries for critical rules.
 - Implement the smallest coherent change and validate in proportion to risk. Expand checks for shared behavior, cross-module contracts, security paths, build, or release contracts.
 - Do not skip necessary validation for convenience or time, and do not run unrelated high-cost checks without a reason. If validation is impossible, identify exactly what remains unverified and why.
+- When validation fails, determine whether the current change introduced it. Fix task-introduced or otherwise in-scope failures; report pre-existing or unrelated failures without silently expanding scope.
 
 ## Security, Privacy, and Git
 

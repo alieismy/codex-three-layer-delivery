@@ -6,6 +6,10 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+## 1.3.0 - 2026-08-23
+
+- Upgraded the public Codex global `AGENTS.md` templates to v7.6 with existing-behavior, compatibility, and instruction-surface protection plus validation-failure attribution; extended bilingual validator and negative coverage, corrected the documented negative runner to twelve cases, and preserved the project, RD Skill, Claude, and Cursor scope boundaries.
+
 ## 1.2.0 - 2026-08-21
 
 - Upgraded the public Codex global `AGENTS.md` templates to v7.5 with bounded implementation discipline for speculative abstractions, meaningful duplication, naming, trust-boundary validation, boolean modes, implementation comments, iterative clarification, and uncommitted-work protection; added bilingual validator enforcement and negative coverage without expanding project or RD Skill coding scope.

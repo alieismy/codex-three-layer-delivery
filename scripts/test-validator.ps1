@@ -191,7 +191,7 @@ try {
 
     Invoke-NegativeCase -Name "global-implementation-discipline" -ExpectedPattern @(
         "Global AGENTS\.md is missing required routing or fallback heading '## Implementation Discipline'",
-        "Global AGENTS\.md is missing required always-on behavior 'Personal Global Instructions \(v7\.5\)'",
+        "Global AGENTS\.md is missing required always-on behavior 'Personal Global Instructions \(v7\.6\)'",
         "Global AGENTS\.md is missing required always-on behavior 'initial request and the initial interpretation may both be incomplete'",
         "Global AGENTS\.md is missing required always-on behavior 'Do not add speculative features, extension points, abstractions, pass-through layers, or dependencies'",
         "Global AGENTS\.md is missing required always-on behavior 'same domain concept and is expected to change for the same reason'",
@@ -201,8 +201,12 @@ try {
         "Global AGENTS\.md is missing required always-on behavior 'Avoid boolean flags that select materially different behavior or create hidden modes'",
         "Global AGENTS\.md is missing required always-on behavior 'Public API documentation still describes the contract'",
         "Global AGENTS\.md is missing required always-on behavior 'Preserve uncommitted user or third-party work'",
+        "Global AGENTS\.md is missing required always-on behavior 'Do not remove or change existing behavior, compatibility, or instruction surfaces unless the request or an approved design requires it'",
+        "Global AGENTS\.md is missing required always-on behavior 'other instruction files as scope-sensitive; make only required companion updates and report them'",
+        "Global AGENTS\.md is missing required always-on behavior 'When validation fails, determine whether the current change introduced it'",
+        "Global AGENTS\.md is missing required always-on behavior 'report pre-existing or unrelated failures without silently expanding scope'",
         "Global AGENTS\.md is missing required routing or fallback heading '## 实现纪律'",
-        "Global AGENTS\.md is missing required always-on behavior '个人全局指令（v7\.5）'",
+        "Global AGENTS\.md is missing required always-on behavior '个人全局指令（v7\.6）'",
         "Global AGENTS\.md is missing required always-on behavior '初始诉求和首次理解都可能不完整'",
         "Global AGENTS\.md is missing required always-on behavior '不添加投机性功能、扩展点、抽象、透传层或依赖'",
         "Global AGENTS\.md is missing required always-on behavior '同一领域概念且预计会因同一原因变化'",
@@ -211,18 +215,24 @@ try {
         "Global AGENTS\.md is missing required always-on behavior '领域值一旦建立不变量，同一可信组件内部应依赖这些不变量'",
         "Global AGENTS\.md is missing required always-on behavior '避免使用会选择实质不同的行为或创建隐藏模式的 boolean flag'",
         "Global AGENTS\.md is missing required always-on behavior '公共 API 文档仍应说明契约'",
-        "Global AGENTS\.md is missing required always-on behavior '保留用户或第三方的未提交工作'"
+        "Global AGENTS\.md is missing required always-on behavior '保留用户或第三方的未提交工作'",
+        "Global AGENTS\.md is missing required always-on behavior '当前请求或已批准设计未要求时，不得移除或改变既有行为、兼容性或指令面'",
+        "Global AGENTS\.md is missing required always-on behavior '等指令文件时，只执行批准范围和必要的一致性同步，并单独汇报'",
+        "Global AGENTS\.md is missing required always-on behavior '验证失败时先判断是否由本次改动引入'",
+        "Global AGENTS\.md is missing required always-on behavior '对既存或无关失败准确报告，不静默扩大范围'"
     ) -Mutate {
         param($caseRoot)
 
         $surfaces = @(
             @{
                 Path = "codex/global/AGENTS.md"
-                Version = "Personal Global Instructions (v7.5)"
-                OldVersion = "Personal Global Instructions (v7.4)"
+                Version = "Personal Global Instructions (v7.6)"
+                OldVersion = "Personal Global Instructions (v7.5)"
                 Section = "(?ms)^## Implementation Discipline\n\n.*?(?=^## Repository and Editing Discipline)"
                 Interaction = "(?m)^- Assume the initial request and the initial interpretation may both be incomplete\..*\n"
                 Worktree = "(?m)^- Preserve uncommitted user or third-party work\..*\n"
+                Behavior = "(?m)^- Do not remove or change existing behavior, compatibility, or instruction surfaces unless the request or an approved design requires it\..*\n"
+                Validation = "(?m)^- When validation fails, determine whether the current change introduced it\..*\n"
                 RequiredAbsent = @(
                     "## Implementation Discipline",
                     "initial request and the initial interpretation may both be incomplete",
@@ -233,16 +243,22 @@ try {
                     "Once a domain value establishes its invariants, rely on them within the same trusted component",
                     "Avoid boolean flags that select materially different behavior or create hidden modes",
                     "Public API documentation still describes the contract",
-                    "Preserve uncommitted user or third-party work"
+                    "Preserve uncommitted user or third-party work",
+                    "Do not remove or change existing behavior, compatibility, or instruction surfaces unless the request or an approved design requires it",
+                    "other instruction files as scope-sensitive; make only required companion updates and report them",
+                    "When validation fails, determine whether the current change introduced it",
+                    "report pre-existing or unrelated failures without silently expanding scope"
                 )
             },
             @{
                 Path = "zh-CN/codex/global/AGENTS.md"
-                Version = "个人全局指令（v7.5）"
-                OldVersion = "个人全局指令（v7.4）"
+                Version = "个人全局指令（v7.6）"
+                OldVersion = "个人全局指令（v7.5）"
                 Section = "(?ms)^## 实现纪律\n\n.*?(?=^## 仓库与编辑纪律)"
                 Interaction = "(?m)^- 假设初始诉求和首次理解都可能不完整。.*\n"
                 Worktree = "(?m)^- 保留用户或第三方的未提交工作。.*\n"
+                Behavior = "(?m)^- 当前请求或已批准设计未要求时，不得移除或改变既有行为、兼容性或指令面。.*\n"
+                Validation = "(?m)^- 验证失败时先判断是否由本次改动引入。.*\n"
                 RequiredAbsent = @(
                     "## 实现纪律",
                     "初始诉求和首次理解都可能不完整",
@@ -253,7 +269,11 @@ try {
                     "领域值一旦建立不变量，同一可信组件内部应依赖这些不变量",
                     "避免使用会选择实质不同的行为或创建隐藏模式的 boolean flag",
                     "公共 API 文档仍应说明契约",
-                    "保留用户或第三方的未提交工作"
+                    "保留用户或第三方的未提交工作",
+                    "当前请求或已批准设计未要求时，不得移除或改变既有行为、兼容性或指令面",
+                    "等指令文件时，只执行批准范围和必要的一致性同步，并单独汇报",
+                    "验证失败时先判断是否由本次改动引入",
+                    "对既存或无关失败准确报告，不静默扩大范围"
                 )
             }
         )
@@ -265,6 +285,8 @@ try {
             $mutated = [regex]::Replace($mutated, $surface.Section, "")
             $mutated = [regex]::Replace($mutated, $surface.Interaction, "")
             $mutated = [regex]::Replace($mutated, $surface.Worktree, "")
+            $mutated = [regex]::Replace($mutated, $surface.Behavior, "")
+            $mutated = [regex]::Replace($mutated, $surface.Validation, "")
             if ($mutated -eq $content -or $mutated.Contains($surface.Version)) {
                 throw "Fixture could not remove the versioned implementation contract from $($surface.Path)."
             }
