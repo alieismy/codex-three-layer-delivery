@@ -473,7 +473,7 @@ $globalAgentBaselines = @(
         Headings = @("## Truthfulness Discipline", "## Response Modes", "## Task Identification and Skill Routing", "## Minimum RD Delivery Baseline", "## Implementation Discipline", "## Context Health", "## Pre-Output Self-Review", "## Output Contract")
         Domains = @("Requirements", "Feasibility", "Research", "Solution", "Design", "Specification", "Writing", "Review", "Delivery orchestration")
         Markers = @(
-            "Personal Global Instructions (v7.5)",
+            "Personal Global Instructions (v7.6)",
             "Say when something is unknown or cannot be confirmed",
             "Keep evidence states separate:",
             "retaining the current state is a valid professional conclusion",
@@ -490,6 +490,10 @@ $globalAgentBaselines = @(
             "Avoid boolean flags that select materially different behavior or create hidden modes",
             "Public API documentation still describes the contract",
             "Preserve uncommitted user or third-party work",
+            "Do not remove or change existing behavior, compatibility, or instruction surfaces unless the request or an approved design requires it",
+            "other instruction files as scope-sensitive; make only required companion updates and report them",
+            "When validation fails, determine whether the current change introduced it",
+            "report pre-existing or unrelated failures without silently expanding scope",
             "1. Does the response answer the current request",
             "8. Does the output expose any secret"
         )
@@ -500,7 +504,7 @@ $globalAgentBaselines = @(
         Headings = @("## 真实性纪律", "## 响应模式", "## 任务识别与 Skill 路由", "## RD 交付最小基线", "## 实现纪律", "## 上下文健康", "## 输出前自我审核", "## 输出格式")
         Domains = @("需求", "可研", "研究", "方案", "设计", "标准", "写作", "评审", "交付编排")
         Markers = @(
-            "个人全局指令（v7.5）",
+            "个人全局指令（v7.6）",
             "不知道就明确说不知道；不能确认就明确说不能确认",
             "严格区分证据状态：",
             '“保持现状”是合法的专业结论',
@@ -517,6 +521,10 @@ $globalAgentBaselines = @(
             "避免使用会选择实质不同的行为或创建隐藏模式的 boolean flag",
             "公共 API 文档仍应说明契约",
             "保留用户或第三方的未提交工作",
+            "当前请求或已批准设计未要求时，不得移除或改变既有行为、兼容性或指令面",
+            "等指令文件时，只执行批准范围和必要的一致性同步，并单独汇报",
+            "验证失败时先判断是否由本次改动引入",
+            "对既存或无关失败准确报告，不静默扩大范围",
             "1. 是否回答当前请求",
             "8. 输出是否泄露密钥"
         )
