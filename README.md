@@ -87,12 +87,28 @@ If a destination has a non-empty `AGENTS.override.md`, that file is the effectiv
 
 ```bash
 # Global install: available to all projects
-mkdir -p ~/.agents/skills
-cp -r skills/rd-* ~/.agents/skills/
+skill_target="$HOME/.agents/skills"
+mkdir -p "$skill_target"
+for skill_source in skills/rd-*; do
+  skill_name=$(basename "$skill_source")
+  if [ -e "$skill_target/$skill_name" ]; then
+    printf 'Refusing to overwrite existing Skill: %s\n' "$skill_target/$skill_name" >&2
+    exit 1
+  fi
+done
+cp -R skills/rd-* "$skill_target/"
 
 # Or project-level install
-mkdir -p /path/to/your-project/.agents/skills
-cp -r skills/rd-* /path/to/your-project/.agents/skills/
+skill_target="/path/to/your-project/.agents/skills"
+mkdir -p "$skill_target"
+for skill_source in skills/rd-*; do
+  skill_name=$(basename "$skill_source")
+  if [ -e "$skill_target/$skill_name" ]; then
+    printf 'Refusing to overwrite existing Skill: %s\n' "$skill_target/$skill_name" >&2
+    exit 1
+  fi
+done
+cp -R skills/rd-* "$skill_target/"
 ```
 
 For a verified PowerShell user-level install with backup and exact tree comparison:

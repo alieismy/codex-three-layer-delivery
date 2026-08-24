@@ -75,8 +75,16 @@ fi
 安装 Skills：
 
 ```bash
-mkdir -p ~/.agents/skills
-cp -r zh-CN/skills/rd-* ~/.agents/skills/
+skill_target="$HOME/.agents/skills"
+mkdir -p "$skill_target"
+for skill_source in zh-CN/skills/rd-*; do
+  skill_name=$(basename "$skill_source")
+  if [ -e "$skill_target/$skill_name" ]; then
+    printf 'Refusing to overwrite existing Skill: %s\n' "$skill_target/$skill_name" >&2
+    exit 1
+  fi
+done
+cp -R zh-CN/skills/rd-* "$skill_target/"
 ```
 
 PowerShell 用户可使用带备份和安装树精确比对的脚本：

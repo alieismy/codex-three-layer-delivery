@@ -33,8 +33,16 @@ Codex discovers the instruction chain once at the start of each run. At a given 
 Global install:
 
 ```bash
-mkdir -p ~/.agents/skills
-cp -r skills/rd-* ~/.agents/skills/
+skill_target="$HOME/.agents/skills"
+mkdir -p "$skill_target"
+for skill_source in skills/rd-*; do
+  skill_name=$(basename "$skill_source")
+  if [ -e "$skill_target/$skill_name" ]; then
+    printf 'Refusing to overwrite existing Skill: %s\n' "$skill_target/$skill_name" >&2
+    exit 1
+  fi
+done
+cp -R skills/rd-* "$skill_target/"
 ```
 
 On PowerShell, the preferred user-level installation is the verified installer:
@@ -49,8 +57,16 @@ The installer manages only the nine declared `rd-*` directories, verifies a SHA-
 Project-level install:
 
 ```bash
-mkdir -p /path/to/your-project/.agents/skills
-cp -r skills/rd-* /path/to/your-project/.agents/skills/
+skill_target="/path/to/your-project/.agents/skills"
+mkdir -p "$skill_target"
+for skill_source in skills/rd-*; do
+  skill_name=$(basename "$skill_source")
+  if [ -e "$skill_target/$skill_name" ]; then
+    printf 'Refusing to overwrite existing Skill: %s\n' "$skill_target/$skill_name" >&2
+    exit 1
+  fi
+done
+cp -R skills/rd-* "$skill_target/"
 ```
 
 ## Codex Configuration
@@ -139,8 +155,16 @@ If a non-empty `AGENTS.override.md` exists at either scope, back up and merge th
 Install Chinese shared skills:
 
 ```bash
-mkdir -p ~/.agents/skills
-cp -r zh-CN/skills/rd-* ~/.agents/skills/
+skill_target="$HOME/.agents/skills"
+mkdir -p "$skill_target"
+for skill_source in zh-CN/skills/rd-*; do
+  skill_name=$(basename "$skill_source")
+  if [ -e "$skill_target/$skill_name" ]; then
+    printf 'Refusing to overwrite existing Skill: %s\n' "$skill_target/$skill_name" >&2
+    exit 1
+  fi
+done
+cp -R zh-CN/skills/rd-* "$skill_target/"
 ```
 
 Install Chinese Claude Code files:

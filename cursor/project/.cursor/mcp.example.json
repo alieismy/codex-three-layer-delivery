@@ -6,7 +6,9 @@
         "-y",
         "@upstash/context7-mcp@4.0.2"
       ],
-      "envFile": "${workspaceFolder}/.env"
+      "env": {
+        "CONTEXT7_API_KEY": "${env:CONTEXT7_API_KEY}"
+      }
     },
     "tavily-mcp": {
       "command": "npx",
@@ -16,8 +18,7 @@
       ],
       "env": {
         "TAVILY_API_KEY": "${env:TAVILY_API_KEY}"
-      },
-      "envFile": "${workspaceFolder}/.env"
+      }
     },
     "brave-search-mcp-server": {
       "command": "npx",
@@ -29,8 +30,7 @@
       ],
       "env": {
         "BRAVE_API_KEY": "${env:BRAVE_API_KEY}"
-      },
-      "envFile": "${workspaceFolder}/.env"
+      }
     },
     "deepwiki": {
       "url": "https://mcp.deepwiki.com/mcp"

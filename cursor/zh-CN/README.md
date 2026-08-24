@@ -46,7 +46,7 @@ cursor/zh-CN/.cursor/mcp.example.json
 cp cursor/zh-CN/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
 ```
 
-只填写实际启用服务器所需的环境变量。Context7 通过 `envFile` 从环境读取 `CONTEXT7_API_KEY`，不得把 key 放入命令参数。复制后应在 Cursor UI 中重新检查 MCP 状态。
+只设置实际启用服务器所需的宿主环境变量。示例通过每个凭据型服务器各自的 `env` 对象，只向该服务器映射一个 API key；不得改用共享 `envFile`，也不得把 key 放入命令参数。修改宿主环境变量后应重启 Cursor，再在 UI 中重新检查 MCP 状态。
 
 不要假定 `disabled`、`alwaysAllow` 等字段属于 Cursor 官方稳定 MCP 配置面。本仓库的公开模板不依赖这些字段。
 

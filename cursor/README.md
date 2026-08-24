@@ -84,4 +84,4 @@ To enable MCP in a target Cursor workspace, review the data flow and credentials
 cp cursor/project/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
 ```
 
-Fill only the environment variables for servers you actually enable. Context7 reads `CONTEXT7_API_KEY` from the environment through `envFile`; do not place the key in command arguments. Re-check Cursor's MCP status in the UI after copying.
+Set only the host environment variables for servers you actually enable. The example maps exactly one API key into each credentialed server through its own `env` object; do not replace these mappings with a shared `envFile` or place keys in command arguments. Restart Cursor after changing host environment variables, then re-check MCP status in the UI.

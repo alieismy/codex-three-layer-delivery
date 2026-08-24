@@ -413,8 +413,10 @@ try {
         "Claude settings is missing required ask permission 'Bash\(git commit \*\)'",
         "Cursor Project Rules must use \.mdc",
         "Cursor guidance incorrectly allows plain \.md Project Rules",
-        "Context7 API key must not be passed in Cursor MCP command arguments",
-        "Global Bash Skill install must create ~/\.agents/skills before copying"
+        "Credentialed Cursor MCP server must not receive API keys through command arguments",
+        "Credentialed Cursor MCP server must map only its own API key through env",
+        "Credentialed Cursor MCP server must not use a shared envFile",
+        "Bash Skill install must refuse to overwrite existing target directories before copying"
     ) -Mutate {
         param($caseRoot)
 
@@ -490,18 +492,29 @@ try {
             '        "${env:CONTEXT7_API_KEY}"'
         ) -join "`n"
         $mutatedCursorMcp = $cursorMcp.Replace($context7PackageArg, $context7KeyArgs)
-        if ($mutatedCursorMcp -eq $cursorMcp -or -not $mutatedCursorMcp.Contains('"--api-key"')) {
-            throw "Fixture could not place the Context7 key in Cursor command arguments."
+        $context7Environment = @(
+            '      "env": {',
+            '        "CONTEXT7_API_KEY": "${env:CONTEXT7_API_KEY}"',
+            '      }'
+        ) -join "`n"
+        $sharedEnvironmentFile = '      "envFile": "${workspaceFolder}/.env"'
+        $mutatedCursorMcp = $mutatedCursorMcp.Replace($context7Environment, $sharedEnvironmentFile)
+        if (
+            $mutatedCursorMcp -eq $cursorMcp -or
+            -not $mutatedCursorMcp.Contains('"--api-key"') -or
+            -not $mutatedCursorMcp.Contains('"envFile"') -or
+            $mutatedCursorMcp.Contains($context7Environment)
+        ) {
+            throw "Fixture could not break the Cursor MCP argument and credential-isolation contracts."
         }
         Set-LfText -Path $cursorMcpPath -Content $mutatedCursorMcp
 
         $readmePath = Join-Path $caseRoot "README.md"
         $readme = Get-Content -LiteralPath $readmePath -Raw
-        $validGlobalInstall = "mkdir -p ~/.agents/skills`ncp -r skills/rd-* ~/.agents/skills/"
-        $invalidGlobalInstall = "cp -r skills/rd-* ~/.agents/skills/"
-        $mutatedReadme = $readme.Replace($validGlobalInstall, $invalidGlobalInstall)
-        if ($mutatedReadme -eq $readme -or $mutatedReadme.Contains($validGlobalInstall)) {
-            throw "Fixture could not remove the global Skill installation prerequisite."
+        $exitGuardPattern = [regex]'(?m)^    exit 1\n'
+        $mutatedReadme = $exitGuardPattern.Replace($readme, '', 1)
+        if ($mutatedReadme -eq $readme -or $exitGuardPattern.Matches($mutatedReadme).Count -ne ($exitGuardPattern.Matches($readme).Count - 1)) {
+            throw "Fixture could not remove one Bash Skill overwrite-refusal guard."
         }
         Set-LfText -Path $readmePath -Content $mutatedReadme
     }

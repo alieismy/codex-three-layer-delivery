@@ -33,8 +33,16 @@ Codex 在每次运行开始时发现一次指令链。同一层级存在非空 `
 全局安装：
 
 ```bash
-mkdir -p ~/.agents/skills
-cp -r zh-CN/skills/rd-* ~/.agents/skills/
+skill_target="$HOME/.agents/skills"
+mkdir -p "$skill_target"
+for skill_source in zh-CN/skills/rd-*; do
+  skill_name=$(basename "$skill_source")
+  if [ -e "$skill_target/$skill_name" ]; then
+    printf 'Refusing to overwrite existing Skill: %s\n' "$skill_target/$skill_name" >&2
+    exit 1
+  fi
+done
+cp -R zh-CN/skills/rd-* "$skill_target/"
 ```
 
 在 PowerShell 中，推荐使用带完整校验的用户级安装脚本：
@@ -49,8 +57,16 @@ pwsh -File ./scripts/install-rd-skills.ps1 -Language zh-CN -CheckOnly
 项目级安装：
 
 ```bash
-mkdir -p /path/to/your-project/.agents/skills
-cp -r zh-CN/skills/rd-* /path/to/your-project/.agents/skills/
+skill_target="/path/to/your-project/.agents/skills"
+mkdir -p "$skill_target"
+for skill_source in zh-CN/skills/rd-*; do
+  skill_name=$(basename "$skill_source")
+  if [ -e "$skill_target/$skill_name" ]; then
+    printf 'Refusing to overwrite existing Skill: %s\n' "$skill_target/$skill_name" >&2
+    exit 1
+  fi
+done
+cp -R zh-CN/skills/rd-* "$skill_target/"
 ```
 
 ## Codex 配置

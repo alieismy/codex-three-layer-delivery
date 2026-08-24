@@ -938,36 +938,71 @@ foreach ($path in $claudeSettingsPaths) {
     }
 }
 
-$globalSkillInstallBaselines = @(
-    @{ Path = Join-Path $root "README.md"; ExpectedCopies = 1 },
+$skillInstallBaselines = @(
+    @{ Path = Join-Path $root "README.md"; ExpectedCopies = 2 },
     @{ Path = Join-Path $root "zh-CN/README.md"; ExpectedCopies = 1 },
-    @{ Path = Join-Path $root "docs/installation.md"; ExpectedCopies = 2 },
-    @{ Path = Join-Path $root "zh-CN/docs/installation.md"; ExpectedCopies = 1 }
+    @{ Path = Join-Path $root "docs/installation.md"; ExpectedCopies = 3 },
+    @{ Path = Join-Path $root "zh-CN/docs/installation.md"; ExpectedCopies = 2 }
 )
-$globalSkillCopyPattern = '(?m)^cp -r (?:zh-CN/)?skills/rd-\* ~/\.agents/skills/$'
-$globalSkillMkdirPrefix = "mkdir -p ~/.agents/skills`n"
-foreach ($baseline in $globalSkillInstallBaselines) {
+$skillCopyPattern = '(?m)^cp -R (?<source>(?:zh-CN/)?skills/rd-\*) "\$skill_target/"$'
+$legacySkillCopyPattern = '(?m)^cp -r (?:zh-CN/)?skills/rd-\* '
+foreach ($baseline in $skillInstallBaselines) {
     $path = $baseline.Path
     if (-not (Test-Path -LiteralPath $path)) {
-        Add-Failure "Missing global Skill installation surface: $path"
+        Add-Failure "Missing Bash Skill installation surface: $path"
         continue
     }
 
     $installText = Get-Content -LiteralPath $path -Raw
-    $copyMatches = [regex]::Matches($installText, $globalSkillCopyPattern)
+    if ([regex]::IsMatch($installText, $legacySkillCopyPattern)) {
+        Add-Failure "Bash Skill install must not use an overwrite-prone recursive copy command: $path"
+    }
+
+    $copyMatches = [regex]::Matches($installText, $skillCopyPattern)
     if ($copyMatches.Count -ne $baseline.ExpectedCopies) {
-        Add-Failure "Unexpected global Bash Skill install command count in $path"
+        Add-Failure "Unexpected protected Bash Skill install command count in $path"
         continue
     }
 
     foreach ($copyMatch in $copyMatches) {
-        $prefixStart = $copyMatch.Index - $globalSkillMkdirPrefix.Length
-        $hasMkdirPrefix = (
-            $prefixStart -ge 0 -and
-            $installText.Substring($prefixStart, $globalSkillMkdirPrefix.Length) -ceq $globalSkillMkdirPrefix
+        $codeFenceStart = $installText.LastIndexOf(
+            '```bash',
+            $copyMatch.Index,
+            [System.StringComparison]::Ordinal
         )
-        if (-not $hasMkdirPrefix) {
-            Add-Failure "Global Bash Skill install must create ~/.agents/skills before copying: $path"
+        if ($codeFenceStart -lt 0) {
+            Add-Failure "Bash Skill install command is not inside a Bash code block: $path"
+            continue
+        }
+
+        $blockLength = $copyMatch.Index + $copyMatch.Length - $codeFenceStart
+        $installBlock = $installText.Substring($codeFenceStart, $blockLength)
+        if (-not [regex]::IsMatch($installBlock, '(?m)^skill_target="[^"\r\n]+"$')) {
+            Add-Failure "Bash Skill install must declare a bounded destination before copying: $path"
+        }
+
+        $sourcePattern = $copyMatch.Groups['source'].Value
+        $requiredMarkers = @(
+            'mkdir -p "$skill_target"',
+            "for skill_source in $sourcePattern; do",
+            'skill_name=$(basename "$skill_source")',
+            'if [ -e "$skill_target/$skill_name" ]; then',
+            'printf ''Refusing to overwrite existing Skill: %s\n'' "$skill_target/$skill_name" >&2',
+            'exit 1',
+            'done'
+        )
+        $markerOffset = 0
+        foreach ($marker in $requiredMarkers) {
+            $markerIndex = $installBlock.IndexOf(
+                $marker,
+                $markerOffset,
+                [System.StringComparison]::Ordinal
+            )
+            if ($markerIndex -lt 0) {
+                Add-Failure "Bash Skill install must refuse to overwrite existing target directories before copying: $path"
+                break
+            }
+            $markerOffset = $markerIndex + $marker.Length
         }
     }
 }
@@ -1124,18 +1159,67 @@ foreach ($cursorMcpExample in $cursorMcpExamples) {
         continue
     }
 
-    $context7Server = $cursorMcpConfig.mcpServers.'context7-mcp'
-    if ($null -eq $context7Server) {
-        Add-Failure "Cursor MCP example is missing context7-mcp: $cursorMcpExample"
+    $credentialedServerContracts = @(
+        @{ Name = 'context7-mcp'; Variable = 'CONTEXT7_API_KEY' },
+        @{ Name = 'tavily-mcp'; Variable = 'TAVILY_API_KEY' },
+        @{ Name = 'brave-search-mcp-server'; Variable = 'BRAVE_API_KEY' }
+    )
+    foreach ($contract in $credentialedServerContracts) {
+        $serverProperty = $cursorMcpConfig.mcpServers.PSObject.Properties[$contract.Name]
+        if ($null -eq $serverProperty) {
+            Add-Failure "Cursor MCP example is missing credentialed server '$($contract.Name)': $cursorMcpExample"
+            continue
+        }
+
+        $server = $serverProperty.Value
+        $credentialArgs = @($server.args | Where-Object {
+            [string]$_ -match '(?:--api-key|(?:CONTEXT7|TAVILY|BRAVE)_API_KEY|\$\{env:)'
+        })
+        if ($credentialArgs.Count -gt 0) {
+            Add-Failure "Credentialed Cursor MCP server must not receive API keys through command arguments: $($contract.Name) in $cursorMcpExample"
+        }
+
+        $envProperties = if ($null -eq $server.env) {
+            @()
+        }
+        else {
+            @($server.env.PSObject.Properties)
+        }
+        $expectedValue = '${env:' + $contract.Variable + '}'
+        $hasExactEnvironmentMapping = (
+            $envProperties.Count -eq 1 -and
+            $envProperties[0].Name -ceq $contract.Variable -and
+            [string]$envProperties[0].Value -ceq $expectedValue
+        )
+        if (-not $hasExactEnvironmentMapping) {
+            Add-Failure "Credentialed Cursor MCP server must map only its own API key through env: $($contract.Name) in $cursorMcpExample"
+        }
+        if ($server.PSObject.Properties.Name -ccontains 'envFile') {
+            Add-Failure "Credentialed Cursor MCP server must not use a shared envFile: $($contract.Name) in $cursorMcpExample"
+        }
+    }
+}
+
+$cursorCredentialGuidance = @(
+    @{
+        Path = Join-Path $root 'cursor/README.md'
+        Markers = @('maps exactly one API key into each credentialed server through its own `env` object', 'do not replace these mappings with a shared `envFile`')
+    },
+    @{
+        Path = Join-Path $root 'cursor/zh-CN/README.md'
+        Markers = @('只向该服务器映射一个 API key', '不得改用共享 `envFile`')
+    }
+)
+foreach ($guidance in $cursorCredentialGuidance) {
+    if (-not (Test-Path -LiteralPath $guidance.Path)) {
+        Add-Failure "Missing Cursor credential-isolation guidance: $($guidance.Path)"
         continue
     }
-    $context7Args = @($context7Server.args)
-    $context7KeyArgs = @($context7Args | Where-Object { [string]$_ -match '(?:--api-key|CONTEXT7_API_KEY)' })
-    if ($context7KeyArgs.Count -gt 0) {
-        Add-Failure "Context7 API key must not be passed in Cursor MCP command arguments: $cursorMcpExample"
-    }
-    if ($context7Server.envFile -cne '${workspaceFolder}/.env') {
-        Add-Failure "Cursor Context7 example must load credentials through workspace envFile: $cursorMcpExample"
+    $guidanceText = Get-Content -LiteralPath $guidance.Path -Raw
+    foreach ($marker in $guidance.Markers) {
+        if (-not $guidanceText.Contains($marker)) {
+            Add-Failure "Cursor credential-isolation guidance is missing '$marker': $($guidance.Path)"
+        }
     }
 }
 
