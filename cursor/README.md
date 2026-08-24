@@ -27,9 +27,9 @@ cursor/zh-CN/
 
 ## Cursor Documentation Baseline
 
-Cursor documentation checked on 2026-07-10:
+Cursor documentation checked on 2026-08-24:
 
-- [Rules](https://cursor.com/docs/context/rules): Project Rules live in `.cursor/rules`; `.md` and `.mdc` are supported; `.mdc` frontmatter can specify metadata such as `description` and `globs`.
+- [Rules](https://cursor.com/docs/rules): Project Rules live in `.cursor/rules` as `.mdc` files. Plain `.md` files are ignored by the rules system; use `AGENTS.md` for plain Markdown guidance.
 - [Skills](https://cursor.com/docs/skills): Agent Skills are portable, version-controlled packages that can include scripts, templates, and references.
 - [MCP](https://cursor.com/docs/context/mcp): project-specific MCP servers are configured through `.cursor/mcp.json`.
 
@@ -84,4 +84,4 @@ To enable MCP in a target Cursor workspace, review the data flow and credentials
 cp cursor/project/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
 ```
 
-Fill only the environment variables for servers you actually enable. Re-check Cursor's MCP status in the UI after copying.
+Fill only the environment variables for servers you actually enable. Context7 reads `CONTEXT7_API_KEY` from the environment through `envFile`; do not place the key in command arguments. Re-check Cursor's MCP status in the UI after copying.

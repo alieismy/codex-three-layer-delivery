@@ -87,6 +87,7 @@ If a destination has a non-empty `AGENTS.override.md`, that file is the effectiv
 
 ```bash
 # Global install: available to all projects
+mkdir -p ~/.agents/skills
 cp -r skills/rd-* ~/.agents/skills/
 
 # Or project-level install
@@ -233,7 +234,7 @@ The public configuration intentionally uses conservative defaults:
 - no default third-party relay URL;
 - optional MCP servers are disabled until credentials and use cases are reviewed;
 - Cursor adapter MCP config is shipped as `mcp.example.json`, not as an active `.cursor/mcp.json`;
-- Claude Code project settings deny common secret files and require confirmation for commit, push, tag, publish, and delete operations;
+- Claude Code project settings deny direct reads of common secret paths and ask for confirmation on matching commit, push, tag, publish, and delete command prefixes; these permission patterns are guardrails, not a complete security boundary for every wrapper or complex command;
 - package versions are documented in `docs/compatibility.md` and should be refreshed before release;
 - Context7's tested version is pinned consistently across the compatibility documents and all Codex/Cursor examples, with client-runtime acceptance kept as a separate evidence layer.
 
@@ -305,6 +306,8 @@ The validator checks common release blockers:
 - inconsistent mirrored Skill directory sets or file content;
 - missing always-on evidence-state and no-change controls across Codex, Claude, and Cursor surfaces;
 - a missing or weakened repository-maintainer root `AGENTS.md`, revision-aware context-reuse contract, or dynamic task-state boundary;
+- loss of the public Codex execution-efficiency and context-hygiene contract;
+- invalid platform prompt prefixes, Claude permission/attribution settings, Cursor rule extensions or MCP credential transport, or Unix global Skill installation prerequisites;
 - loss of the optional greenfield open-source research and approval-gate prompt contract;
 - loss of the optional high-impact bidirectional-argument and critical-clarification prompt contract;
 - Context7 version drift across compatibility documents and Codex/Cursor examples;
@@ -313,7 +316,7 @@ The validator checks common release blockers:
 - obvious secret leaks;
 - stale private/internal strings.
 
-The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects twelve regression cases: distribution-preserving completion-criterion drift; Context7 cross-file version drift; an `rd-delivery` invocation-policy regression; loss of the always-on evidence/no-change contract; loss of the RD specialist Skill/eval/near-miss contract; loss of the global v7.6 discipline contract; a missing root maintainer `AGENTS.md`; loss of its maintainer-specific authority contract; loss of revision-aware context reuse and dynamic-state separation; loss of the greenfield research/approval gate; loss of the optional high-impact bidirectional-argument and critical-clarification contract; and loss of the `.tmp/local/` boundary.
+The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects fourteen regression cases: distribution-preserving completion-criterion drift; Context7 cross-file version drift; an `rd-delivery` invocation-policy regression; loss of the always-on evidence/no-change contract; loss of the RD specialist Skill/eval/near-miss contract; loss of the global v7.7 discipline contract; loss of the Codex execution-efficiency and context-hygiene contract; a missing root maintainer `AGENTS.md`; loss of its maintainer-specific authority contract; loss of revision-aware context reuse and dynamic-state separation; loss of the greenfield research/approval gate; loss of the optional high-impact bidirectional-argument and critical-clarification contract; loss of the `.tmp/local/` boundary; and a combined platform-configuration regression covering prompt prefixes, Claude permissions and attribution, Cursor rule extensions and MCP credential transport, and Unix global Skill installation prerequisites.
 
 ## Versioning
 

@@ -470,10 +470,10 @@ Assert-MirroredSkillTree -SourceRoot (Join-Path $root "zh-CN/skills") -TargetRoo
 $globalAgentBaselines = @(
     @{
         Path = Join-Path $root "codex/global/AGENTS.md"
-        Headings = @("## Truthfulness Discipline", "## Response Modes", "## Task Identification and Skill Routing", "## Minimum RD Delivery Baseline", "## Implementation Discipline", "## Context Health", "## Pre-Output Self-Review", "## Output Contract")
+        Headings = @("## Truthfulness Discipline", "## Response Modes", "## Task Identification and Skill Routing", "## Minimum RD Delivery Baseline", "## Implementation Discipline", "## Execution Efficiency and Context Hygiene", "## Context Health", "## Pre-Output Self-Review", "## Output Contract")
         Domains = @("Requirements", "Feasibility", "Research", "Solution", "Design", "Specification", "Writing", "Review", "Delivery orchestration")
         Markers = @(
-            "Personal Global Instructions (v7.6)",
+            "Personal Global Instructions (v7.7)",
             "Say when something is unknown or cannot be confirmed",
             "Keep evidence states separate:",
             "retaining the current state is a valid professional conclusion",
@@ -494,6 +494,11 @@ $globalAgentBaselines = @(
             "other instruction files as scope-sensitive; make only required companion updates and report them",
             "When validation fails, determine whether the current change introduced it",
             "report pre-existing or unrelated failures without silently expanding scope",
+            "do not start another model turn solely to repeat it",
+            "keep full output local and aggregate it before returning evidence to the model",
+            "run the complete applicable gate before claiming success",
+            "After a deterministic failure, inspect the error before retrying",
+            "If an unchanged retry returns the same error, stop repeating that operation",
             "1. Does the response answer the current request",
             "8. Does the output expose any secret"
         )
@@ -501,10 +506,10 @@ $globalAgentBaselines = @(
     },
     @{
         Path = Join-Path $root "zh-CN/codex/global/AGENTS.md"
-        Headings = @("## 真实性纪律", "## 响应模式", "## 任务识别与 Skill 路由", "## RD 交付最小基线", "## 实现纪律", "## 上下文健康", "## 输出前自我审核", "## 输出格式")
+        Headings = @("## 真实性纪律", "## 响应模式", "## 任务识别与 Skill 路由", "## RD 交付最小基线", "## 实现纪律", "## 执行效率与上下文卫生", "## 上下文健康", "## 输出前自我审核", "## 输出格式")
         Domains = @("需求", "可研", "研究", "方案", "设计", "标准", "写作", "评审", "交付编排")
         Markers = @(
-            "个人全局指令（v7.6）",
+            "个人全局指令（v7.7）",
             "不知道就明确说不知道；不能确认就明确说不能确认",
             "严格区分证据状态：",
             '“保持现状”是合法的专业结论',
@@ -525,6 +530,11 @@ $globalAgentBaselines = @(
             "等指令文件时，只执行批准范围和必要的一致性同步，并单独汇报",
             "验证失败时先判断是否由本次改动引入",
             "对既存或无关失败准确报告，不静默扩大范围",
+            "不得只为重复同一等待而开启新的模型轮次",
+            "在本地保留全量输出并完成聚合，再把证据返回模型",
+            "必须执行完整的适用门禁",
+            "确定性失败发生后，应先检查错误再决定是否重试",
+            "未改变条件的重试若返回相同错误，应停止重复该操作",
             "1. 是否回答当前请求",
             "8. 输出是否泄露密钥"
         )
@@ -782,6 +792,186 @@ foreach ($cursorFile in $cursorPlatformFiles) {
     }
 }
 
+$promptPlatformBaselines = @(
+    @{
+        Path = Join-Path $root "PROMPTS.md"
+        Markers = @(
+            'paste into Codex CLI or Codex App.',
+            'Skills are matched through the `$rd-*` prefix.'
+        )
+    },
+    @{
+        Path = Join-Path $root "zh-CN/PROMPTS.md"
+        Markers = @(
+            '可直接粘贴到 Codex CLI 或 Codex App。',
+            'Skill 通过 `$rd-*` 前缀匹配。'
+        )
+    },
+    @{
+        Path = Join-Path $root "cursor/project/PROMPTS.md"
+        Markers = @(
+            'paste into Cursor or Claude Code.',
+            'Skills are matched through the `/rd-*` prefix.'
+        )
+    },
+    @{
+        Path = Join-Path $root "cursor/zh-CN/PROMPTS.md"
+        Markers = @(
+            '可直接粘贴到 Cursor 或 Claude Code。',
+            'Skill 通过 `/rd-*` 前缀匹配。'
+        )
+    }
+)
+foreach ($baseline in $promptPlatformBaselines) {
+    $path = $baseline.Path
+    if (-not (Test-Path -LiteralPath $path)) {
+        Add-Failure "Missing platform prompt template: $path"
+        continue
+    }
+
+    $promptText = Get-Content -LiteralPath $path -Raw
+    foreach ($marker in $baseline.Markers) {
+        if (-not $promptText.Contains($marker)) {
+            Add-Failure "Prompt platform/invocation contract is missing '$marker': $path"
+        }
+    }
+}
+
+$cursorRuleRoots = @(
+    (Join-Path $root "cursor/project/.cursor/rules"),
+    (Join-Path $root "cursor/zh-CN/.cursor/rules")
+)
+foreach ($cursorRuleRoot in $cursorRuleRoots) {
+    if (-not (Test-Path -LiteralPath $cursorRuleRoot)) {
+        Add-Failure "Missing Cursor Project Rules directory: $cursorRuleRoot"
+        continue
+    }
+
+    foreach ($cursorRuleFile in Get-ChildItem -LiteralPath $cursorRuleRoot -Recurse -File -Force) {
+        if ($cursorRuleFile.Extension -cne ".mdc") {
+            Add-Failure "Cursor Project Rules must use .mdc: $($cursorRuleFile.FullName)"
+        }
+    }
+}
+
+$cursorRuleGuidancePaths = @(
+    (Join-Path $root "docs/compatibility.md"),
+    (Join-Path $root "zh-CN/docs/compatibility.md"),
+    (Join-Path $root "cursor/README.md"),
+    (Join-Path $root "cursor/zh-CN/README.md"),
+    (Join-Path $root "cursor/project/.cursor/rules/01-engineering-discipline.mdc"),
+    (Join-Path $root "cursor/zh-CN/.cursor/rules/01-engineering-discipline.mdc"),
+    (Join-Path $root "cursor/project/.cursor/rules/02-spec-injection.mdc"),
+    (Join-Path $root "cursor/zh-CN/.cursor/rules/02-spec-injection.mdc")
+)
+foreach ($path in $cursorRuleGuidancePaths) {
+    if (-not (Test-Path -LiteralPath $path)) {
+        Add-Failure "Missing Cursor rule guidance surface: $path"
+        continue
+    }
+
+    $cursorGuidance = Get-Content -LiteralPath $path -Raw
+    $allowsPlainRuleMarkdown = (
+        $cursorGuidance -match '\.cursor/rules/\*\.md(?!c)' -or
+        $cursorGuidance.Contains('`.md` and `.mdc` are supported') -or
+        $cursorGuidance.Contains('支持 `.md` 和 `.mdc`')
+    )
+    if ($allowsPlainRuleMarkdown) {
+        Add-Failure "Cursor guidance incorrectly allows plain .md Project Rules: $path"
+    }
+}
+
+$claudeSettingsPaths = @(
+    (Join-Path $root "claude/project/.claude/settings.json"),
+    (Join-Path $root "zh-CN/claude/project/.claude/settings.json")
+)
+$requiredClaudeDenyPermissions = @(
+    "Read(./.env)",
+    "Read(./secrets/**)"
+)
+$requiredClaudeAskPermissions = @(
+    "Bash(git commit *)",
+    "Bash(git push *)",
+    "Bash(git tag *)",
+    "Bash(npm publish *)",
+    "Bash(rm *)"
+)
+foreach ($path in $claudeSettingsPaths) {
+    if (-not (Test-Path -LiteralPath $path)) {
+        Add-Failure "Missing Claude Code project settings: $path"
+        continue
+    }
+
+    try {
+        $claudeSettings = Get-Content -LiteralPath $path -Raw | ConvertFrom-Json -Depth 100
+    }
+    catch {
+        Add-Failure "Invalid Claude Code project settings JSON: $path"
+        continue
+    }
+
+    if ($claudeSettings.PSObject.Properties.Name -contains "includeCoAuthoredBy") {
+        Add-Failure "Claude settings must not use deprecated includeCoAuthoredBy: $path"
+    }
+    $attribution = $claudeSettings.attribution
+    $hasExpectedAttribution = (
+        $null -ne $attribution -and
+        $attribution.commit -ceq "" -and
+        $attribution.pr -ceq "" -and
+        $attribution.sessionUrl -ceq $false
+    )
+    if (-not $hasExpectedAttribution) {
+        Add-Failure "Claude settings must disable commit, PR, and session-link attribution through the attribution object: $path"
+    }
+
+    $denyPermissions = @($claudeSettings.permissions.deny)
+    foreach ($permission in $requiredClaudeDenyPermissions) {
+        if ($denyPermissions -cnotcontains $permission) {
+            Add-Failure "Claude settings is missing required deny permission '$permission': $path"
+        }
+    }
+    $askPermissions = @($claudeSettings.permissions.ask)
+    foreach ($permission in $requiredClaudeAskPermissions) {
+        if ($askPermissions -cnotcontains $permission) {
+            Add-Failure "Claude settings is missing required ask permission '$permission': $path"
+        }
+    }
+}
+
+$globalSkillInstallBaselines = @(
+    @{ Path = Join-Path $root "README.md"; ExpectedCopies = 1 },
+    @{ Path = Join-Path $root "zh-CN/README.md"; ExpectedCopies = 1 },
+    @{ Path = Join-Path $root "docs/installation.md"; ExpectedCopies = 2 },
+    @{ Path = Join-Path $root "zh-CN/docs/installation.md"; ExpectedCopies = 1 }
+)
+$globalSkillCopyPattern = '(?m)^cp -r (?:zh-CN/)?skills/rd-\* ~/\.agents/skills/$'
+$globalSkillMkdirPrefix = "mkdir -p ~/.agents/skills`n"
+foreach ($baseline in $globalSkillInstallBaselines) {
+    $path = $baseline.Path
+    if (-not (Test-Path -LiteralPath $path)) {
+        Add-Failure "Missing global Skill installation surface: $path"
+        continue
+    }
+
+    $installText = Get-Content -LiteralPath $path -Raw
+    $copyMatches = [regex]::Matches($installText, $globalSkillCopyPattern)
+    if ($copyMatches.Count -ne $baseline.ExpectedCopies) {
+        Add-Failure "Unexpected global Bash Skill install command count in $path"
+        continue
+    }
+
+    foreach ($copyMatch in $copyMatches) {
+        $prefixStart = $copyMatch.Index - $globalSkillMkdirPrefix.Length
+        $hasMkdirPrefix = (
+            $prefixStart -ge 0 -and
+            $installText.Substring($prefixStart, $globalSkillMkdirPrefix.Length) -ceq $globalSkillMkdirPrefix
+        )
+        if (-not $hasMkdirPrefix) {
+            Add-Failure "Global Bash Skill install must create ~/.agents/skills before copying: $path"
+        }
+    }
+}
+
 $publicConfigs = @(
     (Join-Path $root "codex/examples/config.example.toml"),
     (Join-Path $root "zh-CN/codex/examples/config.example.toml")
@@ -924,6 +1114,28 @@ foreach ($cursorMcpExample in $cursorMcpExamples) {
         if ($cursorMcpText.Contains($blocked)) {
             Add-Failure "Unsafe or unsupported Cursor MCP template string found in $cursorMcpExample`: $blocked"
         }
+    }
+
+    try {
+        $cursorMcpConfig = $cursorMcpText | ConvertFrom-Json -Depth 100
+    }
+    catch {
+        Add-Failure "Invalid Cursor MCP example JSON: $cursorMcpExample"
+        continue
+    }
+
+    $context7Server = $cursorMcpConfig.mcpServers.'context7-mcp'
+    if ($null -eq $context7Server) {
+        Add-Failure "Cursor MCP example is missing context7-mcp: $cursorMcpExample"
+        continue
+    }
+    $context7Args = @($context7Server.args)
+    $context7KeyArgs = @($context7Args | Where-Object { [string]$_ -match '(?:--api-key|CONTEXT7_API_KEY)' })
+    if ($context7KeyArgs.Count -gt 0) {
+        Add-Failure "Context7 API key must not be passed in Cursor MCP command arguments: $cursorMcpExample"
+    }
+    if ($context7Server.envFile -cne '${workspaceFolder}/.env') {
+        Add-Failure "Cursor Context7 example must load credentials through workspace envFile: $cursorMcpExample"
     }
 }
 

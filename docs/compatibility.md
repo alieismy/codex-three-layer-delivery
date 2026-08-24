@@ -1,26 +1,26 @@
 # Compatibility
 
-Package registry versions and the installed Codex CLI were re-checked on 2026-08-18. The bounded local Context7 stdio probe remains dated 2026-08-14. Re-check registry latest versions and tool/API surfaces before each public release.
+Package registry versions and the installed Codex CLI were re-checked on 2026-08-24. The bounded local Context7 stdio probe remains dated 2026-08-14. Re-check registry latest versions and tool/API surfaces before each public release.
 
 ## Codex
 
 | Component | Tested version | Registry latest checked | Notes |
 |---|---:|---:|---|
-| `@openai/codex` npm package | `0.147.0` | `0.147.0` | Installed CLI and registry version re-checked on 2026-08-18; configuration examples remain validated for `0.147.0`. Do not hardcode this into the repository name or AGENTS rules. |
+| `@openai/codex` npm package | `0.147.0` | `0.149.1` | Registry latest and the installed CLI (`0.149.0`) were re-checked on 2026-08-24. All four examples strictly loaded under `0.149.0`; the full tested baseline remains `0.147.0`. Do not hardcode this into the repository name or AGENTS rules. |
 
 ## Claude Code
 
 | Component | Tested/pinned version | Registry latest checked | Notes |
 |---|---:|---:|---|
-| `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.234` | File conventions checked for `CLAUDE.md`, `.claude/settings.json`, and `.claude/skills/` on 2026-07-10. Re-check before changing adapter behavior. |
+| `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.241` | Permission patterns, settings schema, and adapter structure were re-checked with installed `2.1.241` on 2026-08-24. Re-check before changing adapter behavior. |
 
-Official Claude Code docs checked: [memory](https://code.claude.com/docs/en/memory), [settings](https://code.claude.com/docs/en/settings), and [skills](https://code.claude.com/docs/en/skills).
+Official Claude Code docs checked: [memory](https://code.claude.com/docs/en/memory), [settings](https://code.claude.com/docs/en/settings), [permissions](https://code.claude.com/docs/en/permissions), and [skills](https://code.claude.com/docs/en/skills).
 
 ## Cursor
 
-Official Cursor docs checked on 2026-07-10:
+Official Cursor docs checked on 2026-08-24:
 
-- [Rules](https://cursor.com/docs/context/rules): Project Rules live in `.cursor/rules`; `.md` and `.mdc` are supported; `.mdc` frontmatter can specify metadata such as `description` and `globs`.
+- [Rules](https://cursor.com/docs/rules): Project Rules live in `.cursor/rules` as `.mdc` files. Plain `.md` files are ignored by the rules system; use `AGENTS.md` for plain Markdown guidance.
 - [Skills](https://cursor.com/docs/skills): Agent Skills are portable, version-controlled packages that can include scripts, templates, and references.
 - [MCP](https://cursor.com/docs/context/mcp): project-specific MCP servers are configured through `.cursor/mcp.json`.
 
@@ -39,10 +39,10 @@ This repository does not ship an active Cursor `.cursor/mcp.json` and does not r
 
 | MCP server | Package | Tested version | Registry latest checked | Default in public config |
 |---|---|---:|---:|---|
-| Context7 | `@upstash/context7-mcp` | `4.0.2` | `4.0.2` | disabled until credentials are configured |
+| Context7 | `@upstash/context7-mcp` | `4.0.2` | `4.0.3` | disabled until credentials are configured |
 | Tavily | `tavily-mcp` | `0.2.19` | `0.2.22` | disabled until credentials are configured |
 | Sequential Thinking | `@modelcontextprotocol/server-sequential-thinking` | `2025.12.18` | `2026.7.4` | disabled |
-| Brave Search | `@brave/brave-search-mcp-server` | `2.0.82` | `2.1.0` | disabled |
+| Brave Search | `@brave/brave-search-mcp-server` | `2.0.82` | `2.1.3` | disabled |
 | Playwright MCP | `@playwright/mcp` | `0.0.75` | `0.0.79` | disabled |
 | Chrome DevTools MCP | `chrome-devtools-mcp` | `1.1.1` | `1.7.0` | disabled |
 | Augment Context Engine | `ace-tool-rs` | `0.1.16` | `0.1.16` | disabled |

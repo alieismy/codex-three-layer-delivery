@@ -4,9 +4,7 @@
       "command": "npx",
       "args": [
         "-y",
-        "@upstash/context7-mcp@4.0.2",
-        "--api-key",
-        "${env:CONTEXT7_API_KEY}"
+        "@upstash/context7-mcp@4.0.2"
       ],
       "envFile": "${workspaceFolder}/.env"
     },

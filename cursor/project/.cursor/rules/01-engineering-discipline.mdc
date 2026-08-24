@@ -53,6 +53,6 @@ Before running validation commands, inspect existing entry points such as `scrip
 
 - Treat configuration as executable behavior.
 - Do not copy Codex-only or Claude-only configuration syntax into Cursor files.
-- For Cursor project guidance, use `.cursor/rules/*.md` or `.cursor/rules/*.mdc`.
+- For Cursor Project Rules, use `.cursor/rules/*.mdc`; use `AGENTS.md` when plain Markdown guidance is required.
 - For Cursor project skills, use `.cursor/skills/rd-*/SKILL.md`.
 - For Cursor MCP examples, keep public templates opt-in. Do not assume a server is enabled until `.cursor/mcp.json`, credentials, and Cursor's MCP status are verified.

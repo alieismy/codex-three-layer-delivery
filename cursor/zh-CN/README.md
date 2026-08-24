@@ -11,9 +11,9 @@
 
 ## Cursor 官方文档基线
 
-已于 2026-07-10 核查：
+已于 2026-08-24 核查：
 
-- [Rules](https://cursor.com/docs/context/rules)：项目规则位于 `.cursor/rules`，支持 `.md` 和 `.mdc`；`.mdc` frontmatter 可声明 `description`、`globs` 等元数据。
+- [Rules](https://cursor.com/docs/rules)：项目规则必须是 `.cursor/rules` 下的 `.mdc` 文件；规则系统会忽略普通 `.md` 文件。需要普通 Markdown 指令时，应使用 `AGENTS.md`。
 - [Skills](https://cursor.com/docs/skills)：Agent Skills 是可版本化的能力包，可包含脚本、模板和参考资料。
 - [MCP](https://cursor.com/docs/context/mcp)：项目级 MCP 配置文件是 `.cursor/mcp.json`。
 
@@ -45,6 +45,8 @@ cursor/zh-CN/.cursor/mcp.example.json
 ```bash
 cp cursor/zh-CN/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
 ```
+
+只填写实际启用服务器所需的环境变量。Context7 通过 `envFile` 从环境读取 `CONTEXT7_API_KEY`，不得把 key 放入命令参数。复制后应在 Cursor UI 中重新检查 MCP 状态。
 
 不要假定 `disabled`、`alwaysAllow` 等字段属于 Cursor 官方稳定 MCP 配置面。本仓库的公开模板不依赖这些字段。
 

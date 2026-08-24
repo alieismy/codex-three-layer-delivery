@@ -191,7 +191,7 @@ try {
 
     Invoke-NegativeCase -Name "global-implementation-discipline" -ExpectedPattern @(
         "Global AGENTS\.md is missing required routing or fallback heading '## Implementation Discipline'",
-        "Global AGENTS\.md is missing required always-on behavior 'Personal Global Instructions \(v7\.6\)'",
+        "Global AGENTS\.md is missing required always-on behavior 'Personal Global Instructions \(v7\.7\)'",
         "Global AGENTS\.md is missing required always-on behavior 'initial request and the initial interpretation may both be incomplete'",
         "Global AGENTS\.md is missing required always-on behavior 'Do not add speculative features, extension points, abstractions, pass-through layers, or dependencies'",
         "Global AGENTS\.md is missing required always-on behavior 'same domain concept and is expected to change for the same reason'",
@@ -206,7 +206,7 @@ try {
         "Global AGENTS\.md is missing required always-on behavior 'When validation fails, determine whether the current change introduced it'",
         "Global AGENTS\.md is missing required always-on behavior 'report pre-existing or unrelated failures without silently expanding scope'",
         "Global AGENTS\.md is missing required routing or fallback heading '## 实现纪律'",
-        "Global AGENTS\.md is missing required always-on behavior '个人全局指令（v7\.6）'",
+        "Global AGENTS\.md is missing required always-on behavior '个人全局指令（v7\.7）'",
         "Global AGENTS\.md is missing required always-on behavior '初始诉求和首次理解都可能不完整'",
         "Global AGENTS\.md is missing required always-on behavior '不添加投机性功能、扩展点、抽象、透传层或依赖'",
         "Global AGENTS\.md is missing required always-on behavior '同一领域概念且预计会因同一原因变化'",
@@ -226,8 +226,8 @@ try {
         $surfaces = @(
             @{
                 Path = "codex/global/AGENTS.md"
-                Version = "Personal Global Instructions (v7.6)"
-                OldVersion = "Personal Global Instructions (v7.5)"
+                Version = "Personal Global Instructions (v7.7)"
+                OldVersion = "Personal Global Instructions (v7.6)"
                 Section = "(?ms)^## Implementation Discipline\n\n.*?(?=^## Repository and Editing Discipline)"
                 Interaction = "(?m)^- Assume the initial request and the initial interpretation may both be incomplete\..*\n"
                 Worktree = "(?m)^- Preserve uncommitted user or third-party work\..*\n"
@@ -252,8 +252,8 @@ try {
             },
             @{
                 Path = "zh-CN/codex/global/AGENTS.md"
-                Version = "个人全局指令（v7.6）"
-                OldVersion = "个人全局指令（v7.5）"
+                Version = "个人全局指令（v7.7）"
+                OldVersion = "个人全局指令（v7.6）"
                 Section = "(?ms)^## 实现纪律\n\n.*?(?=^## 仓库与编辑纪律)"
                 Interaction = "(?m)^- 假设初始诉求和首次理解都可能不完整。.*\n"
                 Worktree = "(?m)^- 保留用户或第三方的未提交工作。.*\n"
@@ -297,6 +297,19 @@ try {
             }
             Set-LfText -Path $path -Content $mutated
         }
+    }
+
+    Invoke-NegativeCase -Name "global-execution-efficiency-contract" -ExpectedPattern "Global AGENTS\.md is missing required always-on behavior 'do not start another model turn solely to repeat it'" -Mutate {
+        param($caseRoot)
+
+        $path = Join-Path $caseRoot "codex/global/AGENTS.md"
+        $content = Get-Content -LiteralPath $path -Raw
+        $marker = "do not start another model turn solely to repeat it"
+        $mutated = $content.Replace($marker, "a later model turn may repeat the same wait")
+        if ($mutated -eq $content -or $mutated.Contains($marker)) {
+            throw "Fixture could not remove the execution-efficiency wait contract."
+        }
+        Set-LfText -Path $path -Content $mutated
     }
 
     Invoke-NegativeCase -Name "root-agents-missing" -ExpectedPattern "Missing repository-root maintainer AGENTS\.md" -Mutate {
@@ -390,6 +403,109 @@ try {
         Set-LfText -Path $path -Content $mutated
     }
 
+    Invoke-NegativeCase -Name "platform-configuration-contracts" -ExpectedPattern @(
+        "Prompt platform/invocation contract is missing 'paste into Codex CLI or Codex App\.'",
+        "Prompt platform/invocation contract is missing '可直接粘贴到 Codex CLI 或 Codex App。'",
+        "Prompt platform/invocation contract is missing 'paste into Cursor or Claude Code\.'",
+        "Prompt platform/invocation contract is missing '可直接粘贴到 Cursor 或 Claude Code。'",
+        "Claude settings must not use deprecated includeCoAuthoredBy",
+        "Claude settings is missing required deny permission 'Read\(\./secrets/\*\*\)'",
+        "Claude settings is missing required ask permission 'Bash\(git commit \*\)'",
+        "Cursor Project Rules must use \.mdc",
+        "Cursor guidance incorrectly allows plain \.md Project Rules",
+        "Context7 API key must not be passed in Cursor MCP command arguments",
+        "Global Bash Skill install must create ~/\.agents/skills before copying"
+    ) -Mutate {
+        param($caseRoot)
+
+        $promptMutations = @(
+            @{
+                Path = "PROMPTS.md"
+                Current = "paste into Codex CLI or Codex App."
+                Invalid = "paste into Codex CLI, Codex App, Cursor, or Claude Code."
+            },
+            @{
+                Path = "zh-CN/PROMPTS.md"
+                Current = "可直接粘贴到 Codex CLI 或 Codex App。"
+                Invalid = "可直接粘贴到 Codex CLI、Codex App、Cursor 或 Claude Code。"
+            },
+            @{
+                Path = "cursor/project/PROMPTS.md"
+                Current = "paste into Cursor or Claude Code."
+                Invalid = "paste into Codex CLI, Codex App, Cursor, or Claude Code."
+            },
+            @{
+                Path = "cursor/zh-CN/PROMPTS.md"
+                Current = "可直接粘贴到 Cursor 或 Claude Code。"
+                Invalid = "可直接粘贴到 Codex CLI、Codex App、Cursor 或 Claude Code。"
+            }
+        )
+        foreach ($mutation in $promptMutations) {
+            $path = Join-Path $caseRoot $mutation.Path
+            $content = Get-Content -LiteralPath $path -Raw
+            $mutated = $content.Replace($mutation.Current, $mutation.Invalid)
+            if ($mutated -eq $content -or $mutated.Contains($mutation.Current)) {
+                throw "Fixture could not break the prompt platform contract in $($mutation.Path)."
+            }
+            Set-LfText -Path $path -Content $mutated
+        }
+
+        $claudeSettingsPath = Join-Path $caseRoot "claude/project/.claude/settings.json"
+        $claudeSettings = Get-Content -LiteralPath $claudeSettingsPath -Raw
+        if (-not $claudeSettings.StartsWith("{`n")) {
+            throw "Fixture requires LF-delimited Claude settings JSON."
+        }
+        $mutatedClaudeSettings = $claudeSettings.Insert(2, "  `"includeCoAuthoredBy`": false,`n")
+        $mutatedClaudeSettings = $mutatedClaudeSettings.Replace("Read(./secrets/**)", "Read(./secrets/)")
+        $mutatedClaudeSettings = $mutatedClaudeSettings.Replace("Bash(git commit *)", "Bash(git commit )")
+        if (
+            $mutatedClaudeSettings -eq $claudeSettings -or
+            -not $mutatedClaudeSettings.Contains('"includeCoAuthoredBy"') -or
+            $mutatedClaudeSettings.Contains("Read(./secrets/**)") -or
+            $mutatedClaudeSettings.Contains("Bash(git commit *)")
+        ) {
+            throw "Fixture could not break the Claude permission and attribution contracts."
+        }
+        Set-LfText -Path $claudeSettingsPath -Content $mutatedClaudeSettings
+
+        $invalidCursorRulePath = Join-Path $caseRoot "cursor/project/.cursor/rules/invalid.md"
+        Set-LfText -Path $invalidCursorRulePath -Content "# Invalid plain Markdown Project Rule`n"
+
+        $cursorReadmePath = Join-Path $caseRoot "cursor/README.md"
+        $cursorReadme = Get-Content -LiteralPath $cursorReadmePath -Raw
+        $validRuleClaim = 'Project Rules live in `.cursor/rules` as `.mdc` files. Plain `.md` files are ignored by the rules system; use `AGENTS.md` for plain Markdown guidance.'
+        $invalidRuleClaim = 'Project Rules live in `.cursor/rules`; `.md` and `.mdc` are supported.'
+        $mutatedCursorReadme = $cursorReadme.Replace($validRuleClaim, $invalidRuleClaim)
+        if ($mutatedCursorReadme -eq $cursorReadme -or $mutatedCursorReadme.Contains($validRuleClaim)) {
+            throw "Fixture could not break the Cursor rule-extension guidance contract."
+        }
+        Set-LfText -Path $cursorReadmePath -Content $mutatedCursorReadme
+
+        $cursorMcpPath = Join-Path $caseRoot "cursor/project/.cursor/mcp.example.json"
+        $cursorMcp = Get-Content -LiteralPath $cursorMcpPath -Raw
+        $context7PackageArg = '        "@upstash/context7-mcp@4.0.2"'
+        $context7KeyArgs = @(
+            '        "@upstash/context7-mcp@4.0.2",',
+            '        "--api-key",',
+            '        "${env:CONTEXT7_API_KEY}"'
+        ) -join "`n"
+        $mutatedCursorMcp = $cursorMcp.Replace($context7PackageArg, $context7KeyArgs)
+        if ($mutatedCursorMcp -eq $cursorMcp -or -not $mutatedCursorMcp.Contains('"--api-key"')) {
+            throw "Fixture could not place the Context7 key in Cursor command arguments."
+        }
+        Set-LfText -Path $cursorMcpPath -Content $mutatedCursorMcp
+
+        $readmePath = Join-Path $caseRoot "README.md"
+        $readme = Get-Content -LiteralPath $readmePath -Raw
+        $validGlobalInstall = "mkdir -p ~/.agents/skills`ncp -r skills/rd-* ~/.agents/skills/"
+        $invalidGlobalInstall = "cp -r skills/rd-* ~/.agents/skills/"
+        $mutatedReadme = $readme.Replace($validGlobalInstall, $invalidGlobalInstall)
+        if ($mutatedReadme -eq $readme -or $mutatedReadme.Contains($validGlobalInstall)) {
+            throw "Fixture could not remove the global Skill installation prerequisite."
+        }
+        Set-LfText -Path $readmePath -Content $mutatedReadme
+    }
+
     Invoke-NegativeCase -Name "tmp-local-boundary" -ExpectedPattern @(
         "Missing .tmp permanent/local boundary policy",
         "\.gitignore must reserve \.tmp/local/"
@@ -411,7 +527,7 @@ try {
         Set-LfText -Path $gitignorePath -Content $mutatedGitignore
     }
 
-    Write-Host "Validator negative tests passed (12/12)." -ForegroundColor Green
+    Write-Host "Validator negative tests passed (14/14)." -ForegroundColor Green
 }
 finally {
     $resolvedRunRoot = [System.IO.Path]::GetFullPath($runRoot)

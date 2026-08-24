@@ -75,6 +75,7 @@ fi
 安装 Skills：
 
 ```bash
+mkdir -p ~/.agents/skills
 cp -r zh-CN/skills/rd-* ~/.agents/skills/
 ```
 
@@ -160,7 +161,7 @@ zh-CN/
 - 外部 MCP 服务器默认禁用，直到凭据、数据流和使用场景被明确审查。
 - Cursor 适配包只发布 `.cursor/mcp.example.json`，不直接发布活动 `.cursor/mcp.json`。
 - 不使用 `@latest` 作为 npm MCP 包版本。
-- Claude Code 项目设置默认禁止读取 `.env` 和 `secrets/`，并对 commit、push、tag、publish、delete 操作要求确认。
+- Claude Code 项目设置默认禁止直接读取常见密钥路径，并对匹配的 commit、push、tag、publish、delete 命令前缀要求确认；这些权限模式属于防护措施，不能替代针对所有包装命令和复杂命令的完整安全边界。
 - Context7 的已测试版本以[兼容性文档](docs/compatibility.md)为准，并与全部 Codex/Cursor 示例保持一致；真实客户端运行验收仍是更高且独立的证据层级。
 
 ## 验证
@@ -172,7 +173,7 @@ pwsh ./scripts/validate.ps1
 pwsh ./scripts/test-validator.ps1
 ```
 
-十二项负向回归会证明 Validator 能拒绝：完成标准总数不变但步骤分布错误；Context7 文档/配置版本漂移；`rd-delivery` 调用策略退化；常驻证据/“无需修改”契约缺失；RD 专业 Skill/Eval/近失配契约缺失；全局 v7.6 纪律契约缺失；根维护者 `AGENTS.md` 缺失；根维护者效力契约缺失；带修订标识的上下文复用和动态状态分离缺失；绿地开源研究/批准门禁缺失；高影响双向论证与关键澄清前置提示词契约缺失；以及 `.tmp/local/` 边界缺失。
+十四项负向回归会证明 Validator 能拒绝：完成标准总数不变但步骤分布错误；Context7 文档/配置版本漂移；`rd-delivery` 调用策略退化；常驻证据/“无需修改”契约缺失；RD 专业 Skill/Eval/近失配契约缺失；全局 v7.7 纪律契约缺失；Codex 执行效率与上下文卫生契约缺失；根维护者 `AGENTS.md` 缺失；根维护者效力契约缺失；带修订标识的上下文复用和动态状态分离缺失；绿地开源研究/批准门禁缺失；高影响双向论证与关键澄清前置提示词契约缺失；`.tmp/local/` 边界缺失；以及覆盖提示词前缀、Claude 权限与 attribution、Cursor 规则扩展名与 MCP 凭据传递、Unix 全局 Skill 安装前置条件的组合平台配置退化。
 
 ## 版本维护
 
