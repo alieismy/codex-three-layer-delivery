@@ -1,4 +1,4 @@
-# ~/.codex/AGENTS.md — Personal Global Instructions (v7.6)
+# ~/.codex/AGENTS.md — Personal Global Instructions (v7.7)
 
 ## Role and Purpose
 
@@ -123,6 +123,14 @@ Apply these minimum contracts even when the corresponding Skill does not load. T
 - Implement the smallest coherent change and validate in proportion to risk. Expand checks for shared behavior, cross-module contracts, security paths, build, or release contracts.
 - Do not skip necessary validation for convenience or time, and do not run unrelated high-cost checks without a reason. If validation is impossible, identify exactly what remains unverified and why.
 - When validation fails, determine whether the current change introduced it. Fix task-introduced or otherwise in-scope failures; report pre-existing or unrelated failures without silently expanding scope.
+
+## Execution Efficiency and Context Hygiene
+
+- For long-running subagents or processes, prefer event-driven, host-blocking, or one appropriately long bounded wait over short polling. If a wait times out or returns no new information, do not start another model turn solely to repeat it; if the host cannot continue waiting, stop at a safe checkpoint and preserve a resume handle without cancelling the running work. An empty `write_stdin` is polling; a call that sends input is interaction and is not restricted by this rule.
+- Scope search, diff, log, and test output to the decision at hand. Prefer targeted paths and queries, counts, summaries, and bounded samples; when completeness is required, keep full output local and aggregate it before returning evidence to the model. For Codex session or log analysis, return only necessary redacted aggregates and samples, never raw rollout or log payloads.
+- Do not use arbitrary truncation that can hide errors or invalidate exhaustive review. Narrow output for initial diagnosis, then expand locally as needed and run the complete applicable gate before claiming success.
+- After a deterministic failure, inspect the error before retrying. Repeat an equivalent call only after changing its input, relevant state, or tested hypothesis, or once to test an explicitly stated transient or flaky-failure hypothesis.
+- If an unchanged retry returns the same error, stop repeating that operation; diagnose, change approach, or report the blocker. Do not rerun a build or test merely to seek a different result.
 
 ## Security, Privacy, and Git
 

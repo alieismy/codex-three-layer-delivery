@@ -10,10 +10,11 @@
 
 官方文档：
 
-已于 2026-07-10 核查：
+已于 2026-08-24 核查：
 
 - https://code.claude.com/docs/en/memory
 - https://code.claude.com/docs/en/settings
+- https://code.claude.com/docs/en/permissions
 - https://code.claude.com/docs/en/skills
 
 ## 当前结构

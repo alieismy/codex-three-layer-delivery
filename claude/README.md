@@ -2,7 +2,7 @@
 
 The primary target of this repository is Codex. Claude Code support is provided as an adapter layer using Claude Code's native files.
 
-This adapter follows Anthropic's Claude Code documentation for [memory](https://code.claude.com/docs/en/memory), [settings](https://code.claude.com/docs/en/settings), and [skills](https://code.claude.com/docs/en/skills), checked on 2026-07-10.
+This adapter follows Anthropic's Claude Code documentation for [memory](https://code.claude.com/docs/en/memory), [settings](https://code.claude.com/docs/en/settings), [permissions](https://code.claude.com/docs/en/permissions), and [skills](https://code.claude.com/docs/en/skills), checked on 2026-08-24.
 
 ## Current Status
 

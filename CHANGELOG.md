@@ -6,6 +6,11 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+## 1.4.0 - 2026-08-24
+
+- Corrected Claude Code permission and attribution semantics, platform-specific prompt prefixes, Cursor `.mdc` guidance and per-server MCP credential isolation, overwrite-safe Unix Skill installation, bilingual adapter instructions, and current registry snapshots; added executable regression coverage for these platform contracts.
+- Upgraded the public Codex global `AGENTS.md` templates to v7.7 with evidence-driven execution-efficiency and context-hygiene controls for long-running waits, locally aggregated output, complete final gates, deterministic-failure analysis, and bounded flaky retries; added bilingual validator markers and a dedicated negative regression without changing Codex configuration or other platform adapters.
+
 ## 1.3.0 - 2026-08-23
 
 - Upgraded the public Codex global `AGENTS.md` templates to v7.6 with existing-behavior, compatibility, and instruction-surface protection plus validation-failure attribution; extended bilingual validator and negative coverage, corrected the documented negative runner to twelve cases, and preserved the project, RD Skill, Claude, and Cursor scope boundaries.

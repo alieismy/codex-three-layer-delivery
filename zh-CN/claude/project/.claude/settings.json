@@ -1,17 +1,21 @@
 {
-  "includeCoAuthoredBy": false,
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
   "enableAllProjectMcpServers": false,
   "permissions": {
     "deny": [
       "Read(./.env)",
-      "Read(./secrets/)"
+      "Read(./secrets/**)"
     ],
     "ask": [
-      "Bash(git commit )",
-      "Bash(git push )",
-      "Bash(git tag )",
-      "Bash(npm publish )",
-      "Bash(rm )"
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git tag *)",
+      "Bash(npm publish *)",
+      "Bash(rm *)"
     ]
   }
 }

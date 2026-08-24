@@ -24,7 +24,7 @@ fi
 
 如同一层级存在非空 `AGENTS.override.md`，它是当前生效的指令来源；应先创建独立备份并有意识地合并，不要创建不会生效的 `AGENTS.md`。如已有 `AGENTS.md`，也应先备份，再只合并需要的章节，并保留现有个人或项目特定约束；不得直接替换个人全局文件。模板包含角色、语言、推理深度、授权和交付纪律等观点化默认值，应按实际用户、团队与仓库调整；`zh-CN/` 全局模板有意默认使用简体中文。
 
-Codex 加载全局和适用的项目 `AGENTS.md` 规则链，这一过程不依赖是否选中 Skill。因此，全局 v7.6 模板把真实性纪律、响应模式、上下文健康、输出前审核、输出规则、证据状态边界、“无需修改”合法性、有边界的实现纪律、既有行为与指令面保护、验证失败归因和精简的 RD 交付基线作为常驻能力：未触发 RD Skill 时仍然生效；触发匹配 Skill 后，只叠加完整专业工作流；上述控制规则仍由全局模板常驻提供，不以 Skill 作为唯一来源。
+Codex 加载全局和适用的项目 `AGENTS.md` 规则链，这一过程不依赖是否选中 Skill。因此，全局 v7.7 模板把真实性纪律、响应模式、上下文健康、执行效率与上下文卫生、输出前审核、输出规则、证据状态边界、“无需修改”合法性、有边界的实现纪律、既有行为与指令面保护、验证失败归因和精简的 RD 交付基线作为常驻能力：未触发 RD Skill 时仍然生效；触发匹配 Skill 后，只叠加完整专业工作流；上述控制规则仍由全局模板常驻提供，不以 Skill 作为唯一来源。
 
 Codex 在每次运行开始时发现一次指令链。同一层级存在非空 `AGENTS.override.md` 时，它优先于 `AGENTS.md`；全局规则先加载，项目规则再从仓库根目录向当前工作目录依次加载，因此更靠近当前目录的规则优先级更高。合并内容达到 `project_doc_max_bytes` 后停止加载；修改指令文件后，需要新建运行或会话才会生效。详见 OpenAI 官方文档 [Custom instructions with AGENTS.md](https://learn.chatgpt.com/docs/agent-configuration/agents-md)。
 
@@ -33,7 +33,16 @@ Codex 在每次运行开始时发现一次指令链。同一层级存在非空 `
 全局安装：
 
 ```bash
-cp -r zh-CN/skills/rd-* ~/.agents/skills/
+skill_target="$HOME/.agents/skills"
+mkdir -p "$skill_target"
+for skill_source in zh-CN/skills/rd-*; do
+  skill_name=$(basename "$skill_source")
+  if [ -e "$skill_target/$skill_name" ]; then
+    printf 'Refusing to overwrite existing Skill: %s\n' "$skill_target/$skill_name" >&2
+    exit 1
+  fi
+done
+cp -R zh-CN/skills/rd-* "$skill_target/"
 ```
 
 在 PowerShell 中，推荐使用带完整校验的用户级安装脚本：
@@ -48,8 +57,16 @@ pwsh -File ./scripts/install-rd-skills.ps1 -Language zh-CN -CheckOnly
 项目级安装：
 
 ```bash
-mkdir -p /path/to/your-project/.agents/skills
-cp -r zh-CN/skills/rd-* /path/to/your-project/.agents/skills/
+skill_target="/path/to/your-project/.agents/skills"
+mkdir -p "$skill_target"
+for skill_source in zh-CN/skills/rd-*; do
+  skill_name=$(basename "$skill_source")
+  if [ -e "$skill_target/$skill_name" ]; then
+    printf 'Refusing to overwrite existing Skill: %s\n' "$skill_target/$skill_name" >&2
+    exit 1
+  fi
+done
+cp -R zh-CN/skills/rd-* "$skill_target/"
 ```
 
 ## Codex 配置

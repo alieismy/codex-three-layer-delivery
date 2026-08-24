@@ -24,7 +24,7 @@ fi
 
 If a destination has a non-empty `AGENTS.override.md`, that file is the effective instruction source at the same scope; create a separate backup and merge deliberately instead of creating an inactive `AGENTS.md`. If `AGENTS.md` already exists, back it up and merge only the relevant sections while preserving existing personal or project-specific constraints. Do not blindly replace an existing global file. The templates contain opinionated defaults for role, language behavior, reasoning depth, authorization, and delivery discipline; adapt them to the user, team, and repository. The English global template is language-neutral, while the `zh-CN/` template intentionally defaults to Simplified Chinese.
 
-Codex loads the global and applicable project `AGENTS.md` chain independently of Skill selection. The global v7.6 template therefore keeps truthfulness, response modes, context health, pre-output review, output rules, evidence-state boundaries, no-change legitimacy, bounded implementation discipline, existing-behavior and instruction-surface protection, validation-failure attribution, and a compact RD delivery baseline active even when no RD Skill is selected; a matching Skill adds the full specialist workflow rather than supplying the only copy of these controls.
+Codex loads the global and applicable project `AGENTS.md` chain independently of Skill selection. The global v7.7 template therefore keeps truthfulness, response modes, context health, execution efficiency and context hygiene, pre-output review, output rules, evidence-state boundaries, no-change legitimacy, bounded implementation discipline, existing-behavior and instruction-surface protection, validation-failure attribution, and a compact RD delivery baseline active even when no RD Skill is selected; a matching Skill adds the full specialist workflow rather than supplying the only copy of these controls.
 
 Codex discovers the instruction chain once at the start of each run. At a given level, a non-empty `AGENTS.override.md` takes precedence over `AGENTS.md`; global guidance is loaded before project files from the repository root toward the working directory, so closer project guidance has higher precedence. Loading stops at `project_doc_max_bytes`, and changed instructions require a new run or session to take effect. See the official OpenAI documentation for [custom instructions with AGENTS.md](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
 
@@ -33,7 +33,16 @@ Codex discovers the instruction chain once at the start of each run. At a given 
 Global install:
 
 ```bash
-cp -r skills/rd-* ~/.agents/skills/
+skill_target="$HOME/.agents/skills"
+mkdir -p "$skill_target"
+for skill_source in skills/rd-*; do
+  skill_name=$(basename "$skill_source")
+  if [ -e "$skill_target/$skill_name" ]; then
+    printf 'Refusing to overwrite existing Skill: %s\n' "$skill_target/$skill_name" >&2
+    exit 1
+  fi
+done
+cp -R skills/rd-* "$skill_target/"
 ```
 
 On PowerShell, the preferred user-level installation is the verified installer:
@@ -48,8 +57,16 @@ The installer manages only the nine declared `rd-*` directories, verifies a SHA-
 Project-level install:
 
 ```bash
-mkdir -p /path/to/your-project/.agents/skills
-cp -r skills/rd-* /path/to/your-project/.agents/skills/
+skill_target="/path/to/your-project/.agents/skills"
+mkdir -p "$skill_target"
+for skill_source in skills/rd-*; do
+  skill_name=$(basename "$skill_source")
+  if [ -e "$skill_target/$skill_name" ]; then
+    printf 'Refusing to overwrite existing Skill: %s\n' "$skill_target/$skill_name" >&2
+    exit 1
+  fi
+done
+cp -R skills/rd-* "$skill_target/"
 ```
 
 ## Codex Configuration
@@ -84,7 +101,7 @@ cp .env.example .env
 
 Fill only the API keys for MCP servers you enable. Never commit `.env`.
 
-On Windows, user-level environment variables can also be set with `setx`, but restart your shell, Codex CLI, or Codex app after changing them.
+On Windows, user-level environment variables can also be set with `setx`, but restart your shell and any affected client—Codex CLI, Codex app, Cursor, or Claude Code—after changing them.
 
 ## Cursor Adapter
 
@@ -138,7 +155,16 @@ If a non-empty `AGENTS.override.md` exists at either scope, back up and merge th
 Install Chinese shared skills:
 
 ```bash
-cp -r zh-CN/skills/rd-* ~/.agents/skills/
+skill_target="$HOME/.agents/skills"
+mkdir -p "$skill_target"
+for skill_source in zh-CN/skills/rd-*; do
+  skill_name=$(basename "$skill_source")
+  if [ -e "$skill_target/$skill_name" ]; then
+    printf 'Refusing to overwrite existing Skill: %s\n' "$skill_target/$skill_name" >&2
+    exit 1
+  fi
+done
+cp -R zh-CN/skills/rd-* "$skill_target/"
 ```
 
 Install Chinese Claude Code files:

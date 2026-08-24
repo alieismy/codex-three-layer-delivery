@@ -12,7 +12,7 @@ Project specs are stored in the repository so Cursor Agent can load consistent c
 | Level | Carrier | Loading method |
 |---|---|---|
 | User global | Cursor User Rules | Applied from Cursor settings |
-| Project specs | `.cursor/rules/*.md` or `.cursor/rules/*.mdc` | Project-scoped rules |
+| Project specs | `.cursor/rules/*.mdc` | Project-scoped rules |
 | Module specs | Nested `.cursor/rules/` or `globs` in `.mdc` frontmatter | Scoped to matching paths |
 | Task capabilities | `.cursor/skills/rd-*/SKILL.md` | Invoked by Cursor Agent when relevant |
 | Interoperable fallback | `AGENTS.md` | Plain markdown alternative where appropriate |
@@ -20,7 +20,7 @@ Project specs are stored in the repository so Cursor Agent can load consistent c
 ## Rule Authoring
 
 - Keep rules focused, actionable, and under 500 lines.
-- Use `.mdc` when frontmatter such as `description`, `globs`, or `alwaysApply` is needed.
+- Project Rules must use `.mdc`; declare `description`, `globs`, and `alwaysApply` in frontmatter as appropriate.
 - Split large concepts into composable rules instead of one broad rule.
 - Prefer concrete constraints, scripts, paths, and examples over vague preferences.
 - Do not store secrets, private URLs, or personal credentials in rules.
