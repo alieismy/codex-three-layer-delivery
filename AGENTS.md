@@ -30,6 +30,13 @@ This file governs maintenance of the `codex-three-layer-delivery` source reposit
 - Keep current goals, progress, branch or commit snapshots, worktree and test results, known issues, failed approaches, and next actions in a task plan or delivery record, not in this file.
 - This file may define when and where to read task state, but it must remain limited to durable repository rules. For explicit multi-stage document delivery, use the `rd-delivery` record as an index to authoritative artifacts rather than as a second content store.
 
+## Value-First Maintenance
+
+- Validate the shortest path to the requested outcome before expanding supporting work. Run low-cost tool, authentication, dependency, or entry-point preflights early when failure would invalidate the plan.
+- Preserve applicable existing gates, but add a generalized validator, broad test matrix, security-hardening track, or framework only when required by the approved scope, an observed reproducible failure, an authoritative requirement, or a material risk. Otherwise record it as deferred with a re-entry trigger.
+- If the primary path is blocked, report the blocker and resumable state instead of compensating with unrelated documentation, hardening, or tests. Peripheral completeness does not substitute for behavior, runtime, or user-outcome evidence.
+- For agent instructions, prompts, Skill routing, or other behavior changes, run a focused behavior smoke test before broadening mirrors and support work when the environment permits it. Shared-surface changes still require the full repository gates before completion.
+
 ## Validation
 
 Run the smallest sufficient checks, and run all repository gates when shared rules, mirrors, Skills, validators, compatibility data, or release contracts change:

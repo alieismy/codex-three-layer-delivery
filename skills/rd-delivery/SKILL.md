@@ -32,17 +32,20 @@ For a durable engagement record, read [delivery-record.md](references/delivery-r
 - Load the smallest relevant context set for the current stage, then refresh it at each phase boundary
 - Keep durable artifact classes distinct: long-lived need and intent, current-state architecture, engagement-specific change design, decision rationale, evidence, and review findings must not silently substitute for one another
 - Treat the delivery record as an index, not a second copy of its artifacts: keep status and concise decision context in the record, and link to the one authoritative location for full content
+- Keep the current project stage or responsibility, primary outcome, and shortest evidence path explicit; allocate work to that outcome before optional supporting improvements
+- Reuse applicable existing gates. Add generalized validators, broad test matrices, security-hardening tracks, or frameworks only when required by the approved scope, an observed reproducible failure, an authoritative requirement, or a material risk; otherwise keep them out of the active frontier with a re-entry condition
 
 ## Workflow
 
 ### 1. Frame the Engagement
 
 - State the real decision or delivery goal, audience, scope, exclusions, success criteria, authority, and date/version boundary
+- State the current project stage or responsibility when it changes priorities, and identify the primary outcome and shortest evidence path for this engagement
 - Inspect existing project guidance, document maps, templates, glossaries, baselines, upstream decisions, and active work records
 - Separate repository-answerable facts from user-owned scope, priority, risk, and approval decisions
 - When iterative clarification is practical, ask one highest-impact unresolved decision at a time with a recommendation and trade-off; batch only independent questions when delay would materially harm progress
 
-**Completion criterion:** the target deliverables, governing inputs, decision owners, and blocking unknowns are explicit.
+**Completion criterion:** the current stage when relevant, primary outcome, shortest evidence path, target deliverables, governing inputs, decision owners, and blocking unknowns are explicit.
 
 ### 2. Build the Artifact and Dependency Map
 
@@ -52,6 +55,7 @@ For each required artifact, record:
 - upstream inputs and downstream consumers
 - applicable specialist Skill and review mode
 - blocking decisions, evidence, dependencies, and verification method
+- for an external-stakeholder questionnaire, its authoritative path, recipient role, blocked item, and return criterion; do not copy the questionnaire or its answers into the delivery record
 
 Use decision-complete slices for large engagements: each work package should produce an independently reviewable result, fit a bounded work session, and declare its blocking edges. Do not split work only by document section when that would leave an unverifiable fragment.
 
@@ -86,6 +90,8 @@ Before each stage, load its authoritative upstream artifacts and applicable scop
 
 ### 4. Verify at Phase Boundaries
 
+- Sequence verification from low-cost environment or tool preflight to changed-surface evidence and related regression. Reserve a full behavior or platform matrix for shared routing, public contracts, release decisions, an observed cross-surface risk, or an explicit user request
+- If the primary evidence path is blocked, record the blocker and resumable state; do not compensate by expanding unrelated documentation, hardening, or tests
 - Check requirements and decision traceability, terminology, versions, evidence boundaries, and artifact consistency
 - Classify each gate as either a machine check or a human decision. Machine checks require reproducible evidence; human decisions require an explicit actor, decision, date, and conditions
 - Use `rd-review` when an independent verdict is required; author self-checks do not substitute for independent review
@@ -113,12 +119,15 @@ Before each stage, load its authoritative upstream artifacts and applicable scop
 - [ ] Artifact statuses, source-of-truth paths, dependencies, and blocking edges are current
 - [ ] Ready-to-define, not-yet-specified, and out-of-scope work remain distinct
 - [ ] Only required stages were selected
+- [ ] The current stage when relevant, primary outcome, shortest evidence path, and proportionate verification depth are explicit
+- [ ] Deferred hardening, generalized gates, and broad test matrices have a documented trigger before they can re-enter the active frontier
 - [ ] Each phase has checkable entry and exit conditions
 - [ ] Machine checks, human decisions, and authorized waivers are distinguished and evidenced
 - [ ] Draft, reviewed, approved, baselined, superseded, and blocked states are not conflated
 - [ ] Authoritative pointers resolve to current in-scope artifacts; stale, missing, or escaping paths are reported rather than followed
 - [ ] Material decisions, evidence gaps, verification results, and next actions are durable and traceable
 - [ ] Full artifact or decision content has one authoritative location; the delivery record points to it instead of duplicating it
+- [ ] External-stakeholder questionnaires, when used, are tracked by authoritative pointer, recipient role, blocked item, and return criterion rather than copied into the delivery record
 - [ ] Handoff can be understood without relying on hidden chat history
 - [ ] Handoff contains no secrets or unnecessary sensitive identifiers and points safely to controlled evidence when needed
 

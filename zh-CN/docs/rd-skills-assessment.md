@@ -1,12 +1,14 @@
 # RD Skills 评估与演进说明
 
-状态：已实施基线，2026-08-07 更新。
+状态：已实施基线，2026-08-31 更新。
 
 ## 结论
 
 原有 7 个 Skill 不多余。它们构成了完整的决策与文档生命周期：需求、可研、研究证据、解决方案架构、详细设计、标准规范和独立评审。
 
 第一次角色任务覆盖分析确认了一项实质缺口：有来源支撑的专业写作此前被迫放入 `rd-solution`，或缺少稳定工作流，因此由 `rd-writing` 负责。进一步对照 Matt Pocock Skills 与 Trellis 后，又确认了性质不同的第二项缺口：没有 Skill 负责明确编排多阶段、多文档或跨会话任务。本次新增 `rd-delivery` 作为显式编排 Skill，其余 8 个专业 Skill 仍可独立使用。
+
+2026-08-31 的后续审计发现了一个更窄的需求获取缺口，而不是第十个 Skill 领域：当可识别的外部责任人掌握当前用户无法提供的阻塞性事实、决策或批准时，`rd-requirement` 现在路由到按需问卷 reference。`rd-delivery` 只记录其权威指针、接收角色、阻塞项和返回判据。
 
 ## 角色任务覆盖
 
@@ -30,6 +32,7 @@
 - `rd-writing` 负责叙事成稿，`rd-research` 负责证据，`rd-review` 负责独立结论。该边界避免同一 Skill 同时研究、主张并批准自己的产出。
 - 开源与 AI 工具研究、基础设施/配置研究、事实核查共享同一证据契约，因此作为 `rd-research` 的按需模式，而不是新增 3 个互相竞争的顶层 Skill。
 - 研究报告评审和文章评审共享问题定位、分级、整改和结论机制，因此作为 `rd-review` 模式。
+- 外部责任人确认问卷是 `rd-requirement` 的条件性需求获取模式，不是独立可触发的生命周期或写作领域。
 - 编码、部署执行、浏览器自动化、安全扫描和文件格式处理已有更强的基础或专业工作流。增加宽泛的 `rd-code` 或 `rd-operations` 会产生触发冲突并削弱职责归属。
 
 ## 外部设计依据
@@ -38,12 +41,12 @@
 - 当前 [OpenAI Codex Skill 指南](https://learn.chatgpt.com/docs/build-skills) 要求描述前置核心用途，因为 Skill 较多时初始列表可能缩短描述或省略部分 Skill；该指南还说明了面向 ChatGPT/Codex 桌面的可选 `agents/openai.yaml` 元数据。
 - 原 [openai/skills 仓库](https://github.com/openai/skills) 已标记为不再用于当前分发示例；[openai/plugins](https://github.com/openai/plugins) 是当前打包参考。本项目为跨客户端编写和适配保留直接 Skill 目录，插件化属于独立的分发决策。
 - Anthropic 的 [Agent Skills 工程指南](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) 建议从观察到的能力缺口出发，使用代表性任务评测，并把互斥上下文拆为按需资源。
-- Matt Pocock 的 [research Skill](https://github.com/mattpocock/skills/blob/v1.2.3/skills/engineering/research/SKILL.md) 强调一手来源研究和单一带引用制品；更名后的 [writing-for-agents 指南](https://github.com/mattpocock/skills/blob/v1.2.3/skills/productivity/writing-for-agents/SKILL.md) 把 Agent 指令视为信息架构问题：前置触发上下文，只加载影响决策的细节，规定完备的完成检查，维持单一权威来源，并清理重复或陈旧说明。2026-08-07 审计把 `v1.2.3` 固定到 Commit [`6acc160e4e0cd062dbbbd7a1b26ae92855edf07e`](https://github.com/mattpocock/skills/commit/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e)，只独立吸收适合文档交付的机制。
+- Matt Pocock 的 [research Skill](https://github.com/mattpocock/skills/blob/v1.2.3/skills/engineering/research/SKILL.md) 强调一手来源研究和单一带引用制品；更名后的 [writing-for-agents 指南](https://github.com/mattpocock/skills/blob/v1.2.3/skills/productivity/writing-for-agents/SKILL.md) 把 Agent 指令视为信息架构问题：前置触发上下文，只加载影响决策的细节，规定完备的完成检查，维持单一权威来源，并清理重复或陈旧说明。2026-08-07 审计把正式版 `v1.2.3` 固定到 Commit [`6acc160e4e0cd062dbbbd7a1b26ae92855edf07e`](https://github.com/mattpocock/skills/commit/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e)；2026-08-31 后续审计另将未发布 `main` 固定到 [`6654f6b60cd9d5be8b54c6fafe44346dabeb3b76`](https://github.com/mattpocock/skills/commit/6654f6b60cd9d5be8b54c6fafe44346dabeb3b76)，并检查其 [to-questionnaire Skill](https://github.com/mattpocock/skills/blob/6654f6b60cd9d5be8b54c6fafe44346dabeb3b76/skills/productivity/to-questionnaire/SKILL.md)。本项目只独立吸收适合文档交付的机制。
 - [Trellis](https://github.com/mindfold-ai/Trellis) 将范围化规范、任务制品、验证上下文和会话交接持久化，并采用 Plan / Implement / Verify / Finish 阶段边界。本项目只适配文档交付机制：权威制品、决策闭环工作包、阶段门禁、状态纪律和持久化交接；不复制 `.trellis/` 目录模型、任务脚本、编码流程或强制批准状态机。
 
-## Matt Pocock Skills 1.2.0—1.2.3 审计
+## Matt Pocock Skills 1.2.0—1.2.3 与 2026-08-31 Main 审计
 
-本次先检查引入可移植 `agents/openai.yaml` 元数据和 Codex 仅显式调用策略的 [`v1.2.0`](https://github.com/mattpocock/skills/releases/tag/v1.2.0)，再核实最新 [`v1.2.3`](https://github.com/mattpocock/skills/releases/tag/v1.2.3) 标签及 Commit `6acc160` 源码。`v1.2.2` 恢复 `writing-for-agents` 的模型调用；`v1.2.3` 加强密钥脱敏并移除子代理说明中的 Claude 专用表述。检查时 GitHub 不存在 `v1.2.1` Release。
+正式版审计先检查引入可移植 `agents/openai.yaml` 元数据和 Codex 仅显式调用策略的 [`v1.2.0`](https://github.com/mattpocock/skills/releases/tag/v1.2.0)，再核实 [`v1.2.3`](https://github.com/mattpocock/skills/releases/tag/v1.2.3) 及 Commit `6acc160` 源码。`v1.2.2` 恢复 `writing-for-agents` 的模型调用；`v1.2.3` 加强密钥脱敏并移除子代理说明中的 Claude 专用表述。检查时 GitHub 不存在 `v1.2.1` Release。2026-08-31 后续审计把该正式版基线与未发布 `main@6654f6b` 分开；后者比 `v1.2.3` 多 39 个 Commit，而 `package.json` 仍声明 `1.2.3`。
 
 | 机制 | 决定 | 本项目适配 |
 |---|---|---|
@@ -54,12 +57,15 @@
 | 诊断和交接中的密钥与敏感标识脱敏 | 采纳并扩展 | 研究、写作、评审和交付均隐藏密钥及非必要的个人或基础设施标识，同时保留受控证据指针和复现边界。 |
 | 在不确定性下规划下一批可执行工作 | 按文档语义采纳 | `rd-delivery` 区分可定义工作、尚不足以精确定义的范围内工作和范围外工作；只有精确且可独立评审的产出才进入工作包。 |
 | 事实由环境与来源核实，干系人决策仍归人类所有 | 保留并加强 | 需求只标记证据并路由可行性决策，不再提前作出结论；可研记录决策权限；其他流程继续区分可查事实和授权决策。 |
+| 把外部知识或权限缺口转换为问卷 | 按需求语义采纳 | 只有可识别的外部责任人掌握阻塞性答案时，`rd-requirement` 才加载按需 reference。问题区分事实、决策和批准；当前用户只确认接收人和需要带回的结果，不代替责任人回答。 |
+| 用真实消费端兼容形状解析 Skill YAML 并验证 reference 指针 | 作为维护门禁采纳 | 固定版本的 PyYAML Validator 会拒绝畸形或重复键的 Frontmatter、`agents/openai.yaml`、缺失或越界的本地链接、未被引用的 reference、嵌套 reference 和 reference 之间的链式跳转；PowerShell 继续负责仓库特有的语义检查。 |
 | 一手来源研究并形成单一带引用制品 | 已采纳 | `rd-research` 已包含来源层级、反证、日期/版本背景、单一权威证据包和下游交接。 |
 | 双轴评审 | 已覆盖更广范围 | `rd-review` 把对齐/证据轴与内在质量/论证轴用于需求、可研、研究、方案、设计、标准和文章，而非只评审代码差异。 |
 | 为大量手动命令增加 Router Skill | 暂不采纳 | 只有 `rd-delivery` 仅显式调用；8 个专业 Skill 可由模型独立触发，增加第二个路由器没有独立交付物，只会增加认知与维护成本。 |
 | 强制使用后台研究代理 | 不采纳 | 并行研究可能有价值，但 Skill 在子代理不可用、不适用或未获授权时仍必须正确运行。 |
 | Issue Tracker 状态机、编码流程、TDD、实现和代码评审 | 不采纳 | 与仓库明确限定的文档交付和系统设计范围冲突。 |
 | Tracker 专用关系图、标签、任务认领和自动外部写入 | 不采纳 | 持久化仓库制品和明确授权边界可移植；外部 Tracker 变更仍取决于具体任务与授权。 |
+| 把 “Call the Skill tool” 写入主 Skills | 不作跨平台采纳 | Claude Code 记录了 Skill tool，而当前 OpenAI 指南记录的是显式 `$skill` 和基于 description 的隐式选择。没有运行证据时，平台专有调用措辞不得进入 canonical 共享 Skills。 |
 
 本项目不复制上游的编码、工单、TDD、向导或强制子代理工作流，只吸收可移植的指令机制，并保持本仓库的文档交付和系统设计范围为最高约束。
 
@@ -87,18 +93,20 @@
 
 来源 `config.toml` 还存在当前 schema 校验问题：`windows_wsl_setup_acknowledged` 不是已识别的顶层属性。当前规范的并发配置键是 `agents.max_concurrent_threads_per_session`，`agents.max_threads` 仅作为旧别名保留。`[desktop]` 表允许附加属性，因此通过 schema 不代表任意键具有实际运行效果。以上结论已对照当前 [Codex 配置参考](https://learn.chatgpt.com/docs/config-file/config-reference)、[配置 schema](https://learn.chatgpt.com/docs/config-schema.json) 和 [hooks 文档](https://learn.chatgpt.com/docs/hooks) 核查。
 
+2026-08-31 的治理评审在不新增 Skill 领域的前提下加入价值优先执行契约：明确当前阶段、首要结果和最短证据路径；复用适用门禁；只有已批准范围、已复现缺陷、权威要求或重大风险能够证明必要性时，才新增通用验证、宽泛矩阵或安全加固。该契约属于维护规则和显式 `rd-delivery` 编排器，不应作为常驻正文复制到每个专业 Skill。
+
 ## 已实施质量控制
 
-- 每个 Skill 包含 8 个正向/近邻负向触发用例，正负各不少于 3 个
-- 每个 Skill 至少 3 个输出质量评测
-- `rd-research`、`rd-review`、`rd-writing` 和 `rd-delivery` 使用聚焦的 `references/`
+- 每个 Skill 至少包含 8 个正向/近邻负向触发用例，正负各不少于 3 个；2026-08-31 英文和中文 canonical 根目录各有 76 个用例
+- 每个 Skill 至少有 3 个输出质量评测；2026-08-31 英文和中文 canonical 根目录各有 35 个用例
+- `rd-requirement`、`rd-research`、`rd-review`、`rd-writing` 和 `rd-delivery` 使用聚焦的 `references/`
 - `agents/openai.yaml` 提供 UI 元数据且不声明 MCP 依赖；专业 Skill 保持默认调用策略
 - 只有 `rd-delivery` 禁止隐式调用：Codex 使用 `policy.allow_implicit_invocation: false`，Claude/Cursor 适配器使用 `disable-model-invocation: true`
-- 全局 `AGENTS.md` v7.7 常驻真实性纪律、响应模式、上下文健康、执行效率与上下文卫生、输出前审核、输出规则、证据状态边界、“无需修改”合法性、有边界的实现纪律、既有行为与指令面保护、验证失败归因、任务路由和按领域划分的精简基线，不复制完整 Skill 工作流；Skill 未被选择或不可用时会显式降级，而不是丢失控制面
+- 全局 `AGENTS.md` v7.8 常驻真实性纪律、响应模式、价值优先执行、上下文健康、执行效率与上下文卫生、输出前审核、输出规则、证据状态边界、“无需修改”合法性、有边界的实现纪律、既有行为与指令面保护、验证失败归因、任务路由和按领域划分的精简基线，不复制完整 Skill 工作流；Skill 未被选择或不可用时会显式降级，而不是丢失控制面
 - Codex、Claude 和 Cursor 控制面区分文档、源码、静态/生效配置、运行和生产验收，并接受有证据支撑的“无需修改”结论
 - 除经过验证的 `rd-delivery` 平台专用调用字段外，Claude/Cursor 适配树与中英文主 Skill 精确镜像
 - PowerShell 安装脚本把替换范围限制在声明的 9 个 Skills，校验备份和暂存树，在替换失败时恢复原安装，并支持只读的安装树精确检查
-- 仓库验证覆盖 Frontmatter、描述边界、逐步骤完成标准、调用策略对齐、元数据、评测、Skill 集合、LF 换行、镜像一致性、Context7 版本一致性、平台提示词前缀、Claude 权限与 attribution 设置、Cursor 规则扩展名与 MCP 凭据传递、Unix 全局 Skill 安装前置条件、根维护者契约、Codex 执行效率与上下文卫生契约、带修订标识的上下文复用、绿地研究门禁、可选的高影响双向论证与关键澄清契约，以及 `.tmp/local/` 边界
-- 独立的十四项负向回归脚本证明 Validator 能拒绝完成标准分布错误、Context7 文档/配置漂移、`rd-delivery` 调用策略退化、常驻证据/“无需修改”契约缺失、RD 专业 Skill/Eval/近失配契约缺失、全局 v7.7 纪律契约缺失、Codex 执行效率与上下文卫生契约缺失、根维护者契约缺失、根维护者契约弱化、上下文失效与动态状态分离缺失、绿地研究/批准门禁缺失、高影响双向论证与关键澄清前置提示词契约缺失、`.tmp/local/` 边界缺失，以及覆盖提示词前缀、Claude 权限与 attribution、Cursor 规则扩展名与 MCP 凭据传递、Unix 全局 Skill 安装前置条件的组合平台配置退化
+- 仓库验证使用拒绝重复键的真实 YAML Parser 检查 `SKILL.md` Frontmatter 和 `agents/openai.yaml`，再检查直接一层 reference、不可越界且可解析的链接、描述边界、逐步骤完成标准、调用策略对齐、评测、Skill 集合、LF 换行、镜像一致性、价值优先执行、Context7 版本一致性、平台提示词前缀、Claude 权限与 attribution 设置、Cursor 规则扩展名与 MCP 凭据传递、Unix 全局 Skill 安装前置条件、根维护者契约、Codex 执行效率与上下文卫生契约、带修订标识的上下文复用、绿地研究门禁、可选的高影响双向论证与关键澄清契约，以及 `.tmp/local/` 边界
+- 独立的十六项负向回归脚本证明 Validator 能拒绝完成标准分布错误、非法 `colon-space` YAML、断裂或越界的 Skill reference、Context7 文档/配置漂移、`rd-delivery` 调用策略退化、常驻证据/“无需修改”契约缺失、RD 专业 Skill/Eval/近失配契约缺失、全局 v7.8 纪律契约缺失、Codex 价值优先、执行效率与上下文卫生契约缺失、根维护者契约缺失、根维护者效力或价值优先契约弱化、上下文失效与动态状态分离缺失、绿地研究/批准门禁缺失、高影响双向论证与关键澄清前置提示词契约缺失、`.tmp/local/` 边界缺失，以及覆盖提示词前缀、Claude 权限与 attribution、Cursor 规则扩展名与 MCP 凭据传递、Unix 全局 Skill 安装前置条件的组合平台配置退化
 
-下一轮有意义的优化应来自真实误触发、漏触发、步骤过早结束、交接断裂、权威记录重复或低质量输出。没有独立可触发的交付物或工作流证据就继续增加顶层 Skill，属于推测性扩展。
+JSON eval 文件只定义路由与输出期望，不会执行模型。运行评测应先做环境和认证 smoke test，再做变更面用例与相关回归；只有共享路由、公共契约、发布决策、已观察到跨表面风险或用户明确要求时，才运行 Codex/Claude/Cursor 的完整带 Skill 与对照矩阵。按实际达到的证据层级记录选择、断言、Token 和耗时。因此，下一次 description 修改应来自真实误触发、漏触发、步骤过早结束、交接断裂、权威记录重复或低质量输出。没有独立可触发的交付物或工作流证据就继续增加顶层 Skill，属于推测性扩展。

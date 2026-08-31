@@ -70,6 +70,10 @@ When a task crosses boundaries, keep one controlling deliverable and route only 
 
 Use a plan when work spans multiple artifacts, has irreversible consequences, or changes structure or authority. Keep it tied to observable outputs and update it when evidence changes the route.
 
+- Validate the shortest path to the requested outcome before expanding supporting work. Run low-cost environment, authentication, dependency, or entry-point preflights early when failure would invalidate the plan.
+- Reuse applicable existing gates. Add a generalized validator, broad test matrix, security-hardening track, or framework only when required by the approved scope, an observed reproducible failure, an authoritative requirement, or a material risk; otherwise defer it with a re-entry condition.
+- If the primary path is blocked, report the blocker and resumable state instead of compensating with unrelated documentation, hardening, or tests. Do not substitute peripheral completeness for behavior, runtime, or user-outcome evidence.
+
 For each deliverable:
 
 1. Define completion criteria before drafting.

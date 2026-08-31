@@ -24,9 +24,25 @@ fi
 
 If a destination has a non-empty `AGENTS.override.md`, that file is the effective instruction source at the same scope; create a separate backup and merge deliberately instead of creating an inactive `AGENTS.md`. If `AGENTS.md` already exists, back it up and merge only the relevant sections while preserving existing personal or project-specific constraints. Do not blindly replace an existing global file. The templates contain opinionated defaults for role, language behavior, reasoning depth, authorization, and delivery discipline; adapt them to the user, team, and repository. The English global template is language-neutral, while the `zh-CN/` template intentionally defaults to Simplified Chinese.
 
-Codex loads the global and applicable project `AGENTS.md` chain independently of Skill selection. The global v7.7 template therefore keeps truthfulness, response modes, context health, execution efficiency and context hygiene, pre-output review, output rules, evidence-state boundaries, no-change legitimacy, bounded implementation discipline, existing-behavior and instruction-surface protection, validation-failure attribution, and a compact RD delivery baseline active even when no RD Skill is selected; a matching Skill adds the full specialist workflow rather than supplying the only copy of these controls.
+Codex loads the global and applicable project `AGENTS.md` chain independently of Skill selection. The global v7.8 template therefore keeps truthfulness, response modes, value-first execution, context health, execution efficiency and context hygiene, pre-output review, output rules, evidence-state boundaries, no-change legitimacy, bounded implementation discipline, existing-behavior and instruction-surface protection, validation-failure attribution, and a compact RD delivery baseline active even when no RD Skill is selected; a matching Skill adds the full specialist workflow rather than supplying the only copy of these controls.
 
 Codex discovers the instruction chain once at the start of each run. At a given level, a non-empty `AGENTS.override.md` takes precedence over `AGENTS.md`; global guidance is loaded before project files from the repository root toward the working directory, so closer project guidance has higher precedence. Loading stops at `project_doc_max_bytes`, and changed instructions require a new run or session to take effect. See the official OpenAI documentation for [custom instructions with AGENTS.md](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
+
+### Verify instruction loading
+
+Start a new non-interactive run from the repository root and ask it to report the global and project instruction sources it loaded:
+
+```text
+codex --sandbox read-only --ask-for-approval never exec "Summarize the current instructions and list their source files in precedence order."
+```
+
+Repeat from a nested directory when you need to verify a closer `AGENTS.md` or `AGENTS.override.md`:
+
+```text
+codex --cd path/to/nested-directory --sandbox read-only --ask-for-approval never exec "List the instruction sources you loaded in precedence order, then summarize the effective guidance."
+```
+
+`--sandbox read-only` prevents this diagnostic run from modifying the workspace, while `--ask-for-approval never` disables approval prompts; `never` does not establish the read-only boundary. Codex reads global instructions from `CODEX_HOME` when that environment variable is set; otherwise, the default is `~/.codex`. Start another new run after changing an instruction file because the chain is built once per run or launched TUI session. These checks establish only which sources the run reports and how it summarizes them; they do not guarantee future compliance and do not constitute runtime or business acceptance. See the official [`codex exec` reference](https://learn.chatgpt.com/docs/developer-commands#codex-exec) and [read-only non-interactive security combination](https://learn.chatgpt.com/docs/agent-approvals-security#common-sandbox-and-approval-combinations).
 
 ## Skills
 

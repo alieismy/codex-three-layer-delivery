@@ -13,6 +13,7 @@ Before completing requirements, feasibility, research, design, standards, or rev
 - Unconfirmed points are listed with verification actions.
 - Verification actions and results are recorded.
 - Match verification scope to change risk and blast radius. Start with the minimum sufficient checks directly relevant to the change, and broaden verification for shared behavior, cross-module contracts, security-critical paths, or build and release contracts. Do not skip necessary checks to save time or run expensive repository-wide checks without justification.
+- Sequence verification from low-cost preflight to changed-surface evidence and related regression. Reserve a full behavior or platform matrix for shared routing, public contracts, release decisions, an observed cross-surface risk, or an explicit user request.
 
 ## Skill-Specific Gates
 

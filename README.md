@@ -186,7 +186,11 @@ The eight specialist Skills are independent and are not a forced pipeline. Use `
 
 Each skill includes output and trigger-boundary cases under `evals/` plus ChatGPT/Codex desktop metadata under `agents/openai.yaml`. Multi-mode Skills keep their common workflow in `SKILL.md` and load only the selected checklist from `references/`. Shared bodies use neutral `rd-*` identifiers; Codex examples use `$rd-*`, while explicit Cursor and Claude Code invocation uses `/rd-*`.
 
+The maintained rules and explicit `rd-delivery` workflow are value-first: identify the current stage and primary outcome, validate the shortest evidence path, and reuse applicable gates before expanding support work. New generalized validators, broad test matrices, security-hardening tracks, or frameworks require approved scope, an observed reproducible failure, an authoritative requirement, or a material risk. Behavior evaluation proceeds from an environment smoke test to changed-surface cases and related regression; a full cross-platform matrix is reserved for shared routing, public contracts, release decisions, observed cross-surface risk, or an explicit user request.
+
 See [RD Skills Assessment and Evolution](docs/rd-skills-assessment.md) for the role-coverage matrix, non-goals, external design evidence, and the reason the taxonomy contains eight specialist Skills plus one explicit orchestrator.
+
+For a copy-ready personal profile that keeps system-design, architecture, evidence, value-first execution, and authorization preferences separate from repository rules and detailed Skills, see [Personalized Custom Instructions](docs/personalized-custom-instructions.md).
 
 ## Cursor Adapter
 
@@ -293,12 +297,15 @@ codex-three-layer-delivery/
     installation.md
     mcp-routing.md
     design-principles.md
+    personalized-custom-instructions.md
     rd-skills-assessment.md
     release-checklist.md
   scripts/
     install-rd-skills.ps1
+    validate-skill-metadata.py
     validate.ps1
     test-validator.ps1
+  requirements-validation.txt
   PROMPTS.md
   ATTRIBUTION.md
   CONTRIBUTING.md
@@ -308,9 +315,10 @@ codex-three-layer-delivery/
 
 ## Validation
 
-Run the local repository checks:
+The Skill YAML/reference gate requires Python 3.9+ and the pinned validation dependency. Install it in an isolated environment, then run the repository checks:
 
 ```powershell
+python -m pip install -r requirements-validation.txt
 pwsh ./scripts/validate.ps1
 pwsh ./scripts/test-validator.ps1
 ```
@@ -318,10 +326,11 @@ pwsh ./scripts/test-validator.ps1
 The validator checks common release blockers:
 
 - CRLF drift in Markdown, TOML, MDC, and script files;
-- missing or invalid Skill frontmatter, per-step completion criteria, metadata, and eval coverage;
+- malformed or duplicate-key Skill YAML, missing or invalid frontmatter, unresolved or escaping one-level references, per-step completion criteria, metadata, and eval coverage;
 - inconsistent mirrored Skill directory sets or file content;
 - missing always-on evidence-state and no-change controls across Codex, Claude, and Cursor surfaces;
 - a missing or weakened repository-maintainer root `AGENTS.md`, revision-aware context-reuse contract, or dynamic task-state boundary;
+- loss of the value-first shortest-path and bounded-gate-expansion contract across maintained agent surfaces;
 - loss of the public Codex execution-efficiency and context-hygiene contract;
 - invalid platform prompt prefixes, Claude permission/attribution settings, Cursor rule extensions or MCP credential transport, or Unix global Skill installation prerequisites;
 - loss of the optional greenfield open-source research and approval-gate prompt contract;
@@ -332,7 +341,7 @@ The validator checks common release blockers:
 - obvious secret leaks;
 - stale private/internal strings.
 
-The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects fourteen regression cases: distribution-preserving completion-criterion drift; Context7 cross-file version drift; an `rd-delivery` invocation-policy regression; loss of the always-on evidence/no-change contract; loss of the RD specialist Skill/eval/near-miss contract; loss of the global v7.7 discipline contract; loss of the Codex execution-efficiency and context-hygiene contract; a missing root maintainer `AGENTS.md`; loss of its maintainer-specific authority contract; loss of revision-aware context reuse and dynamic-state separation; loss of the greenfield research/approval gate; loss of the optional high-impact bidirectional-argument and critical-clarification contract; loss of the `.tmp/local/` boundary; and a combined platform-configuration regression covering prompt prefixes, Claude permissions and attribution, Cursor rule extensions and MCP credential transport, and Unix global Skill installation prerequisites.
+The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects sixteen regression cases: distribution-preserving completion-criterion drift; malformed YAML with an unquoted `colon-space` that the previous regex-only check could miss; broken and repository-escaping Skill references; Context7 cross-file version drift; an `rd-delivery` invocation-policy regression; loss of the always-on evidence/no-change contract; loss of the RD specialist Skill/eval/near-miss contract; loss of the global v7.8 discipline contract; loss of the Codex value-first, execution-efficiency, and context-hygiene contract; a missing root maintainer `AGENTS.md`; loss of its maintainer-specific authority and value-first contract; loss of revision-aware context reuse and dynamic-state separation; loss of the greenfield research/approval gate; loss of the optional high-impact bidirectional-argument and critical-clarification contract; loss of the `.tmp/local/` boundary; and a combined platform-configuration regression covering prompt prefixes, Claude permissions and attribution, Cursor rule extensions and MCP credential transport, and Unix global Skill installation prerequisites.
 
 ## Versioning
 

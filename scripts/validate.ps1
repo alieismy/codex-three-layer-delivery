@@ -153,6 +153,32 @@ $skillRoots = @(
     (Join-Path $root "zh-CN/skills"),
     (Join-Path $root "zh-CN/claude/project/.claude/skills")
 )
+
+$structuredSkillValidator = Join-Path $root "scripts/validate-skill-metadata.py"
+$pythonCommand = Get-Command python -ErrorAction SilentlyContinue
+if (-not (Test-Path -LiteralPath $structuredSkillValidator)) {
+    Add-Failure "Missing structured Skill YAML/reference validator: $structuredSkillValidator"
+}
+elseif (-not $pythonCommand) {
+    Add-Failure "Python 3.9+ with requirements-validation.txt dependencies is required for Skill YAML/reference validation."
+}
+else {
+    $structuredValidationOutput = @(
+        & $pythonCommand.Source -X utf8 $structuredSkillValidator @skillRoots 2>&1
+    )
+    $structuredValidationExitCode = $LASTEXITCODE
+    if ($structuredValidationExitCode -ne 0) {
+        if ($structuredValidationOutput.Count -eq 0) {
+            Add-Failure "Structured Skill YAML/reference validation failed without diagnostic output."
+        }
+        else {
+            foreach ($line in $structuredValidationOutput) {
+                Add-Failure "Structured Skill YAML/reference validation failed: $line"
+            }
+        }
+    }
+}
+
 foreach ($skillRoot in $skillRoots) {
     Test-SkillFrontmatter -SkillRoot $skillRoot
 }
@@ -473,7 +499,7 @@ $globalAgentBaselines = @(
         Headings = @("## Truthfulness Discipline", "## Response Modes", "## Task Identification and Skill Routing", "## Minimum RD Delivery Baseline", "## Implementation Discipline", "## Execution Efficiency and Context Hygiene", "## Context Health", "## Pre-Output Self-Review", "## Output Contract")
         Domains = @("Requirements", "Feasibility", "Research", "Solution", "Design", "Specification", "Writing", "Review", "Delivery orchestration")
         Markers = @(
-            "Personal Global Instructions (v7.7)",
+            "Personal Global Instructions (v7.8)",
             "Say when something is unknown or cannot be confirmed",
             "Keep evidence states separate:",
             "retaining the current state is a valid professional conclusion",
@@ -494,6 +520,8 @@ $globalAgentBaselines = @(
             "other instruction files as scope-sensitive; make only required companion updates and report them",
             "When validation fails, determine whether the current change introduced it",
             "report pre-existing or unrelated failures without silently expanding scope",
+            "Validate the shortest path to the requested outcome before expanding supporting work",
+            "an observed reproducible failure",
             "do not start another model turn solely to repeat it",
             "keep full output local and aggregate it before returning evidence to the model",
             "run the complete applicable gate before claiming success",
@@ -509,7 +537,7 @@ $globalAgentBaselines = @(
         Headings = @("## 真实性纪律", "## 响应模式", "## 任务识别与 Skill 路由", "## RD 交付最小基线", "## 实现纪律", "## 执行效率与上下文卫生", "## 上下文健康", "## 输出前自我审核", "## 输出格式")
         Domains = @("需求", "可研", "研究", "方案", "设计", "标准", "写作", "评审", "交付编排")
         Markers = @(
-            "个人全局指令（v7.7）",
+            "个人全局指令（v7.8）",
             "不知道就明确说不知道；不能确认就明确说不能确认",
             "严格区分证据状态：",
             '“保持现状”是合法的专业结论',
@@ -530,6 +558,8 @@ $globalAgentBaselines = @(
             "等指令文件时，只执行批准范围和必要的一致性同步，并单独汇报",
             "验证失败时先判断是否由本次改动引入",
             "对既存或无关失败准确报告，不静默扩大范围",
+            "在扩展辅助工作前，先验证通往用户所需结果的最短路径",
+            "已复现缺陷",
             "不得只为重复同一等待而开启新的模型轮次",
             "在本地保留全量输出并完成聚合，再把证据返回模型",
             "必须执行完整的适用门禁",
@@ -562,6 +592,51 @@ foreach ($baseline in $globalAgentBaselines) {
     foreach ($marker in $baseline.Markers) {
         if (-not $baselineText.Contains($marker)) {
             Add-Failure "Global AGENTS.md is missing required always-on behavior '$marker': $($baseline.Path)"
+        }
+    }
+}
+
+$valueFirstExecutionBaselines = @(
+    @{
+        Paths = @(
+            "codex/global/AGENTS.md",
+            "codex/project/AGENTS.md",
+            "claude/global/CLAUDE.md",
+            "claude/project/CLAUDE.md",
+            "cursor/project/.cursor/rules/01-engineering-discipline.mdc"
+        )
+        Markers = @(
+            "Validate the shortest path to the requested outcome",
+            "an observed reproducible failure"
+        )
+    },
+    @{
+        Paths = @(
+            "zh-CN/codex/global/AGENTS.md",
+            "zh-CN/codex/project/AGENTS.md",
+            "zh-CN/claude/global/CLAUDE.md",
+            "zh-CN/claude/project/CLAUDE.md",
+            "cursor/zh-CN/.cursor/rules/01-engineering-discipline.mdc"
+        )
+        Markers = @(
+            "在扩展辅助工作前，先验证通往用户所需结果的最短路径",
+            "已复现缺陷"
+        )
+    }
+)
+foreach ($baseline in $valueFirstExecutionBaselines) {
+    foreach ($relativePath in $baseline.Paths) {
+        $path = Join-Path $root $relativePath
+        if (-not (Test-Path -LiteralPath $path)) {
+            Add-Failure "Missing value-first execution surface: $path"
+            continue
+        }
+
+        $text = Get-Content -LiteralPath $path -Raw
+        foreach ($marker in $baseline.Markers) {
+            if (-not $text.Contains($marker)) {
+                Add-Failure "Value-first execution surface is missing '$marker': $path"
+            }
         }
     }
 }
@@ -629,6 +704,8 @@ else {
         "first meaningful checkpoint",
         "current goals, progress",
         "task plan or delivery record",
+        "Validate the shortest path to the requested outcome",
+        "an observed reproducible failure",
         "docs/release-checklist.md",
         "explicit authority"
     )

@@ -55,6 +55,7 @@ git status --short --ignored -- .tmp/local/
 暂存前必须运行：
 
 ```powershell
+python -m pip install -r requirements-validation.txt
 pwsh ./scripts/validate.ps1
 pwsh ./scripts/test-validator.ps1
 git diff --check
@@ -63,7 +64,7 @@ git diff --check
 - [ ] 记录每条命令、退出码、重要输出和环境。
 - [ ] 诊断命令自身失败时先修复再重跑；解析、引用、网络或工具失败不等于检查通过。
 - [ ] 修改 Skills 且官方 Skill Validator 可用时，在 UTF-8 环境下检查 9 个英文和 9 个中文主 Skills，并记录 Validator 的准确来源/版本。
-- [ ] 使用真实解析器解析发生变化的 JSON、YAML 和 TOML；不能把目视检查当作解析通过。
+- [ ] 使用 Python 3.9+ 和固定的验证依赖；用适当的真实解析器解析发生变化的 JSON、YAML 和 TOML，不能把目视检查当作解析通过。
 - [ ] 对每项跳过、不可用、不稳定或受环境限制的检查说明原因，并相应收窄发布结论。
 
 ## 6. Commit 与 Pull Request

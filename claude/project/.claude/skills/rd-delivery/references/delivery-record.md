@@ -7,6 +7,8 @@ Use this template only for multi-stage or cross-session work. Adapt it to the re
 - Engagement ID:
 - Title:
 - Goal:
+- Current project stage / responsibility:
+- Primary outcome / shortest evidence path:
 - Audience / decision:
 - Scope:
 - Exclusions:
@@ -39,6 +41,7 @@ Treat this record as an index. Keep full artifact and decision content in one au
 
 - Current phase:
 - Current work package:
+- Current verification depth: preflight / changed surface / related regression / full or release
 - Next eligible action:
 - Latest authoritative requirement:
 - Latest authoritative evidence package:
@@ -86,6 +89,7 @@ When no separate decision record exists, this table may be authoritative; record
 - Gate type: machine check / human decision
 - Entry conditions met:
 - Checks performed:
+- Why this verification depth is proportionate:
 - Evidence:
 - Findings:
 - Exit decision:

@@ -10,7 +10,7 @@
 
 官方文档：
 
-已于 2026-08-24 核查：
+已于 2026-08-31 核查：
 
 - https://code.claude.com/docs/en/memory
 - https://code.claude.com/docs/en/settings
@@ -46,6 +46,22 @@ cp -r zh-CN/claude/project/.claude /path/to/your-project/.claude
 ```
 
 如果目标文件已存在，请手动合并。不要盲目覆盖已有 `CLAUDE.md`、`.claude/settings.json` 或 Skills。
+
+## 可选的 `AGENTS.md` 导入方式
+
+Claude Code 原生读取 `CLAUDE.md`，不会直接读取 `AGENTS.md`。如果下游仓库已在项目根目录维护平台中立的 `AGENTS.md`，可由同级 `CLAUDE.md` 导入其中的共享内容：
+
+```markdown
+@AGENTS.md
+
+## Claude Code
+
+在此保留 Claude Code 专有指令。
+```
+
+导入后仍应保留 Claude Code 专有规则。该方式只共享文本指令，不能替代 Claude Code 的 settings、permissions、hooks、Skill 发现与调用语义或其他强制性平台控制。导入内容仍会加载进上下文并占用上下文空间；把相同文本移到被导入文件中并不能降低这项开销。
+
+本仓库仍以独立的 `zh-CN/claude/global/CLAUDE.md` 和 `zh-CN/claude/project/CLAUDE.md` 作为默认公开适配方案，因为它们能够保留平台特有行为并接受独立评审。`@AGENTS.md` 只适用于有意维护平台中立共享核心的下游仓库，应视为高级可选方式。详见 Anthropic 官方的 [`AGENTS.md` 导入说明](https://code.claude.com/docs/en/memory#agentsmd)。
 
 ## 公开发布姿态
 
