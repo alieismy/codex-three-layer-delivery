@@ -4,7 +4,12 @@ All notable changes to this project should be documented here.
 
 This project uses GitHub releases for versioning. Directory names should not contain edition or version suffixes such as `v4` or `-en`.
 
-## Unreleased
+## 1.5.0 - 2026-08-31
+
+- Added a bilingual value-first execution contract across the repository maintainer rules, Codex global/project templates, Claude adapters, and Cursor rules; upgraded Codex global templates to v7.8 and Claude global templates to v5; made `rd-delivery` stage-aware with layered verification and re-entry conditions; and extended the existing sixteen-case negative runner without adding another regression case.
+- Added an English canonical and Simplified Chinese copy-ready personalized custom-instructions guide for system-design and architecture work, with explicit boundaries between personal preferences, Codex `AGENTS.md`, project rules, and detailed Skills.
+- Documented read-only Codex instruction-source verification and an advanced, bounded Claude Code `@AGENTS.md` import option in the English and Simplified Chinese installation and adapter guides.
+- Added a bounded external-stakeholder questionnaire mode to `rd-requirement`, pointer-only orchestration in `rd-delivery`, bilingual and platform-mirrored trigger/output evals, and parser-backed Skill YAML/reference validation with two new negative regressions.
 
 ## 1.4.0 - 2026-08-24
 
