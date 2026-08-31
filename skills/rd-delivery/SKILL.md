@@ -55,7 +55,7 @@ For each required artifact, record:
 - upstream inputs and downstream consumers
 - applicable specialist Skill and review mode
 - blocking decisions, evidence, dependencies, and verification method
-- for an external-stakeholder questionnaire, its authoritative path, recipient role, blocked fact or decision, and return criterion; do not copy the questionnaire or its answers into the delivery record
+- for an external-stakeholder questionnaire, its authoritative path, recipient role, blocked item, and return criterion; do not copy the questionnaire or its answers into the delivery record
 
 Use decision-complete slices for large engagements: each work package should produce an independently reviewable result, fit a bounded work session, and declare its blocking edges. Do not split work only by document section when that would leave an unverifiable fragment.
 

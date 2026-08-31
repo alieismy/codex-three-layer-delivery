@@ -42,7 +42,7 @@ codex --sandbox read-only --ask-for-approval never exec "Summarize the current i
 codex --cd path/to/nested-directory --sandbox read-only --ask-for-approval never exec "List the instruction sources you loaded in precedence order, then summarize the effective guidance."
 ```
 
-只读沙箱可防止这次诊断运行修改工作区，`never` 则禁止其请求更高权限。设置 `CODEX_HOME` 后，Codex 从该目录读取全局指令；未设置时默认使用 `~/.codex`。指令文件修改后应再次新建运行，因为指令链只在每次运行或 TUI 会话启动时构建一次。这些检查只能证明该次运行报告了哪些来源以及如何概括其内容，不能保证以后必然遵守，也不构成运行验收或业务验收。详见 OpenAI 官方的 [`codex exec` 说明](https://learn.chatgpt.com/docs/developer-commands#codex-exec)和[只读非交互安全组合](https://learn.chatgpt.com/docs/agent-approvals-security#common-sandbox-and-approval-combinations)。
+`--sandbox read-only` 可防止这次诊断运行修改工作区；`--ask-for-approval never` 只禁用审批提示，`never` 本身不提供只读边界。设置 `CODEX_HOME` 后，Codex 从该目录读取全局指令；未设置时默认使用 `~/.codex`。指令文件修改后应再次新建运行，因为指令链只在每次运行或 TUI 会话启动时构建一次。这些检查只能证明该次运行报告了哪些来源以及如何概括其内容，不能保证以后必然遵守，也不构成运行验收或业务验收。详见 OpenAI 官方的 [`codex exec` 说明](https://learn.chatgpt.com/docs/developer-commands#codex-exec)和[只读非交互安全组合](https://learn.chatgpt.com/docs/agent-approvals-security#common-sandbox-and-approval-combinations)。
 
 ## Codex Skills
 
