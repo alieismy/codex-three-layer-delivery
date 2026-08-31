@@ -98,6 +98,44 @@ try {
         Set-LfText -Path $path -Content $mutated
     }
 
+    Invoke-NegativeCase -Name "skill-yaml-colon-space" -ExpectedPattern "YAML parser rejected Skill frontmatter" -Mutate {
+        param($caseRoot)
+
+        $path = Join-Path $caseRoot "skills/rd-requirement/SKILL.md"
+        $content = Get-Content -LiteralPath $path -Raw
+        $frontmatterEnd = $content.IndexOf("`n---`n", [System.StringComparison]::Ordinal)
+        if ($frontmatterEnd -lt 0) {
+            throw "Fixture could not locate the Skill frontmatter terminator."
+        }
+        $mutated = $content.Insert(
+            $frontmatterEnd + 1,
+            "description: Use when context: requirements`n"
+        )
+        Set-LfText -Path $path -Content $mutated
+    }
+
+    Invoke-NegativeCase -Name "skill-reference-integrity" -ExpectedPattern @(
+        "Relative Skill link does not resolve to a file",
+        "Relative Skill link escapes Skill root"
+    ) -Mutate {
+        param($caseRoot)
+
+        $path = Join-Path $caseRoot "skills/rd-requirement/SKILL.md"
+        $content = Get-Content -LiteralPath $path -Raw
+        $mutated = $content.Replace(
+            "references/external-stakeholder-questionnaire.md",
+            "references/missing-questionnaire.md"
+        )
+        if ($mutated -eq $content) {
+            throw "Fixture could not break the external-stakeholder questionnaire reference."
+        }
+        $mutated = $mutated.Replace(
+            "## Out of Scope",
+            "[Escaping reference](../../README.md)`n`n## Out of Scope"
+        )
+        Set-LfText -Path $path -Content $mutated
+    }
+
     Invoke-NegativeCase -Name "context7-version-mismatch" -ExpectedPattern "Context7 version mismatch" -Mutate {
         param($caseRoot)
 
@@ -191,7 +229,7 @@ try {
 
     Invoke-NegativeCase -Name "global-implementation-discipline" -ExpectedPattern @(
         "Global AGENTS\.md is missing required routing or fallback heading '## Implementation Discipline'",
-        "Global AGENTS\.md is missing required always-on behavior 'Personal Global Instructions \(v7\.7\)'",
+        "Global AGENTS\.md is missing required always-on behavior 'Personal Global Instructions \(v7\.8\)'",
         "Global AGENTS\.md is missing required always-on behavior 'initial request and the initial interpretation may both be incomplete'",
         "Global AGENTS\.md is missing required always-on behavior 'Do not add speculative features, extension points, abstractions, pass-through layers, or dependencies'",
         "Global AGENTS\.md is missing required always-on behavior 'same domain concept and is expected to change for the same reason'",
@@ -205,8 +243,10 @@ try {
         "Global AGENTS\.md is missing required always-on behavior 'other instruction files as scope-sensitive; make only required companion updates and report them'",
         "Global AGENTS\.md is missing required always-on behavior 'When validation fails, determine whether the current change introduced it'",
         "Global AGENTS\.md is missing required always-on behavior 'report pre-existing or unrelated failures without silently expanding scope'",
+        "Global AGENTS\.md is missing required always-on behavior 'Validate the shortest path to the requested outcome before expanding supporting work'",
+        "Global AGENTS\.md is missing required always-on behavior 'an observed reproducible failure'",
         "Global AGENTS\.md is missing required routing or fallback heading '## 实现纪律'",
-        "Global AGENTS\.md is missing required always-on behavior '个人全局指令（v7\.7）'",
+        "Global AGENTS\.md is missing required always-on behavior '个人全局指令（v7\.8）'",
         "Global AGENTS\.md is missing required always-on behavior '初始诉求和首次理解都可能不完整'",
         "Global AGENTS\.md is missing required always-on behavior '不添加投机性功能、扩展点、抽象、透传层或依赖'",
         "Global AGENTS\.md is missing required always-on behavior '同一领域概念且预计会因同一原因变化'",
@@ -219,20 +259,24 @@ try {
         "Global AGENTS\.md is missing required always-on behavior '当前请求或已批准设计未要求时，不得移除或改变既有行为、兼容性或指令面'",
         "Global AGENTS\.md is missing required always-on behavior '等指令文件时，只执行批准范围和必要的一致性同步，并单独汇报'",
         "Global AGENTS\.md is missing required always-on behavior '验证失败时先判断是否由本次改动引入'",
-        "Global AGENTS\.md is missing required always-on behavior '对既存或无关失败准确报告，不静默扩大范围'"
+        "Global AGENTS\.md is missing required always-on behavior '对既存或无关失败准确报告，不静默扩大范围'",
+        "Global AGENTS\.md is missing required always-on behavior '在扩展辅助工作前，先验证通往用户所需结果的最短路径'",
+        "Global AGENTS\.md is missing required always-on behavior '已复现缺陷'"
     ) -Mutate {
         param($caseRoot)
 
         $surfaces = @(
             @{
                 Path = "codex/global/AGENTS.md"
-                Version = "Personal Global Instructions (v7.7)"
-                OldVersion = "Personal Global Instructions (v7.6)"
+                Version = "Personal Global Instructions (v7.8)"
+                OldVersion = "Personal Global Instructions (v7.7)"
                 Section = "(?ms)^## Implementation Discipline\n\n.*?(?=^## Repository and Editing Discipline)"
                 Interaction = "(?m)^- Assume the initial request and the initial interpretation may both be incomplete\..*\n"
                 Worktree = "(?m)^- Preserve uncommitted user or third-party work\..*\n"
                 Behavior = "(?m)^- Do not remove or change existing behavior, compatibility, or instruction surfaces unless the request or an approved design requires it\..*\n"
                 Validation = "(?m)^- When validation fails, determine whether the current change introduced it\..*\n"
+                ValueFirst = "(?m)^- Validate the shortest path to the requested outcome before expanding supporting work\..*\n"
+                ExpansionGuard = "(?m)^- Reuse applicable existing gates\..*\n"
                 RequiredAbsent = @(
                     "## Implementation Discipline",
                     "initial request and the initial interpretation may both be incomplete",
@@ -247,18 +291,22 @@ try {
                     "Do not remove or change existing behavior, compatibility, or instruction surfaces unless the request or an approved design requires it",
                     "other instruction files as scope-sensitive; make only required companion updates and report them",
                     "When validation fails, determine whether the current change introduced it",
-                    "report pre-existing or unrelated failures without silently expanding scope"
+                    "report pre-existing or unrelated failures without silently expanding scope",
+                    "Validate the shortest path to the requested outcome before expanding supporting work",
+                    "an observed reproducible failure"
                 )
             },
             @{
                 Path = "zh-CN/codex/global/AGENTS.md"
-                Version = "个人全局指令（v7.7）"
-                OldVersion = "个人全局指令（v7.6）"
+                Version = "个人全局指令（v7.8）"
+                OldVersion = "个人全局指令（v7.7）"
                 Section = "(?ms)^## 实现纪律\n\n.*?(?=^## 仓库与编辑纪律)"
                 Interaction = "(?m)^- 假设初始诉求和首次理解都可能不完整。.*\n"
                 Worktree = "(?m)^- 保留用户或第三方的未提交工作。.*\n"
                 Behavior = "(?m)^- 当前请求或已批准设计未要求时，不得移除或改变既有行为、兼容性或指令面。.*\n"
                 Validation = "(?m)^- 验证失败时先判断是否由本次改动引入。.*\n"
+                ValueFirst = "(?m)^- 在扩展辅助工作前，先验证通往用户所需结果的最短路径。.*\n"
+                ExpansionGuard = "(?m)^- 复用适用的既有门禁。.*\n"
                 RequiredAbsent = @(
                     "## 实现纪律",
                     "初始诉求和首次理解都可能不完整",
@@ -273,7 +321,9 @@ try {
                     "当前请求或已批准设计未要求时，不得移除或改变既有行为、兼容性或指令面",
                     "等指令文件时，只执行批准范围和必要的一致性同步，并单独汇报",
                     "验证失败时先判断是否由本次改动引入",
-                    "对既存或无关失败准确报告，不静默扩大范围"
+                    "对既存或无关失败准确报告，不静默扩大范围",
+                    "在扩展辅助工作前，先验证通往用户所需结果的最短路径",
+                    "已复现缺陷"
                 )
             }
         )
@@ -287,6 +337,8 @@ try {
             $mutated = [regex]::Replace($mutated, $surface.Worktree, "")
             $mutated = [regex]::Replace($mutated, $surface.Behavior, "")
             $mutated = [regex]::Replace($mutated, $surface.Validation, "")
+            $mutated = [regex]::Replace($mutated, $surface.ValueFirst, "")
+            $mutated = [regex]::Replace($mutated, $surface.ExpansionGuard, "")
             if ($mutated -eq $content -or $mutated.Contains($surface.Version)) {
                 throw "Fixture could not remove the versioned implementation contract from $($surface.Path)."
             }
@@ -299,7 +351,11 @@ try {
         }
     }
 
-    Invoke-NegativeCase -Name "global-execution-efficiency-contract" -ExpectedPattern "Global AGENTS\.md is missing required always-on behavior 'do not start another model turn solely to repeat it'" -Mutate {
+    Invoke-NegativeCase -Name "global-execution-efficiency-contract" -ExpectedPattern @(
+        "Global AGENTS\.md is missing required always-on behavior 'do not start another model turn solely to repeat it'",
+        "Value-first execution surface is missing 'Validate the shortest path to the requested outcome'",
+        "Value-first execution surface is missing '已复现缺陷'"
+    ) -Mutate {
         param($caseRoot)
 
         $path = Join-Path $caseRoot "codex/global/AGENTS.md"
@@ -310,6 +366,28 @@ try {
             throw "Fixture could not remove the execution-efficiency wait contract."
         }
         Set-LfText -Path $path -Content $mutated
+
+        $valueFirstMutations = @(
+            @{
+                Path = "claude/project/CLAUDE.md"
+                Marker = "Validate the shortest path to the requested outcome"
+                Replacement = "Inspect supporting work before the requested outcome"
+            },
+            @{
+                Path = "zh-CN/codex/project/AGENTS.md"
+                Marker = "已复现缺陷"
+                Replacement = "可能存在的问题"
+            }
+        )
+        foreach ($mutation in $valueFirstMutations) {
+            $valueFirstPath = Join-Path $caseRoot $mutation.Path
+            $valueFirstText = Get-Content -LiteralPath $valueFirstPath -Raw
+            $valueFirstMutated = $valueFirstText.Replace($mutation.Marker, $mutation.Replacement)
+            if ($valueFirstMutated -eq $valueFirstText -or $valueFirstMutated.Contains($mutation.Marker)) {
+                throw "Fixture could not remove the value-first contract from $($mutation.Path)."
+            }
+            Set-LfText -Path $valueFirstPath -Content $valueFirstMutated
+        }
     }
 
     Invoke-NegativeCase -Name "root-agents-missing" -ExpectedPattern "Missing repository-root maintainer AGENTS\.md" -Mutate {
@@ -322,7 +400,11 @@ try {
         Remove-Item -LiteralPath $path -Force
     }
 
-    Invoke-NegativeCase -Name "root-agents-maintainer-contract" -ExpectedPattern "Repository-root maintainer AGENTS\.md is missing required contract 'The English root is the canonical baseline'" -Mutate {
+    Invoke-NegativeCase -Name "root-agents-maintainer-contract" -ExpectedPattern @(
+        "Repository-root maintainer AGENTS\.md is missing required contract 'The English root is the canonical baseline'",
+        "Repository-root maintainer AGENTS\.md is missing required contract 'Validate the shortest path to the requested outcome'",
+        "Repository-root maintainer AGENTS\.md is missing required contract 'an observed reproducible failure'"
+    ) -Mutate {
         param($caseRoot)
 
         $path = Join-Path $caseRoot "AGENTS.md"
@@ -331,7 +413,17 @@ try {
             "The English root is the canonical baseline.",
             "English sources provide the initial material."
         )
-        if ($mutated -eq $content -or $mutated.Contains("The English root is the canonical baseline")) {
+        $mutated = $mutated.Replace(
+            "Validate the shortest path to the requested outcome",
+            "Inspect supporting work before the requested outcome"
+        )
+        $mutated = $mutated.Replace("an observed reproducible failure", "a possible issue")
+        if (
+            $mutated -eq $content -or
+            $mutated.Contains("The English root is the canonical baseline") -or
+            $mutated.Contains("Validate the shortest path to the requested outcome") -or
+            $mutated.Contains("an observed reproducible failure")
+        ) {
             throw "Fixture could not remove the root maintainer authority contract."
         }
         Set-LfText -Path $path -Content $mutated
@@ -540,7 +632,7 @@ try {
         Set-LfText -Path $gitignorePath -Content $mutatedGitignore
     }
 
-    Write-Host "Validator negative tests passed (14/14)." -ForegroundColor Green
+    Write-Host "Validator negative tests passed (16/16)." -ForegroundColor Green
 }
 finally {
     $resolvedRunRoot = [System.IO.Path]::GetFullPath($runRoot)

@@ -46,7 +46,11 @@ Layer 3: 文档交付 Skills
 
 每个 Skill 都在 `evals/` 下提供输出质量和触发边界用例，并在 `agents/openai.yaml` 中提供 ChatGPT/Codex 桌面元数据。多模式 Skill 在 `SKILL.md` 中保留公共流程，只按所选模式加载 `references/` 检查表。共享 Skill 正文使用中性 `rd-*` 标识；Codex 示例使用 `$rd-*`，Cursor 和 Claude Code 显式调用使用 `/rd-*`。
 
+维护规则和显式 `rd-delivery` 工作流遵循价值优先：先明确当前阶段与首要结果，验证最短证据路径，并复用适用门禁，再扩展辅助工作。新增通用 Validator、宽泛测试矩阵、安全加固专项或框架，必须由已批准范围、已复现缺陷、权威要求或重大风险驱动。行为评测按环境 smoke test、变更面用例、相关回归逐层推进；只有共享路由、公共契约、发布决策、已观察到跨表面风险或用户明确要求时，才运行完整跨平台矩阵。
+
 角色任务覆盖矩阵、非目标、外部设计依据以及采用 8 个专业 Skill 加 1 个显式编排 Skill 的理由，见 [RD Skills 评估与演进说明](docs/rd-skills-assessment.md)。
+
+如需一份可直接复制、并把系统设计、架构、证据、价值优先执行和授权偏好与项目规则及详细 Skills 分离的个人配置，见[个性化自定义指令](docs/personalized-custom-instructions.md)。
 
 ## 快速开始
 
@@ -159,6 +163,7 @@ zh-CN/
     installation.md
     mcp-routing.md
     design-principles.md
+    personalized-custom-instructions.md
     rd-skills-assessment.md
     release-checklist.md
 ```
@@ -177,11 +182,12 @@ zh-CN/
 运行仓库正向门禁和 Validator 负向回归：
 
 ```powershell
+python -m pip install -r requirements-validation.txt
 pwsh ./scripts/validate.ps1
 pwsh ./scripts/test-validator.ps1
 ```
 
-十四项负向回归会证明 Validator 能拒绝：完成标准总数不变但步骤分布错误；Context7 文档/配置版本漂移；`rd-delivery` 调用策略退化；常驻证据/“无需修改”契约缺失；RD 专业 Skill/Eval/近失配契约缺失；全局 v7.7 纪律契约缺失；Codex 执行效率与上下文卫生契约缺失；根维护者 `AGENTS.md` 缺失；根维护者效力契约缺失；带修订标识的上下文复用和动态状态分离缺失；绿地开源研究/批准门禁缺失；高影响双向论证与关键澄清前置提示词契约缺失；`.tmp/local/` 边界缺失；以及覆盖提示词前缀、Claude 权限与 attribution、Cursor 规则扩展名与 MCP 凭据传递、Unix 全局 Skill 安装前置条件的组合平台配置退化。
+Skill YAML/reference 门禁需要 Python 3.9+ 和 `requirements-validation.txt` 中固定的依赖，建议安装到隔离环境。十六项负向回归会证明 Validator 能拒绝：完成标准总数不变但步骤分布错误；旧正则可能漏过的未引用 `colon-space` 非法 YAML；断裂或越出 Skill 根的引用；Context7 文档/配置版本漂移；`rd-delivery` 调用策略退化；常驻证据/“无需修改”契约缺失；RD 专业 Skill/Eval/近失配契约缺失；全局 v7.8 纪律契约缺失；Codex 价值优先、执行效率与上下文卫生契约缺失；根维护者 `AGENTS.md` 缺失；根维护者效力与价值优先契约缺失；带修订标识的上下文复用和动态状态分离缺失；绿地开源研究/批准门禁缺失；高影响双向论证与关键澄清前置提示词契约缺失；`.tmp/local/` 边界缺失；以及覆盖提示词前缀、Claude 权限与 attribution、Cursor 规则扩展名与 MCP 凭据传递、Unix 全局 Skill 安装前置条件的组合平台配置退化。
 
 ## 版本维护
 

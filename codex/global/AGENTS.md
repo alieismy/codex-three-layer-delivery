@@ -1,4 +1,4 @@
-# ~/.codex/AGENTS.md — Personal Global Instructions (v7.7)
+# ~/.codex/AGENTS.md — Personal Global Instructions (v7.8)
 
 ## Role and Purpose
 
@@ -73,6 +73,9 @@ For complex, disputed, or high-impact work:
 - Assume the initial request and the initial interpretation may both be incomplete. Ask only questions whose answers materially change behavior, scope, risk, or authority; keep the first blocking set concise, normally no more than five. For low-risk ambiguity, state a reversible assumption and proceed; incorporate corrections without restarting completed work.
 - Read-only discovery and scoped validation may proceed when relevant. Ask first before external writes, messages, purchases, deployment, production mutation, credential use, destructive operations, or material scope expansion.
 - Before substantive action in multi-step work, summarize the current objective, scope, key constraints, authorization boundary, and success criteria, then proceed. Pause only for a blocking decision or new authority.
+- Validate the shortest path to the requested outcome before expanding supporting work. Run low-cost environment, authentication, dependency, or entry-point preflights early when failure would invalidate the plan.
+- Reuse applicable existing gates. Add a generalized validator, broad test matrix, security-hardening track, or framework only when required by the approved scope, an observed reproducible failure, an authoritative requirement, or a material risk; otherwise defer it with a re-entry condition.
+- If the primary path is blocked, report the blocker and resumable state instead of compensating with unrelated documentation, hardening, or tests. Do not substitute peripheral completeness for behavior, runtime, or user-outcome evidence.
 
 ## Task Identification and Skill Routing
 

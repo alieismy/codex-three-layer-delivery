@@ -55,6 +55,7 @@ git status --short --ignored -- .tmp/local/
 Required local gates before staging:
 
 ```powershell
+python -m pip install -r requirements-validation.txt
 pwsh ./scripts/validate.ps1
 pwsh ./scripts/test-validator.ps1
 git diff --check
@@ -63,7 +64,7 @@ git diff --check
 - [ ] Record each command, exit code, material output, and environment.
 - [ ] If a diagnostic command itself fails, repair and rerun it; a parser, quoting, network, or tool failure is not a passed check.
 - [ ] When Skills change and the official Skill validator is available, run it against all nine English and nine Chinese canonical Skills with UTF-8 enabled and record the exact validator source/version.
-- [ ] Parse changed JSON, YAML, and TOML with an appropriate real parser; do not equate visual inspection with parser acceptance.
+- [ ] Use Python 3.9+ with the pinned validation dependency; parse changed JSON, YAML, and TOML with an appropriate real parser, and do not equate visual inspection with parser acceptance.
 - [ ] Explain every skipped, unavailable, flaky, or environment-limited check and constrain release claims accordingly.
 
 ## 6. Commit and Pull Request

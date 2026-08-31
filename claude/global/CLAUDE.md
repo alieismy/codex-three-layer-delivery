@@ -1,4 +1,4 @@
-# ~/.claude/CLAUDE.md - Personal Global Directives (v4)
+# ~/.claude/CLAUDE.md - Personal Global Directives (v5)
 
 ## Language
 
@@ -53,6 +53,9 @@ For complex or high-impact reasoning, system-design, and review tasks, prefer co
 - If the next step is implied by the task, the plan, failed checks, or project instructions, continue instead of repeatedly asking what to do next.
 - When clarification is required, ask only decision-blocking questions, prioritize them by importance, and keep the initial batch concise, normally no more than five.
 - If multiple interpretations exist and risk is low, state the assumption and proceed. If an action touches data loss, credentials, billing, deployment, external services, production systems, destructive commands, or broad architecture, ask first.
+- Validate the shortest path to the requested outcome before expanding supporting work. Run low-cost environment, authentication, dependency, or entry-point preflights early when failure would invalidate the plan.
+- Reuse applicable existing gates. Add a generalized validator, broad test matrix, security-hardening track, or framework only when required by the approved scope, an observed reproducible failure, an authoritative requirement, or a material risk; otherwise defer it with a re-entry condition.
+- If the primary path is blocked, report the blocker and resumable state instead of compensating with unrelated documentation, hardening, or tests. Do not substitute peripheral completeness for behavior, runtime, or user-outcome evidence.
 
 ## Tone
 

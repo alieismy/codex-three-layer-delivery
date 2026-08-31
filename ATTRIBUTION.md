@@ -18,7 +18,7 @@ The framework is influenced by these broad public document and agent-operation p
 
 The following repositories were reviewed as public inspiration references. They are listed for transparency and comparison. This project does not claim upstream endorsement, compatibility, or direct derivation from these repositories.
 
-License data was checked through GitHub repository metadata and canonical repository files, most recently for the newly reviewed references on 2026-07-31. Re-check before making any stronger claim than broad inspiration.
+License data was checked through GitHub repository metadata and canonical repository files, most recently for the newly reviewed references on 2026-08-31. Re-check before making any stronger claim than broad inspiration.
 
 | Reference | Canonical URL | License observed | Use in this project |
 |---|---|---|---|
@@ -29,7 +29,7 @@ License data was checked through GitHub repository metadata and canonical reposi
 | flow-kit | https://github.com/rihebty/flow-kit | MIT | Broad inspiration only. |
 | get-shit-done | https://github.com/gsd-build/get-shit-done | MIT | Broad inspiration only. |
 | gstack | https://github.com/garrytan/gstack | MIT | Broad inspiration only. |
-| Matt Pocock Skills | https://github.com/mattpocock/skills | MIT | The initial review used Commit `2ab958093e83e0ec752e6c1c5932da465bf23e0c`; the 2026-08-07 follow-up pinned `v1.2.3` to Commit `6acc160e4e0cd062dbbbd7a1b26ae92855edf07e`. The review covered small composable Skills, invocation boundaries, completion criteria, primary-source research, single-source artifact maps, and context-load discipline; mechanisms were independently adapted to document delivery. |
+| Matt Pocock Skills | https://github.com/mattpocock/skills | MIT | The initial review used Commit `2ab958093e83e0ec752e6c1c5932da465bf23e0c`; the 2026-08-07 follow-up pinned release `v1.2.3` to Commit `6acc160e4e0cd062dbbbd7a1b26ae92855edf07e`; the 2026-08-31 source follow-up inspected unreleased `main` at Commit `6654f6b60cd9d5be8b54c6fafe44346dabeb3b76`. The review covered small composable Skills, invocation boundaries, completion criteria, primary-source research, single-source artifact maps, context-load discipline, and external-stakeholder questionnaires. Compatible mechanisms were independently expressed in document-delivery terms; upstream coding workflows were not copied. |
 | oh-my-codex | https://github.com/Yeachan-Heo/oh-my-codex | No license detected by GitHub API | Broad inspiration only; do not copy text/code without separate permission or license confirmation. |
 | OpenSpec | https://github.com/Fission-AI/OpenSpec | MIT | Broad inspiration only. |
 | Rlues | https://github.com/WenJunDuan/Rlues | No license detected by GitHub API | Broad inspiration only; do not copy text/code without separate permission or license confirmation. |
@@ -37,6 +37,12 @@ License data was checked through GitHub repository metadata and canonical reposi
 | superpowers | https://github.com/obra/superpowers | MIT | Broad inspiration only. |
 | Trellis | https://github.com/mindfold-ai/Trellis | AGPL-3.0 | Broad inspiration only; do not copy code or substantial protected expression without AGPL compatibility review. |
 | MiniMax Skills | https://github.com/MiniMax-AI/skills | MIT | Broad inspiration only. |
+
+## Validation Dependency
+
+| Dependency | Canonical URL | License observed | Use in this project |
+|---|---|---|---|
+| PyYAML 6.0.3 | https://pyyaml.org/ | MIT | Pinned, non-runtime validation dependency used to parse Skill frontmatter and `agents/openai.yaml` with a real YAML parser. The repository does not vendor PyYAML source. |
 
 ## No Upstream Endorsement
 

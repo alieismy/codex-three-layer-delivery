@@ -19,6 +19,7 @@ Transform raw user needs into **structured, traceable, and verifiable requiremen
 - User role and scenario model
 - Stakeholder analysis matrix (for complex or multi-party projects)
 - Requirements traceability matrix (optional)
+- External-stakeholder confirmation questionnaire (only when an identifiable knowledge or decision owner holds a blocking answer)
 
 ## Execution Steps
 
@@ -28,10 +29,11 @@ Transform raw user needs into **structured, traceable, and verifiable requiremen
 - Identify implicit assumptions and list them explicitly
 - Resolve discoverable facts from supplied materials and the project before asking the user
 - Ask only for decisions or decision-critical ambiguity; handle one high-impact decision branch at a time, and if risk is low, state assumptions and proceed
+- When a decision-critical fact, decision, or approval is held by an identifiable external stakeholder and the current user lacks the knowledge or authority to answer, read [external-stakeholder-questionnaire.md](references/external-stakeholder-questionnaire.md); ask the current user only for the recipient and required return, not to answer on the recipient's behalf
 - Identify overloaded or conflicting domain terms and propose a canonical term without inventing business meaning
 - Use the 5W1H framework (Who / What / Why / When / Where / How) to ensure full dimensional coverage
 
-**Completion criterion:** every decision-critical ambiguity is resolved or explicitly owned as an assumption, open decision, or verification action; discoverable facts are not left as user questions.
+**Completion criterion:** every decision-critical ambiguity is resolved or explicitly owned as an assumption, open decision, or verification action; discoverable facts are not left as user questions, and any external knowledge or authority gap has a recipient role and return criterion rather than an invented answer.
 
 ### 2. Requirements Classification & Structuring
 
@@ -128,6 +130,7 @@ Pre-delivery checklist:
 - [ ] Proposed products, models, vendors, tools, or configurations are separated from the underlying need unless approved as constraints
 - [ ] Key terms, stakeholder roles, and business rules are consistent
 - [ ] Decision-critical ambiguity is either resolved or explicitly listed
+- [ ] Every blocking external knowledge or authority gap has a recipient role, questionnaire or equivalent action, and checkable return criterion; no answer is invented
 - [ ] Requirements are traceable to original user statements or cited source material
 - [ ] The final convergence pass removed duplication without losing IDs, source anchors, decisions, or acceptance mappings
 
