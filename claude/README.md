@@ -2,7 +2,7 @@
 
 The primary target of this repository is Codex. Claude Code support is provided as an adapter layer using Claude Code's native files.
 
-This adapter follows Anthropic's Claude Code documentation for [memory](https://code.claude.com/docs/en/memory), [settings](https://code.claude.com/docs/en/settings), [permissions](https://code.claude.com/docs/en/permissions), and [skills](https://code.claude.com/docs/en/skills), checked on 2026-08-31.
+This adapter follows Anthropic's Claude Code documentation for [memory](https://code.claude.com/docs/en/memory), [settings](https://code.claude.com/docs/en/settings), [permissions](https://code.claude.com/docs/en/permissions), and [skills](https://code.claude.com/docs/en/skills), re-checked on 2026-09-04.
 
 ## Current Status
 
@@ -23,7 +23,7 @@ This adapter maps the same document-delivery three-layer model to Claude Code:
 
 - `global/CLAUDE.md`: user-level memory and behavior rules.
 - `project/CLAUDE.md`: project-level document-delivery discipline.
-- `project/.claude/settings.json`: conservative project settings.
+- `project/.claude/settings.json`: guardrail-oriented settings that deny common secret-file reads and ask before matching Bash or Windows PowerShell commit, push, tag, publish, and delete command prefixes.
 - `project/.claude/skills/rd-*`: project-level document-delivery skills.
 
 ## Installation

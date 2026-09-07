@@ -1,6 +1,6 @@
 # RD Skills 评估与演进说明
 
-状态：已实施基线，2026-08-31 更新。
+状态：已实施基线，2026-09-07 更新。
 
 ## 结论
 
@@ -91,7 +91,7 @@
 | 固定模型上下文和压缩阈值 | 不采纳 | 当前官方配置证据不足以支持这些模型特定假设 |
 | 直接复制参考目录的文本或脚本 | 不采纳 | 未发现许可证、`COPYING` 或 `NOTICE` 声明；本项目仅独立表述所吸收的机制 |
 
-来源 `config.toml` 还存在当前 schema 校验问题：`windows_wsl_setup_acknowledged` 不是已识别的顶层属性。当前规范的并发配置键是 `agents.max_concurrent_threads_per_session`，`agents.max_threads` 仅作为旧别名保留。`[desktop]` 表允许附加属性，因此通过 schema 不代表任意键具有实际运行效果。以上结论已对照当前 [Codex 配置参考](https://learn.chatgpt.com/docs/config-file/config-reference)、[配置 schema](https://learn.chatgpt.com/docs/config-schema.json) 和 [hooks 文档](https://learn.chatgpt.com/docs/hooks) 核查。
+来源 `config.toml` 在 2026-08-31 评审所用的 Schema 中校验失败，因为 `windows_wsl_setup_acknowledged` 不是已识别的顶层属性。2026-09-07 复核的 Codex `0.153.4` tag 固定 Schema 和实时 Schema 与此前 `0.153.2` 快照逐字节一致，仍未包含该属性，但当前配置参考已将其列为 Windows 专用布尔值。配置参考同样把 `agents.max_threads` 描述为旧别名，而 `0.153.4` Schema 只暴露 `agents.max_concurrent_threads_per_session`；因此公开示例继续使用规范键。应把这些差异视为文档与 Schema 契约不一致，并分别报告 Schema 接受性与运行时支持。`[desktop]` 表允许附加属性，因此通过 Schema 不代表任意键具有实际运行效果。以上结论已对照当前 [Codex 配置参考](https://learn.chatgpt.com/docs/config-file/config-reference)、[配置 Schema](https://developers.openai.com/codex/config-schema.json) 和 [hooks 文档](https://learn.chatgpt.com/docs/hooks) 核查。
 
 2026-08-31 的治理评审在不新增 Skill 领域的前提下加入价值优先执行契约：明确当前阶段、首要结果和最短证据路径；复用适用门禁；只有已批准范围、已复现缺陷、权威要求或重大风险能够证明必要性时，才新增通用验证、宽泛矩阵或安全加固。该契约属于维护规则和显式 `rd-delivery` 编排器，不应作为常驻正文复制到每个专业 Skill。
 
@@ -106,7 +106,7 @@
 - Codex、Claude 和 Cursor 控制面区分文档、源码、静态/生效配置、运行和生产验收，并接受有证据支撑的“无需修改”结论
 - 除经过验证的 `rd-delivery` 平台专用调用字段外，Claude/Cursor 适配树与中英文主 Skill 精确镜像
 - PowerShell 安装脚本把替换范围限制在声明的 9 个 Skills，校验备份和暂存树，在替换失败时恢复原安装，并支持只读的安装树精确检查
-- 仓库验证使用拒绝重复键的真实 YAML Parser 检查 `SKILL.md` Frontmatter 和 `agents/openai.yaml`，再检查直接一层 reference、不可越界且可解析的链接、描述边界、逐步骤完成标准、调用策略对齐、评测、Skill 集合、LF 换行、镜像一致性、价值优先执行、Context7 版本一致性、平台提示词前缀、Claude 权限与 attribution 设置、Cursor 规则扩展名与 MCP 凭据传递、Unix 全局 Skill 安装前置条件、根维护者契约、Codex 执行效率与上下文卫生契约、带修订标识的上下文复用、绿地研究门禁、可选的高影响双向论证与关键澄清契约，以及 `.tmp/local/` 边界
-- 独立的十六项负向回归脚本证明 Validator 能拒绝完成标准分布错误、非法 `colon-space` YAML、断裂或越界的 Skill reference、Context7 文档/配置漂移、`rd-delivery` 调用策略退化、常驻证据/“无需修改”契约缺失、RD 专业 Skill/Eval/近失配契约缺失、全局 v7.8 纪律契约缺失、Codex 价值优先、执行效率与上下文卫生契约缺失、根维护者契约缺失、根维护者效力或价值优先契约弱化、上下文失效与动态状态分离缺失、绿地研究/批准门禁缺失、高影响双向论证与关键澄清前置提示词契约缺失、`.tmp/local/` 边界缺失，以及覆盖提示词前缀、Claude 权限与 attribution、Cursor 规则扩展名与 MCP 凭据传递、Unix 全局 Skill 安装前置条件的组合平台配置退化
+- 仓库验证使用真实 YAML、TOML、JSON 和 JSON Schema Parser，再检查 Skill 结构与 reference、LF 换行、镜像一致性、价值优先与证据契约、Codex 示例的 Schema/运行基线语义、Cursor 仅一条常驻规则的策略、跨平台推理治理、Context7 版本一致性、平台提示词前缀、Claude Bash/PowerShell 权限与 attribution、Cursor MCP 凭据传递、Unix 安装前置条件、维护者/上下文/提示词契约、当前 GSD 归属以及 `.tmp/local/` 边界
+- 独立的二十项负向回归保留既有十六项 Skill、证据、全局规则、上下文、提示词、临时数据和平台配置用例，并新增 Codex 配置契约、Cursor 加载策略、跨平台推理治理和 GSD 当前/归档来源归属回归
 
 JSON eval 文件只定义路由与输出期望，不会执行模型。运行评测应先做环境和认证 smoke test，再做变更面用例与相关回归；只有共享路由、公共契约、发布决策、已观察到跨表面风险或用户明确要求时，才运行 Codex/Claude/Cursor 的完整带 Skill 与对照矩阵。按实际达到的证据层级记录选择、断言、Token 和耗时。因此，下一次 description 修改应来自真实误触发、漏触发、步骤过早结束、交接断裂、权威记录重复或低质量输出。没有独立可触发的交付物或工作流证据就继续增加顶层 Skill，属于推测性扩展。

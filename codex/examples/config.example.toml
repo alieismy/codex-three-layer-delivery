@@ -1,6 +1,6 @@
-#:schema https://learn.chatgpt.com/docs/config-schema.json
+#:schema https://developers.openai.com/codex/config-schema.json
 # Public Codex configuration example.
-# Verified against codex-cli 0.147.0 on 2026-08-07.
+# Broader tested baseline: codex-cli 0.147.0. Schema and strict-load rechecked with 0.153.4 on 2026-09-07.
 # Merge into $CODEX_HOME/config.toml manually (default: ~/.codex/config.toml). Do not overwrite an existing config blindly.
 
 # Choose a model that is available to your Codex account.
@@ -33,6 +33,9 @@ check_for_update_on_startup = true
 
 [shell_environment_policy]
 inherit = "all"
+# Keep Codex's default KEY/SECRET/TOKEN name filtering enabled while inheriting
+# the rest of the parent shell environment.
+ignore_default_excludes = false
 
 [sandbox_workspace_write]
 # Leave shell-command network access disabled by default. The built-in web_search tool is separate.

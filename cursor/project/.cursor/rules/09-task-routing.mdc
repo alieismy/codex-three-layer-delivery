@@ -1,6 +1,6 @@
 ---
-description: Task routing for eight specialist rd-* skills, one explicit delivery orchestrator, and their authoring-to-review relationships.
-alwaysApply: true
+description: Use when routing requirements, feasibility, research, solution, design, specification, writing, review, or explicit multi-artifact delivery work.
+alwaysApply: false
 ---
 
 # Task Routing

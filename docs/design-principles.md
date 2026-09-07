@@ -42,15 +42,16 @@ Use evidence-package work when external facts, standards metadata, literature, p
 
 Source authority and evidence state are separate dimensions. Record the highest state actually established: documentation claim, source implementation, static configuration, final generated or effective configuration, runtime state, or business/production acceptance. A lower state never proves a higher one. If the evidence supports retaining the current state, a bounded no-change conclusion is valid and should not be replaced with manufactured optimization work.
 
-## Safety Defaults
+## Public Configuration Posture
 
-Public templates must be safer than private local setups:
+Public templates must separate containment boundaries from explicit capability choices:
 
-- conservative sandbox defaults;
+- `workspace-write` rather than default full access or Windows elevation;
 - explicit opt-in for full access;
 - no real credentials;
 - no private relay endpoints;
-- no unverified model or package claims as defaults.
+- no unverified model or package claims as defaults;
+- clear disclosure that live search, Memories, and full shell-environment inheritance are reviewed, opinionated choices that users must evaluate before merging.
 
 ## Periodic Review
 

@@ -4,6 +4,13 @@ All notable changes to this project should be documented here.
 
 This project uses GitHub releases for versioning. Directory names should not contain edition or version suffixes such as `v4` or `-en`.
 
+## 1.6.0 - 2026-09-07
+
+- Aligned the standard Codex examples with the reviewed runtime contract for live search, Memories, full shell inheritance, and default sensitive-name exclusions; added a pinned Codex `0.153.4` configuration schema, offline four-file semantic validation, and a networked release gate for live-schema comparison, CLI-version matching, and isolated strict loads.
+- Reduced Cursor's always-on Project Rules from ten to one, made the other nine trigger-oriented, removed arbitrary effort/line/time thresholds and duplicated Skill completion tables, and aligned Claude/Cursor anti-anchoring, context-repair, and approval-gated durable-guidance rules.
+- Added Windows PowerShell confirmation patterns and common `.env` read denials to both Claude Code project settings, reduced the Cursor MCP example to Context7 only, refreshed compatibility evidence, and expanded validator regression coverage from sixteen to twenty cases.
+- Corrected GSD attribution to identify `open-gsd/gsd-core` as the current canonical repository while retaining `gsd-build/get-shit-done` as an archived historical reference; recorded licenses for the vendored schema and new validation dependencies.
+
 ## 1.5.0 - 2026-08-31
 
 - Added a bilingual value-first execution contract across the repository maintainer rules, Codex global/project templates, Claude adapters, and Cursor rules; upgraded Codex global templates to v7.8 and Claude global templates to v5; made `rd-delivery` stage-aware with layered verification and re-entry conditions; and extended the negative runner from fourteen to sixteen cases.

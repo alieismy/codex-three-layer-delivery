@@ -87,7 +87,7 @@ cp -R zh-CN/skills/rd-* "$skill_target/"
 
 ## Codex 配置
 
-从安全示例开始：
+从经过评审、具有明确取向的 `workspace-write` 示例开始：
 
 ```bash
 codex_home="${CODEX_HOME:-$HOME/.codex}"
@@ -97,7 +97,9 @@ if [ ! -e "$codex_home/config.toml" ]; then
 fi
 ```
 
-如果 `$CODEX_HOME/config.toml` 已存在（默认路径为 `~/.codex/config.toml`），只合并需要的片段。
+如果 `$CODEX_HOME/config.toml` 已存在（默认路径为 `~/.codex/config.toml`），先检查实际内容，再只合并需要的片段；不得盲目覆盖正常工作的个人配置。
+
+标准示例有意设置 `web_search = "live"`、启用 `features.memories`、完整继承父 shell 环境，并设置 `ignore_default_excludes = false`，使 Codex 仍过滤名称中含 `KEY`、`SECRET` 或 `TOKEN` 的环境变量。这些选择与维护者已评审的运行基线一致，但不是适用于所有账户、工作区和威胁模型的通用安全或隐私默认值。
 
 高权限配置档需要显式选择：
 
@@ -148,11 +150,13 @@ cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
 
 如果目标项目已有 `.cursor/`，请手动合并。
 
-Cursor MCP 需要显式启用。先审查凭据、数据流和使用场景，再把示例文件复制为目标项目的 `.cursor/mcp.json`：
+Cursor MCP 需要显式启用。最小示例只包含 Context7。先审查凭据、数据流和使用场景，再把示例文件复制为目标项目的 `.cursor/mcp.json`：
 
 ```bash
 cp cursor/zh-CN/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
 ```
+
+配置 `CONTEXT7_API_KEY` 后，在 Cursor MCP 状态中确认 server。其它 server 只有在存在已验证用途时才分别加入，不要把路由说明中的全部候选项一次写入配置。
 
 ## 环境变量
 

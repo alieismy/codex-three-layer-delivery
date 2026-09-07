@@ -47,6 +47,14 @@ pwsh ./scripts/test-validator.ps1
 git diff --check
 ```
 
+Before a release, also run the networked dynamic gate:
+
+```powershell
+pwsh ./scripts/validate-release.ps1
+```
+
+This release-only check compares the tracked Codex configuration schema with the current official schema, validates every public Codex example against the live copy, confirms the installed Codex version matches the pinned schema version, and strict-loads each example from an isolated temporary `CODEX_HOME`.
+
 - A validator change must include a negative case that proves the affected invariant can fail.
 - Static validation establishes repository shape and text contracts only. Do not claim Codex, Claude Code, Cursor, MCP, generated configuration, runtime, or business acceptance without the corresponding higher evidence layer.
 - Before completion, inspect the full diff and confirm that intended mirrors, references, changelog entries, and validation descriptions remain consistent.

@@ -11,13 +11,15 @@
 
 ## Cursor 官方文档基线
 
-已于 2026-08-24 核查：
+已于 2026-09-04 重新核查：
 
 - [Rules](https://cursor.com/docs/rules)：项目规则必须是 `.cursor/rules` 下的 `.mdc` 文件；规则系统会忽略普通 `.md` 文件。需要普通 Markdown 指令时，应使用 `AGENTS.md`。
 - [Skills](https://cursor.com/docs/skills)：Agent Skills 是可版本化的能力包，可包含脚本、模板和参考资料。
 - [MCP](https://cursor.com/docs/context/mcp)：项目级 MCP 配置文件是 `.cursor/mcp.json`。
 
 ## 使用方式
+
+只有 `00-global-principles.mdc` 常驻加载；其余 9 条项目规则使用触发条件优先的描述，并按需加载。
 
 将 `.cursor/` 目录复制到目标 Cursor 项目根目录：
 
@@ -34,7 +36,7 @@ fi
 
 ## 可选 MCP 配置
 
-本目录不直接发布活动 `.cursor/mcp.json`，而是发布示例文件：
+本目录不直接发布活动 `.cursor/mcp.json`，而是发布只包含 Context7 的最小示例文件：
 
 ```text
 cursor/zh-CN/.cursor/mcp.example.json
@@ -46,7 +48,9 @@ cursor/zh-CN/.cursor/mcp.example.json
 cp cursor/zh-CN/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
 ```
 
-只设置实际启用服务器所需的宿主环境变量。示例通过每个凭据型服务器各自的 `env` 对象，只向该服务器映射一个 API key；不得改用共享 `envFile`，也不得把 key 放入命令参数。修改宿主环境变量后应重启 Cursor，再在 UI 中重新检查 MCP 状态。
+在宿主环境中设置 `CONTEXT7_API_KEY`。示例通过该凭据型 server 自己的 `env` 对象，只向它映射一个 API key；不得改用共享 `envFile`，也不得把 key 放入命令参数。修改宿主环境变量后应重启 Cursor，再在 UI 中重新检查 MCP 状态。
+
+其它 server 只有在存在已验证用途时才逐项添加。`docs/mcp-routing.md` 是路由指南，不是应整体复制的配置目录。
 
 不要假定 `disabled`、`alwaysAllow` 等字段属于 Cursor 官方稳定 MCP 配置面。本仓库的公开模板不依赖这些字段。
 

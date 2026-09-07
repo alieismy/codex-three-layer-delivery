@@ -120,7 +120,7 @@ pwsh -File ./scripts/install-rd-skills.ps1 -Language en -CheckOnly
 
 ### 3. Review Codex config examples
 
-Start from the safe example:
+Start from the reviewed, opinionated workspace-write example:
 
 ```bash
 codex_home="${CODEX_HOME:-$HOME/.codex}"
@@ -130,7 +130,7 @@ if [ ! -e "$codex_home/config.toml" ]; then
 fi
 ```
 
-If `$CODEX_HOME/config.toml` already exists (default: `~/.codex/config.toml`), merge only the sections you need.
+If `$CODEX_HOME/config.toml` already exists (default: `~/.codex/config.toml`), review and merge only the sections you need. The example deliberately uses live web search, enables Memories, inherits the full parent shell environment, and keeps Codex's default `KEY`/`SECRET`/`TOKEN` name filtering enabled with `ignore_default_excludes = false`. These choices match the maintainer's reviewed operating baseline; they are not neutral defaults for every user or threat model.
 
 The high-permission profile is intentionally separate:
 
@@ -211,7 +211,7 @@ cursor/
     PROMPTS.md
 ```
 
-Codex remains the primary target of this repository. Treat Cursor support as optional. The Cursor MCP file is published as `mcp.example.json`; copy it to `.cursor/mcp.json` only after reviewing credentials, data flow, and the target workspace's MCP status.
+Codex remains the primary target of this repository. Treat Cursor support as optional. The Cursor MCP file is published as `mcp.example.json` and contains only the tested Context7 entry; copy it to `.cursor/mcp.json` only after reviewing credentials, data flow, and the target workspace's MCP status. Add other servers one at a time for a verified use case rather than copying the full routing catalog.
 
 ## Simplified Chinese Pack
 
@@ -244,17 +244,18 @@ claude/
 
 Codex remains the primary target of this repository. Treat Claude Code support as optional and re-check Claude Code file conventions before changing `CLAUDE.md`, `.claude/settings.json`, or `.claude/skills/` behavior.
 
-## Safety Defaults
+## Reviewed Public Defaults
 
-The public configuration intentionally uses conservative defaults:
+The public examples combine safety boundaries with explicit capability choices; they are reviewed and opinionated, not universally conservative:
 
 - no `danger-full-access` by default;
 - no Windows elevated sandbox by default;
 - no hardcoded personal model name;
 - no default third-party relay URL;
-- optional MCP servers are disabled until credentials and use cases are reviewed;
-- Cursor adapter MCP config is shipped as `mcp.example.json`, not as an active `.cursor/mcp.json`;
-- Claude Code project settings deny direct reads of common secret paths and ask for confirmation on matching commit, push, tag, publish, and delete command prefixes; these permission patterns are guardrails, not a complete security boundary for every wrapper or complex command;
+- Codex uses `workspace-write`, live search, Memories, full shell-environment inheritance, and the default sensitive-name exclusions; merge these choices manually for the target environment;
+- Codex MCP servers remain disabled until credentials and use cases are reviewed;
+- Cursor adapter MCP config is shipped as a one-server Context7 `mcp.example.json`, not as an active `.cursor/mcp.json`;
+- Claude Code project settings deny direct reads of common secret paths and ask for confirmation on matching Bash and Windows PowerShell commit, push, tag, publish, and delete command prefixes; these permission patterns are guardrails, not a complete security boundary for every wrapper or complex command;
 - package versions are documented in `docs/compatibility.md` and should be refreshed before release;
 - Context7's tested version is pinned consistently across the compatibility documents and all Codex/Cursor examples, with client-runtime acceptance kept as a separate evidence layer.
 
@@ -302,9 +303,16 @@ codex-three-layer-delivery/
     release-checklist.md
   scripts/
     install-rd-skills.ps1
+    validate-codex-configs.py
+    validate-release.ps1
     validate-skill-metadata.py
     validate.ps1
     test-validator.ps1
+  schemas/
+    codex-config.schema.json
+    codex-config.schema.meta.json
+    LICENSE-APACHE-2.0.txt
+    NOTICE
   requirements-validation.txt
   PROMPTS.md
   ATTRIBUTION.md
@@ -315,7 +323,7 @@ codex-three-layer-delivery/
 
 ## Validation
 
-The Skill YAML/reference gate requires Python 3.9+ and the pinned validation dependency. Install it in an isolated environment, then run the repository checks:
+The Skill YAML/reference and Codex TOML/JSON-Schema gates require Python 3.9+ and the pinned validation dependencies. Install them in an isolated environment, then run the repository checks:
 
 ```powershell
 python -m pip install -r requirements-validation.txt
@@ -328,20 +336,31 @@ The validator checks common release blockers:
 - CRLF drift in Markdown, TOML, MDC, and script files;
 - malformed or duplicate-key Skill YAML, missing or invalid frontmatter, unresolved or escaping one-level references, per-step completion criteria, metadata, and eval coverage;
 - inconsistent mirrored Skill directory sets or file content;
-- missing always-on evidence-state and no-change controls across Codex, Claude, and Cursor surfaces;
+- missing evidence-state and no-change controls across Codex, Claude, and Cursor surfaces;
 - a missing or weakened repository-maintainer root `AGENTS.md`, revision-aware context-reuse contract, or dynamic task-state boundary;
 - loss of the value-first shortest-path and bounded-gate-expansion contract across maintained agent surfaces;
 - loss of the public Codex execution-efficiency and context-hygiene contract;
 - invalid platform prompt prefixes, Claude permission/attribution settings, Cursor rule extensions or MCP credential transport, or Unix global Skill installation prerequisites;
+- Codex TOML parse/schema errors, English/Chinese semantic drift, or loss of the reviewed `web_search`, shell-environment, and Memories contract;
+- more than one always-on Cursor Project Rule, non-trigger-oriented on-demand descriptions, or loss of cross-platform anti-anchoring, context-repair, and durable-guidance approval controls;
 - loss of the optional greenfield open-source research and approval-gate prompt contract;
 - loss of the optional high-impact bidirectional-argument and critical-clarification prompt contract;
 - Context7 version drift across compatibility documents and Codex/Cursor examples;
-- unsafe defaults in the public Codex config example;
+- unsafe or private values in the public Codex config example;
+- stale GSD canonical attribution or a missing archived-source marker;
 - a missing `.tmp/local/` boundary;
 - obvious secret leaks;
 - stale private/internal strings.
 
-The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects sixteen regression cases: distribution-preserving completion-criterion drift; malformed YAML with an unquoted `colon-space` that the previous regex-only check could miss; broken and repository-escaping Skill references; Context7 cross-file version drift; an `rd-delivery` invocation-policy regression; loss of the always-on evidence/no-change contract; loss of the RD specialist Skill/eval/near-miss contract; loss of the global v7.8 discipline contract; loss of the Codex value-first, execution-efficiency, and context-hygiene contract; a missing root maintainer `AGENTS.md`; loss of its maintainer-specific authority and value-first contract; loss of revision-aware context reuse and dynamic-state separation; loss of the greenfield research/approval gate; loss of the optional high-impact bidirectional-argument and critical-clarification contract; loss of the `.tmp/local/` boundary; and a combined platform-configuration regression covering prompt prefixes, Claude permissions and attribution, Cursor rule extensions and MCP credential transport, and Unix global Skill installation prerequisites.
+The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects twenty regression cases. In addition to the existing Skill, mirror, evidence, global-rule, context, prompt, temporary-data, and platform-configuration cases, it now covers the Codex schema/runtime-aligned configuration contract, Cursor's exactly-one always-on loading policy, cross-platform reasoning and durable-guidance governance, and current-versus-archived GSD attribution.
+
+Before publishing a release, also run the networked dynamic gate:
+
+```powershell
+pwsh ./scripts/validate-release.ps1
+```
+
+It compares the tracked Codex schema with the current official schema, validates all four examples against the live copy, checks the installed Codex version, and strict-loads each example from an isolated temporary `CODEX_HOME`. A passing static gate does not replace this release check.
 
 ## Versioning
 

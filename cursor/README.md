@@ -27,7 +27,7 @@ cursor/zh-CN/
 
 ## Cursor Documentation Baseline
 
-Cursor documentation checked on 2026-08-24:
+Cursor documentation re-checked on 2026-09-04:
 
 - [Rules](https://cursor.com/docs/rules): Project Rules live in `.cursor/rules` as `.mdc` files. Plain `.md` files are ignored by the rules system; use `AGENTS.md` for plain Markdown guidance.
 - [Skills](https://cursor.com/docs/skills): Agent Skills are portable, version-controlled packages that can include scripts, templates, and references.
@@ -40,6 +40,7 @@ Treat Cursor support as optional and explicitly opt-in:
 - Codex document rules and skills are the stable baseline.
 - `cursor/project/` is the English Cursor adapter.
 - `cursor/zh-CN/` remains the Cursor-specific Simplified Chinese compatibility pack.
+- Only `00-global-principles.mdc` is always-on; the other nine Project Rules use trigger-first descriptions and load on demand.
 - This repository ships `mcp.example.json`, not an active `.cursor/mcp.json`.
 - Do not rely on undocumented Cursor MCP fields such as `disabled` or `alwaysAllow` in public templates.
 
@@ -71,7 +72,7 @@ If the target workspace already has `.cursor/` or either prompt destination, bac
 
 ## Optional MCP Setup
 
-The adapter ships MCP as an explicit example file:
+The adapter ships a minimal, explicit MCP example containing only Context7:
 
 ```text
 cursor/project/.cursor/mcp.example.json
@@ -84,4 +85,6 @@ To enable MCP in a target Cursor workspace, review the data flow and credentials
 cp cursor/project/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
 ```
 
-Set only the host environment variables for servers you actually enable. The example maps exactly one API key into each credentialed server through its own `env` object; do not replace these mappings with a shared `envFile` or place keys in command arguments. Restart Cursor after changing host environment variables, then re-check MCP status in the UI.
+Set `CONTEXT7_API_KEY` in the host environment. The example maps exactly one API key into the credentialed server through its own `env` object; do not replace this mapping with a shared `envFile` or place the key in command arguments. Restart Cursor after changing host environment variables, then re-check MCP status in the UI.
+
+Add other servers one at a time only for a verified use case. `docs/mcp-routing.md` is a routing guide, not a configuration catalog to copy wholesale.

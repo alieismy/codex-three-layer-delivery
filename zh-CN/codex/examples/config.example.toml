@@ -1,6 +1,6 @@
-#:schema https://learn.chatgpt.com/docs/config-schema.json
+#:schema https://developers.openai.com/codex/config-schema.json
 # 公开版 Codex 配置示例。
-# 已于 2026-08-07 基于 codex-cli 0.147.0 核查。
+# 更广测试基线：codex-cli 0.147.0；已于 2026-09-07 使用 0.153.4 复核 Schema 和 strict-load。
 # 使用时请手动合并到 $CODEX_HOME/config.toml（默认路径为 ~/.codex/config.toml），不要盲目覆盖已有配置。
 
 # 选择你的 Codex 账号可用的模型。
@@ -33,6 +33,8 @@ check_for_update_on_startup = true
 
 [shell_environment_policy]
 inherit = "all"
+# 继承父 shell 的其余环境时，仍启用 Codex 对名称含 KEY/SECRET/TOKEN 的默认过滤。
+ignore_default_excludes = false
 
 [sandbox_workspace_write]
 # 默认不开放 shell 命令的网络访问；内置 web_search 工具是独立能力。

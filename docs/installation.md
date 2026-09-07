@@ -87,7 +87,7 @@ cp -R skills/rd-* "$skill_target/"
 
 ## Codex Configuration
 
-Start from the safe example:
+Start from the reviewed, opinionated workspace-write example:
 
 ```bash
 codex_home="${CODEX_HOME:-$HOME/.codex}"
@@ -97,7 +97,9 @@ if [ ! -e "$codex_home/config.toml" ]; then
 fi
 ```
 
-If `$CODEX_HOME/config.toml` already exists (default: `~/.codex/config.toml`), merge only the relevant sections.
+If `$CODEX_HOME/config.toml` already exists (default: `~/.codex/config.toml`), inspect it and merge only the relevant sections. Do not replace a working personal configuration blindly.
+
+The standard example deliberately sets `web_search = "live"`, enables `features.memories`, inherits the full parent shell environment, and sets `ignore_default_excludes = false` so Codex still filters environment-variable names containing `KEY`, `SECRET`, or `TOKEN`. These choices align with the maintainer's reviewed operating baseline but are not universal security or privacy defaults; evaluate them for the target account, workspace, and threat model.
 
 The full-access profile is opt-in:
 
@@ -137,11 +139,13 @@ cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
 
 If the target workspace already has `.cursor/`, merge manually.
 
-Cursor MCP is intentionally opt-in. Review credentials and data flow, then copy the example to the Cursor project MCP location:
+Cursor MCP is intentionally opt-in. The minimal example contains only Context7. Review credentials and data flow, then copy it to the Cursor project MCP location:
 
 ```bash
 cp cursor/project/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
 ```
+
+Configure `CONTEXT7_API_KEY`, confirm the server in Cursor's MCP status, and add any other server separately only when a verified use case requires it. Do not copy every candidate from the routing guide into one configuration.
 
 The Cursor adapter is optional and should be kept aligned with the Codex and Claude Code adapters when rules change.
 

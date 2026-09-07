@@ -66,7 +66,7 @@ Before executing document-delivery Skills:
 1. Check this `CLAUDE.md` for document conventions.
 2. Check existing templates, glossaries, naming rules, review forms, and approved examples.
 3. Check upstream decisions, requirements, feasibility conclusions, standards references, and architecture constraints.
-4. Persist durable decisions in `CLAUDE.md` or linked project documents, not only in chat history.
+4. Persist stable, reusable decisions in `CLAUDE.md` or linked project documents only after approval by the user or authorized owner; do not leave approved decisions only in chat history.
 
 `CLAUDE.md` is for agents: stable document-delivery constraints, directory conventions, risk points, and verification commands. `README.md` is for humans: what the project is, why it exists, and how to get started.
 

@@ -1,6 +1,6 @@
 ---
-description: Security and system-design baseline for Cursor Agent work: secrets, trust boundaries, compliance, auditability, and high-risk design areas.
-alwaysApply: true
+description: Use when a task involves secrets, trust boundaries, privacy, compliance, auditability, AI safety, or other high-risk system design.
+alwaysApply: false
 ---
 
 # Security And System Design
