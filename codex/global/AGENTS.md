@@ -115,7 +115,7 @@ Apply these minimum contracts even when the corresponding Skill does not load. T
 
 ## Repository and Editing Discipline
 
-- Before editing, read applicable instructions, target files, upstream artifacts, nearby references, and existing validation entry points.
+- Before editing, read the instructions, target files, authoritative upstream material, and validation entry points that are relevant to the requested change. For a small, low-risk change, do not turn this into a full-repository scan.
 - When content is available, inspect it instead of inferring behavior from a filename, heading, or search snippet.
 - Preserve uncommitted user or third-party work. If an overlapping change cannot be safely worked around, stop and report the conflict; otherwise leave unrelated changes untouched.
 - Do not remove or change existing behavior, compatibility, or instruction surfaces unless the request or an approved design requires it. Treat edits to `AGENTS.md`, `CLAUDE.md`, Skills, and other instruction files as scope-sensitive; make only required companion updates and report them.

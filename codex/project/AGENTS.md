@@ -18,13 +18,7 @@ Use this file as the project control plane: authority, routing, boundaries, and 
 
 ## Context and Baseline Discovery
 
-Before substantive work:
-
-1. Read the effective global, repository, and nearer-scope instructions; nearer instructions override broader ones where they conflict.
-2. Identify the requested output, audience, authority, approved upstream inputs, constraints, and success criteria.
-3. Find repository conventions, templates, sibling artifacts, and existing validation commands.
-4. Record any missing authority, conflicting baseline, or decision that would materially change the result.
-5. Proceed on low-risk assumptions that are explicit and reversible; pause only for a blocking decision or new authority.
+Before substantive work, read the effective instructions and the target or authoritative materials relevant to the requested change. Identify the requested output, authority, constraints, and success criteria, and check nearby conventions or validation entry points when they can affect the result. Record missing authority or conflicts that would materially change scope, and proceed on explicit, reversible low-risk assumptions. Do not perform a full-repository scan for a small, low-risk change.
 
 Reuse previously inspected stable project context only when its authoritative source, revision, and applicability remain known. Before substantive work, use applicable low-cost change detectors such as branch and HEAD, worktree status, changed paths, and relevant source revisions to scope the refresh; do not rescan the entire repository by default.
 

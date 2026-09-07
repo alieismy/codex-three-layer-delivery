@@ -6,6 +6,7 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## 1.6.0 - 2026-09-07
 
+- Tuned the Codex runtime and public instruction templates for GPT-6 Astra: unified the personal main and subagent model selection, set main, plan, and subagent reasoning effort to `medium`, reduced developer instructions to three Astra-specific controls, and made low-risk discovery guidance conditional instead of ritualized.
 - Aligned the standard Codex examples with the reviewed runtime contract for live search, Memories, full shell inheritance, and default sensitive-name exclusions; added a pinned Codex `0.153.4` configuration schema, offline four-file semantic validation, and a networked release gate for live-schema comparison, CLI-version matching, and isolated strict loads.
 - Reduced Cursor's always-on Project Rules from ten to one, made the other nine trigger-oriented, removed arbitrary effort/line/time thresholds and duplicated Skill completion tables, and aligned Claude/Cursor anti-anchoring, context-repair, and approval-gated durable-guidance rules.
 - Added Windows PowerShell confirmation patterns and common `.env` read denials to both Claude Code project settings, reduced the Cursor MCP example to Context7 only, refreshed compatibility evidence, and expanded validator regression coverage from sixteen to twenty cases.
