@@ -48,7 +48,7 @@ Select the narrowest owning workflow. Use research as an evidence supplier, not 
 
 `rd-delivery` is explicit-only. Do not invoke it merely because a task is complex. For a single deliverable, use the owning specialist Skill directly.
 
-When a task crosses boundaries, keep one controlling deliverable and route only the dependent question to another Skill. Do not let research become requirements, feasibility become solution selection, solution become detailed design, or review silently rewrite its target.
+When a task crosses boundaries, keep one primary controlling deliverable for routing and authority, and retain every explicitly requested companion output with its inputs, status, authority, and verification responsibility. Route dependent questions to their owning Skills; multiple outputs alone do not require `rd-delivery`. Do not let research become requirements, feasibility become solution selection, solution become detailed design, or review silently rewrite its target.
 
 ## Artifact Authority and Traceability
 

@@ -1,6 +1,6 @@
 # 兼容性
 
-本文件中的包 registry 版本以及已安装 Codex、Claude Code 和 Cursor 版本已于 2026-09-07 重新核查；下文 Claude Code 与 Cursor 官方文档的详细检查仍以 2026-09-04 的记录为准，本机 Context7 有边界的 stdio 探针仍以 2026-08-14 的记录为准。每次公开发布前都应重新核查 registry 最新版本和工具/API surface（API 表面，即可调用接口和行为）。
+本文件中的 Codex 和 Claude Code 包版本基线仍以 2026-09-07 的记录为准。Cursor 官方文档和已安装版本已于 2026-09-11 重新核查；下文 Claude Code 官方文档的详细检查仍以 2026-09-04 的记录为准，本机 Context7 有边界的 stdio 探针仍以 2026-08-14 的记录为准。每次公开发布前都应重新核查 registry 最新版本和工具/API surface（API 表面，即可调用接口和行为）。
 
 ## Codex
 
@@ -25,11 +25,11 @@ Claude Code 官方文档核查入口：
 
 ## Cursor
 
-Cursor 官方文档已于 2026-09-04 重新核查；2026-09-07 观察到的本机桌面版本为 `3.19.7`：
+Cursor 官方文档已于 2026-09-11 重新核查；2026-09-11 观察到的本机 Windows 桌面版本为 `3.20.10`（system setup）：
 
-- [Rules](https://cursor.com/docs/rules)：项目规则必须是 `.cursor/rules` 下的 `.mdc` 文件；规则系统会忽略普通 `.md` 文件。需要普通 Markdown 指令时，应使用 `AGENTS.md`。
-- [Skills](https://cursor.com/docs/skills)：Agent Skills 是可版本化的能力包，可包含脚本、模板和参考资料。
-- [MCP](https://cursor.com/docs/context/mcp)：项目级 MCP 服务器通过 `.cursor/mcp.json` 配置。
+- [Rules](https://cursor.com/docs/rules.md)：项目规则必须是 `.cursor/rules` 下的 `.mdc` 文件；规则系统会忽略普通 `.md` 文件。需要普通 Markdown 指令时，应使用 `AGENTS.md`。
+- [Skills](https://cursor.com/docs/skills.md)：Agent Skills 是可版本化的能力包，可包含脚本、模板和参考资料。Cursor 会从 `.agents/skills/`、`.cursor/skills/`、`~/.agents/skills/` 和 `~/.cursor/skills/` 发现项目级和用户级 Skill，并按官方文档加载 Claude 与 Codex 兼容目录。官方文档没有定义多个目录发现同名 Skill 时的优先级。
+- [MCP](https://cursor.com/docs/mcp.md)：项目级 MCP 服务器通过 `.cursor/mcp.json` 配置，全局 MCP 服务器使用 `~/.cursor/mcp.json`。
 
 | 适配面 | 仓库路径 | 公开发布姿态 |
 |---|---|---|

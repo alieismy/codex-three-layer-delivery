@@ -11,11 +11,11 @@
 
 ## Cursor 官方文档基线
 
-已于 2026-09-04 重新核查：
+已于 2026-09-11 重新核查 Cursor 官方文档和本机 Windows 桌面版本（`3.20.10`，system setup）：
 
-- [Rules](https://cursor.com/docs/rules)：项目规则必须是 `.cursor/rules` 下的 `.mdc` 文件；规则系统会忽略普通 `.md` 文件。需要普通 Markdown 指令时，应使用 `AGENTS.md`。
-- [Skills](https://cursor.com/docs/skills)：Agent Skills 是可版本化的能力包，可包含脚本、模板和参考资料。
-- [MCP](https://cursor.com/docs/context/mcp)：项目级 MCP 配置文件是 `.cursor/mcp.json`。
+- [Rules](https://cursor.com/docs/rules.md)：项目规则必须是 `.cursor/rules` 下的 `.mdc` 文件；规则系统会忽略普通 `.md` 文件。需要普通 Markdown 指令时，应使用 `AGENTS.md`。
+- [Skills](https://cursor.com/docs/skills.md)：Agent Skills 是可版本化的能力包，可包含脚本、模板和参考资料。
+- [MCP](https://cursor.com/docs/mcp.md)：项目级 MCP 配置文件是 `.cursor/mcp.json`。
 
 ## 使用方式
 

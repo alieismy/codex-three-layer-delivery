@@ -4,6 +4,12 @@ All notable changes to this project should be documented here.
 
 This project uses GitHub releases for versioning. Directory names should not contain edition or version suffixes such as `v4` or `-en`.
 
+## Unreleased
+
+- Clarified that existing authorization remains effective until scope, risk, or external effects materially change, while retaining approval gates for new external actions.
+- Distinguished a primary controlling deliverable from explicitly requested companion outputs and reduced the global RD fallback to routing pointers plus a minimal evidence and authority contract.
+- Tightened the personal research, Skill-installation, and handoff workflows so durable files, background delegation, global installation, and task-management actions follow explicit scope and canonical output rules.
+
 ## 1.6.0 - 2026-09-07
 
 - Tuned the Codex runtime and public instruction templates for GPT-6 Astra: unified the personal main and subagent model selection, set main, plan, and subagent reasoning effort to `medium`, reduced developer instructions to three Astra-specific controls, and made low-risk discovery guidance conditional instead of ritualized.

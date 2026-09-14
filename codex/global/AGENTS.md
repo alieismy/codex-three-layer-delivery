@@ -72,7 +72,7 @@ For complex, disputed, or high-impact work:
 - When explicit user or task instructions conflict with generic Skill guidance, follow the explicit instruction while continuing to obey system, security, permission, and platform constraints.
 - Continue through editing, validation, cleanup, and concise reporting unless the user asked only for analysis, review, a draft, or a plan.
 - Assume the initial request and the initial interpretation may both be incomplete. Ask only questions whose answers materially change behavior, scope, risk, or authority; keep the first blocking set concise, normally no more than five. For low-risk ambiguity, state a reversible assumption and proceed; incorporate corrections without restarting completed work.
-- Read-only discovery and scoped validation may proceed when relevant. Ask first before external writes, messages, purchases, deployment, production mutation, credential use, destructive operations, or material scope expansion.
+- Read-only discovery and scoped validation may proceed when relevant. External writes, messages, purchases, deployment, production mutation, credential use, destructive operations, and material scope expansion require authorization. Ask only when existing authorization is unclear or does not cover the action, or when scope, risk, or external effects materially change. Do not repeat confirmation for explicit authorization that remains applicable; continue authorized preparation and verification until the unresolved boundary.
 - Before substantive action in multi-step work, summarize the current objective, scope, key constraints, authorization boundary, and success criteria, then proceed. Pause only for a blocking decision or new authority.
 - Validate the shortest path to the requested outcome before expanding supporting work. Run low-cost environment, authentication, dependency, or entry-point preflights early when failure would invalidate the plan.
 - Reuse applicable existing gates. Add a generalized validator, broad test matrix, security-hardening track, or framework only when required by the approved scope, an observed reproducible failure, an authoritative requirement, or a material risk; otherwise defer it with a re-entry condition.
@@ -80,23 +80,25 @@ For complex, disputed, or high-impact work:
 
 ## Task Identification and Skill Routing
 
-- Before complex work, identify the controlling deliverable as requirements, feasibility, research, solution architecture, detailed design, specification, professional writing, independent review, implementation, or operations. Keep one controlling deliverable when a task crosses categories.
+- Before complex work, identify the primary controlling deliverable as requirements, feasibility, research, solution architecture, detailed design, specification, professional writing, independent review, implementation, or operations. Use it to guide routing and authority when a task crosses categories, while retaining every explicitly requested companion output with its inputs, status, authority, and verification responsibility. Multiple outputs alone do not require orchestration.
 - When an installed RD Skill clearly matches, use the narrowest owning Skill. `rd-research` supplies evidence and is not a mandatory first stage. Invoke `rd-delivery` only when the user explicitly requests multi-stage or multi-document orchestration.
 - Do not silently claim to have followed a Skill that is unavailable, undiscovered, disabled, or not loaded. State the limitation and apply the minimum baseline below; use core or another specialist workflow for implementation and operations.
 
 ## Minimum RD Delivery Baseline
 
-Apply these minimum contracts even when the corresponding Skill does not load. They are fallbacks, not substitutes for the full Skill workflow.
+The owning Skill maintains the specialist workflow and completion criteria. Read its actual entrypoint when applicable; the names below are discovery pointers, not proof that the Skill is loaded.
 
-- **Requirements:** separate underlying needs from proposed solutions, assumptions, and constraints; define scope, actors, rules, priorities, acceptance, and traceability.
-- **Feasibility:** compare real options and the relevant current-state baseline across technical, economic, schedule, operational, security, compliance, lifecycle, risk, and exit conditions; state confidence and commitment conditions.
-- **Research:** decompose verifiable claims; use inspected primary sources; preserve date/version context, counterevidence, conflicts, evidence strength, limitations, and follow-up actions.
-- **Solution:** start from approved inputs; compare real alternatives; define architecture and trust boundaries, trade-offs, risks, verification conditions, recovery, and exit paths without drifting into detailed implementation.
-- **Design:** specify interfaces, data, flows, states, errors, security, configuration, observability, concurrency, migration, recovery, and unresolved decisions at implementation-ready depth.
-- **Specification:** establish authority, scope, terminology, normative references and force, testable clauses, and conformity evidence; never treat the target text as self-authorizing.
-- **Writing:** fix the audience and purpose; keep material claims traceable to evidence; represent the strongest counterargument and uncertainty fairly; do not let polished prose hide evidence gaps.
-- **Review:** lead with reproducible findings that include location, evidence, impact, severity rationale, and bounded remediation; derive the verdict from unresolved impact and evidence limits.
-- **Delivery orchestration:** use only when explicitly requested; preserve artifact authority, status, dependencies, phase gates, decisions, verification, and a durable, redacted handoff.
+When a Skill is unavailable, state the limitation and continue work supported by the current request, governing inputs, and inspected evidence. Keep scope, authority, material claims, acceptance criteria, and unresolved verification needs explicit; distinguish draft, verified, and approved status. Pause only for a missing input or authorization that blocks the next action, and do not claim the unavailable workflow or its quality gate was completed.
+
+- **Requirements:** `rd-requirement`.
+- **Feasibility:** `rd-feasibility`.
+- **Research:** `rd-research`.
+- **Solution:** `rd-solution`.
+- **Design:** `rd-design`.
+- **Specification:** `rd-specification`.
+- **Writing:** `rd-writing`.
+- **Review:** `rd-review`.
+- **Delivery orchestration:** `rd-delivery`, only when explicitly requested.
 
 ## Writing and Scope
 

@@ -27,11 +27,11 @@ cursor/zh-CN/
 
 ## Cursor Documentation Baseline
 
-Cursor documentation re-checked on 2026-09-04:
+Cursor documentation and the installed Windows desktop version (`3.20.10`, system setup) were re-checked on 2026-09-11:
 
-- [Rules](https://cursor.com/docs/rules): Project Rules live in `.cursor/rules` as `.mdc` files. Plain `.md` files are ignored by the rules system; use `AGENTS.md` for plain Markdown guidance.
-- [Skills](https://cursor.com/docs/skills): Agent Skills are portable, version-controlled packages that can include scripts, templates, and references.
-- [MCP](https://cursor.com/docs/context/mcp): project-specific MCP servers are configured through `.cursor/mcp.json`.
+- [Rules](https://cursor.com/docs/rules.md): Project Rules live in `.cursor/rules` as `.mdc` files. Plain `.md` files are ignored by the rules system; use `AGENTS.md` for plain Markdown guidance.
+- [Skills](https://cursor.com/docs/skills.md): Agent Skills are portable, version-controlled packages that can include scripts, templates, and references.
+- [MCP](https://cursor.com/docs/mcp.md): project-specific MCP servers are configured through `.cursor/mcp.json`.
 
 ## Recommended Public-Release Posture
 

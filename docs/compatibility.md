@@ -1,6 +1,6 @@
 # Compatibility
 
-Package registry versions and installed Codex, Claude Code, and Cursor versions were re-checked on 2026-09-07. The detailed Claude Code and Cursor documentation checks below remain dated 2026-09-04, and the bounded local Context7 stdio probe remains dated 2026-08-14. Re-check registry latest versions and tool/API surfaces before each public release.
+The Codex and Claude Code package baselines remain dated 2026-09-07. The Cursor documentation and installed version were re-checked on 2026-09-11; the detailed Claude Code documentation check below remains dated 2026-09-04, and the bounded local Context7 stdio probe remains dated 2026-08-14. Re-check registry latest versions and tool/API surfaces before each public release.
 
 ## Codex
 
@@ -20,11 +20,11 @@ Official Claude Code docs checked: [memory](https://code.claude.com/docs/en/memo
 
 ## Cursor
 
-Official Cursor docs were re-checked on 2026-09-04; the installed desktop version observed on 2026-09-07 was `3.19.7`:
+Official Cursor docs were re-checked on 2026-09-11; the installed Windows desktop version observed on 2026-09-11 was `3.20.10` (system setup):
 
-- [Rules](https://cursor.com/docs/rules): Project Rules live in `.cursor/rules` as `.mdc` files. Plain `.md` files are ignored by the rules system; use `AGENTS.md` for plain Markdown guidance.
-- [Skills](https://cursor.com/docs/skills): Agent Skills are portable, version-controlled packages that can include scripts, templates, and references.
-- [MCP](https://cursor.com/docs/context/mcp): project-specific MCP servers are configured through `.cursor/mcp.json`.
+- [Rules](https://cursor.com/docs/rules.md): Project Rules live in `.cursor/rules` as `.mdc` files. Plain `.md` files are ignored by the rules system; use `AGENTS.md` for plain Markdown guidance.
+- [Skills](https://cursor.com/docs/skills.md): Agent Skills are portable, version-controlled packages that can include scripts, templates, and references. Cursor discovers project and user Skills from `.agents/skills/`, `.cursor/skills/`, `~/.agents/skills/`, and `~/.cursor/skills/`, and also loads the documented Claude and Codex compatibility directories. The official documentation does not define precedence for same-name Skills found in multiple roots.
+- [MCP](https://cursor.com/docs/mcp.md): project-specific MCP servers are configured through `.cursor/mcp.json`; global servers use `~/.cursor/mcp.json`.
 
 | Adapter surface | Repository path | Public-release posture |
 |---|---|---|

@@ -43,7 +43,7 @@ Before running validation commands, inspect existing project entry points such a
 | Instruction is clear and contained | Act directly |
 | Multiple document structures or solution paths have different trade-offs | Recommend one with rationale, then ask |
 | Ambiguity affects scope, cost, compliance, risk, or architecture | Restate understanding and ask |
-| Operation is destructive or changes authoritative baselines | Confirm first |
+| Operation is destructive or changes authoritative baselines without applicable authority | Confirm first |
 | Evidence is unavailable for a factual or standards claim | State known facts and verification gaps |
 | Research involves uncertain or drift-prone facts | Search and verify first |
 
