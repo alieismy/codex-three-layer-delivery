@@ -1,7 +1,7 @@
 # Vendored Schemas
 
 `codex-config.schema.json` is an offline snapshot of the OpenAI Codex
-configuration schema. It is pinned to Codex `0.153.4`; provenance, retrieval
+configuration schema. It is pinned to Codex `0.154.0`; provenance, retrieval
 date, size, and digest are recorded in `codex-config.schema.meta.json`.
 
 The ordinary repository validator uses this snapshot so configuration checks

@@ -1,6 +1,6 @@
 #:schema https://developers.openai.com/codex/config-schema.json
 # Public Codex configuration example.
-# Broader tested baseline: codex-cli 0.147.0. Schema and strict-load rechecked with 0.153.4 on 2026-09-07.
+# Broader tested baseline: codex-cli 0.147.0. Schema and strict-load rechecked with 0.154.0 on 2026-09-14.
 # Merge into $CODEX_HOME/config.toml manually (default: ~/.codex/config.toml). Do not overwrite an existing config blindly.
 
 # Choose a model that is available to your Codex account.

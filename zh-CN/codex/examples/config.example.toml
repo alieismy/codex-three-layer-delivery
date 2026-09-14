@@ -1,6 +1,6 @@
 #:schema https://developers.openai.com/codex/config-schema.json
 # 公开版 Codex 配置示例。
-# 更广测试基线：codex-cli 0.147.0；已于 2026-09-07 使用 0.153.4 复核 Schema 和 strict-load。
+# 更广测试基线：codex-cli 0.147.0；已于 2026-09-14 使用 0.154.0 复核 Schema 和 strict-load。
 # 使用时请手动合并到 $CODEX_HOME/config.toml（默认路径为 ~/.codex/config.toml），不要盲目覆盖已有配置。
 
 # 选择你的 Codex 账号可用的模型。

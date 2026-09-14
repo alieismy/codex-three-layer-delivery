@@ -635,7 +635,7 @@ try {
 
         $metadataPath = Join-Path $caseRoot "schemas/codex-config.schema.meta.json"
         $metadata = Get-Content -LiteralPath $metadataPath -Raw
-        $expectedDigest = "692DA7699367F6F4FBBD46C0021278C1311440BCEBF0BCB9B836690C05E56196"
+        $expectedDigest = "2E1FCF1CBB20F255C3BACA2E174B4A3C954CEF577A130587B8935E2D12C8ADE6"
         $mutatedMetadata = $metadata.Replace($expectedDigest, ("0" * 64))
         if ($mutatedMetadata -eq $metadata -or $mutatedMetadata.Contains($expectedDigest)) {
             throw "Fixture could not break the Codex schema metadata contract."

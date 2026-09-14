@@ -6,9 +6,13 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+## 1.7.0 - 2026-09-13
+
 - Clarified that existing authorization remains effective until scope, risk, or external effects materially change, while retaining approval gates for new external actions.
 - Distinguished a primary controlling deliverable from explicitly requested companion outputs and reduced the global RD fallback to routing pointers plus a minimal evidence and authority contract.
 - Tightened the personal research, Skill-installation, and handoff workflows so durable files, background delegation, global installation, and task-management actions follow explicit scope and canonical output rules.
+- Added least-privilege guidance for external communication, account actions, and personal data access, with read-only, local, and redacted evidence preferred when sufficient.
+- Added authorization, recoverability, running-task, recovery-path, and evidence-chain checks for deletion and cleanup across Codex, Claude Code, and Cursor global guidance.
 
 ## 1.6.0 - 2026-09-07
 

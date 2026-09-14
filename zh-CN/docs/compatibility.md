@@ -1,20 +1,20 @@
 # 兼容性
 
-本文件中的 Codex 和 Claude Code 包版本基线仍以 2026-09-07 的记录为准。Cursor 官方文档和已安装版本已于 2026-09-11 重新核查；下文 Claude Code 官方文档的详细检查仍以 2026-09-04 的记录为准，本机 Context7 有边界的 stdio 探针仍以 2026-08-14 的记录为准。每次公开发布前都应重新核查 registry 最新版本和工具/API surface（API 表面，即可调用接口和行为）。
+本文件中的 Codex 包版本基线已于 2026-09-14 重新核查；Claude Code 包版本基线仍以 2026-09-07 的记录为准。Cursor 官方文档和已安装版本已于 2026-09-11 重新核查；下文 Claude Code 官方文档的详细检查仍以 2026-09-04 的记录为准，本机 Context7 有边界的 stdio 探针仍以 2026-08-14 的记录为准。每次公开发布前都应重新核查 registry 最新版本和工具/API surface（API 表面，即可调用接口和行为）。
 
 ## Codex
 
 | 组件 | 已测试版本 | registry 最新核查版本 | 备注 |
 |---|---:|---:|---|
-| `@openai/codex` npm 包 | `0.147.0` | `0.153.4` | 已于 2026-09-07 重新核查 registry 最新版本和本机 CLI（`0.153.4`）。tag 固定的 `0.153.4` Schema、实时 Schema 与此前 `0.153.2` 快照逐字节一致；四份示例均通过固定/实时 Schema 和隔离 strict-load（严格加载）检查。更广的测试基线仍为 `0.147.0`。不要把该版本写进仓库名或 AGENTS 规则。 |
+| `@openai/codex` npm 包 | `0.147.0` | `0.154.0` | 已于 2026-09-14 重新核查 registry 最新版本和本机 CLI（`0.154.0`）。已为本次发布基线获取 tag 固定的 `0.154.0` Schema；发布门禁会将其与实时 Schema 比较并执行四份示例检查。更广的测试基线仍为 `0.147.0`。不要把该版本写进仓库名或 AGENTS 规则。 |
 
-仓库在 `schemas/` 下保存带来源和 SHA-256 元数据的 Codex `0.153.4` 配置 Schema 离线快照。`scripts/validate.ps1` 确定性使用该快照；仅发布前执行的 `scripts/validate-release.ps1` 会将其与当前官方 Schema 比较，核对已安装 CLI 版本，使用实时副本验证四份示例，并从隔离的临时 `CODEX_HOME` 严格加载每份示例。
+仓库在 `schemas/` 下保存带来源和 SHA-256 元数据的 Codex `0.154.0` 配置 Schema 离线快照。`scripts/validate.ps1` 确定性使用该快照；仅发布前执行的 `scripts/validate-release.ps1` 会将其与当前官方 Schema 比较，核对已安装 CLI 版本，使用实时副本验证四份示例，并从隔离的临时 `CODEX_HOME` 严格加载每份示例。
 
 ## Claude Code
 
 | 组件 | 已测试 / 已固定版本 | registry 最新核查版本 | 备注 |
 |---|---:|---:|---|
-| `@anthropic-ai/claude-code` npm 包 | 本仓库不固定 | `2.1.263` | 已于 2026-09-07 观察到 registry 最新版本和本机 CLI 均为 `2.1.263`；settings Schema、适配器结构和 `claude doctor` 最近一次使用 `2.1.260` 重新核查的日期仍为 2026-09-04。未实际执行危险命令验证权限行为；settings 校验不能证明所有包装命令或复合命令都会被拦截。 |
+| `@anthropic-ai/claude-code` npm 包 | 本仓库不固定 | `2.1.263` | 已于 2026-09-14 观察到 registry 最新版本和本机 CLI 均为 `2.1.263`；settings Schema、适配器结构和 `claude doctor` 最近一次使用 `2.1.260` 重新核查的日期仍为 2026-09-04。未实际执行危险命令验证权限行为；settings 校验不能证明所有包装命令或复合命令都会被拦截。 |
 
 Claude Code 官方文档核查入口：
 

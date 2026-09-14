@@ -1,14 +1,14 @@
 # Compatibility
 
-The Codex and Claude Code package baselines remain dated 2026-09-07. The Cursor documentation and installed version were re-checked on 2026-09-11; the detailed Claude Code documentation check below remains dated 2026-09-04, and the bounded local Context7 stdio probe remains dated 2026-08-14. Re-check registry latest versions and tool/API surfaces before each public release.
+The Codex package baseline was rechecked on 2026-09-14; the Claude Code package baseline remains dated 2026-09-07. The Cursor documentation and installed version were re-checked on 2026-09-11; the detailed Claude Code documentation check below remains dated 2026-09-04, and the bounded local Context7 stdio probe remains dated 2026-08-14. Re-check registry latest versions and tool/API surfaces before each public release.
 
 ## Codex
 
 | Component | Tested version | Registry latest checked | Notes |
 |---|---:|---:|---|
-| `@openai/codex` npm package | `0.147.0` | `0.153.4` | Registry latest and the installed CLI (`0.153.4`) were re-checked on 2026-09-07. The tagged `0.153.4` and live schemas were byte-identical to the prior `0.153.2` snapshot; all four examples passed the pinned/live schema and isolated strict-load checks. The broader tested baseline remains `0.147.0`. Do not hardcode this into the repository name or AGENTS rules. |
+| `@openai/codex` npm package | `0.147.0` | `0.154.0` | Registry latest and the installed CLI (`0.154.0`) were re-checked on 2026-09-14. The tagged `0.154.0` schema was fetched for this release baseline; the release gate compares it with the current live schema and runs the four example checks. The broader tested baseline remains `0.147.0`. Do not hardcode this into the repository name or AGENTS rules. |
 
-The repository vendors the Codex `0.153.4` configuration schema as an offline snapshot with provenance and SHA-256 metadata under `schemas/`. `scripts/validate.ps1` uses the snapshot deterministically; the release-only `scripts/validate-release.ps1` compares it with the current official schema, checks the installed CLI version, validates all four examples against the live copy, and strict-loads each example from an isolated temporary `CODEX_HOME`.
+The repository vendors the Codex `0.154.0` configuration schema as an offline snapshot with provenance and SHA-256 metadata under `schemas/`. `scripts/validate.ps1` uses the snapshot deterministically; the release-only `scripts/validate-release.ps1` compares it with the current official schema, checks the installed CLI version, validates all four examples against the live copy, and strict-loads each example from an isolated temporary `CODEX_HOME`.
 
 ## Claude Code
 
