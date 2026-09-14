@@ -46,6 +46,12 @@ codex --cd path/to/nested-directory --sandbox read-only --ask-for-approval never
 
 ## Codex Skills
 
+### Skill 来源与作用域
+
+英文 `skills/` 是仓库的 canonical Skill 源；`zh-CN/skills/` 是对应的简体中文翻译包。`~/.agents/skills/`（或 `$HOME/.agents/skills/`）下的用户级副本是已安装的个人副本，不是第二个仓库源。应为每个项目在明确的作用域选择一个明确来源安装。若多个用户级或项目级发现目录中存在同名 Skill，Codex 不会合并这些目录；选择和优先级可能产生歧义，因此应先检查发现到的副本，只有在获得明确授权后才移除或迁移无意中的重复副本。
+
+安装前记录目标语言/来源、目标作用域（用户级或项目级）和 Skill 集合。目标已存在时，应先作合并或替换决策，不得盲目覆盖。下面的 PowerShell 脚本会在替换声明的 9 个 `rd-*` 目录前创建并校验备份；它不授权替换无关 Skill，也不会改变 Codex 的运行时选择策略。
+
 全局安装：
 
 ```bash

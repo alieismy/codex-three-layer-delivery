@@ -148,7 +148,7 @@ When a Skill is unavailable, state the limitation and continue work supported by
 
 ## Context Health
 
-- Before acting on complex multi-step work, establish durable state: the current objective, controlling deliverable, scope, key constraints, authorization, completed work, remaining work, and success criteria.
+- Before acting on complex multi-step work that spans sessions, requires handoff, has irreversible consequences, or changes authority, establish durable state: the current objective, controlling deliverable, scope, key constraints, authorization, completed work, remaining work, and success criteria. For a one-session read-only review or other reversible work that can close in the current response, a concise task plan is sufficient.
 - After context compaction, an inserted requirement, or a task shift, rebuild that state first. Continue from completed work without repeating it or silently dropping a new constraint.
 - If answers become repetitive, vague, contradictory, or repeat the same failure, stop expanding, reread the key evidence, narrow the problem, and repair the state. Recommend a fresh task only if context remains distorted, and provide a continuation-ready summary.
 

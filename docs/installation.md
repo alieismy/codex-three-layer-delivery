@@ -46,6 +46,12 @@ codex --cd path/to/nested-directory --sandbox read-only --ask-for-approval never
 
 ## Skills
 
+### Skill sources and scope
+
+The English `skills/` tree is the repository's canonical Skill source. `zh-CN/skills/` is its Simplified Chinese translation pack; a user-level copy under `~/.agents/skills/` (or `$HOME/.agents/skills/`) is an installed personal copy, not a second repository source. Install one deliberate source at one deliberate scope for each project. If the same Skill name exists in more than one discovered user or project directory, Codex does not merge the directories; selection and precedence can be ambiguous, so inspect the discovered copies and remove or relocate an unintended duplicate only with explicit authorization.
+
+Before installing, record the intended language/source, destination scope (user or project), and Skill set. Treat an existing destination as a merge or replacement decision: do not overwrite it blindly. The PowerShell installer below creates a verified backup before replacing the nine declared `rd-*` directories; it does not authorize replacing unrelated Skills or change Codex's runtime selection policy.
+
 Global install:
 
 ```bash

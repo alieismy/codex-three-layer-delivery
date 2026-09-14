@@ -143,7 +143,7 @@ Pre-delivery checklist:
 
 ## Out of Scope
 
-- Do not proceed when missing upstream decisions would make the design speculative; approved requirements may be sufficient when no material architecture choice remains open
+- Pause only when a missing upstream decision would make a key design contract speculative. When no material architecture choice remains open, approved requirements are sufficient; record non-blocking unknowns with an owner and verification action and continue the independently decidable work
 - Do not leave items as "TBD" without a verification action and an explicit assignment state
 - Do not design abstraction layers that will never be used
 - Do not write implementation code, tests, deployment commands, or operational runbooks
