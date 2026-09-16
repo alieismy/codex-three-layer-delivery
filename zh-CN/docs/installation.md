@@ -46,6 +46,12 @@ codex --cd path/to/nested-directory --sandbox read-only --ask-for-approval never
 
 ## Codex Skills
 
+### Skill 来源与作用域
+
+英文 `skills/` 是仓库的 canonical Skill 源；`zh-CN/skills/` 是对应的简体中文翻译包。`~/.agents/skills/`（或 `$HOME/.agents/skills/`）下的用户级副本是已安装的个人副本，不是第二个仓库源。应为每个项目在明确的作用域选择一个明确来源安装。若多个用户级或项目级发现目录中存在同名 Skill，Codex 不会合并这些目录；选择和优先级可能产生歧义，因此应先检查发现到的副本，只有在获得明确授权后才移除或迁移无意中的重复副本。
+
+安装前记录目标语言/来源、目标作用域（用户级或项目级）和 Skill 集合。目标已存在时，应先作合并或替换决策，不得盲目覆盖。下面的 PowerShell 脚本会在替换声明的 9 个 `rd-*` 目录前创建并校验备份；它不授权替换无关 Skill，也不会改变 Codex 的运行时选择策略。
+
 全局安装：
 
 ```bash
@@ -87,7 +93,7 @@ cp -R zh-CN/skills/rd-* "$skill_target/"
 
 ## Codex 配置
 
-从安全示例开始：
+从经过评审、具有明确取向的 `workspace-write` 示例开始：
 
 ```bash
 codex_home="${CODEX_HOME:-$HOME/.codex}"
@@ -97,7 +103,9 @@ if [ ! -e "$codex_home/config.toml" ]; then
 fi
 ```
 
-如果 `$CODEX_HOME/config.toml` 已存在（默认路径为 `~/.codex/config.toml`），只合并需要的片段。
+如果 `$CODEX_HOME/config.toml` 已存在（默认路径为 `~/.codex/config.toml`），先检查实际内容，再只合并需要的片段；不得盲目覆盖正常工作的个人配置。
+
+标准示例有意设置 `web_search = "live"`、启用 `features.memories`、完整继承父 shell 环境，并设置 `ignore_default_excludes = false`，使 Codex 仍过滤名称中含 `KEY`、`SECRET` 或 `TOKEN` 的环境变量。这些选择与维护者已评审的运行基线一致，但不是适用于所有账户、工作区和威胁模型的通用安全或隐私默认值。
 
 高权限配置档需要显式选择：
 
@@ -126,6 +134,12 @@ cp -r zh-CN/claude/project/.claude /path/to/your-project/.claude
 
 ## Cursor 适配包
 
+复制 Cursor 适配包前，应检查 Cursor 会发现的全部 Skill 根：项目级和用户级 `.agents/skills/`、`.cursor/skills/`、`.claude/skills/` 与 `.codex/skills/`（[Cursor Skills](https://cursor.com/docs/skills.md)）。官方文档没有定义在多个根中发现同名 Skill 时的优先级或去重行为。上文的共享/Codex 安装已经把 `rd-*` 放在 `.agents/skills/` 或 `~/.agents/skills/`；再复制本适配包的 `.cursor/skills/` 时，即使未安装 Claude Code，也会产生多个同名可发现定义。
+
+只选择一个项目适配包，不能消除用户级根中已有的同名副本。不要假定共享 Skill 树可以直接替代 Cursor Skill 树：Cursor 的 `rd-delivery` 镜像带有 `disable-model-invocation: true`，而 Codex 通过 `agents/openai.yaml` 实现同一显式调用策略。因此，本仓库目前还没有一套经过运行验证、既消除同名选择歧义又保留所有客户端平台专用调用契约的通用安装方案。若只使用 Cursor，应确保 Cursor 副本是该环境中每个 `rd-*` Skill 唯一可发现的定义。如 Cursor 必须与 Codex 或 Claude Code 共用环境，应保留平台专用副本，在新的 Cursor 会话中验证实际选择的定义以及 `rd-delivery` 是否仍只能显式调用，并记录接受的安装安排。移除或迁移既有 Skill 副本前，应取得与其作用域相称的授权。
+
+Claude Code 适配包会再增加一个 Skill 根和项目级 `CLAUDE.md`。Cursor 读取 `CLAUDE.md` 的方式与 `AGENTS.md` 相同，并会将其应用于每个会话，不受任何 `alwaysApply` 设置影响（[Cursor rules FAQ](https://cursor.com/help/customization/rules#how-does-claudemd-work-in-cursor)，2026-09-16 核查）。组合适配包前，应同时审查同名 Skill 来源和常驻指令文件；在目标 Cursor 运行时验证完成前，不应声称它们已经去重。详见 `cursor/README.md`。
+
 安装 Cursor 英文适配包：
 
 ```bash
@@ -148,11 +162,13 @@ cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
 
 如果目标项目已有 `.cursor/`，请手动合并。
 
-Cursor MCP 需要显式启用。先审查凭据、数据流和使用场景，再把示例文件复制为目标项目的 `.cursor/mcp.json`：
+Cursor MCP 需要显式启用。最小示例只包含 Context7。先审查凭据、数据流和使用场景，再把示例文件复制为目标项目的 `.cursor/mcp.json`：
 
 ```bash
 cp cursor/zh-CN/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
 ```
+
+配置 `CONTEXT7_API_KEY` 后，在 Cursor MCP 状态中确认 server。其它 server 只有在存在已验证用途时才分别加入，不要把路由说明中的全部候选项一次写入配置。
 
 ## 环境变量
 

@@ -1,6 +1,6 @@
 ---
-description: 安全与系统设计基线：密钥、信任边界、合规、审计和高风险设计场景。
-alwaysApply: true
+description: 当任务涉及密钥、信任边界、隐私、合规、审计、AI 安全或其他高风险系统设计时使用。
+alwaysApply: false
 ---
 
 # 安全与系统设计

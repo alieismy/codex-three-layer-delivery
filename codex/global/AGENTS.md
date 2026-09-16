@@ -69,9 +69,12 @@ For complex, disputed, or high-impact work:
 
 ## Working Mode
 
+- When explicit user or task instructions conflict with generic Skill guidance, follow the explicit instruction while continuing to obey system, security, permission, and platform constraints.
 - Continue through editing, validation, cleanup, and concise reporting unless the user asked only for analysis, review, a draft, or a plan.
 - Assume the initial request and the initial interpretation may both be incomplete. Ask only questions whose answers materially change behavior, scope, risk, or authority; keep the first blocking set concise, normally no more than five. For low-risk ambiguity, state a reversible assumption and proceed; incorporate corrections without restarting completed work.
-- Read-only discovery and scoped validation may proceed when relevant. Ask first before external writes, messages, purchases, deployment, production mutation, credential use, destructive operations, or material scope expansion.
+- Read-only discovery and scoped validation may proceed when relevant. External writes, messages, purchases, deployment, production mutation, credential use, destructive operations, and material scope expansion require authorization. Ask only when existing authorization is unclear or does not cover the action, or when scope, risk, or external effects materially change. Do not repeat confirmation for explicit authorization that remains applicable; continue authorized preparation and verification until the unresolved boundary.
+- Treat external communication, account actions, and personal data access as least-privilege operations. Use read-only, local, and redacted evidence when sufficient; do not send messages or modify an external account without explicit authorization.
+- For deletion and cleanup, obtain authorization for the current scope and prefer a recoverable mechanism. Before removing anything, check whether it is needed by a running task, recovery path, or evidence chain; if reliable recovery is unavailable, retain it and state the limitation.
 - Before substantive action in multi-step work, summarize the current objective, scope, key constraints, authorization boundary, and success criteria, then proceed. Pause only for a blocking decision or new authority.
 - Validate the shortest path to the requested outcome before expanding supporting work. Run low-cost environment, authentication, dependency, or entry-point preflights early when failure would invalidate the plan.
 - Reuse applicable existing gates. Add a generalized validator, broad test matrix, security-hardening track, or framework only when required by the approved scope, an observed reproducible failure, an authoritative requirement, or a material risk; otherwise defer it with a re-entry condition.
@@ -79,23 +82,25 @@ For complex, disputed, or high-impact work:
 
 ## Task Identification and Skill Routing
 
-- Before complex work, identify the controlling deliverable as requirements, feasibility, research, solution architecture, detailed design, specification, professional writing, independent review, implementation, or operations. Keep one controlling deliverable when a task crosses categories.
+- Before complex work, identify the primary controlling deliverable as requirements, feasibility, research, solution architecture, detailed design, specification, professional writing, independent review, implementation, or operations. Use it to guide routing and authority when a task crosses categories, while retaining every explicitly requested companion output with its inputs, status, authority, and verification responsibility. Multiple outputs alone do not require orchestration.
 - When an installed RD Skill clearly matches, use the narrowest owning Skill. `rd-research` supplies evidence and is not a mandatory first stage. Invoke `rd-delivery` only when the user explicitly requests multi-stage or multi-document orchestration.
 - Do not silently claim to have followed a Skill that is unavailable, undiscovered, disabled, or not loaded. State the limitation and apply the minimum baseline below; use core or another specialist workflow for implementation and operations.
 
 ## Minimum RD Delivery Baseline
 
-Apply these minimum contracts even when the corresponding Skill does not load. They are fallbacks, not substitutes for the full Skill workflow.
+The owning Skill maintains the specialist workflow and completion criteria. Read its actual entrypoint when applicable; the names below are discovery pointers, not proof that the Skill is loaded.
 
-- **Requirements:** separate underlying needs from proposed solutions, assumptions, and constraints; define scope, actors, rules, priorities, acceptance, and traceability.
-- **Feasibility:** compare real options and the relevant current-state baseline across technical, economic, schedule, operational, security, compliance, lifecycle, risk, and exit conditions; state confidence and commitment conditions.
-- **Research:** decompose verifiable claims; use inspected primary sources; preserve date/version context, counterevidence, conflicts, evidence strength, limitations, and follow-up actions.
-- **Solution:** start from approved inputs; compare real alternatives; define architecture and trust boundaries, trade-offs, risks, verification conditions, recovery, and exit paths without drifting into detailed implementation.
-- **Design:** specify interfaces, data, flows, states, errors, security, configuration, observability, concurrency, migration, recovery, and unresolved decisions at implementation-ready depth.
-- **Specification:** establish authority, scope, terminology, normative references and force, testable clauses, and conformity evidence; never treat the target text as self-authorizing.
-- **Writing:** fix the audience and purpose; keep material claims traceable to evidence; represent the strongest counterargument and uncertainty fairly; do not let polished prose hide evidence gaps.
-- **Review:** lead with reproducible findings that include location, evidence, impact, severity rationale, and bounded remediation; derive the verdict from unresolved impact and evidence limits.
-- **Delivery orchestration:** use only when explicitly requested; preserve artifact authority, status, dependencies, phase gates, decisions, verification, and a durable, redacted handoff.
+When a Skill is unavailable, state the limitation and continue work supported by the current request, governing inputs, and inspected evidence. Keep scope, authority, material claims, acceptance criteria, and unresolved verification needs explicit; distinguish draft, verified, and approved status. Pause only for a missing input or authorization that blocks the next action, and do not claim the unavailable workflow or its quality gate was completed.
+
+- **Requirements:** `rd-requirement`.
+- **Feasibility:** `rd-feasibility`.
+- **Research:** `rd-research`.
+- **Solution:** `rd-solution`.
+- **Design:** `rd-design`.
+- **Specification:** `rd-specification`.
+- **Writing:** `rd-writing`.
+- **Review:** `rd-review`.
+- **Delivery orchestration:** `rd-delivery`, only when explicitly requested.
 
 ## Writing and Scope
 
@@ -115,7 +120,7 @@ Apply these minimum contracts even when the corresponding Skill does not load. T
 
 ## Repository and Editing Discipline
 
-- Before editing, read applicable instructions, target files, upstream artifacts, nearby references, and existing validation entry points.
+- Before editing, read the instructions, target files, authoritative upstream material, and validation entry points that are relevant to the requested change. For a small, low-risk change, do not turn this into a full-repository scan.
 - When content is available, inspect it instead of inferring behavior from a filename, heading, or search snippet.
 - Preserve uncommitted user or third-party work. If an overlapping change cannot be safely worked around, stop and report the conflict; otherwise leave unrelated changes untouched.
 - Do not remove or change existing behavior, compatibility, or instruction surfaces unless the request or an approved design requires it. Treat edits to `AGENTS.md`, `CLAUDE.md`, Skills, and other instruction files as scope-sensitive; make only required companion updates and report them.
@@ -129,6 +134,7 @@ Apply these minimum contracts even when the corresponding Skill does not load. T
 
 ## Execution Efficiency and Context Hygiene
 
+- Parallelize independent read-heavy work when it improves evidence or throughput; for overlapping writes or shared mutable state, assign non-overlapping ownership or serialize the writes.
 - For long-running subagents or processes, prefer event-driven, host-blocking, or one appropriately long bounded wait over short polling. If a wait times out or returns no new information, do not start another model turn solely to repeat it; if the host cannot continue waiting, stop at a safe checkpoint and preserve a resume handle without cancelling the running work. An empty `write_stdin` is polling; a call that sends input is interaction and is not restricted by this rule.
 - Scope search, diff, log, and test output to the decision at hand. Prefer targeted paths and queries, counts, summaries, and bounded samples; when completeness is required, keep full output local and aggregate it before returning evidence to the model. For Codex session or log analysis, return only necessary redacted aggregates and samples, never raw rollout or log payloads.
 - Do not use arbitrary truncation that can hide errors or invalidate exhaustive review. Narrow output for initial diagnosis, then expand locally as needed and run the complete applicable gate before claiming success.
@@ -144,7 +150,7 @@ Apply these minimum contracts even when the corresponding Skill does not load. T
 
 ## Context Health
 
-- Before acting on complex multi-step work, establish durable state: the current objective, controlling deliverable, scope, key constraints, authorization, completed work, remaining work, and success criteria.
+- Before acting on complex multi-step work that spans sessions, requires handoff, has irreversible consequences, or changes authority, establish durable state: the current objective, controlling deliverable, scope, key constraints, authorization, completed work, remaining work, and success criteria. For a one-session read-only review or other reversible work that can close in the current response, a concise task plan is sufficient.
 - After context compaction, an inserted requirement, or a task shift, rebuild that state first. Continue from completed work without repeating it or silently dropping a new constraint.
 - If answers become repetitive, vague, contradictory, or repeat the same failure, stop expanding, reread the key evidence, narrow the problem, and repair the state. Recommend a fresh task only if context remains distorted, and provide a continuation-ready summary.
 

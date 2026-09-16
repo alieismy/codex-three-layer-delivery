@@ -403,7 +403,8 @@ try {
     Invoke-NegativeCase -Name "root-agents-maintainer-contract" -ExpectedPattern @(
         "Repository-root maintainer AGENTS\.md is missing required contract 'The English root is the canonical baseline'",
         "Repository-root maintainer AGENTS\.md is missing required contract 'Validate the shortest path to the requested outcome'",
-        "Repository-root maintainer AGENTS\.md is missing required contract 'an observed reproducible failure'"
+        "Repository-root maintainer AGENTS\.md is missing required contract 'an observed reproducible failure'",
+        "Repository-root maintainer AGENTS\.md is missing required contract 'pwsh \./scripts/validate-release\.ps1'"
     ) -Mutate {
         param($caseRoot)
 
@@ -418,11 +419,13 @@ try {
             "Inspect supporting work before the requested outcome"
         )
         $mutated = $mutated.Replace("an observed reproducible failure", "a possible issue")
+        $mutated = $mutated.Replace("pwsh ./scripts/validate-release.ps1", "run the release gate")
         if (
             $mutated -eq $content -or
             $mutated.Contains("The English root is the canonical baseline") -or
             $mutated.Contains("Validate the shortest path to the requested outcome") -or
-            $mutated.Contains("an observed reproducible failure")
+            $mutated.Contains("an observed reproducible failure") -or
+            $mutated.Contains("pwsh ./scripts/validate-release.ps1")
         ) {
             throw "Fixture could not remove the root maintainer authority contract."
         }
@@ -503,6 +506,7 @@ try {
         "Claude settings must not use deprecated includeCoAuthoredBy",
         "Claude settings is missing required deny permission 'Read\(\./secrets/\*\*\)'",
         "Claude settings is missing required ask permission 'Bash\(git commit \*\)'",
+        "Claude settings is missing required ask permission 'PowerShell\(git commit \*\)'",
         "Cursor Project Rules must use \.mdc",
         "Cursor guidance incorrectly allows plain \.md Project Rules",
         "Credentialed Cursor MCP server must not receive API keys through command arguments",
@@ -552,11 +556,13 @@ try {
         $mutatedClaudeSettings = $claudeSettings.Insert(2, "  `"includeCoAuthoredBy`": false,`n")
         $mutatedClaudeSettings = $mutatedClaudeSettings.Replace("Read(./secrets/**)", "Read(./secrets/)")
         $mutatedClaudeSettings = $mutatedClaudeSettings.Replace("Bash(git commit *)", "Bash(git commit )")
+        $mutatedClaudeSettings = $mutatedClaudeSettings.Replace("PowerShell(git commit *)", "PowerShell(git commit )")
         if (
             $mutatedClaudeSettings -eq $claudeSettings -or
             -not $mutatedClaudeSettings.Contains('"includeCoAuthoredBy"') -or
             $mutatedClaudeSettings.Contains("Read(./secrets/**)") -or
-            $mutatedClaudeSettings.Contains("Bash(git commit *)")
+            $mutatedClaudeSettings.Contains("Bash(git commit *)") -or
+            $mutatedClaudeSettings.Contains("PowerShell(git commit *)")
         ) {
             throw "Fixture could not break the Claude permission and attribution contracts."
         }
@@ -611,6 +617,109 @@ try {
         Set-LfText -Path $readmePath -Content $mutatedReadme
     }
 
+    Invoke-NegativeCase -Name "codex-config-contract" -ExpectedPattern @(
+        "English/Chinese standard Codex examples differ semantically",
+        "required contract web_search must be 'live'",
+        "schema SHA-256 differs from metadata",
+        'Codex release strict-load isolation is missing ''\$startInfo\.WorkingDirectory = \$CodexHome'''
+    ) -Mutate {
+        param($caseRoot)
+
+        $path = Join-Path $caseRoot "codex/examples/config.example.toml"
+        $content = Get-Content -LiteralPath $path -Raw
+        $mutated = $content.Replace('web_search = "live"', 'web_search = "cached"')
+        if ($mutated -eq $content -or $mutated.Contains('web_search = "live"')) {
+            throw "Fixture could not break the Codex configuration contract."
+        }
+        Set-LfText -Path $path -Content $mutated
+
+        $metadataPath = Join-Path $caseRoot "schemas/codex-config.schema.meta.json"
+        $metadata = Get-Content -LiteralPath $metadataPath -Raw
+        $expectedDigest = "2E1FCF1CBB20F255C3BACA2E174B4A3C954CEF577A130587B8935E2D12C8ADE6"
+        $mutatedMetadata = $metadata.Replace($expectedDigest, ("0" * 64))
+        if ($mutatedMetadata -eq $metadata -or $mutatedMetadata.Contains($expectedDigest)) {
+            throw "Fixture could not break the Codex schema metadata contract."
+        }
+        Set-LfText -Path $metadataPath -Content $mutatedMetadata
+
+        $releaseValidatorPath = Join-Path $caseRoot "scripts/validate-release.ps1"
+        $releaseValidator = Get-Content -LiteralPath $releaseValidatorPath -Raw
+        $mutatedReleaseValidator = $releaseValidator.Replace(
+            '$startInfo.WorkingDirectory = $CodexHome',
+            '$startInfo.WorkingDirectory = $root'
+        )
+        if (
+            $mutatedReleaseValidator -eq $releaseValidator -or
+            $mutatedReleaseValidator.Contains('$startInfo.WorkingDirectory = $CodexHome')
+        ) {
+            throw "Fixture could not break the Codex strict-load working-directory isolation contract."
+        }
+        Set-LfText -Path $releaseValidatorPath -Content $mutatedReleaseValidator
+    }
+
+    Invoke-NegativeCase -Name "cursor-rule-loading-policy" -ExpectedPattern @(
+        "Cursor rule loading policy requires only 00-global-principles\.mdc to be always-on"
+    ) -Mutate {
+        param($caseRoot)
+
+        $path = Join-Path $caseRoot "cursor/project/.cursor/rules/01-engineering-discipline.mdc"
+        $content = Get-Content -LiteralPath $path -Raw
+        $mutated = $content.Replace("alwaysApply: false", "alwaysApply: true")
+        if ($mutated -eq $content -or $mutated.Contains("alwaysApply: false")) {
+            throw "Fixture could not break the Cursor loading policy."
+        }
+        Set-LfText -Path $path -Content $mutated
+    }
+
+    Invoke-NegativeCase -Name "cross-platform-reasoning-governance" -ExpectedPattern @(
+        "Cross-platform reasoning governance is missing 'When challenged, recheck the original definitions, evidence, counterevidence, and reasoning chain\.'",
+        "Cross-platform reasoning governance is missing 'repair task state'",
+        "Cross-platform reasoning governance is missing 'explicitly approved by the user or authorized owner'"
+    ) -Mutate {
+        param($caseRoot)
+
+        $path = Join-Path $caseRoot "claude/global/CLAUDE.md"
+        $content = Get-Content -LiteralPath $path -Raw
+        $mutated = $content.Replace(
+            "When challenged, recheck the original definitions, evidence, counterevidence, and reasoning chain.",
+            "When challenged, retain the original conclusion."
+        )
+        $mutated = $mutated.Replace("repair task state", "continue expanding the task")
+        $mutated = $mutated.Replace(
+            "explicitly approved by the user or authorized owner",
+            "considered useful by the agent"
+        )
+        if (
+            $mutated -eq $content -or
+            $mutated.Contains("When challenged, recheck the original definitions, evidence, counterevidence, and reasoning chain.") -or
+            $mutated.Contains("repair task state") -or
+            $mutated.Contains("explicitly approved by the user or authorized owner")
+        ) {
+            throw "Fixture could not remove the cross-platform reasoning-governance markers."
+        }
+        Set-LfText -Path $path -Content $mutated
+    }
+
+    Invoke-NegativeCase -Name "attribution-current-gsd" -ExpectedPattern @(
+        "ATTRIBUTION\.md is missing current/historical GSD provenance 'https://github\.com/open-gsd/gsd-core'",
+        "ATTRIBUTION\.md is missing current/historical GSD provenance 'Archived historical reference'"
+    ) -Mutate {
+        param($caseRoot)
+
+        $path = Join-Path $caseRoot "ATTRIBUTION.md"
+        $content = Get-Content -LiteralPath $path -Raw
+        $mutated = $content.Replace("https://github.com/open-gsd/gsd-core", "https://example.invalid/obsolete-gsd")
+        $mutated = $mutated.Replace("Archived historical reference", "Historical reference")
+        if (
+            $mutated -eq $content -or
+            $mutated.Contains("https://github.com/open-gsd/gsd-core") -or
+            $mutated.Contains("Archived historical reference")
+        ) {
+            throw "Fixture could not break the current/historical GSD attribution contract."
+        }
+        Set-LfText -Path $path -Content $mutated
+    }
+
     Invoke-NegativeCase -Name "tmp-local-boundary" -ExpectedPattern @(
         "Missing .tmp permanent/local boundary policy",
         "\.gitignore must reserve \.tmp/local/"
@@ -632,7 +741,7 @@ try {
         Set-LfText -Path $gitignorePath -Content $mutatedGitignore
     }
 
-    Write-Host "Validator negative tests passed (16/16)." -ForegroundColor Green
+    Write-Host "Validator negative tests passed (20/20)." -ForegroundColor Green
 }
 finally {
     $resolvedRunRoot = [System.IO.Path]::GetFullPath($runRoot)

@@ -40,6 +40,7 @@ git status --short --ignored -- .tmp/local/
 - [ ] 区分文档声明、源码实现、静态配置、最终生成/实际生效配置、运行状态、业务/生产验收。
 - [ ] 当前证据不支持版本或行为变更时，把“无需修改”作为有效结论。
 - [ ] 确认兼容性文档和全部 Codex/Cursor 示例中的 Context7 固定版本一致。
+- [ ] 确认仓库内 Codex Schema 元数据记录版本、tag 固定来源、实时来源、获取日期、字节数、SHA-256 摘要和许可证。
 - [ ] 核对中英文语义以及 Codex/Claude/Cursor 适配一致性，同时保留已记录的平台差异。
 
 ## 4. 检查内容与供应链卫生
@@ -61,10 +62,17 @@ pwsh ./scripts/test-validator.ps1
 git diff --check
 ```
 
+必须执行的联网与运行时发布门禁：
+
+```powershell
+pwsh ./scripts/validate-release.ps1
+```
+
 - [ ] 记录每条命令、退出码、重要输出和环境。
 - [ ] 诊断命令自身失败时先修复再重跑；解析、引用、网络或工具失败不等于检查通过。
 - [ ] 修改 Skills 且官方 Skill Validator 可用时，在 UTF-8 环境下检查 9 个英文和 9 个中文主 Skills，并记录 Validator 的准确来源/版本。
 - [ ] 使用 Python 3.9+ 和固定的验证依赖；用适当的真实解析器解析发生变化的 JSON、YAML 和 TOML，不能把目视检查当作解析通过。
+- [ ] 确认发布门禁已将当前官方 Codex Schema 与仓库快照匹配、使用实时 Schema 验证四份示例、使已安装 Codex CLI 版本与 Schema 版本一致，并完成四次隔离 strict-load 检查。
 - [ ] 对每项跳过、不可用、不稳定或受环境限制的检查说明原因，并相应收窄发布结论。
 
 ## 6. Commit 与 Pull Request

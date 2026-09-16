@@ -46,6 +46,12 @@ codex --cd path/to/nested-directory --sandbox read-only --ask-for-approval never
 
 ## Skills
 
+### Skill sources and scope
+
+The English `skills/` tree is the repository's canonical Skill source. `zh-CN/skills/` is its Simplified Chinese translation pack; a user-level copy under `~/.agents/skills/` (or `$HOME/.agents/skills/`) is an installed personal copy, not a second repository source. Install one deliberate source at one deliberate scope for each project. If the same Skill name exists in more than one discovered user or project directory, Codex does not merge the directories; selection and precedence can be ambiguous, so inspect the discovered copies and remove or relocate an unintended duplicate only with explicit authorization.
+
+Before installing, record the intended language/source, destination scope (user or project), and Skill set. Treat an existing destination as a merge or replacement decision: do not overwrite it blindly. The PowerShell installer below creates a verified backup before replacing the nine declared `rd-*` directories; it does not authorize replacing unrelated Skills or change Codex's runtime selection policy.
+
 Global install:
 
 ```bash
@@ -87,7 +93,7 @@ cp -R skills/rd-* "$skill_target/"
 
 ## Codex Configuration
 
-Start from the safe example:
+Start from the reviewed, opinionated workspace-write example:
 
 ```bash
 codex_home="${CODEX_HOME:-$HOME/.codex}"
@@ -97,7 +103,9 @@ if [ ! -e "$codex_home/config.toml" ]; then
 fi
 ```
 
-If `$CODEX_HOME/config.toml` already exists (default: `~/.codex/config.toml`), merge only the relevant sections.
+If `$CODEX_HOME/config.toml` already exists (default: `~/.codex/config.toml`), inspect it and merge only the relevant sections. Do not replace a working personal configuration blindly.
+
+The standard example deliberately sets `web_search = "live"`, enables `features.memories`, inherits the full parent shell environment, and sets `ignore_default_excludes = false` so Codex still filters environment-variable names containing `KEY`, `SECRET`, or `TOKEN`. These choices align with the maintainer's reviewed operating baseline but are not universal security or privacy defaults; evaluate them for the target account, workspace, and threat model.
 
 The full-access profile is opt-in:
 
@@ -121,6 +129,12 @@ On Windows, user-level environment variables can also be set with `setx`, but re
 
 ## Cursor Adapter
 
+Before copying the Cursor adapter, inspect every Skill root that Cursor discovers: project and user `.agents/skills/`, `.cursor/skills/`, `.claude/skills/`, and `.codex/skills/` ([Cursor Skills](https://cursor.com/docs/skills.md)). Cursor does not document precedence or deduplication for the same Skill name found in more than one root. The shared/Codex installation above already places `rd-*` under `.agents/skills/` or `~/.agents/skills/`; copying this adapter's `.cursor/skills/` as well creates multiple discoverable definitions with the same names even when Claude Code is not installed.
+
+Choosing only one project adapter does not eliminate duplicates already present in user-level roots. Do not assume the shared tree is a drop-in replacement for the Cursor tree: the Cursor `rd-delivery` mirror carries `disable-model-invocation: true`, while Codex enforces the same explicit-only policy through `agents/openai.yaml`. This repository therefore does not yet document a runtime-verified, general-purpose installation recipe that both removes same-name ambiguity and preserves every client's platform-specific invocation contract. For Cursor-only use, ensure that the Cursor copy is the sole discoverable definition of each `rd-*` Skill in that environment. If Cursor must share the environment with Codex or Claude Code, preserve the platform-specific copies, verify which definition Cursor selects and whether `rd-delivery` remains explicit-only in a fresh session, and record the accepted arrangement. Remove or relocate an existing Skill copy only with authorization appropriate to its scope.
+
+The Claude Code adapter adds another Skill root and a project `CLAUDE.md`. Cursor reads `CLAUDE.md` the same way it reads `AGENTS.md` and applies it to every conversation regardless of any `alwaysApply` setting ([Cursor rules FAQ](https://cursor.com/help/customization/rules#how-does-claudemd-work-in-cursor), checked 2026-09-16). Review both same-name Skill sources and always-on instruction files before combining adapters; do not call them deduplicated until the target Cursor runtime has been verified. See `cursor/README.md`.
+
 Install the English Cursor adapter:
 
 ```bash
@@ -137,11 +151,13 @@ cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
 
 If the target workspace already has `.cursor/`, merge manually.
 
-Cursor MCP is intentionally opt-in. Review credentials and data flow, then copy the example to the Cursor project MCP location:
+Cursor MCP is intentionally opt-in. The minimal example contains only Context7. Review credentials and data flow, then copy it to the Cursor project MCP location:
 
 ```bash
 cp cursor/project/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
 ```
+
+Configure `CONTEXT7_API_KEY`, confirm the server in Cursor's MCP status, and add any other server separately only when a verified use case requires it. Do not copy every candidate from the routing guide into one configuration.
 
 The Cursor adapter is optional and should be kept aligned with the Codex and Claude Code adapters when rules change.
 

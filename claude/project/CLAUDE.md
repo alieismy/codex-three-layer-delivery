@@ -43,7 +43,7 @@ Before running validation commands, inspect existing project entry points such a
 | Instruction is clear and contained | Act directly |
 | Multiple document structures or solution paths have different trade-offs | Recommend one with rationale, then ask |
 | Ambiguity affects scope, cost, compliance, risk, or architecture | Restate understanding and ask |
-| Operation is destructive or changes authoritative baselines | Confirm first |
+| Operation is destructive or changes authoritative baselines without applicable authority | Confirm first |
 | Evidence is unavailable for a factual or standards claim | State known facts and verification gaps |
 | Research involves uncertain or drift-prone facts | Search and verify first |
 
@@ -66,7 +66,7 @@ Before executing document-delivery Skills:
 1. Check this `CLAUDE.md` for document conventions.
 2. Check existing templates, glossaries, naming rules, review forms, and approved examples.
 3. Check upstream decisions, requirements, feasibility conclusions, standards references, and architecture constraints.
-4. Persist durable decisions in `CLAUDE.md` or linked project documents, not only in chat history.
+4. Persist stable, reusable decisions in `CLAUDE.md` or linked project documents only after approval by the user or authorized owner; do not leave approved decisions only in chat history.
 
 `CLAUDE.md` is for agents: stable document-delivery constraints, directory conventions, risk points, and verification commands. `README.md` is for humans: what the project is, why it exists, and how to get started.
 

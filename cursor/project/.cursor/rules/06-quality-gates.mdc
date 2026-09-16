@@ -1,41 +1,19 @@
 ---
-description: Quality gates for specialist document work, explicit delivery orchestration, and final verification.
-alwaysApply: true
+description: Use when selecting or running completion gates for specialist document work, shared changes, or explicit delivery orchestration.
+alwaysApply: false
 ---
 
 # Quality Gates
 
-Before completing requirements, feasibility, research, design, standards, or review work, confirm:
+## Cross-Task Gates
 
-- Key conclusions are supported by evidence.
-- Facts, assumptions, estimates, inferences, and unknowns are separated.
-- Relevant boundary conditions, compliance constraints, and risks are covered.
-- Unconfirmed points are listed with verification actions.
-- Verification actions and results are recorded.
-- Match verification scope to change risk and blast radius. Start with the minimum sufficient checks directly relevant to the change, and broaden verification for shared behavior, cross-module contracts, security-critical paths, or build and release contracts. Do not skip necessary checks to save time or run expensive repository-wide checks without justification.
-- Sequence verification from low-cost preflight to changed-surface evidence and related regression. Reserve a full behavior or platform matrix for shared routing, public contracts, release decisions, an observed cross-surface risk, or an explicit user request.
-
-## Skill-Specific Gates
-
-| Work type | Minimum quality gate |
-|---|---|
-| `/rd-requirement` | Core scenarios covered; priorities, assumptions, exclusions, acceptance criteria, and traceability explicit |
-| `/rd-feasibility` | Decision question clear; dimensions covered; options compared; conclusion, confidence, conditions, risks, and verification actions explicit |
-| `/rd-research` | Mode, source authority, date/version/environment, applicability, reproducibility, counterevidence, confidence, gaps, and downstream usage are explicit |
-| `/rd-solution` | Candidate comparison and recommendation rationale clear; architecture, security, cost, risk, and exit path addressed |
-| `/rd-design` | Interfaces, data models, critical flows, failure paths, trust boundaries, security, auditability, concurrency, and unresolved decisions specified |
-| `/rd-specification` | Clause-level evidence, normative wording, terminology, references, conflicts, and human-verification gaps handled |
-| `/rd-writing` | Audience, purpose, claim architecture, evidence, counterargument, limitations, and conclusion boundary are explicit |
-| `/rd-review` | Alignment/evidence and intrinsic-quality/argument assessed; findings include location, evidence, impact, severity rationale, and action; verdict follows unresolved impact |
-| `/rd-delivery` | Explicit request confirmed; artifact paths, statuses, authority layers, dependencies, machine or human gates, waivers, re-review triggers, authoritative pointers, verification, and durable handoff are current; only required specialist Skills are invoked |
+- Confirm the controlling deliverable, approved scope, applicable instructions, authoritative sources, and success criteria.
+- Check that key conclusions are supported; facts, assumptions, estimates, inferences, decisions, and unknowns remain distinct; and material boundary conditions, compliance constraints, risks, and counterevidence are addressed.
+- Run the smallest sufficient checks first. Broaden verification for shared behavior, cross-module contracts, security-critical paths, build or release contracts, or an explicit user request.
+- Record commands and results. If a check cannot run, state why and identify the resulting evidence limit.
+- Apply the selected `rd-*` Skill's own completion criteria rather than copying specialist procedures into this rule.
+- For explicit `/rd-delivery`, also verify artifact authority, dependencies, phase gates, decisions, waivers, re-review triggers, and durable handoff pointers.
 
 ## Completion Report
 
-Do not say "done" without verification. Final reports should distinguish:
-
-- Completed changes.
-- Verification run.
-- Verification not run and why.
-- Evidence limitations.
-- Remaining risks.
-- Follow-up recommendations when useful.
+Do not say "done" without evidence. Distinguish completed changes, verification performed, unverified areas, evidence limitations, material residual risks, and useful follow-up actions.

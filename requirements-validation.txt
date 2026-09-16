@@ -1,1 +1,3 @@
 PyYAML==6.0.3
+jsonschema==4.25.1
+tomli==2.4.1

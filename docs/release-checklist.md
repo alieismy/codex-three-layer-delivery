@@ -40,6 +40,7 @@ git status --short --ignored -- .tmp/local/
 - [ ] Keep documentation claims, source implementation, static configuration, final generated/effective configuration, runtime state, and business/production acceptance separate.
 - [ ] Treat “no change required” as valid when current evidence does not justify a version or behavior change.
 - [ ] Ensure Context7 pins in compatibility documents and all Codex/Cursor examples are identical.
+- [ ] Confirm the tracked Codex schema metadata identifies its version, tagged source, live source, retrieval date, byte length, SHA-256 digest, and license.
 - [ ] Verify English/Chinese semantics and Codex/Claude/Cursor adapter parity while preserving documented platform differences.
 
 ## 4. Inspect Content and Supply-Chain Hygiene
@@ -61,10 +62,17 @@ pwsh ./scripts/test-validator.ps1
 git diff --check
 ```
 
+Required networked and runtime release gate:
+
+```powershell
+pwsh ./scripts/validate-release.ps1
+```
+
 - [ ] Record each command, exit code, material output, and environment.
 - [ ] If a diagnostic command itself fails, repair and rerun it; a parser, quoting, network, or tool failure is not a passed check.
 - [ ] When Skills change and the official Skill validator is available, run it against all nine English and nine Chinese canonical Skills with UTF-8 enabled and record the exact validator source/version.
 - [ ] Use Python 3.9+ with the pinned validation dependency; parse changed JSON, YAML, and TOML with an appropriate real parser, and do not equate visual inspection with parser acceptance.
+- [ ] Confirm that the release gate matched the current official Codex schema to the tracked snapshot, validated all four examples against the live schema, matched the installed Codex CLI to the schema version, and completed four isolated strict-load checks.
 - [ ] Explain every skipped, unavailable, flaky, or environment-limited check and constrain release claims accordingly.
 
 ## 6. Commit and Pull Request

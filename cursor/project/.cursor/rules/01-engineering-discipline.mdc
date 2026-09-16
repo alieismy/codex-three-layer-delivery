@@ -1,6 +1,6 @@
 ---
-description: Document delivery discipline for Cursor Agent: read source material first, minimize changes, preserve intent, and convert document tasks into verifiable goals.
-alwaysApply: true
+description: Use when drafting, revising, or configuring document-delivery work that requires source-first reading, minimal changes, and verifiable goals.
+alwaysApply: false
 ---
 
 # Document Delivery Discipline
@@ -49,7 +49,7 @@ Before running validation commands, inspect existing entry points such as `scrip
 | Clear instruction and contained change | Act directly |
 | Multiple reasonable approaches with real trade-offs | Recommend and ask |
 | Ambiguity affects scope, cost, compliance, risk, or architecture | Restate and clarify |
-| Destructive operation or authoritative baseline change | Ask first |
+| Destructive operation or authoritative baseline change without applicable authority | Ask first |
 | Unknown feasibility | State risks and limits before acting |
 | Research in uncertain or drifting domain | Verify first |
 

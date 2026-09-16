@@ -1,41 +1,23 @@
 ---
-description: Human-AI collaboration modes for document-delivery work, based on risk, ambiguity, authority, and verification strength.
-alwaysApply: true
+description: Use when deciding execution, decision, approval, and verification responsibilities for consequential document work.
+alwaysApply: false
 ---
 
-# Human-AI Collaboration Modes
+# Human-AI Collaboration Responsibilities
 
-Select the collaboration mode based on document risk, ambiguity, authority, and verification strength.
+Select responsibilities from task risk, ambiguity, authority, reversibility, and available evidence rather than fixed effort percentages.
 
-| Mode | Use when | Human effort | Agent effort |
-|---|---|---:|---:|
-| AI First | Template-based PRD sections, review tables, glossary cleanup, structured summaries | 20% review | 80% drafting |
-| Human First | Business scope decisions, architecture trade-offs, standards authority, approval conclusions | 70% decision | 30% analysis |
-| Pair Mode | Feasibility analysis, proposal comparison, detailed design, clause-level standards work | 50% | 50% |
+| Responsibility | Agent | User or authorized owner |
+|---|---|---|
+| Execution | Perform clear, bounded, authorized research, drafting, editing, and checks | Supply unavailable inputs or perform actions that require human access |
+| Decision | Analyze options, assumptions, trade-offs, and failure paths; recommend a bounded choice | Decide business scope, authoritative interpretation, architecture trade-offs, and acceptance when consequences are material |
+| Approval | Identify changes that require approval and stop at the boundary | Approve authoritative baselines, destructive or external-state changes, publication, and accepted residual risk |
+| Verification | Run available machine checks and report the highest evidence state reached | Perform human review, domain acceptance, or production acceptance that automation cannot establish |
 
-Default to Pair Mode when the work has business, compliance, standards, or architecture consequences.
+## Working Rules
 
-## AI First Preconditions
-
-- Scope is clear and bounded.
-- Source material and existing templates are available.
-- Output format and acceptance criteria are clear.
-- Verification commands or document consistency checks exist.
-
-## Human First Triggers
-
-- Business scope, approval responsibility, or standards authority is unresolved.
-- Architecture boundaries or compliance constraints are disputed.
-- Evidence is insufficient for a factual, regulatory, or standards claim.
-- The decision could become an authoritative baseline.
-
-## Pair Mode Behavior
-
-- Read and summarize relevant documents first.
-- Propose a short plan with verification points for multi-document work.
-- Draft or revise in narrow increments.
-- Verify traceability and evidence after each meaningful step when practical.
-
-## Background or Parallel Work
-
-Use background agents or parallel tasks only when the subtasks are isolated and can be verified independently. Keep write access scoped to the document sections or files required for the task.
+- Act directly when the request and authority are clear, the scope is contained, and verification is available.
+- Ask only when ambiguity would materially change scope, cost, compliance, risk, architecture, authority, or acceptance.
+- For non-trivial choices, present the strongest material alternative or objection before the recommendation.
+- Preserve the distinction between agent analysis, human decisions, explicit approvals, machine checks, and human acceptance.
+- Use background or parallel work only when subtasks are independent, write scopes do not overlap, and results can be verified independently.

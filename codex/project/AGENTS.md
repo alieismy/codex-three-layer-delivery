@@ -18,13 +18,7 @@ Use this file as the project control plane: authority, routing, boundaries, and 
 
 ## Context and Baseline Discovery
 
-Before substantive work:
-
-1. Read the effective global, repository, and nearer-scope instructions; nearer instructions override broader ones where they conflict.
-2. Identify the requested output, audience, authority, approved upstream inputs, constraints, and success criteria.
-3. Find repository conventions, templates, sibling artifacts, and existing validation commands.
-4. Record any missing authority, conflicting baseline, or decision that would materially change the result.
-5. Proceed on low-risk assumptions that are explicit and reversible; pause only for a blocking decision or new authority.
+Before substantive work, read the effective instructions and the target or authoritative materials relevant to the requested change. Identify the requested output, authority, constraints, and success criteria, and check nearby conventions or validation entry points when they can affect the result. Record missing authority or conflicts that would materially change scope, and proceed on explicit, reversible low-risk assumptions. Do not perform a full-repository scan for a small, low-risk change.
 
 Reuse previously inspected stable project context only when its authoritative source, revision, and applicability remain known. Before substantive work, use applicable low-cost change detectors such as branch and HEAD, worktree status, changed paths, and relevant source revisions to scope the refresh; do not rescan the entire repository by default.
 
@@ -54,7 +48,7 @@ Select the narrowest owning workflow. Use research as an evidence supplier, not 
 
 `rd-delivery` is explicit-only. Do not invoke it merely because a task is complex. For a single deliverable, use the owning specialist Skill directly.
 
-When a task crosses boundaries, keep one controlling deliverable and route only the dependent question to another Skill. Do not let research become requirements, feasibility become solution selection, solution become detailed design, or review silently rewrite its target.
+When a task crosses boundaries, keep one primary controlling deliverable for routing and authority, and retain every explicitly requested companion output with its inputs, status, authority, and verification responsibility. Route dependent questions to their owning Skills; multiple outputs alone do not require `rd-delivery`. Do not let research become requirements, feasibility become solution selection, solution become detailed design, or review silently rewrite its target.
 
 ## Artifact Authority and Traceability
 
@@ -94,4 +88,4 @@ Validation evidence must be concrete: command and result, inspected source and l
 
 ## Completion Standard
 
-Work is complete only when the requested artifact or decision exists, its controlling inputs and status are clear, the owning quality gate passes, repository validations succeed or failures are explained, sensitive information is handled safely, mirrors and references remain consistent, and the final report distinguishes verified results from remaining uncertainty.
+The current work package is complete when the requested artifact or decision exists, its controlling inputs and status are clear, applicable quality gates and repository validations have passed or their failures are explained, sensitive information is handled safely, mirrors and references remain consistent, and the final report distinguishes verified results from remaining uncertainty. Runtime, production, business acceptance, approval, or baselining are separate higher-level outcomes: require them for this task only when they are explicit success criteria or stage exit gates, and never claim them without their corresponding evidence.

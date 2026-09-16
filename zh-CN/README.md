@@ -136,7 +136,7 @@ cp -r cursor/zh-CN/.cursor /path/to/your-project/.cursor
 cp cursor/zh-CN/PROMPTS.md /path/to/your-project/PROMPTS.cursor.zh-CN.md
 ```
 
-Cursor MCP 配置以 `mcp.example.json` 形式发布。需要启用时，先审查凭据和数据流，再复制为目标项目的 `.cursor/mcp.json`。
+Cursor MCP 配置以 `mcp.example.json` 形式发布，且只包含已测试的 Context7。需要启用时，先审查凭据和数据流，再复制为目标项目的 `.cursor/mcp.json`；其它 server 应按已验证用途逐项加入，不要一次复制完整路由目录。
 
 ## 文件清单
 
@@ -168,13 +168,15 @@ zh-CN/
     release-checklist.md
 ```
 
-## 安全默认值
+## 已评审的公共默认值
 
-- Codex 示例配置默认使用 `workspace-write`，不默认启用 `danger-full-access`。
-- 外部 MCP 服务器默认禁用，直到凭据、数据流和使用场景被明确审查。
-- Cursor 适配包只发布 `.cursor/mcp.example.json`，不直接发布活动 `.cursor/mcp.json`。
+公共示例同时包含安全边界和明确的能力选择；它们经过评审且具有倾向性，并非适合所有用户或威胁模型的无条件保守默认值：
+
+- Codex 示例使用 `workspace-write`、实时 Web 搜索、Memories、完整 shell 环境继承，并通过 `ignore_default_excludes = false` 保留对名称含 `KEY`、`SECRET`、`TOKEN` 的默认过滤；应结合目标环境手动合并。
+- Codex 外部 MCP server 默认禁用，直到凭据、数据流和使用场景被明确审查。
+- Cursor 适配包只发布单一 Context7 的 `.cursor/mcp.example.json`，不直接发布活动 `.cursor/mcp.json`。
 - 不使用 `@latest` 作为 npm MCP 包版本。
-- Claude Code 项目设置默认禁止直接读取常见密钥路径，并对匹配的 commit、push、tag、publish、delete 命令前缀要求确认；这些权限模式属于防护措施，不能替代针对所有包装命令和复杂命令的完整安全边界。
+- Claude Code 项目设置默认禁止直接读取常见密钥路径，并对匹配的 Bash 和 Windows PowerShell commit、push、tag、publish、delete 命令前缀要求确认；这些权限模式属于防护措施，不能替代针对所有包装命令和复杂命令的完整安全边界。
 - Context7 的已测试版本以[兼容性文档](docs/compatibility.md)为准，并与全部 Codex/Cursor 示例保持一致；真实客户端运行验收仍是更高且独立的证据层级。
 
 ## 验证
@@ -187,7 +189,15 @@ pwsh ./scripts/validate.ps1
 pwsh ./scripts/test-validator.ps1
 ```
 
-Skill YAML/reference 门禁需要 Python 3.9+ 和 `requirements-validation.txt` 中固定的依赖，建议安装到隔离环境。十六项负向回归会证明 Validator 能拒绝：完成标准总数不变但步骤分布错误；旧正则可能漏过的未引用 `colon-space` 非法 YAML；断裂或越出 Skill 根的引用；Context7 文档/配置版本漂移；`rd-delivery` 调用策略退化；常驻证据/“无需修改”契约缺失；RD 专业 Skill/Eval/近失配契约缺失；全局 v7.8 纪律契约缺失；Codex 价值优先、执行效率与上下文卫生契约缺失；根维护者 `AGENTS.md` 缺失；根维护者效力与价值优先契约缺失；带修订标识的上下文复用和动态状态分离缺失；绿地开源研究/批准门禁缺失；高影响双向论证与关键澄清前置提示词契约缺失；`.tmp/local/` 边界缺失；以及覆盖提示词前缀、Claude 权限与 attribution、Cursor 规则扩展名与 MCP 凭据传递、Unix 全局 Skill 安装前置条件的组合平台配置退化。
+Skill YAML/reference 和 Codex TOML/JSON Schema 门禁需要 Python 3.9+ 及 `requirements-validation.txt` 中固定的依赖，建议安装到隔离环境。二十项负向回归在既有 Skill、镜像、证据、全局规则、上下文、提示词、临时数据与平台配置用例之外，新增覆盖 Codex Schema/运行基线一致的配置契约、Cursor 仅一条常驻规则的加载策略、跨平台推理与长期指引治理，以及 GSD 当前/归档来源归属。
+
+公开发布前还必须执行联网动态门禁：
+
+```powershell
+pwsh ./scripts/validate-release.ps1
+```
+
+该门禁比较仓库内 Codex Schema 与当前官方 Schema，使用实时副本验证四份示例，核对已安装 Codex 版本，并从隔离的临时 `CODEX_HOME` 严格加载每份示例。静态门禁通过不能替代这项发布检查。
 
 ## 版本维护
 

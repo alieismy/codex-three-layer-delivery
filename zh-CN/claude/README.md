@@ -10,7 +10,7 @@
 
 官方文档：
 
-已于 2026-08-31 核查：
+已于 2026-09-04 重新核查：
 
 - https://code.claude.com/docs/en/memory
 - https://code.claude.com/docs/en/settings
@@ -29,6 +29,8 @@ zh-CN/claude/
     evals/*.json
     references/*.md  # 按需提供
 ```
+
+项目 settings 默认禁止读取常见密钥文件，并在匹配 Bash 或 Windows PowerShell 的 commit、push、tag、publish 和 delete 命令前缀时要求确认；这些模式是防护措施，不是对所有包装命令和复合命令的完整安全边界。
 
 ## 安装
 

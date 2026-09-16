@@ -2,6 +2,8 @@
 
 MCP servers should be enabled for specific evidence or workflow needs, not as a broad default.
 
+The Cursor `mcp.example.json` is intentionally a one-server Context7 starter, not an inventory of every route below. Add another server only for a verified use case, configure its credentials independently, and confirm its status in the target client.
+
 Use `$rd-research` as the Skill-level wrapper when a task needs source collection, literature review, standards or policy checks, open-source or AI-tool evaluation, repository evidence, system-configuration investigation, public-fact verification, cost assumptions, or technical-maturity evidence.
 
 ## Routing Table
