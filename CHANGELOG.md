@@ -6,6 +6,11 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+## 1.7.3 - 2026-09-16
+
+- Added English and Simplified Chinese README acknowledgements for seven public inspiration repositories already covered by `ATTRIBUTION.md`, while preserving the no-endorsement, no-partnership, no-compatibility, and no-direct-derivation boundary.
+- Added the LINUX DO community acknowledgement and link as the final acknowledgement item so the public project explicitly recognizes the community for open-source discussion and promotion.
+
 ## 1.7.2 - 2026-09-16
 
 - Clarified the English and Simplified Chinese README Skill taxonomy as eight independently usable specialist Skills plus the explicit-only `rd-delivery` orchestrator, eliminating the apparent mismatch between the stated count and the nine-row table.

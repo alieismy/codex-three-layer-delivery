@@ -213,3 +213,16 @@ pwsh ./scripts/validate-release.ps1
 - 不把灵感参考写成直接派生或上游背书。
 
 仓库维护者发布本项目时应使用[发布检查清单](docs/release-checklist.md)。该清单只治理仓库发布，不扩展 RD Skills 的职责。
+
+## 致谢
+
+本项目在整理过程中参考了以下公开项目的思路与实践。列出这些项目不代表对方背书、合作、兼容或直接派生，详细归属见 [`ATTRIBUTION.md`](../ATTRIBUTION.md)。
+
+- [Matt Pocock Skills](https://github.com/mattpocock/skills.git)
+- [Everything Claude Code](https://github.com/affaan-m/everything-claude-code.git)
+- [GSD Core](https://github.com/open-gsd/gsd-core)
+- [Rlues](https://github.com/WenJunDuan/Rlues.git)
+- [Superpowers](https://github.com/obra/superpowers.git)
+- [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex.git)
+- [Trellis](https://github.com/mindfold-ai/Trellis.git)
+- 感谢 [LINUX DO](https://linux.do/) 社区为开源项目提供交流与推广空间。

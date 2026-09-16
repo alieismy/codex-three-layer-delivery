@@ -370,6 +370,19 @@ Avoid encoding version or language into the repository name. Keep the repository
 
 Repository maintainers should follow the [release checklist](docs/release-checklist.md). It governs publication of this repository and does not expand the RD Skills into release-operation workflows.
 
+## Acknowledgements
+
+This project was informed by broad patterns from the following public repositories. Listing them does not imply upstream endorsement, partnership, compatibility, or direct derivation; see [ATTRIBUTION.md](ATTRIBUTION.md).
+
+- [Matt Pocock Skills](https://github.com/mattpocock/skills.git)
+- [Everything Claude Code](https://github.com/affaan-m/everything-claude-code.git)
+- [GSD Core](https://github.com/open-gsd/gsd-core)
+- [Rlues](https://github.com/WenJunDuan/Rlues.git)
+- [Superpowers](https://github.com/obra/superpowers.git)
+- [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex.git)
+- [Trellis](https://github.com/mindfold-ai/Trellis.git)
+- Thanks to the [LINUX DO](https://linux.do/) community for providing a place for open-source discussion and promotion.
+
 ## License
 
 MIT. See `LICENSE`.
