@@ -6,6 +6,12 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+## 1.7.1 - 2026-09-16
+
+- Refreshed registry latest snapshots in the compatibility documents: `@anthropic-ai/claude-code` `2.1.273` and `@upstash/context7-mcp` `4.1.1` observed on 2026-09-16; `@openai/codex` remains `0.154.0`. Tested versions and the Context7 `4.0.2` pins are unchanged.
+- Documented Cursor's multi-source Skill discovery risk across `.agents`, `.cursor`, `.claude`, and `.codex` roots, including the common shared-Skill plus Cursor-adapter combination, the absence of documented same-name precedence or deduplication, and the always-on behavior of `CLAUDE.md`; added the guidance to the Cursor adapter README, installation guide, and compatibility document with their Simplified Chinese mirrors.
+- Clarified in the root maintainer `AGENTS.md` that repository authority intent does not prove editor runtime precedence, and recorded the 2026-09-16 Cursor instruction-loading observation as an unresolved, not independently reproduced compatibility risk rather than a universal loading contract.
+
 ## 1.7.0 - 2026-09-13
 
 - Clarified that existing authorization remains effective until scope, risk, or external effects materially change, while retaining approval gates for new external actions.

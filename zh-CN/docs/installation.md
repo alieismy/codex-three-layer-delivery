@@ -134,6 +134,12 @@ cp -r zh-CN/claude/project/.claude /path/to/your-project/.claude
 
 ## Cursor 适配包
 
+复制 Cursor 适配包前，应检查 Cursor 会发现的全部 Skill 根：项目级和用户级 `.agents/skills/`、`.cursor/skills/`、`.claude/skills/` 与 `.codex/skills/`（[Cursor Skills](https://cursor.com/docs/skills.md)）。官方文档没有定义在多个根中发现同名 Skill 时的优先级或去重行为。上文的共享/Codex 安装已经把 `rd-*` 放在 `.agents/skills/` 或 `~/.agents/skills/`；再复制本适配包的 `.cursor/skills/` 时，即使未安装 Claude Code，也会产生多个同名可发现定义。
+
+只选择一个项目适配包，不能消除用户级根中已有的同名副本。不要假定共享 Skill 树可以直接替代 Cursor Skill 树：Cursor 的 `rd-delivery` 镜像带有 `disable-model-invocation: true`，而 Codex 通过 `agents/openai.yaml` 实现同一显式调用策略。因此，本仓库目前还没有一套经过运行验证、既消除同名选择歧义又保留所有客户端平台专用调用契约的通用安装方案。若只使用 Cursor，应确保 Cursor 副本是该环境中每个 `rd-*` Skill 唯一可发现的定义。如 Cursor 必须与 Codex 或 Claude Code 共用环境，应保留平台专用副本，在新的 Cursor 会话中验证实际选择的定义以及 `rd-delivery` 是否仍只能显式调用，并记录接受的安装安排。移除或迁移既有 Skill 副本前，应取得与其作用域相称的授权。
+
+Claude Code 适配包会再增加一个 Skill 根和项目级 `CLAUDE.md`。Cursor 读取 `CLAUDE.md` 的方式与 `AGENTS.md` 相同，并会将其应用于每个会话，不受任何 `alwaysApply` 设置影响（[Cursor rules FAQ](https://cursor.com/help/customization/rules#how-does-claudemd-work-in-cursor)，2026-09-16 核查）。组合适配包前，应同时审查同名 Skill 来源和常驻指令文件；在目标 Cursor 运行时验证完成前，不应声称它们已经去重。详见 `cursor/README.md`。
+
 安装 Cursor 英文适配包：
 
 ```bash

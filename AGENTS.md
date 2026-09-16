@@ -16,6 +16,7 @@ This file governs maintenance of the `codex-three-layer-delivery` source reposit
 - Re-read affected or decision-critical sources after revision changes, external edits, new evidence, context compaction, task redirection, or conflicting observations. Do not rescan the entire repository by default, and do not claim prior context remains current without checking applicable change detectors.
 - For complex or high-impact maintenance, briefly identify the reused baseline and newly refreshed dynamic evidence at the first meaningful checkpoint when that improves reviewability; do not impose a fixed context-accounting format on simple tasks.
 - Treat versions, installed tools, external releases, generated configuration, runtime state, and test results as dynamic evidence. Recheck them when they affect a conclusion; keep version snapshots in `docs/compatibility.md`, not in this file.
+- This root `AGENTS.md` is the sole repository-maintainer authority. Files under `codex/`, `zh-CN/`, `cursor/`, and `claude/` are distributable templates or adapters, not maintainer guidance. If an editor surfaces them as effective instructions while maintaining this source repository, treat that as an unresolved adapter-isolation conflict: do not assume this root file overrides a more specific instruction, and record reproduced platform behavior in `docs/compatibility.md` rather than turning a single observation into a repository-wide runtime claim.
 
 ## Change and Mirror Discipline
 

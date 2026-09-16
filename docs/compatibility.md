@@ -1,12 +1,12 @@
 # Compatibility
 
-The Codex package baseline was rechecked on 2026-09-14; the Claude Code package baseline remains dated 2026-09-07. The Cursor documentation and installed version were re-checked on 2026-09-11; the detailed Claude Code documentation check below remains dated 2026-09-04, and the bounded local Context7 stdio probe remains dated 2026-08-14. Re-check registry latest versions and tool/API surfaces before each public release.
+The `@openai/codex`, `@anthropic-ai/claude-code`, and `@upstash/context7-mcp` registry latest versions were rechecked on 2026-09-16; the other MCP registry entries keep their earlier snapshot. The Codex package baseline was otherwise rechecked on 2026-09-14; the Claude Code package baseline remains dated 2026-09-07. The Cursor Rules, Skills, and FAQ documentation was rechecked on 2026-09-16; the installed Cursor version keeps its 2026-09-11 observation. The detailed Claude Code documentation check below remains dated 2026-09-04, and the bounded local Context7 stdio probe remains dated 2026-08-14. Re-check registry latest versions and tool/API surfaces before each public release.
 
 ## Codex
 
 | Component | Tested version | Registry latest checked | Notes |
 |---|---:|---:|---|
-| `@openai/codex` npm package | `0.147.0` | `0.154.0` | Registry latest and the installed CLI (`0.154.0`) were re-checked on 2026-09-14. The tagged `0.154.0` schema was fetched for this release baseline; the release gate compares it with the current live schema and runs the four example checks. The broader tested baseline remains `0.147.0`. Do not hardcode this into the repository name or AGENTS rules. |
+| `@openai/codex` npm package | `0.147.0` | `0.154.0` | Registry latest `0.154.0` was rechecked on 2026-09-16; the installed CLI `0.154.0` was last rechecked on 2026-09-14. The tagged `0.154.0` schema was fetched for this release baseline; the release gate compares it with the current live schema and runs the four example checks. The broader tested baseline remains `0.147.0`. Do not hardcode this into the repository name or AGENTS rules. |
 
 The repository vendors the Codex `0.154.0` configuration schema as an offline snapshot with provenance and SHA-256 metadata under `schemas/`. `scripts/validate.ps1` uses the snapshot deterministically; the release-only `scripts/validate-release.ps1` compares it with the current official schema, checks the installed CLI version, validates all four examples against the live copy, and strict-loads each example from an isolated temporary `CODEX_HOME`.
 
@@ -14,17 +14,20 @@ The repository vendors the Codex `0.154.0` configuration schema as an offline sn
 
 | Component | Tested/pinned version | Registry latest checked | Notes |
 |---|---:|---:|---|
-| `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.263` | Registry latest and installed CLI `2.1.263` were observed on 2026-09-07. The settings schema, adapter structure, and `claude doctor` were last re-checked with `2.1.260` on 2026-09-04. Dangerous-command permission behavior was not exercised; settings validation is not proof that every wrapper or compound command will be intercepted. |
+| `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.273` | Registry latest `2.1.273` was observed on 2026-09-16; the installed CLI `2.1.263` was observed on 2026-09-07. The settings schema, adapter structure, and `claude doctor` were last re-checked with `2.1.260` on 2026-09-04. Dangerous-command permission behavior was not exercised; settings validation is not proof that every wrapper or compound command will be intercepted. |
 
 Official Claude Code docs checked: [memory](https://code.claude.com/docs/en/memory), [settings](https://code.claude.com/docs/en/settings), [permissions](https://code.claude.com/docs/en/permissions), and [skills](https://code.claude.com/docs/en/skills).
 
 ## Cursor
 
-Official Cursor docs were re-checked on 2026-09-11; the installed Windows desktop version observed on 2026-09-11 was `3.20.10` (system setup):
+The Cursor Rules, Skills, and FAQ documentation was rechecked on 2026-09-16; the installed Windows desktop version observed on 2026-09-11 was `3.20.10` (system setup):
 
-- [Rules](https://cursor.com/docs/rules.md): Project Rules live in `.cursor/rules` as `.mdc` files. Plain `.md` files are ignored by the rules system; use `AGENTS.md` for plain Markdown guidance.
-- [Skills](https://cursor.com/docs/skills.md): Agent Skills are portable, version-controlled packages that can include scripts, templates, and references. Cursor discovers project and user Skills from `.agents/skills/`, `.cursor/skills/`, `~/.agents/skills/`, and `~/.cursor/skills/`, and also loads the documented Claude and Codex compatibility directories. The official documentation does not define precedence for same-name Skills found in multiple roots.
+- [Rules](https://cursor.com/docs/rules.md): Project Rules live in `.cursor/rules` as `.mdc` files. Plain `.md` files are ignored by the rules system; use `AGENTS.md` for plain Markdown guidance. Cursor supports nested `AGENTS.md` files, applies them when working with files in their directory or descendants, combines them with parent instructions, and gives more-specific instructions precedence.
+- [Skills](https://cursor.com/docs/skills.md): Agent Skills are portable, version-controlled packages that can include scripts, templates, and references. Cursor discovers project and user Skills from `.agents/skills/`, `.cursor/skills/`, `~/.agents/skills/`, and `~/.cursor/skills/`, and also loads `.claude/skills/`, `.codex/skills/`, `~/.claude/skills/`, and `~/.codex/skills/`. The official documentation does not define precedence or deduplication for same-name Skills found in multiple roots. A shared/Codex installation under an Agents root combined with the Cursor adapter's `.cursor/skills/` is already a multi-source installation even without Claude Code. The sources are not behaviorally interchangeable: the Cursor `rd-delivery` mirror uses `disable-model-invocation: true`, while the Codex source carries its explicit-only policy in `agents/openai.yaml`.
 - [MCP](https://cursor.com/docs/mcp.md): project-specific MCP servers are configured through `.cursor/mcp.json`; global servers use `~/.cursor/mcp.json`.
+- [Rules FAQ](https://cursor.com/help/customization/rules#how-does-claudemd-work-in-cursor) (checked 2026-09-16): Cursor reads `CLAUDE.md` the same way it reads `AGENTS.md`, and `CLAUDE.md` files are always applied to every conversation regardless of any `alwaysApply` frontmatter setting. Combining the Claude Code and Cursor adapters therefore adds another always-on instruction file as well as another discoverable Skill source; see `cursor/README.md`.
+
+A 2026-09-16 maintainer session reported that the four distributable `AGENTS.md` templates under `codex/` and `zh-CN/codex/`, plus the English and Chinese Cursor `00-global-principles.mdc` files, were surfaced together as effective instructions. Those six files currently total 64,928 bytes and contain conflicting language directives. This is a single-session runtime observation, not an independently reproduced loading contract; the official nested-`AGENTS.md` documentation describes directory-scoped application instead. No isolation mechanism has been verified. Treat the observation as an unresolved source-repository compatibility risk, not proof that every Cursor session loads all six files or that the root maintainer file overrides them.
 
 | Adapter surface | Repository path | Public-release posture |
 |---|---|---|
@@ -41,7 +44,7 @@ This repository does not ship an active Cursor `.cursor/mcp.json` and does not r
 
 | MCP server | Package | Tested version | Registry latest checked | Default in public config |
 |---|---|---:|---:|---|
-| Context7 | `@upstash/context7-mcp` | `4.0.2` | `4.0.5` | Codex example disabled; sole Cursor minimal example, inactive until copied and credentialed |
+| Context7 | `@upstash/context7-mcp` | `4.0.2` | `4.1.1` | Codex example disabled; sole Cursor minimal example, inactive until copied and credentialed |
 | Tavily | `tavily-mcp` | `0.2.19` | `0.2.22` | Codex example disabled; omitted from Cursor minimal example |
 | Sequential Thinking | `@modelcontextprotocol/server-sequential-thinking` | `2025.12.18` | `2026.8.31` | Omitted from public minimal examples |
 | Brave Search | `@brave/brave-search-mcp-server` | `2.0.82` | `2.1.3` | Omitted from public minimal examples |

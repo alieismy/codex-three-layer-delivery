@@ -44,6 +44,16 @@ Treat Cursor support as optional and explicitly opt-in:
 - This repository ships `mcp.example.json`, not an active `.cursor/mcp.json`.
 - Do not rely on undocumented Cursor MCP fields such as `disabled` or `alwaysAllow` in public templates.
 
+## Installing Alongside Other Adapters
+
+Cursor discovers Skills from `.agents/skills/`, `.cursor/skills/`, `~/.agents/skills/`, and `~/.cursor/skills/`, plus the compatible `.claude/skills/`, `.codex/skills/`, `~/.claude/skills/`, and `~/.codex/skills/` roots ([Cursor Skills](https://cursor.com/docs/skills.md)). The documentation does not define precedence or deduplication for the same Skill name found in more than one root. Before installing this adapter, inventory every discovered root. Choosing only one project adapter does not eliminate same-name definitions already present in user-level roots.
+
+A normal shared/Codex installation under `~/.agents/skills/` or project `.agents/skills/` combined with this adapter's `.cursor/skills/` already creates multiple discoverable definitions with the same `rd-*` names; Claude Code is not required for that conflict. Do not resolve it by blindly omitting the Cursor Skill tree: the Cursor `rd-delivery` mirror carries the platform-specific `disable-model-invocation: true` guard, while Codex enforces the same explicit-only policy through `agents/openai.yaml`. This repository does not yet document a runtime-verified, general-purpose installation recipe that both removes same-name ambiguity and preserves every client's platform-specific invocation contract. For Cursor-only use, ensure that the Cursor copy is the sole discoverable definition of each `rd-*` Skill in that environment. If Cursor must share the environment with Codex or Claude Code, preserve the platform-specific copies, verify which definition Cursor selects and whether `rd-delivery` remains explicit-only in a fresh session, and record the accepted arrangement. Remove or relocate an existing Skill copy only with authorization appropriate to its scope.
+
+Installing the Claude Code adapter also adds `.claude/skills/` and a project `CLAUDE.md`. Cursor reads `CLAUDE.md` the same way it reads `AGENTS.md`, and applies it to every conversation regardless of any `alwaysApply` setting ([Cursor rules FAQ](https://cursor.com/help/customization/rules#how-does-claudemd-work-in-cursor), checked 2026-09-16). Review both the same-name Skill sources and the always-on instruction files before combining adapters; do not call them deduplicated until the target Cursor runtime has been verified.
+
+Cursor supports nested `AGENTS.md` files and documents that they apply when working with files in their directory or descendants, with more-specific instructions taking precedence ([Cursor rules](https://cursor.com/docs/rules.md)). Adapter copies kept under nested source directories can therefore conflict with repository-maintainer guidance for work in those subtrees; do not assume a root instruction file overrides them.
+
 ## Installation
 
 Install the English adapter:
