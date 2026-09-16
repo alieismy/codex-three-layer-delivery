@@ -6,6 +6,11 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+## 1.7.2 - 2026-09-16
+
+- Clarified the English and Simplified Chinese README Skill taxonomy as eight independently usable specialist Skills plus the explicit-only `rd-delivery` orchestrator, eliminating the apparent mismatch between the stated count and the nine-row table.
+- Corrected the English and Simplified Chinese Cursor adapter README evidence dates by separating the 2026-09-16 Rules and Skills documentation check from the retained 2026-09-11 MCP documentation check and installed-version observation.
+
 ## 1.7.1 - 2026-09-16
 
 - Refreshed registry latest snapshots in the compatibility documents: `@anthropic-ai/claude-code` `2.1.273` and `@upstash/context7-mcp` `4.1.1` observed on 2026-09-16; `@openai/codex` remains `0.154.0`. Tested versions and the Context7 `4.0.2` pins are unchanged.

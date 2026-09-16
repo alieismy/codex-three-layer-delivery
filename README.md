@@ -168,7 +168,7 @@ Cursor-specific Chinese files remain under:
 cursor/zh-CN/
 ```
 
-## Skill Reference
+## Skill Reference: Eight Specialists and One Explicit Orchestrator
 
 | Skill | Primary deliverable | Typical use |
 |---|---|---|
@@ -182,7 +182,7 @@ cursor/zh-CN/
 | `$rd-review` | Independent review findings | review engineering documents, research reports, standards, and technical or public-affairs articles |
 | `$rd-delivery` | Delivery charter / artifact map / phase gates / handoff | explicitly coordinate multi-stage, multi-document, or cross-session engagements |
 
-The eight specialist Skills are independent and are not a forced pipeline. Use `$rd-research` when external or contested evidence is needed, `$rd-writing` when verified evidence must become an audience-ready narrative, and `$rd-review` when an independent verdict is required. Invoke `$rd-delivery` only when the user explicitly requests cross-artifact orchestration, phase gates, or a durable handoff. This boundary is encoded with `agents/openai.yaml` for Codex and with platform-specific `disable-model-invocation: true` frontmatter in the Claude and Cursor adapters.
+The first eight specialist Skills in the table are independently usable and do not form a forced pipeline. `rd-delivery` is the ninth Skill and serves only as an explicit orchestrator. Use `$rd-research` when external or contested evidence is needed, `$rd-writing` when verified evidence must become an audience-ready narrative, and `$rd-review` when an independent verdict is required. Invoke `$rd-delivery` only when the user explicitly requests cross-artifact orchestration, phase gates, or a durable handoff. This boundary is encoded with `agents/openai.yaml` for Codex and with platform-specific `disable-model-invocation: true` frontmatter in the Claude and Cursor adapters.
 
 Each skill includes output and trigger-boundary cases under `evals/` plus ChatGPT/Codex desktop metadata under `agents/openai.yaml`. Multi-mode Skills keep their common workflow in `SKILL.md` and load only the selected checklist from `references/`. Shared bodies use neutral `rd-*` identifiers; Codex examples use `$rd-*`, while explicit Cursor and Claude Code invocation uses `/rd-*`.
 
