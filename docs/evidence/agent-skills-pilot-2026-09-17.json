@@ -492,5 +492,7 @@
         }
       ]
     }
-  ]
+  ],
+  "input_snapshot_commit": "2ce423d3b730876715661e906dd5c2287a9ec455",
+  "input_snapshot_note": "This later repository commit preserves the exact input files used by the earlier pilot. Subsequent clarification of eval 8 expected_output is excluded from model prompts; original input hashes and responses remain unchanged."
 }

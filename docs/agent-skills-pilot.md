@@ -23,32 +23,40 @@ Cases 6/7 in each Skill form neutral/pressure pairs. Review 8/9 form an unauthor
 
 ## Method and reproduction
 
-The repository baseline was `b01721b00ded1e599de48baf510d8459cadc92a6`. English and Chinese `SKILL.md` files for both Skills were byte-compared with that baseline and remained unchanged. Fixtures and eval entries are new in this change; the evidence record hashes the exact Chinese inputs used. It does not depend on an ignored temporary directory as the only evidence store.
+The repository baseline was `b01721b00ded1e599de48baf510d8459cadc92a6`. English and Chinese `SKILL.md` files for both Skills were byte-compared with that baseline and remained unchanged. Fixtures and eval entries are new in this change; the evidence record hashes the exact Chinese inputs used. The later `input_snapshot_commit` preserves those exact files for reproduction. A subsequent review clarified eval 8's expected-output wording (an increase in allowed time from 60 to 120 seconds); that field was not supplied to the model, and the historical hashes and responses are unchanged. It does not depend on an ignored temporary directory as the only evidence store.
 
 The host was Windows with `codex-cli 0.154.0`. Each invocation requested `gpt-6-astra` with reasoning `high`, using the existing configured provider. The provider identity, endpoint and credentials are not published; server-side model identity was not independently verified. These are observations of one configured host, not portable model performance claims.
 
 The prompt supplied the existing Chinese Skill text, one chosen reference (`configuration-research.md` or `requirements-review.md`), the case prompt, and fixtures in declared order. Expected outputs, assertions and grading notes were withheld. The shared preamble requested an offline Chinese document, no tools or workspace writes, and a suggested 800-character length. Assertions and results are not a blind measure of spontaneous behavior because the tasks themselves explicitly state relevant constraints.
 
-To reproduce the prompt from a repository root containing this change, use Python 3 and the evidence record's recipe. For example, the following prints the first case prompt and verifies its hash without calling a model:
+To reproduce the prompt from a Git checkout containing this change and its recorded input commit, use Python 3 and the evidence record's recipe. A source ZIP or shallow checkout may need the recorded commit fetched first. The following prints the first case prompt and verifies its hash without calling a model:
 
 ```python
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 
 root = Path.cwd()
 record = json.loads((root / "docs/evidence/agent-skills-pilot-2026-09-17.json").read_text(encoding="utf-8"))
+def read_input(path):
+    name = path.relative_to(root).as_posix()
+    raw = subprocess.run(["git", "show", record["input_snapshot_commit"] + ":" + name],
+                         check=True, capture_output=True, cwd=root).stdout
+    assert hashlib.sha256(raw).hexdigest() == record["input_file_sha256"][name]
+    return raw.decode("utf-8").replace("\r\n", "\n")
+
 result = record["cases"][0]  # Select another record for the remaining cases.
 eval_path = root / result["eval_file"]
-case = next(x for x in json.loads(eval_path.read_text(encoding="utf-8"))["evals"] if x["id"] == result["eval_id"])
+case = next(x for x in json.loads(read_input(eval_path))["evals"] if x["id"] == result["eval_id"])
 recipe = record["prompt_recipe"]
 parts = [recipe["preamble"],
-         recipe["skill_prefix"] + (eval_path.parent.parent / "SKILL.md").read_text(encoding="utf-8"),
-         recipe["reference_prefix"] + (root / result["reference"]).read_text(encoding="utf-8"),
+         recipe["skill_prefix"] + read_input(eval_path.parent.parent / "SKILL.md"),
+         recipe["reference_prefix"] + read_input(root / result["reference"]),
          recipe["task_prefix"] + case["prompt"]]
 for file in case["files"]:
     parts.append(recipe["fixture_prefix_template"].format(file=file)
-                 + (eval_path.parent / file).read_text(encoding="utf-8"))
+                 + read_input(eval_path.parent / file))
 prompt = "\n\n".join(parts)
 assert hashlib.sha256(prompt.encode("utf-8")).hexdigest() == result["prompt_sha256"]
 print(prompt, end="")

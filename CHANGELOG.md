@@ -10,6 +10,7 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 - Added six fixture-backed output evals for `rd-research` and `rd-review`, with normal/pressure and unauthorized/authorized pairs covering evidence overclaims, prior-reviewer anchoring, and acceptance changes; synchronized English, Chinese, Claude and Cursor eval payloads. Each canonical language tree now contains 42 output cases, including the previously released `rd-design` addition.
 - Recorded a bounded Chinese Codex CLI text-behavior pilot with six complete responses, input hashes and 24/24 task-agent-graded assertions. Existing Skill bodies and descriptions remain unchanged; no native-discovery, cross-client, causal-improvement or production claim is made.
+- Clarified that eval 8 increases the allowed completion time from 60 to 120 seconds, and pinned the original pilot input snapshot so later expected-output wording changes do not overwrite historical evidence.
 - Added bilingual gradual-adoption guidance, a selective-adoption assessment, MIT-source attribution and README acknowledgements for Addy Osmani Agent Skills pinned at `be4e44a9fbc5e8df0beaefadbb28bd22ee61cc39`, without importing upstream code, hooks, routing tools or a new Skill.
 
 ## 1.7.4 - 2026-09-17

@@ -23,13 +23,13 @@
 
 ## 方法与复现
 
-仓库基线为 `b01721b00ded1e599de48baf510d8459cadc92a6`。两个 Skill 的英文和中文 `SKILL.md` 均与基线逐字节比较，保持不变。fixture 和 eval 条目属于本次新增，证据记录保存实际使用的中文输入哈希；不会把唯一证据留在忽略的临时目录中。
+仓库基线为 `b01721b00ded1e599de48baf510d8459cadc92a6`。两个 Skill 的英文和中文 `SKILL.md` 均与基线逐字节比较，保持不变。fixture 和 eval 条目属于本次新增，证据记录保存实际使用的中文输入哈希，并以之后的 `input_snapshot_commit` 固定这些输入文件以供复现。后续评审明确了用例 8 的预期输出措辞：允许耗时从 60 秒增加到 120 秒。该字段未提供给模型，历史哈希和回答均保持不变；不会把唯一证据留在忽略的临时目录中。
 
 宿主为 Windows，CLI 为 `codex-cli 0.154.0`。每次调用使用已有配置的 provider，请求模型为 `gpt-6-astra`，reasoning 为 `high`。provider 身份、地址和凭据不公开；未独立核实服务端实际模型身份。这是一个已配置宿主的观察结果，不是可跨环境泛化的模型性能结论。
 
 提示词按顺序提供现有中文 Skill 正文、选定的一个 reference（`configuration-research.md` 或 `requirements-review.md`）、用例任务和 fixture，没有注入 expected output、assertions 或评分笔记。共同前言要求离线中文文档、不使用工具或写工作区文件，建议控制在 800 字内。任务本身明确给出相关约束，因此这不是对自发行为的盲测。
 
-在包含本次改动的仓库根目录，用 Python 3 按证据记录的 `prompt_recipe` 重建提示词。可直接使用[英文方法说明中的短代码](../../docs/agent-skills-pilot.md#method-and-reproduction)：选取一个 case，读取其 eval、正文、reference 和 fixture，以两个 LF 连接，按 UTF-8 计算 SHA-256 并与记录比较。该代码只输出提示词，不调用模型；替换所选 case 即可核对其余五项。
+在包含本次改动及所记录输入提交的 Git 工作区根目录，用 Python 3 按证据记录的 `prompt_recipe` 重建提示词；源码 ZIP 或浅克隆可能需要先获取该提交。可直接使用[英文方法说明中的短代码](../../docs/agent-skills-pilot.md#method-and-reproduction)：选取一个 case，从固定提交读取其 eval、正文、reference 和 fixture，核对文件哈希，以两个 LF 连接，按 UTF-8 计算提示词 SHA-256 并与记录比较。该代码只输出提示词，不调用模型；替换所选 case 即可核对其余五项。
 
 经授权重新运行模型时，先核对 CLI 和既有认证，再复现记录中的 `execution` 控制：独立临时 `CODEX_HOME`、具有独立 Git 根的空工作区、忽略用户配置和规则、禁用项目文档加载、通过 `skills.config` 明确禁用发现的个人及系统 Skills、禁用工具／插件／hooks／记忆／搜索，并使用记录的 CLI flags。经 stdin 输入提示词，以 `-o` 捕获最终回答，每例超时 240 秒。使用既有获准认证，不把凭据复制到 fixture、提示词、受跟踪配置或日志。provider 配置和认证属于本地前置条件，不是公开复现输入。
 
