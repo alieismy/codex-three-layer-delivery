@@ -381,6 +381,7 @@ This project was informed by broad patterns from the following public repositori
 - [Superpowers](https://github.com/obra/superpowers.git)
 - [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex.git)
 - [Trellis](https://github.com/mindfold-ai/Trellis.git)
+- [Addy Osmani Agent Skills](https://github.com/addyosmani/agent-skills)
 - Thanks to the [LINUX DO](https://linux.do/) community for providing a place for open-source discussion and promotion.
 
 ## License

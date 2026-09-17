@@ -46,6 +46,14 @@ codex --cd path/to/nested-directory --sandbox read-only --ask-for-approval never
 
 ## Skills
 
+### Adopt by deliverable
+
+For a new project, start with the specialist that owns the current deliverable: requirements, evidence, feasibility, solution, design, specification, writing, or review. Installing the suite does not make all nine Skills a required workflow. Use `rd-delivery` only when explicitly requesting multi-stage or multi-document coordination.
+
+For an established project, preserve its governing documents, terminology, approvals, and working conventions. Try the appropriate specialist on one bounded real task, inspect its output and evidence limits, and expand use only where it helps. Research and review are useful entry points when those are the actual tasks, not mandatory prerequisites for every document.
+
+Adoption scope and installation scope are different: the PowerShell installer below manages all nine declared `rd-*` directories; it is not a single-Skill selector. Begin by using a small part of the installed suite. Before combining clients, resolve source/scope choices and inspect actual discovery using the platform guidance below; a second installed copy is not proof of a second effective capability.
+
 ### Skill sources and scope
 
 The English `skills/` tree is the repository's canonical Skill source. `zh-CN/skills/` is its Simplified Chinese translation pack; a user-level copy under `~/.agents/skills/` (or `$HOME/.agents/skills/`) is an installed personal copy, not a second repository source. Install one deliberate source at one deliberate scope for each project. If the same Skill name exists in more than one discovered user or project directory, Codex does not merge the directories; selection and precedence can be ambiguous, so inspect the discovered copies and remove or relocate an unintended duplicate only with explicit authorization.

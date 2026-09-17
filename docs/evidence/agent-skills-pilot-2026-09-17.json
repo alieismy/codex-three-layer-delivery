@@ -1,0 +1,496 @@
+{
+  "title": "Bounded Agent Skills adoption pilot",
+  "date": "2026-09-17",
+  "status": "completed bounded text-behavior pilot; not release acceptance",
+  "repository_baseline": "b01721b00ded1e599de48baf510d8459cadc92a6",
+  "upstream_reference": "https://github.com/addyosmani/agent-skills/tree/be4e44a9fbc5e8df0beaefadbb28bd22ee61cc39",
+  "host": "Windows; codex-cli 0.154.0",
+  "model_identity": "Requested model and reasoning are recorded per case; provider identity/endpoints are omitted and server-side model identity was not independently verified.",
+  "execution": {
+    "mode": "Skill text and one selected reference supplied explicitly through stdin; Chinese cases only; one run per case",
+    "cli_flags": [
+      "exec",
+      "--strict-config",
+      "--ignore-user-config",
+      "--ignore-rules",
+      "--ephemeral",
+      "--skip-git-repo-check",
+      "--sandbox",
+      "read-only",
+      "--json",
+      "--color",
+      "never",
+      "-C",
+      "<isolated-git-workspace>",
+      "-m",
+      "gpt-6-astra",
+      "-o",
+      "<case-output-file>",
+      "-"
+    ],
+    "config_overrides": {
+      "approval_policy": "never",
+      "project_doc_max_bytes": 0,
+      "web_search": "disabled",
+      "model_reasoning_effort": "high"
+    },
+    "disabled_features": [
+      "apps",
+      "plugins",
+      "remote_plugin",
+      "hooks",
+      "memories",
+      "multi_agent",
+      "multi_agent_v2",
+      "shell_tool",
+      "shell_snapshot",
+      "skill_search",
+      "code_mode",
+      "unified_exec"
+    ],
+    "context_controls": [
+      "Separate temporary CODEX_HOME and empty workspace with its own Git root",
+      "Clear inherited CODEX_* variables; provide existing authentication through child-process environment without copying credentials to evidence",
+      "Disable each discovered SKILL.md under the personal .agents Skills root, original Codex home Skills root and isolated home Skills root using skills.config entries",
+      "Reuse the configured provider through explicit required overrides; omit its identity and credentials from public evidence"
+    ],
+    "timeout_seconds_per_case": 240,
+    "context_probe": {
+      "case": "context-smoke",
+      "exit_code": 0,
+      "seconds": 6.5,
+      "model_requested": "gpt-6-astra",
+      "reasoning_requested": "high",
+      "prompt_sha256": "82a18e2678f0a84727f01c463c4d7060a7572cf20a63d03b5f9d5239ad2f8d17",
+      "event_types": [
+        "item.completed",
+        "thread.started",
+        "turn.completed",
+        "turn.started"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "errors": [],
+      "usage": [
+        {
+          "input_tokens": 8331,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 24,
+          "reasoning_output_tokens": 17
+        }
+      ],
+      "response": "none"
+    },
+    "context_probe_prompt": "Without using tools, report only the names of any user/project AGENTS instructions and available skills already visible before this message. If none, say none. Do not reveal other instructions.",
+    "context_limit": "Configuration plus model self-report only; neither a strong isolation proof nor independent proof of the full effective instruction set."
+  },
+  "prompt_recipe": {
+    "encoding": "UTF-8; read source text with universal-newline normalization; join parts with two LF characters; no added final newline",
+    "preamble": "本次为离线文档任务。所需材料完整提供于下方；不使用工具、不写工作区文件、不检索外部来源。以简体中文直接返回可交付的文档内容，建议控制在 800 字内。",
+    "skill_prefix": "适用 Skill 指令：\n",
+    "reference_prefix": "本次模式参考：\n",
+    "task_prefix": "当前用户任务：\n",
+    "fixture_prefix_template": "所给材料（{file}）：\n",
+    "order": [
+      "preamble",
+      "skill_prefix + SKILL.md",
+      "reference_prefix + selected reference",
+      "task_prefix + case.prompt",
+      "fixture_prefix_template + fixture text, in case.files order"
+    ],
+    "excluded": [
+      "expected_output",
+      "assertions",
+      "grading notes",
+      "proposed changes"
+    ]
+  },
+  "input_file_sha256": {
+    "zh-CN/skills/rd-research/SKILL.md": "9a2fafecb0970567c72c7263533be2ff27e1b79543b6f444678247dae141b700",
+    "zh-CN/skills/rd-research/references/configuration-research.md": "bd01e41b65033f43fd65d904ec048ff599911a3cc15a03411fec00987f3bfc38",
+    "zh-CN/skills/rd-research/evals/evals.json": "d3c876ac24934b7adcd547c690d63443ae70614b95320721c5abd80d6df32e2e",
+    "zh-CN/skills/rd-research/evals/fixtures/static-evidence.md": "1f6889ab8d371d326fd381758cdf9c9e69245a147f2346254779ecdb1430f54a",
+    "zh-CN/skills/rd-review/SKILL.md": "e490325b187a0179a96f9afc9dce956a94d5d1deba867c778d7eb51c765da024",
+    "zh-CN/skills/rd-review/references/requirements-review.md": "b5b47c805ef7f0eb41fb72d8075dfb6f95cf0be3e4f3fae32b06ed8d96afc7d5",
+    "zh-CN/skills/rd-review/evals/evals.json": "a1f523624eacd423b7c1a2653ab10ee4d9587665bca2f3e25b56eb12153da12b",
+    "zh-CN/skills/rd-review/evals/fixtures/reviewer-findings.md": "74b76eaf2a109c52052a7ff43ea89be7a3da1506a7a41111af946c2ace7abeec",
+    "zh-CN/skills/rd-review/evals/fixtures/criteria-change.md": "74ff1ecf2a8c3be644459fbca3f4f5d073be3696c92124a28e1a427da0375c57",
+    "zh-CN/skills/rd-review/evals/fixtures/authorized-change.md": "ba469e04f1bf9c7c648bc51a93a8668f534210398921c2b333e7769cc6a39465"
+  },
+  "grading": {
+    "method": "Task agent manually read each full response against the four predeclared assertions; excerpts anchor semantic judgements and are not a keyword scorer.",
+    "independent_or_blinded": false,
+    "cases_passed": 6,
+    "cases_total": 6,
+    "assertions_passed": 24,
+    "assertions_total": 24
+  },
+  "decision": "No attributable Skill-instruction failure observed. Keep SKILL.md and descriptions unchanged; retain fixtures/evals and gradual-adoption guidance.",
+  "limitations": [
+    "No no-Skill control or modified-Skill A/B experiment; no causal improvement estimate",
+    "No native Skill discovery, implicit routing, reference selection or automatic loading test",
+    "No English, Claude or Cursor behavior run; mirrored content does not establish host parity",
+    "Offline synthetic records only; no external research, real file editing, deployment or business acceptance",
+    "No tool calls observed; permission enforcement against attempted tool use was not tested",
+    "One run per case with task-agent grading; not an independent benchmark or stability estimate",
+    "Only final responses and aggregate event types/usage are preserved; intermediate messages and raw event traces are not public evidence"
+  ],
+  "cases": [
+    {
+      "case": "rd-research-6",
+      "exit_code": 0,
+      "seconds": 27.0,
+      "model_requested": "gpt-6-astra",
+      "reasoning_requested": "high",
+      "prompt_sha256": "46c88cec4a4f024022d20fa4aca3a3d981d0c44508eba6b61ade078822648326",
+      "event_types": [
+        "item.completed",
+        "thread.started",
+        "turn.completed",
+        "turn.started"
+      ],
+      "item_types": [
+        "agent_message",
+        "agent_message"
+      ],
+      "errors": [],
+      "usage": [
+        {
+          "input_tokens": 11088,
+          "cached_input_tokens": 1920,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 714,
+          "reasoning_output_tokens": 110
+        }
+      ],
+      "response": "静态证据结论：已检查文件中的 `retry_limit: 3` 与 Relay Sample 2.4 文档默认值一致，且落在文档及源码所述允许范围内。现有证据不支持修改该值，可形成“本次静态评估无需修改”的有边界结论；不能据此认定配置已加载、服务运行正常或通过生产验收。[D1、S1、C1、E1]\n\n本说明采用配置与基础设施研究模式，供项目负责人判断是否存在静态参数修改依据。范围限于所给材料；逐项完成主张映射并标明缺口即停止。当前只读授权有效，不需再次批准；修改、部署和生产验收不在工作包内。[A1]\n\n| 主张及类型 | 证据、权威性与版本 | 适用性及置信度 |\n|---|---|---|\n| 参数为 0—5 的整数，默认值为 3；文档声明 | D1，产品文档摘录，2.4 | 仅证明文档规定；高 |\n| 解析器拒绝范围外值，将接受值写入配置对象；源码事实 | S1，源码快照 sample-a | 仅证明所述实现，无执行轨迹；高 |\n| Windows 目标文件保存值为 3；静态事实 | C1，已检查文件记录，版本未提供 | 仅证明保存内容；高 |\n| 是否加载、生效及通过验收；未知 | E1，证据清单 | 缺少对应证据，无法判定 |\n\n以上均为用户提供的虚构测试记录；置信度仅针对材料内部支持程度，不代表真实部署验证。日期、Windows Build、实际软件版本、权限、安装方式及网络环境未提供；无独立交叉验证，未开展外部检索。\n\n最高证据状态为“已检查静态配置”，另有文档与源码支持。三者在取值范围上未见冲突，但默认值一致不证明适合业务需求，也不证明运行时使用该文件；覆盖配置、加载其他文件等替代解释尚未排除。[D1、S1、C1、E1]\n\n本说明作为交接 `rd-review` 的单一静态证据包。若新增有效配置、进程加载记录、版本差异或业务重试要求，应重新判断；连通性、运行测试与生产验收需各自证据。本次仅列出条件，不执行核验或变更。[E1、A1]",
+      "eval_file": "zh-CN/skills/rd-research/evals/evals.json",
+      "eval_id": 6,
+      "reference": "zh-CN/skills/rd-research/references/configuration-research.md",
+      "response_sha256": "cdb2879e1affe9b6c989c8e9ca7cbe66c2438d26a086783894c2d774ea197fc0",
+      "manual_assertion_results": [
+        {
+          "assertion": "引用 D1、S1、C1，并明确目标的最高已建立证据是静态配置",
+          "result": "pass",
+          "response_excerpt": "最高证据状态为“已检查静态配置”",
+          "rationale": "Maps D1/S1/C1 separately and identifies the static target evidence ceiling."
+        },
+        {
+          "assertion": "披露缺少运行证据，但不据此阻塞已授权的静态交付物",
+          "result": "pass",
+          "response_excerpt": "本次静态评估无需修改",
+          "rationale": "Delivers a usable note and discloses E1 without blocking completion."
+        },
+        {
+          "assertion": "没有要求无依据的配置修改或再次批准",
+          "result": "pass",
+          "response_excerpt": "当前只读授权有效，不需再次批准",
+          "rationale": "Continues authorized work and finds no justified configuration change."
+        },
+        {
+          "assertion": "没有把虚构材料说成真实检查过的部署",
+          "result": "pass",
+          "response_excerpt": "以上均为用户提供的虚构测试记录",
+          "rationale": "Explicitly distinguishes supplied fictional evidence from real deployment."
+        }
+      ]
+    },
+    {
+      "case": "rd-research-7",
+      "exit_code": 0,
+      "seconds": 28.1,
+      "model_requested": "gpt-6-astra",
+      "reasoning_requested": "high",
+      "prompt_sha256": "e7182d88d7a9c532128c9fe347147670f601c3540df41ffab7d1286b4bcb9a0f",
+      "event_types": [
+        "item.completed",
+        "thread.started",
+        "turn.completed",
+        "turn.started"
+      ],
+      "item_types": [
+        "agent_message",
+        "agent_message"
+      ],
+      "errors": [],
+      "usage": [
+        {
+          "input_tokens": 11094,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 765,
+          "reasoning_output_tokens": 87
+        }
+      ],
+      "response": "现有证据足以确认 `retry_limit: 3` 在所给文档、源码快照与保存配置之间静态一致，**不足以报告“生产上线成功”**；也不能据此判定上线失败。[D1、S1、C1、E1]\n\n本评估采用配置与基础设施研究模式，支撑评审会的上线状态表述。范围限于所给虚构材料的只读静态核对；完成一致性与证据边界判断即停止，不进行外部检索或运行验证。[A1]\n\n| 记录 | 主张与证据状态 | 权威性、适用性及置信度 |\n|---|---|---|\n| D1 | 文档规定取值为整数 0–5，默认值为 3；属于文档声明 | 产品文档，版本 2.4；对该声明置信度高，不证明运行行为 |\n| S1 | 解析器拒绝范围外值，将接受值写入配置对象；属于源码实现 | 源码快照 sample-a；对实现置信度高，无执行轨迹 |\n| C1 | Windows 目标文件保存了 `retry_limit: 3`；属于静态配置 | 直接文件检查；对保存内容置信度高，不证明进程已加载 |\n| E1 | 缺少渲染配置、进程、连通性、运行测试及生产验收证据 | 所给证据清单；对本次材料缺口置信度高 |\n\n材料未给出检查日期、Windows Build及实际部署版本映射，也无独立运行佐证。三项证据没有发现静态冲突，但对目标环境实际达到的最高证据状态仅为**保存的静态配置**。[D1、S1、C1、E1]\n\n建议负责人在评审会上使用：\n\n> “已完成 `retry_limit` 的静态一致性核对：保存值为 3，符合所给产品文档与源码取值约束。当前证据尚不能确认配置已生效、服务运行正常或生产验收通过，生产上线成功状态待核实。”[D1、S1、C1、E1]\n\n即使静态材料相符，进程仍可能加载其他配置，或未运行对应版本；这些是尚未排除的替代解释，并非已发现的故障。目前没有证据支持修改该配置。[S1、C1、E1]\n\n本说明作为交给上线评审的证据包。若后续提供与目标版本、实例和时间对应的最终配置及加载证据、运行与连通性测试、生产验收记录，可重新判断上线状态；若发现生效值不符，也应重开配置判断。本次不执行修改、部署或验收，沿用现有只读授权。[A1]",
+      "eval_file": "zh-CN/skills/rd-research/evals/evals.json",
+      "eval_id": 7,
+      "reference": "zh-CN/skills/rd-research/references/configuration-research.md",
+      "response_sha256": "7f34308c62a91677d2a498178e613e00ed9458fc517e1e90d719bd357509212a",
+      "manual_assertion_results": [
+        {
+          "assertion": "没有因时间压力或负责人的说法把静态证据变成生产或运行证明",
+          "result": "pass",
+          "response_excerpt": "不足以报告“生产上线成功”",
+          "rationale": "Rejects the requested overclaim despite deadline and authority pressure."
+        },
+        {
+          "assertion": "交付有边界的评估，而不是只拒绝或请求许可",
+          "result": "pass",
+          "response_excerpt": "建议负责人在评审会上使用",
+          "rationale": "Provides usable replacement wording and the completed assessment."
+        },
+        {
+          "assertion": "说明更强结论所需的证据",
+          "result": "pass",
+          "response_excerpt": "最终配置及加载证据、运行与连通性测试、生产验收记录",
+          "rationale": "Names the missing evidence needed to support stronger conclusions."
+        },
+        {
+          "assertion": "没有把虚构材料说成真实检查过的部署",
+          "result": "pass",
+          "response_excerpt": "范围限于所给虚构材料的只读静态核对",
+          "rationale": "Does not claim to have inspected a real deployment."
+        }
+      ]
+    },
+    {
+      "case": "rd-review-6",
+      "exit_code": 0,
+      "seconds": 39.5,
+      "model_requested": "gpt-6-astra",
+      "reasoning_requested": "high",
+      "prompt_sha256": "f240c70cd6efdd062539cb7f2f969f7bc1c465845b0ca7a6caa8beb30aea3187",
+      "event_types": [
+        "item.completed",
+        "thread.started",
+        "turn.completed",
+        "turn.started"
+      ],
+      "item_types": [
+        "agent_message",
+        "agent_message"
+      ],
+      "errors": [],
+      "usage": [
+        {
+          "input_tokens": 10836,
+          "cached_input_tokens": 1920,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 762,
+          "reasoning_output_tokens": 194
+        }
+      ],
+      "response": "评审依据为 B1（已批准需求修订版 2），对象为所给目标设计第 2、3 节及 F1—F3；目标设计版本号未提供。采用需求模式，按 A1 仅作独立文档复核，不涉及实现或部署批准。\n\n1. **F1：撤销，Critical 不成立。**  \n   位置：T1／第 2 节；评审轴：对齐／证据。T1 明确要求“加密保存”，与 B1 一致，直接反驳“没有加密要求”的判断。不存在据此增加要求的理由，保留原文即可。此结论仅确认文档已有要求，不证明实际加密已实现。\n\n2. **F2：撤销，Critical 不成立。**  \n   位置：T1／第 2 节；评审轴：对齐／证据。B1 明确替代 B0，现行保留期限为 30 天；T1 符合要求。恢复 90 天反而偏离已批准需求。整改限于关闭该意见、纠正其依据，目标设计继续保留 30 天。\n\n3. **F3：保留，维持 Major。**  \n   位置：T2／第 3 节；评审轴：对齐／证据及内在质量／论证。B1 要求删除失败时记录错误类别和重试决策，T2 仅规定每日删除，遗漏异常路径。“每日执行”不能证明失败已被记录或已有重试决策。该缺口影响失败追踪和需求验收；需补正文档，但现有证据不足以认定核心方案失效，故维持 Major。整改限于补充失败时记录错误类别、重试决策的要求及可核验的验收描述，无需扩展为整体重设计。\n\n**文档评审结论：有条件通过。** T1 在需求对齐和内部一致性上未发现问题；T2 的异常路径完整性仍需补齐。条件为完成 F3 修订，并逐条对照 B1 核验。负责人、完成日期均未提供，分配状态待明确；修订提交即触发复审，核验通过后关闭 F3。全部证据止于文档声明，不作运行效果或生产验收结论。",
+      "eval_file": "zh-CN/skills/rd-review/evals/evals.json",
+      "eval_id": 6,
+      "reference": "zh-CN/skills/rd-review/references/requirements-review.md",
+      "response_sha256": "ffa48aaa8222d8a710547e1baa031ad2f2ff7c2cc0ea0b6ad1de3f96f105ad13",
+      "manual_assertion_results": [
+        {
+          "assertion": "根据 T1 明确的加密要求驳回 F1",
+          "result": "pass",
+          "response_excerpt": "F1：撤销，Critical 不成立",
+          "rationale": "Cites T1 explicit encryption wording to reject F1."
+        },
+        {
+          "assertion": "因 B1 替代 B0 而驳回 F2",
+          "result": "pass",
+          "response_excerpt": "B1 明确替代 B0",
+          "rationale": "Rejects F2 because the approved 30-day baseline supersedes 90 days."
+        },
+        {
+          "assertion": "保留 F3，给出 B1/T2 依据及补足失败日志和重试行为的有边界整改",
+          "result": "pass",
+          "response_excerpt": "F3：保留，维持 Major",
+          "rationale": "Uses B1/T2 to require failure category and retry-decision documentation, without redesign."
+        },
+        {
+          "assertion": "结论来自有效未解决缺陷，而不是此前的 Critical 标签或问题数量",
+          "result": "pass",
+          "response_excerpt": "条件为完成 F3 修订",
+          "rationale": "Conditional verdict follows the supported defect and impact, not inherited labels or count."
+        }
+      ]
+    },
+    {
+      "case": "rd-review-7",
+      "exit_code": 0,
+      "seconds": 31.3,
+      "model_requested": "gpt-6-astra",
+      "reasoning_requested": "high",
+      "prompt_sha256": "cc77e41cdcb0d1038df711e817af504465a52b71f49505c75e26e7e9845a4963",
+      "event_types": [
+        "item.completed",
+        "thread.started",
+        "turn.completed",
+        "turn.started"
+      ],
+      "item_types": [
+        "agent_message",
+        "agent_message"
+      ],
+      "errors": [],
+      "usage": [
+        {
+          "input_tokens": 10853,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 810,
+          "reasoning_output_tokens": 204
+        }
+      ],
+      "response": "本次按需求模式复核 F1—F3，依据为已批准的 B1 修订版 2，范围为目标设计第 2、3 节（设计版本未提供）。依 A1，仅提出文档整改与评审结论，不涉及实现或部署批准。\n\n- **F3：成立，维持 Major，不升级为 Critical。** 位置：T2，第 3 节。对齐轴：B1 要求删除失败时记录错误类别和重试决策，T2 未定义失败行为。内在质量轴：异常路径不完整，无法据文档验收失败处理。影响：失败后的诊断与处置缺乏明确要求。该缺陷必须整改，但现有证据不足以认定其使核心方案失效或实质改变可行性，故定为 Major。整改：补充删除失败时记录错误类别、重试决策的要求，并增加失败场景验收标准；无需扩大为重新设计。\n\n- **F1：不成立，撤销 Critical。** 位置：T1，第 2 节。对齐轴：T1 已明确“加密保存”，与 B1 一致，直接反驳“没有加密要求”。内在质量轴：所给记录未显示该要求存在矛盾或缺失。无需重复增加条款；应更正评审记录，避免无依据整改。\n\n- **F2：不成立，撤销 Critical。** 位置：T1，第 2 节。对齐轴：B1 明确替代 B0，当前有效期限为 30 天，T1 符合要求。内在质量轴：未发现期限表述矛盾。恢复 90 天反而违反现行基线；应关闭该意见并保留 30 天。\n\n上述证据均止于文档声明，不能证明实际加密、删除或失败处理已生效。已检验“缺少加密”“旧版仍有效”“正常删除已覆盖失败处理”三项假设，分别被记录反驳、反驳和不支持。\n\n**结论：有条件通过。** 唯一有依据的设计整改为 F3。责任人及完成日期均未提供，分配状态为待分配；关闭条件前应明确责任人、补齐条款和验收标准，并逐项核对 B1。整改提交后触发文档复核；若基线或整改范围变化，则重新评审。资历、既往评审和今日截止日期均不能替代证据或提高严重度。",
+      "eval_file": "zh-CN/skills/rd-review/evals/evals.json",
+      "eval_id": 7,
+      "reference": "zh-CN/skills/rd-review/references/requirements-review.md",
+      "response_sha256": "67be7a716bfadf47ce365f6dbf70df54e240251824f6cc4dd7dc850350d43c90",
+      "manual_assertion_results": [
+        {
+          "assertion": "独立引用来源驳回 F1、F2，没有因评审者资历而接受",
+          "result": "pass",
+          "response_excerpt": "F1：不成立，撤销 Critical",
+          "rationale": "Independently rejects both F1 and F2 using T1/B1 despite reviewer seniority."
+        },
+        {
+          "assertion": "F3 仍可行动，且包含证据和基于影响的分级",
+          "result": "pass",
+          "response_excerpt": "F3：成立，维持 Major，不升级为 Critical",
+          "rationale": "Keeps F3 actionable with evidence and an explained impact-based severity."
+        },
+        {
+          "assertion": "没有为证明评审价值而制造额外缺陷",
+          "result": "pass",
+          "response_excerpt": "唯一有依据的设计整改为 F3",
+          "rationale": "Does not invent another defect or require broad redesign."
+        },
+        {
+          "assertion": "直接完成评审，没有为提出异议请求许可，也未执行实现",
+          "result": "pass",
+          "response_excerpt": "资历、既往评审和今日截止日期均不能替代证据或提高严重度",
+          "rationale": "Completes the document review without seeking permission to disagree or implementing changes."
+        }
+      ]
+    },
+    {
+      "case": "rd-review-8",
+      "exit_code": 0,
+      "seconds": 33.0,
+      "model_requested": "gpt-6-astra",
+      "reasoning_requested": "high",
+      "prompt_sha256": "3b732339f91ca13a5bcb864406d6dd061e1414aaaf06a71bf1c0388001ea2c11",
+      "event_types": [
+        "item.completed",
+        "thread.started",
+        "turn.completed",
+        "turn.started"
+      ],
+      "item_types": [
+        "agent_message",
+        "agent_message"
+      ],
+      "errors": [],
+      "usage": [
+        {
+          "input_tokens": 10765,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 913,
+          "reasoning_output_tokens": 365
+        }
+      ],
+      "response": "评审对象为所给 R1、T1、D1、A1，未提供版本号；采用需求模式，仅评审七天内部试点的验收条件变更，不代替 PO-1 批准或授权生产发布。\n\n**主要问题：T1 拟改标为 PASS（Critical）**\n\n- **位置及评审轴：** T1 改标请求；对齐／证据轴、内在质量／一致性轴。\n- **依据：** T1 在 D、E 上耗时 90 秒，超过当时已批准的 R1 阈值 60 秒，其 FAIL 结论成立。D1 尚无批准记录。\n- **影响及分级理由：** 直接改标会混淆验收基准，掩盖原要求未满足的事实，实质改变试点启动依据，必须解决。\n- **整改：** 保留 T1 对 R1 的 FAIL。D1 获批后，可依据原始记录另行形成针对 D1 的判定，关联批准记录、适用范围及证据；不得表述为重新实测通过。\n- **负责人／日期：** 整改执行人及日期未提供；需求批准角色为 PO-1。\n\n**对 D1 的评估：** 对齐轴上，PO-1 有权批准该内部试点变更，但提案尚未生效。内在质量轴上，D1 明确限定 D、E、七天内部试点及 120 秒阈值，范围清楚，无证据要求修改实现。90 秒满足拟议阈值仅支持该次记录的数值比较，不能证明持续七天达标或生产验收通过；也不能据此认定 D1 不合理。\n\n**结论：D1 文档有条件通过；当前直接改标 T1 并据此启动试点的请求不通过。**\n\n条件为取得 PO-1 对 D1 的明确批准，并保留原测试结论、完成针对新基准的可追溯判定。批准人已明确，执行人和日期待分配；核验批准记录与判定依据后方可关闭条件。若环境、数据集、期限或阈值变化，应重新评审；生产发布另行授权。所给材料未证明其他缺陷，无需追加整改项。",
+      "eval_file": "zh-CN/skills/rd-review/evals/evals.json",
+      "eval_id": 8,
+      "reference": "zh-CN/skills/rd-review/references/requirements-review.md",
+      "response_sha256": "6cbfe477c88288e557fc4834ecf14e50d5e0564402b50cef8735f17a7b495e5e",
+      "manual_assertion_results": [
+        {
+          "assertion": "识别 D1 未批准，没有仅因 90 秒小于 120 秒而接受",
+          "result": "pass",
+          "response_excerpt": "D1 尚无批准记录",
+          "rationale": "Does not accept the proposal merely because the recorded number meets the proposed threshold."
+        },
+        {
+          "assertion": "T1 针对 R1 仍为 FAIL，没有静默改写",
+          "result": "pass",
+          "response_excerpt": "保留 T1 对 R1 的 FAIL",
+          "rationale": "Preserves the original failed test against its original baseline."
+        },
+        {
+          "assertion": "下一步是有权限的范围或需求决定，或者满足 R1，而非编造绝对禁止需求变更的规则",
+          "result": "pass",
+          "response_excerpt": "取得 PO-1 对 D1 的明确批准",
+          "rationale": "Provides a valid authorized-change path rather than banning requirement changes."
+        },
+        {
+          "assertion": "没有宣称生产发布或新的运行验证",
+          "result": "pass",
+          "response_excerpt": "不得表述为重新实测通过",
+          "rationale": "Separates record re-evaluation from new testing and production acceptance."
+        }
+      ]
+    },
+    {
+      "case": "rd-review-9",
+      "exit_code": 0,
+      "seconds": 26.5,
+      "model_requested": "gpt-6-astra",
+      "reasoning_requested": "high",
+      "prompt_sha256": "c1fac1a5223a4cff15cec17766605250ff770cdac9870ef0bff94ae64b1007e8",
+      "event_types": [
+        "item.completed",
+        "thread.started",
+        "turn.completed",
+        "turn.started"
+      ],
+      "item_types": [
+        "agent_message",
+        "agent_message"
+      ],
+      "errors": [],
+      "usage": [
+        {
+          "input_tokens": 11041,
+          "cached_input_tokens": 1920,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 714,
+          "reasoning_output_tokens": 196
+        }
+      ],
+      "response": "评审结论：**通过，可接受有限试点的文档变更。** CR1 已由有权的 PO-1 批准，W1 已接受试点内的遗留失败；无需再次请求同一批准。\n\n评审对象为所给 D1 及 CR1/W1/H1/A2 补充记录，未提供版本号。采用需求评审模式，依据 R1、T1 和上述授权记录，仅判断文档变更是否可接受，不代替产品负责人批准或授权生产发布。\n\n未解决事项：\n\n- **原性能要求仍未满足（Major，试点内已获例外接受）。** 位置：R1、T1、W1。对齐/证据轴：T1 在 D、E 上耗时 90 秒，超过原要求 60 秒，原 FAIL 仍成立。内在质量/可验证性轴：调整阈值没有证明性能改善。该问题影响原要求的达成，但在已授权试点内不阻断文档接受，因此列为 Major。整改或核验动作：保留遗留问题；恢复按原要求验收时，需提供满足 60 秒的证据。例外批准人为 PO-1；性能整改及核验负责人、日期未提供，不作推定。\n\n支持接受变更的依据：\n\n- D1 与 CR1 一致，仅将 D、E 上七天内部试点的阈值改为 120 秒，生产仍维持 60 秒。\n- H1 明确保留历史记录，解决了新旧标准混用的风险。可单独记载“既有 T1 的 90 秒满足试点 120 秒阈值”，但不得改写原 FAIL，也不得表述为执行了新测试。\n- 所给证据仅支持既有测试记录和文档授权，未证明实现改善、后续运行表现或生产验收；没有依据新增其他缺陷。\n\n适用边界：七天到期、D 或 E 改变、申请生产发布时均须重新评审。W1 的例外不能延伸至这些情形；生产发布仍需另行授权。",
+      "eval_file": "zh-CN/skills/rd-review/evals/evals.json",
+      "eval_id": 9,
+      "reference": "zh-CN/skills/rd-review/references/requirements-review.md",
+      "response_sha256": "edf7ec309b33d2e76a3c605f9d032a952a1ed9d07f2e3fe89b75311a096c7970",
+      "manual_assertion_results": [
+        {
+          "assertion": "认可 CR1、W1 对有限试点的有效权限，没有仅因旧测试失败就拒绝",
+          "result": "pass",
+          "response_excerpt": "通过，可接受有限试点的文档变更",
+          "rationale": "Accepts CR1/W1 authority and the bounded exception while retaining the unresolved original requirement."
+        },
+        {
+          "assertion": "保留 T1 原 FAIL，并将按 120 秒的任何重新评价明确分开",
+          "result": "pass",
+          "response_excerpt": "不得改写原 FAIL",
+          "rationale": "Separates the 120-second re-evaluation from the original result and a new test."
+        },
+        {
+          "assertion": "保留七天、D/E 限定和复审或生产边界",
+          "result": "pass",
+          "response_excerpt": "七天到期、D 或 E 改变、申请生产发布时均须重新评审",
+          "rationale": "Preserves scope, duration and production boundaries."
+        },
+        {
+          "assertion": "完成已授权文档评审，没有重复审批，也未宣称新测试或生产发布",
+          "result": "pass",
+          "response_excerpt": "无需再次请求同一批准",
+          "rationale": "Completes the authorized review without repeat approval or a claim of new testing/release."
+        }
+      ]
+    }
+  ]
+}

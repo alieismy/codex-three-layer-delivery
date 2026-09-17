@@ -1,6 +1,6 @@
 # RD Skills 评估与演进说明
 
-状态：已实施基线，2026-09-07 更新。
+状态：已实施基线；2026-09-17 更新选择性吸收证据。此前注明日期的兼容性观察保留原有适用范围。
 
 ## 结论
 
@@ -95,10 +95,25 @@
 
 2026-08-31 的治理评审在不新增 Skill 领域的前提下加入价值优先执行契约：明确当前阶段、首要结果和最短证据路径；复用适用门禁；只有已批准范围、已复现缺陷、权威要求或重大风险能够证明必要性时，才新增通用验证、宽泛矩阵或安全加固。该契约属于维护规则和显式 `rd-delivery` 编排器，不应作为常驻正文复制到每个专业 Skill。
 
+## Addy Osmani Agent Skills 选择性吸收
+
+2026-09-17 源码评审固定 [`addyosmani/agent-skills` 的 `be4e44a`](https://github.com/addyosmani/agent-skills/tree/be4e44a9fbc5e8df0beaefadbb28bd22ee61cc39)，并检查其 [MIT 许可证](https://github.com/addyosmani/agent-skills/blob/be4e44a9fbc5e8df0beaefadbb28bd22ee61cc39/LICENSE)。其 25 个 Skill 构成的编码生命周期可用于比较，不是本项目文档交付分类的替代目标。兼容机制均独立表述，没有复制上游 Skill 正文或可执行代码。
+
+| 候选机制与来源 | 决策 | 本项目结果或重新纳入条件 |
+|---|---|---|
+| [压力用例](https://github.com/addyosmani/agent-skills/blob/be4e44a9fbc5e8df0beaefadbb28bd22ee61cc39/evals/README.md)与抵抗跳过检查的合理化借口 | 吸收为评估材料 | 为静态证据过度声明、先前评审者锚定增加正常／压力配对。未发现实际缺口时，不给每个 Skill 增加反合理化表格。 |
+| [独立评审纪律](https://github.com/addyosmani/agent-skills/blob/be4e44a9fbc5e8df0beaefadbb28bd22ee61cc39/skills/code-review-and-quality/SKILL.md)与[约束纪律](https://github.com/addyosmani/agent-skills/blob/be4e44a9fbc5e8df0beaefadbb28bd22ee61cc39/skills/constraint-driven-development/SKILL.md) | 改造为文档证据和权限检查 | 逐项复核继承的 findings；配对测试未批准验收降标与有效的有限试点批准、例外。保留历史失败，不虚构绝对禁止调整需求的规则。 |
+| [新项目与既有项目采用路径](https://github.com/addyosmani/agent-skills/blob/be4e44a9fbc5e8df0beaefadbb28bd22ee61cc39/README.md) | 缩小范围后吸收 | 两类项目均从实际交付物开始，保留既有权威与批准。即使安装器管理全部九个 Skills，也可逐步使用。 |
+| 整套编码生命周期、元路由、常驻 hooks、强制 reviewer／跨模型步骤、95% 数值信心目标 | 不采纳 | 没有独立文档交付缺口能证明新增范围、加载成本或未经支撑的确定性有必要；保留专业分工与基于证据的完成标准。 |
+| 上游路由评分器和行为运行器 | 不导入 | 已检查的路由 tokenizer 过滤中文，description 正则将折叠 YAML 读成 `>-`；行为运行器向 Claude 显式提供 Skill 文本，其分数不能证明本项目多语言路由或净收益。出现可复现路由缺陷并明确适用比较后再考虑。 |
+| Plugin 打包、能力地图、变更否决账本 | 延期 | 实际分发需求出现时再评估打包；反复发生责任归属或发现失败时再评估地图；既有决策记录无法覆盖、且反复重审重要替代方案时再评估账本。不默认增加竞争性权威。 |
+
+[有边界的 Codex 试验](agent-skills-pilot.md)对现有 `rd-research`、`rd-review` 文本执行六个中文用例，由任务代理进行语义评分，24/24 条断言通过。未发现可归因的指令缺口，因此正文、description、路由与权限不变。完整输出与评分依据作为持久证据保存在仓库中。这是每例一次的观察，不是独立基准、原生发现测试、跨客户端结果或因果改善证明，也没有无 Skill 对照。其他评审者报告的运行数量未被重新执行，也未作为本项目执行证据。
+
 ## 已实施质量控制
 
 - 每个 Skill 至少包含 8 个正向/近邻负向触发用例，正负各不少于 3 个；2026-08-31 英文和中文 canonical 根目录各有 76 个用例
-- 每个 Skill 至少有 3 个输出质量评测；2026-08-31 英文和中文 canonical 根目录各有 35 个用例
+- 每个 Skill 至少有 3 个输出质量评测；合入已发布的 v1.7.4 设计评估用例后，2026-09-17 英文和中文 canonical 根目录各有 42 个用例：v1.7.4 的 36 个加上六个配有 fixture 的吸收用例。此前试验基线包含这六个在内共 41 个。
 - `rd-requirement`、`rd-research`、`rd-review`、`rd-writing` 和 `rd-delivery` 使用聚焦的 `references/`
 - `agents/openai.yaml` 提供 UI 元数据且不声明 MCP 依赖；专业 Skill 保持默认调用策略
 - 只有 `rd-delivery` 禁止隐式调用：Codex 使用 `policy.allow_implicit_invocation: false`，Claude/Cursor 适配器使用 `disable-model-invocation: true`
@@ -109,4 +124,4 @@
 - 仓库验证使用真实 YAML、TOML、JSON 和 JSON Schema Parser，再检查 Skill 结构与 reference、LF 换行、镜像一致性、价值优先与证据契约、Codex 示例的 Schema/运行基线语义、Cursor 仅一条常驻规则的策略、跨平台推理治理、Context7 版本一致性、平台提示词前缀、Claude Bash/PowerShell 权限与 attribution、Cursor MCP 凭据传递、Unix 安装前置条件、维护者/上下文/提示词契约、当前 GSD 归属以及 `.tmp/local/` 边界
 - 独立的二十项负向回归保留既有十六项 Skill、证据、全局规则、上下文、提示词、临时数据和平台配置用例，并新增 Codex 配置契约、Cursor 加载策略、跨平台推理治理和 GSD 当前/归档来源归属回归
 
-JSON eval 文件只定义路由与输出期望，不会执行模型。运行评测应先做环境和认证 smoke test，再做变更面用例与相关回归；只有共享路由、公共契约、发布决策、已观察到跨表面风险或用户明确要求时，才运行 Codex/Claude/Cursor 的完整带 Skill 与对照矩阵。按实际达到的证据层级记录选择、断言、Token 和耗时。因此，下一次 description 修改应来自真实误触发、漏触发、步骤过早结束、交接断裂、权威记录重复或低质量输出。没有独立可触发的交付物或工作流证据就继续增加顶层 Skill，属于推测性扩展。
+JSON eval 文件只定义路由与输出期望，本身不会执行模型。2026-09-17 试验仅为六个中文用例提供有边界的执行证据。运行评测应先做环境和认证 smoke test，再做变更面用例与相关回归；只有共享路由、公共契约、发布决策、已观察到跨表面风险或用户明确要求时，才运行 Codex/Claude/Cursor 的完整带 Skill 与对照矩阵。按实际达到的证据层级记录选择、断言、Token 和耗时。因此，下一次 description 修改应来自真实误触发、漏触发、步骤过早结束、交接断裂、权威记录重复或低质量输出。没有独立可触发的交付物或工作流证据就继续增加顶层 Skill，属于推测性扩展。
