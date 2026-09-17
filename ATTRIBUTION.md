@@ -18,10 +18,11 @@ The framework is influenced by these broad public document and agent-operation p
 
 The following repositories were reviewed as public inspiration references. They are listed for transparency and comparison. This project does not claim upstream endorsement, compatibility, or direct derivation from these repositories.
 
-License data was checked through GitHub repository metadata and canonical repository files, most recently for the current GSD repository on 2026-09-04. Re-check before making any stronger claim than broad inspiration.
+License data was checked through GitHub repository metadata and canonical repository files, most recently for Addy Osmani Agent Skills on 2026-09-17; the current GSD repository was checked on 2026-09-04. Re-check before making any stronger claim than the recorded scoped use.
 
 | Reference | Canonical URL | License observed | Use in this project |
 |---|---|---|---|
+| Addy Osmani Agent Skills | https://github.com/addyosmani/agent-skills | MIT | Reviewed Commit `be4e44a9fbc5e8df0beaefadbb28bd22ee61cc39` on 2026-09-17. Pressure-case evaluation, independent finding verification, constraint-change scrutiny, and gradual adoption informed independently written document-delivery fixtures and guidance. No upstream Skill body or executable code was copied. See [the bounded pilot](docs/agent-skills-pilot.md) for local evidence and limits. |
 | Andrej Karpathy Skills | https://github.com/multica-ai/andrej-karpathy-skills | No license detected by GitHub API | Broad inspiration only; do not copy text/code without separate permission or license confirmation. |
 | BMAD Method | https://github.com/bmad-code-org/BMAD-METHOD | MIT text with trademark notice | Broad inspiration only; preserve trademark separation and do not imply endorsement. |
 | CodeStable | https://github.com/liuzhengdongfortest/CodeStable | No license detected by GitHub API | Broad inspiration only; do not copy text/code without separate permission or license confirmation. |

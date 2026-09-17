@@ -225,4 +225,5 @@ pwsh ./scripts/validate-release.ps1
 - [Superpowers](https://github.com/obra/superpowers.git)
 - [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex.git)
 - [Trellis](https://github.com/mindfold-ai/Trellis.git)
+- [Addy Osmani Agent Skills](https://github.com/addyosmani/agent-skills)
 - 感谢 [LINUX DO](https://linux.do/) 社区为开源项目提供交流与推广空间。
