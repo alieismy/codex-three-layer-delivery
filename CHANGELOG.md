@@ -6,6 +6,11 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+## 1.7.4 - 2026-09-17
+
+- Strengthened `rd-design` revisions so ambiguous prose is separated into approved semantic clarification or an exact missing contract before the agent adds responsibilities, sequencing, success semantics, or recovery behavior.
+- Added bilingual, platform-mirrored quality gates and output evals for precise domain language, evidence-backed causal and conditional relationships, context-aware wording changes, safe search and mechanical replacement, and preservation of identifiers, normative force, and traceability.
+
 ## 1.7.3 - 2026-09-16
 
 - Added English and Simplified Chinese README acknowledgements for seven public inspiration repositories already covered by `ATTRIBUTION.md`, while preserving the no-endorsement, no-partnership, no-compatibility, and no-direct-derivation boundary.
