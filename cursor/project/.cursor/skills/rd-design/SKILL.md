@@ -29,8 +29,9 @@ Produce **construction-ready detailed designs** based on approved requirements a
 - Extract established: architectural decisions, tech stack selections, constraints
 - Identify design scope boundaries: which modules/services are covered in this iteration
 - Confirm traceability to PRD items or stakeholder-approved design decisions
+- When revising an existing design, classify each proposed prose change as a confirmed semantic clarification or an unresolved contract. Preserve the source abstraction level until approved evidence supports a more specific responsibility, sequence, success condition, or recovery behavior
 
-**Completion criterion:** every in-scope design element traces to an approved requirement or decision, and each missing upstream decision is explicit before detailed contracts are written.
+**Completion criterion:** every in-scope design element traces to an approved requirement or decision, each missing upstream decision is explicit before detailed contracts are written, and revisions map each ambiguity to either approved meaning or an exact missing contract.
 
 ### 2. Interface Design
 
@@ -139,6 +140,7 @@ Pre-delivery checklist:
 - [ ] Configuration, migration, recovery, and rollback contracts are explicit when applicable
 - [ ] Design is traceable to requirements (each module maps to a requirement item)
 - [ ] Unresolved design decisions have assignment state, dependency, verification action, and owner or target date when known
+- [ ] Prose uses precise domain terms and makes material causal, conditional, contrastive, and sequencing relationships explicit. Ambiguous colloquial or metaphorical wording is revised in context without changing established technical terms, identifiers, quotations, normative force, or traceability; search may locate or verify occurrences, and mechanical replacement is used only when every affected occurrence has verified equivalent meaning. When context cannot establish the intended meaning, preserve the confirmed abstraction level and record the exact missing contract or decision dependency
 - [ ] The document gives reviewers enough detail to assess feasibility and consistency
 
 ## Out of Scope
