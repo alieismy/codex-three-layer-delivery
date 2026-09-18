@@ -190,7 +190,7 @@ The maintained rules and explicit `rd-delivery` workflow are value-first: identi
 
 See [RD Skills Assessment and Evolution](docs/rd-skills-assessment.md) for the role-coverage matrix, non-goals, external design evidence, and the reason the taxonomy contains eight specialist Skills plus one explicit orchestrator.
 
-For a copy-ready personal profile that keeps system-design, architecture, evidence, value-first execution, and authorization preferences separate from repository rules and detailed Skills, see [Personalized Custom Instructions](docs/personalized-custom-instructions.md).
+For an approved Simplified Chinese profile to paste into ChatGPT on the web, with a complete English reference translation and character-limit guidance, see [ChatGPT Web Custom Instructions](docs/personalized-custom-instructions.md).
 
 ## Cursor Adapter
 

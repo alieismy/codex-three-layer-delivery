@@ -50,7 +50,7 @@ Skill 清单（8 个专业 Skill + 1 个显式编排 Skill）：
 
 角色任务覆盖矩阵、非目标、外部设计依据以及采用 8 个专业 Skill 加 1 个显式编排 Skill 的理由，见 [RD Skills 评估与演进说明](docs/rd-skills-assessment.md)。
 
-如需一份可直接复制、并把系统设计、架构、证据、价值优先执行和授权偏好与项目规则及详细 Skills 分离的个人配置，见[个性化自定义指令](docs/personalized-custom-instructions.md)。
+如需可粘贴到 ChatGPT 网页版的已确认中文个性化指令、完整英文参考译文和字符限制说明，见[网页版 ChatGPT 个性化自定义指令](docs/personalized-custom-instructions.md)。
 
 ## 快速开始
 
