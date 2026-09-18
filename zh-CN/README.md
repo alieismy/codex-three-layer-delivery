@@ -177,7 +177,7 @@ zh-CN/
 - Cursor 适配包只发布单一 Context7 的 `.cursor/mcp.example.json`，不直接发布活动 `.cursor/mcp.json`。
 - 不使用 `@latest` 作为 npm MCP 包版本。
 - Claude Code 项目设置默认禁止直接读取常见密钥路径，并对匹配的 Bash 和 Windows PowerShell commit、push、tag、publish、delete 命令前缀要求确认；这些权限模式属于防护措施，不能替代针对所有包装命令和复杂命令的完整安全边界。
-- Context7 的已测试版本以[兼容性文档](docs/compatibility.md)为准，并与全部 Codex/Cursor 示例保持一致；真实客户端运行验收仍是更高且独立的证据层级。
+- Codex/Cursor Context7 示例统一使用不带版本后缀的包名；[兼容性文档](docs/compatibility.md)保留历史已测试版本，实际解析版本仍需单独进行客户端运行核验。
 
 ## 验证
 

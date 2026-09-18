@@ -257,7 +257,7 @@ The public examples combine safety boundaries with explicit capability choices; 
 - Cursor adapter MCP config is shipped as a one-server Context7 `mcp.example.json`, not as an active `.cursor/mcp.json`;
 - Claude Code project settings deny direct reads of common secret paths and ask for confirmation on matching Bash and Windows PowerShell commit, push, tag, publish, and delete command prefixes; these permission patterns are guardrails, not a complete security boundary for every wrapper or complex command;
 - package versions are documented in `docs/compatibility.md` and should be refreshed before release;
-- Context7's tested version is pinned consistently across the compatibility documents and all Codex/Cursor examples, with client-runtime acceptance kept as a separate evidence layer.
+- Context7 uses the same unversioned package name across Codex/Cursor examples; compatibility documents retain the historical tested version, and each resolved version needs separate client-runtime verification.
 
 ## Repository Layout
 
@@ -345,7 +345,7 @@ The validator checks common release blockers:
 - more than one always-on Cursor Project Rule, non-trigger-oriented on-demand descriptions, or loss of cross-platform anti-anchoring, context-repair, and durable-guidance approval controls;
 - loss of the optional greenfield open-source research and approval-gate prompt contract;
 - loss of the optional high-impact bidirectional-argument and critical-clarification prompt contract;
-- Context7 version drift across compatibility documents and Codex/Cursor examples;
+- Context7 package-policy drift across Codex/Cursor examples and bilingual historical-version mismatches;
 - unsafe or private values in the public Codex config example;
 - stale GSD canonical attribution or a missing archived-source marker;
 - a missing `.tmp/local/` boundary;

@@ -1302,7 +1302,7 @@ function Get-SingleRegexCapture {
 
 $semverPattern = '[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?'
 $context7TablePattern = "(?m)^\| Context7\s*\|\s*[^|]+\|\s*[^0-9|]*(?<tested>$semverPattern)[^|]*\|\s*[^0-9|]*(?<latest>$semverPattern)[^|]*\|"
-$context7PackagePattern = "@upstash/context7-mcp@(?<version>$semverPattern)"
+$context7PackagePattern = '["''](?<package>@upstash/context7-mcp(?:@[^"''\s]+)?)["'']'
 $context7CompatibilityPaths = @(
     (Join-Path $root "docs/compatibility.md"),
     (Join-Path $root "zh-CN/docs/compatibility.md")
@@ -1323,20 +1323,20 @@ $context7LatestVersions = @(
         Get-SingleRegexCapture -Path $path -Pattern $context7TablePattern -GroupName "latest" -Label "Context7 compatibility table"
     }
 ) | Where-Object { $_ }
-$context7PinnedVersions = @(
+$context7Packages = @(
     foreach ($path in $context7ConfigPaths) {
-        Get-SingleRegexCapture -Path $path -Pattern $context7PackagePattern -GroupName "version" -Label "Context7 config example"
+        Get-SingleRegexCapture -Path $path -Pattern $context7PackagePattern -GroupName "package" -Label "Context7 config example"
     }
 ) | Where-Object { $_ }
 
 $uniqueContext7Tested = @($context7TestedVersions | Sort-Object -Unique)
 $uniqueContext7Latest = @($context7LatestVersions | Sort-Object -Unique)
-$uniqueContext7Pinned = @($context7PinnedVersions | Sort-Object -Unique)
-if ($uniqueContext7Tested.Count -ne 1 -or $uniqueContext7Latest.Count -ne 1 -or $uniqueContext7Pinned.Count -ne 1) {
-    Add-Failure "Context7 version mismatch across compatibility documents or configuration examples."
+$uniqueContext7Packages = @($context7Packages | Sort-Object -Unique)
+if ($uniqueContext7Tested.Count -ne 1 -or $uniqueContext7Latest.Count -ne 1) {
+    Add-Failure "Context7 version mismatch across compatibility documents."
 }
-elseif ($uniqueContext7Tested[0] -ne $uniqueContext7Pinned[0]) {
-    Add-Failure "Context7 version mismatch: config examples pin $($uniqueContext7Pinned[0]) but compatibility documents identify $($uniqueContext7Tested[0]) as tested."
+if ($uniqueContext7Packages.Count -ne 1 -or $uniqueContext7Packages[0] -cne '@upstash/context7-mcp') {
+    Add-Failure "Context7 package policy mismatch: all Codex/Cursor examples must use @upstash/context7-mcp without a version or @latest suffix."
 }
 
 $tmpPolicyPath = Join-Path $root ".tmp/README.md"
