@@ -863,7 +863,7 @@ $adversarialClarificationPromptBaselines = @(
             "High-Impact Bidirectional Argument and Critical Clarification",
             "This is an optional preamble, not a standalone Skill.",
             "Do not manufacture symmetry",
-            "If exactly one unresolved decision that only I can make blocks the final judgment",
+            "If one or more unresolved decisions that only I can make block the final judgment",
             "Do not expose hidden chain of thought."
         )
     },
@@ -876,7 +876,7 @@ $adversarialClarificationPromptBaselines = @(
             "高影响决策的双向论证与关键澄清",
             "这是可选前置段，不是独立 Skill。",
             "不要为了形式制造对称",
-            "如果恰有一个仍未解决、只能由我作出且会阻塞最终判断的决策问题",
+            "如果存在一个或多个仍未解决、只能由我作出且会阻塞最终判断的决策问题",
             "不要输出隐藏思维链。"
         )
     }
@@ -1302,7 +1302,7 @@ function Get-SingleRegexCapture {
 
 $semverPattern = '[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?'
 $context7TablePattern = "(?m)^\| Context7\s*\|\s*[^|]+\|\s*[^0-9|]*(?<tested>$semverPattern)[^|]*\|\s*[^0-9|]*(?<latest>$semverPattern)[^|]*\|"
-$context7PackagePattern = "@upstash/context7-mcp@(?<version>$semverPattern)"
+$context7PackagePattern = '["''](?<package>@upstash/context7-mcp(?:@[^"''\s]+)?)["'']'
 $context7CompatibilityPaths = @(
     (Join-Path $root "docs/compatibility.md"),
     (Join-Path $root "zh-CN/docs/compatibility.md")
@@ -1323,20 +1323,20 @@ $context7LatestVersions = @(
         Get-SingleRegexCapture -Path $path -Pattern $context7TablePattern -GroupName "latest" -Label "Context7 compatibility table"
     }
 ) | Where-Object { $_ }
-$context7PinnedVersions = @(
+$context7Packages = @(
     foreach ($path in $context7ConfigPaths) {
-        Get-SingleRegexCapture -Path $path -Pattern $context7PackagePattern -GroupName "version" -Label "Context7 config example"
+        Get-SingleRegexCapture -Path $path -Pattern $context7PackagePattern -GroupName "package" -Label "Context7 config example"
     }
 ) | Where-Object { $_ }
 
 $uniqueContext7Tested = @($context7TestedVersions | Sort-Object -Unique)
 $uniqueContext7Latest = @($context7LatestVersions | Sort-Object -Unique)
-$uniqueContext7Pinned = @($context7PinnedVersions | Sort-Object -Unique)
-if ($uniqueContext7Tested.Count -ne 1 -or $uniqueContext7Latest.Count -ne 1 -or $uniqueContext7Pinned.Count -ne 1) {
-    Add-Failure "Context7 version mismatch across compatibility documents or configuration examples."
+$uniqueContext7Packages = @($context7Packages | Sort-Object -Unique)
+if ($uniqueContext7Tested.Count -ne 1 -or $uniqueContext7Latest.Count -ne 1) {
+    Add-Failure "Context7 version mismatch across compatibility documents."
 }
-elseif ($uniqueContext7Tested[0] -ne $uniqueContext7Pinned[0]) {
-    Add-Failure "Context7 version mismatch: config examples pin $($uniqueContext7Pinned[0]) but compatibility documents identify $($uniqueContext7Tested[0]) as tested."
+if ($uniqueContext7Packages.Count -ne 1 -or $uniqueContext7Packages[0] -cne '@upstash/context7-mcp') {
+    Add-Failure "Context7 package policy mismatch: all Codex/Cursor examples must use @upstash/context7-mcp without a version or @latest suffix."
 }
 
 $tmpPolicyPath = Join-Path $root ".tmp/README.md"

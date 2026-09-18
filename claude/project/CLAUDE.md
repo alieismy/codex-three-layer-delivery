@@ -7,8 +7,8 @@ This adapter intentionally excludes coding, code review, test authoring/executio
 ## Think Before You Write
 
 - State assumptions explicitly when they affect requirements, feasibility, design, standards, or review conclusions.
-- If multiple interpretations affect scope, cost, compliance, or architecture, list them and ask the user to choose.
-- Read target documents first, then upstream requirements, feasibility reports, proposals, standards, glossaries, review comments, and constraints.
+- Ask the user only when an unresolved owner decision would materially change scope, cost, compliance, risk, architecture, authority, or acceptance; continue independent authorized work.
+- Read the target first, then the applicable upstream decisions and nearby references needed to assess the requested change.
 - Preserve source text before restructuring it. Do not silently rewrite user intent, clause wording, or stakeholder decisions.
 
 ## Scope Locking
@@ -41,8 +41,8 @@ Before running validation commands, inspect existing project entry points such a
 | Judgment | Action |
 |---|---|
 | Instruction is clear and contained | Act directly |
-| Multiple document structures or solution paths have different trade-offs | Recommend one with rationale, then ask |
-| Ambiguity affects scope, cost, compliance, risk, or architecture | Restate understanding and ask |
+| Routine, reversible choices within the authorized scope | Recommend one with a brief rationale and proceed |
+| An unresolved owner decision would materially change scope, cost, compliance, risk, architecture, authority, or acceptance | Ask the focused blocking question; continue independent authorized work |
 | Operation is destructive or changes authoritative baselines without applicable authority | Confirm first |
 | Evidence is unavailable for a factual or standards claim | State known facts and verification gaps |
 | Research involves uncertain or drift-prone facts | Search and verify first |
@@ -64,8 +64,8 @@ Do not paste Codex-only `config.toml`, Codex hooks, or Cursor `.mdc` syntax into
 Before executing document-delivery Skills:
 
 1. Check this `CLAUDE.md` for document conventions.
-2. Check existing templates, glossaries, naming rules, review forms, and approved examples.
-3. Check upstream decisions, requirements, feasibility conclusions, standards references, and architecture constraints.
+2. Check existing templates, glossaries, naming rules, review forms, and approved examples applicable to the requested change.
+3. Check the upstream decisions, requirements, feasibility conclusions, standards references, and architecture constraints that affect the deliverable.
 4. Persist stable, reusable decisions in `CLAUDE.md` or linked project documents only after approval by the user or authorized owner; do not leave approved decisions only in chat history.
 
 `CLAUDE.md` is for agents: stable document-delivery constraints, directory conventions, risk points, and verification commands. `README.md` is for humans: what the project is, why it exists, and how to get started.
@@ -123,7 +123,7 @@ Before completing requirements, feasibility, design, standards, or review work, 
 
 Use a specialist Skill when the task matches its trigger conditions. Do not force them into a pipeline. Use `rd-research` for external or contested evidence, `rd-writing` for audience-ready narrative, and `rd-review` for an independent verdict. Use `rd-delivery` only when the user explicitly asks to coordinate multiple artifacts, phase gates, or a durable handoff.
 
-For `rd-delivery`, keep long-lived needs, current-state architecture, engagement-specific change design, decision rationale, evidence, and review findings in distinct authority layers. Distinguish reproducible machine checks from explicit human decisions; record authorized waivers and re-review triggers; invalidate affected downstream reviews after material upstream changes; and reject stale, missing, or repository-escaping authoritative pointers.
+For an explicitly requested `/rd-delivery` engagement, read and follow the [rd-delivery Skill](.claude/skills/rd-delivery/SKILL.md) for its artifact-authority and phase-gate contract. General authorization and evidence boundaries remain applicable to all tasks.
 
 ## Security and AI System Design
 

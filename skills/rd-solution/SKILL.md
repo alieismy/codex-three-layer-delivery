@@ -116,7 +116,7 @@ Select the appropriate template based on document type:
 
 > Boundary: this Skill may define deployment architecture as part of a construction or high-level design document, but it does not produce deployment runbooks, release commands, rollback execution steps, or operational change records.
 
-**Completion criterion:** the chosen structure contains every decision-relevant section, stays at proposal or high-level depth, and gives detailed design an approved set of boundaries and decisions.
+**Completion criterion:** the chosen structure contains every decision-relevant section, stays at proposal or high-level depth, and provides reviewable recommended boundaries, decision rationale, and explicit approval status for downstream design. Pending stakeholder approval does not block completion of the proposal unless approval is an explicit task success criterion or stage exit gate; a recommendation does not authorize downstream execution or baselining.
 
 ## Context and Baseline Check
 

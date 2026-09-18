@@ -88,4 +88,8 @@ Validation evidence must be concrete: command and result, inspected source and l
 
 ## Completion Standard
 
-The current work package is complete when the requested artifact or decision exists, its controlling inputs and status are clear, applicable quality gates and repository validations have passed or their failures are explained, sensitive information is handled safely, mirrors and references remain consistent, and the final report distinguishes verified results from remaining uncertainty. Runtime, production, business acceptance, approval, or baselining are separate higher-level outcomes: require them for this task only when they are explicit success criteria or stage exit gates, and never claim them without their corresponding evidence.
+The current work package is complete when the requested artifact or decision exists, its controlling inputs and status are clear, required applicable quality gates and repository validations have passed, sensitive information is handled safely, mirrors and references remain consistent, and the final report distinguishes verified results from remaining uncertainty.
+
+Fix and recheck failures introduced by the change or otherwise within scope. Report pre-existing unrelated failures without expanding scope. If an unresolved failure prevents the requested artifact or success criteria from being satisfied, report the work as partial or blocked; explaining a failure does not make that gate pass.
+
+Runtime, production, business acceptance, approval, or baselining are separate higher-level outcomes: require them for this task only when they are explicit success criteria or stage exit gates, and never claim them without their corresponding evidence.

@@ -136,7 +136,10 @@ try {
         Set-LfText -Path $path -Content $mutated
     }
 
-    Invoke-NegativeCase -Name "context7-version-mismatch" -ExpectedPattern "Context7 version mismatch" -Mutate {
+    Invoke-NegativeCase -Name "context7-package-policy" -ExpectedPattern @(
+        "Context7 package policy mismatch",
+        "Context7 version mismatch"
+    ) -Mutate {
         param($caseRoot)
 
         $paths = @(
@@ -148,17 +151,29 @@ try {
         foreach ($relativePath in $paths) {
             $path = Join-Path $caseRoot $relativePath
             $content = Get-Content -LiteralPath $path -Raw
-            $pinMatches = [regex]::Matches($content, "@upstash/context7-mcp@[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?")
+            $pinMatches = [regex]::Matches($content, '"@upstash/context7-mcp"')
             if ($pinMatches.Count -ne 1) {
-                throw "Fixture requires exactly one Context7 package pin in $relativePath."
+                throw "Fixture requires exactly one unpinned Context7 package in $relativePath."
             }
             $mutated = [regex]::Replace(
                 $content,
-                "@upstash/context7-mcp@[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?",
+                "@upstash/context7-mcp",
                 "@upstash/context7-mcp@99.99.99"
             )
             Set-LfText -Path $path -Content $mutated
         }
+
+        $compatibilityPath = Join-Path $caseRoot "zh-CN/docs/compatibility.md"
+        $compatibilityText = Get-Content -LiteralPath $compatibilityPath -Raw
+        $mutatedCompatibility = [regex]::Replace(
+            $compatibilityText,
+            '(?m)^(\| Context7\s*\|\s*[^|]+\|\s*)`[0-9]+\.[0-9]+\.[0-9]+`',
+            '${1}`99.99.99`'
+        )
+        if ($mutatedCompatibility -eq $compatibilityText) {
+            throw "Fixture could not break the Context7 historical tested-version mirror."
+        }
+        Set-LfText -Path $compatibilityPath -Content $mutatedCompatibility
     }
 
     Invoke-NegativeCase -Name "delivery-invocation-policy" -ExpectedPattern "rd-delivery adapters must disable model invocation" -Mutate {
@@ -478,7 +493,7 @@ try {
     Invoke-NegativeCase -Name "adversarial-clarification-preamble" -ExpectedPattern @(
         "Adversarial clarification-preamble surface is missing 'This is an optional preamble, not a standalone Skill\.'",
         "Adversarial clarification-preamble surface is missing 'Do not manufacture symmetry'",
-        "Adversarial clarification-preamble surface is missing 'If exactly one unresolved decision that only I can make blocks the final judgment'"
+        "Adversarial clarification-preamble surface is missing 'If one or more unresolved decisions that only I can make block the final judgment'"
     ) -Mutate {
         param($caseRoot)
 
@@ -486,12 +501,13 @@ try {
         $content = Get-Content -LiteralPath $path -Raw
         $mutated = $content.Replace("This is an optional preamble, not a standalone Skill.", "This is a standalone mandatory workflow.")
         $mutated = $mutated.Replace("Do not manufacture symmetry", "Present both sides symmetrically")
-        $mutated = $mutated.Replace("If exactly one unresolved decision that only I can make blocks the final judgment", "Before every final judgment")
+        # Restore the old condition to prove the multiple-blocker regression is rejected.
+        $mutated = $mutated.Replace("If one or more unresolved decisions that only I can make block the final judgment", "If exactly one unresolved decision that only I can make blocks the final judgment")
         if (
             $mutated -eq $content -or
             $mutated.Contains("This is an optional preamble, not a standalone Skill.") -or
             $mutated.Contains("Do not manufacture symmetry") -or
-            $mutated.Contains("If exactly one unresolved decision that only I can make blocks the final judgment")
+            $mutated.Contains("If one or more unresolved decisions that only I can make block the final judgment")
         ) {
             throw "Fixture could not remove the complete adversarial clarification contract."
         }
@@ -583,9 +599,9 @@ try {
 
         $cursorMcpPath = Join-Path $caseRoot "cursor/project/.cursor/mcp.example.json"
         $cursorMcp = Get-Content -LiteralPath $cursorMcpPath -Raw
-        $context7PackageArg = '        "@upstash/context7-mcp@4.0.2"'
+        $context7PackageArg = '        "@upstash/context7-mcp"'
         $context7KeyArgs = @(
-            '        "@upstash/context7-mcp@4.0.2",',
+            '        "@upstash/context7-mcp",',
             '        "--api-key",',
             '        "${env:CONTEXT7_API_KEY}"'
         ) -join "`n"
@@ -635,7 +651,10 @@ try {
 
         $metadataPath = Join-Path $caseRoot "schemas/codex-config.schema.meta.json"
         $metadata = Get-Content -LiteralPath $metadataPath -Raw
-        $expectedDigest = "2E1FCF1CBB20F255C3BACA2E174B4A3C954CEF577A130587B8935E2D12C8ADE6"
+        $expectedDigest = [string](($metadata | ConvertFrom-Json).sha256)
+        if ($expectedDigest -notmatch '^[A-Fa-f0-9]{64}$' -or $expectedDigest -eq ("0" * 64)) {
+            throw "Fixture requires a valid nonzero schema digest."
+        }
         $mutatedMetadata = $metadata.Replace($expectedDigest, ("0" * 64))
         if ($mutatedMetadata -eq $metadata -or $mutatedMetadata.Contains($expectedDigest)) {
             throw "Fixture could not break the Codex schema metadata contract."

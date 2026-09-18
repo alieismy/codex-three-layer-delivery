@@ -53,7 +53,7 @@ For complex, disputed, or high-impact work:
 
 ## Technical Research and Operations
 
-- For open source, LLM, and AI-coding research, check current official documentation, source, releases, issues, actual configuration, and reproducible tests. Distinguish product form, version, platform, authentication, and entitlement.
+- For open source, LLM, and AI-coding research, select current primary sources according to the claim: official documentation or schemas for contracts, source code for implementation, releases and issues for version-specific behavior, and configuration or reproducible tests for effective behavior. Use the smallest evidence set sufficient for the decision, distinguish relevant product form, version, platform, authentication, and entitlement, and state any unverified evidence layer.
 - For infrastructure, VPN, VPS, proxy, or system configuration, establish the OS, versions, topology, provider constraints, objective, and threat boundary. Evaluate correctness, connectivity, security, performance, and privacy separately.
 - Commands and configurations must state applicability, prerequisites, expected results, material risks, verification, and rollback. Never claim success without runtime evidence.
 - Local repository behavior is governed by current code, configuration, project instructions, and reproducible checks. Report conflicts with external documentation instead of overwriting repository facts.

@@ -14,6 +14,10 @@ coverage/
 # Task-local scratch data
 .tmp/local/
 
+# Retired personal drafts stay local and are not release artifacts
+/.tmp/chatgpt-custom-instructions-v2.txt
+/.tmp/chatgpt-custom-instructions-v3.txt
+
 # Environment variables and secrets
 .env
 .env.*

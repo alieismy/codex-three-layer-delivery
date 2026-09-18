@@ -6,6 +6,16 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+## 1.7.6 - 2026-09-18
+
+- Removed two retired personal instruction drafts from the distributed tree and ignored their local paths; existing Git history remains unchanged.
+- Standardized unversioned Context7 package arguments across Codex/Cursor examples, documented the separate historical test baseline, and updated positive/negative package-policy validation.
+- Refreshed npm registry snapshots and the Codex configuration schema to `0.155.0` after reviewing additive upstream changes; public configuration behavior remains unchanged apart from the approved Context7 package policy.
+- Scoped personalized custom instructions to ChatGPT on the web, synchronized the approved Business-sized Chinese profile with its complete English reference translation, and clarified character limits, paste suitability, and evidence boundaries in both guides and README links.
+- Conditioned routine clarification and research depth on material decisions and relevant evidence, tightened completion reporting for failed required gates, and replaced duplicated orchestration instructions with links to the owning Skill across the English, Chinese, Claude and Cursor surfaces.
+- Separated proposal completion from stakeholder approval, scoped requirements convergence to the requested change, and added a bounded-revision output eval plus approval-status assertions without changing Skill invocation policies.
+- Corrected the optional clarification preamble to handle one or more blocking decisions and updated its validator regression to reject the former single-blocker condition.
+
 ## 1.7.5 - 2026-09-17
 
 - Added six fixture-backed output evals for `rd-research` and `rd-review`, with normal/pressure and unauthorized/authorized pairs covering evidence overclaims, prior-reviewer anchoring, and acceptance changes; synchronized English, Chinese, Claude and Cursor eval payloads. Each canonical language tree now contains 42 output cases, including the previously released `rd-design` addition.

@@ -43,7 +43,7 @@ The eight specialist `rd-*` research and document skills can be used independent
 - For feasibility work, separate facts, assumptions, estimates, and unknowns.
 - Use `/rd-research` for external or contested evidence, `/rd-writing` for audience-ready narrative, and `/rd-review` for an independent verdict.
 - Use `/rd-delivery` only for explicit multi-document or cross-session coordination; route a single deliverable directly.
-- In `/rd-delivery`, keep need and intent, current-state architecture, change design, decisions, evidence, and review findings in distinct authority layers. Distinguish machine checks from human decisions, record authorized waivers, invalidate affected reviews after material upstream changes, and reject stale or repository-escaping authoritative pointers.
+- For an explicitly requested `/rd-delivery` engagement, read and follow the [rd-delivery Skill](../skills/rd-delivery/SKILL.md) for its artifact-authority and phase-gate contract. General authorization and evidence boundaries remain applicable to all tasks.
 
 ## Parallel Work
 
