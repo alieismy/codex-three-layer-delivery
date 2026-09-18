@@ -94,14 +94,14 @@ Flag requirements that need evidence or a later feasibility decision without dec
 
 ### 6. Requirements Convergence Pass
 
-Before delivery, rewrite the structured requirements once as a lossless authoritative baseline:
+Before delivery, perform a convergence check scoped to the requested change:
 
-- Collapse duplicated facts, rules, and scenarios into one owning section
-- Remove resolved questions and temporary elicitation notes after preserving their decisions
-- Preserve every requirement ID, source anchor, decision, constraint, priority, and acceptance mapping
-- Re-read the document end to end and reopen any contradiction, missing acceptance method, or unresolved blocking decision
+- Rewrite affected sections only where duplication, contradiction, temporary notes, or broken traceability require it; keep each fact, rule, or scenario in its owning section
+- Perform document-wide consolidation for a new document, an explicitly requested full revision, or an identified cross-document consistency risk
+- Preserve every requirement ID, source anchor, decision, constraint, priority, acceptance mapping, and existing artifact status; retain decisions before removing resolved questions or temporary notes
+- Review affected dependencies and reopen any contradiction, missing acceptance method, or unresolved blocking decision
 
-**Completion criterion:** one authoritative, internally consistent baseline remains, with no lost identifiers or mappings and no unresolved blocker hidden in temporary notes.
+**Completion criterion:** the authorized changes and affected dependencies are internally consistent, identifiers and mappings remain intact, and no unresolved blocker is hidden in temporary notes; rewriting is required only where the check identifies a need.
 
 ## Context and Baseline Check
 
@@ -132,7 +132,7 @@ Pre-delivery checklist:
 - [ ] Decision-critical ambiguity is either resolved or explicitly listed
 - [ ] Every blocking external knowledge or authority gap has a recipient role, questionnaire or equivalent action, and checkable return criterion; no answer is invented
 - [ ] Requirements are traceable to original user statements or cited source material
-- [ ] The final convergence pass removed duplication without losing IDs, source anchors, decisions, or acceptance mappings
+- [ ] The scoped convergence check addressed relevant duplication or conflicts without losing IDs, source anchors, decisions, acceptance mappings, or artifact status
 
 ## Out of Scope
 

@@ -478,7 +478,7 @@ try {
     Invoke-NegativeCase -Name "adversarial-clarification-preamble" -ExpectedPattern @(
         "Adversarial clarification-preamble surface is missing 'This is an optional preamble, not a standalone Skill\.'",
         "Adversarial clarification-preamble surface is missing 'Do not manufacture symmetry'",
-        "Adversarial clarification-preamble surface is missing 'If exactly one unresolved decision that only I can make blocks the final judgment'"
+        "Adversarial clarification-preamble surface is missing 'If one or more unresolved decisions that only I can make block the final judgment'"
     ) -Mutate {
         param($caseRoot)
 
@@ -486,12 +486,13 @@ try {
         $content = Get-Content -LiteralPath $path -Raw
         $mutated = $content.Replace("This is an optional preamble, not a standalone Skill.", "This is a standalone mandatory workflow.")
         $mutated = $mutated.Replace("Do not manufacture symmetry", "Present both sides symmetrically")
-        $mutated = $mutated.Replace("If exactly one unresolved decision that only I can make blocks the final judgment", "Before every final judgment")
+        # Restore the old condition to prove the multiple-blocker regression is rejected.
+        $mutated = $mutated.Replace("If one or more unresolved decisions that only I can make block the final judgment", "If exactly one unresolved decision that only I can make blocks the final judgment")
         if (
             $mutated -eq $content -or
             $mutated.Contains("This is an optional preamble, not a standalone Skill.") -or
             $mutated.Contains("Do not manufacture symmetry") -or
-            $mutated.Contains("If exactly one unresolved decision that only I can make blocks the final judgment")
+            $mutated.Contains("If one or more unresolved decisions that only I can make block the final judgment")
         ) {
             throw "Fixture could not remove the complete adversarial clarification contract."
         }

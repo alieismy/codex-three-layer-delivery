@@ -4,8 +4,10 @@ Use this mode for repositories, libraries, protocols, AI models or products, AI 
 
 ## Required Checks
 
+Apply the checks relevant to the research question. For adoption recommendations, cover decision-material fit, security, operability, cost, and exit-path dimensions. For a narrow factual question, do not expand into a full adoption assessment unless the answer depends on it.
+
 - Identify the exact product form, repository, branch/tag/commit, version, license, platform, authentication method, and subscription tier in scope
-- Inspect official documentation and source/release history; use issues and discussions as evidence of reported behavior, not proof that every environment is affected
+- Select current primary sources for the claim: documentation or schemas for contracts, source code for implementation, release history for version changes, and configuration or reproducible tests for effective behavior; issues and discussions establish reported behavior, not that every environment is affected
 - Separate advertised capability, documented capability, source-level implementation, reproduced behavior, and production fitness
 - Assess architecture fit, integration boundary, interoperability, data flow, security, privacy, supply chain, performance evidence, maintainability, support, and exit path
 - For AI systems, distinguish model capability, host-product capability, tool availability, account entitlement, prompt behavior, and end-to-end system performance

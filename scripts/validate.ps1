@@ -863,7 +863,7 @@ $adversarialClarificationPromptBaselines = @(
             "High-Impact Bidirectional Argument and Critical Clarification",
             "This is an optional preamble, not a standalone Skill.",
             "Do not manufacture symmetry",
-            "If exactly one unresolved decision that only I can make blocks the final judgment",
+            "If one or more unresolved decisions that only I can make block the final judgment",
             "Do not expose hidden chain of thought."
         )
     },
@@ -876,7 +876,7 @@ $adversarialClarificationPromptBaselines = @(
             "高影响决策的双向论证与关键澄清",
             "这是可选前置段，不是独立 Skill。",
             "不要为了形式制造对称",
-            "如果恰有一个仍未解决、只能由我作出且会阻塞最终判断的决策问题",
+            "如果存在一个或多个仍未解决、只能由我作出且会阻塞最终判断的决策问题",
             "不要输出隐藏思维链。"
         )
     }
