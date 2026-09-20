@@ -10,7 +10,7 @@ npm registry 最新版本已于 2026-09-20 重新核查；本机 Codex CLI 与�
 
 仓库在 `schemas/` 下保存带来源和 SHA-256 元数据的 Codex `0.155.1` 配置 Schema 离线快照。`scripts/validate.ps1` 确定性使用该快照；仅发布前执行的 `scripts/validate-release.ps1` 会将其与当前官方 Schema 比较，核对已安装 CLI 版本，使用实时副本验证四份示例，并从隔离的临时 `CODEX_HOME` 严格加载每份示例。
 
-独立的 2026-09-20 [双模型评估](dual-model-compatibility.md)使用 CLI `0.155.1`，请求 `gpt-5.6-sol` 与 `gpt-6-astra`，两者均为 high 推理和 high 输出详细程度。文本注入断言分别为 42/48 和 46/48，四次原生尝试均受阻。报告保留失败与限制，不证明后端模型身份或隐式路由，也不替代上述发布 Schema 或更广测试基线。
+独立的 2026-09-20 [双模型评估](dual-model-compatibility.md)使用 CLI `0.155.1`，请求 `gpt-5.6-sol` 与 `gpt-6-astra`，两者均为 high 推理和 high 输出详细程度。基于所提供文本的断言分别为 42/48 和 46/48，四次原生尝试均受阻。报告保留失败与限制，不证明后端模型身份或隐式路由，也不替代上述发布 Schema 或更广测试基线。
 
 ## Claude Code
 
