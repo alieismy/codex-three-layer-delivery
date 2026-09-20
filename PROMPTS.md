@@ -24,6 +24,7 @@
 14. [Multi-Document Delivery Orchestration](#14-multi-document-delivery-orchestration-rd-delivery)
 15. [Greenfield Open-Source Landscape and Solution Gate](#15-greenfield-open-source-landscape-and-solution-gate)
 16. [High-Impact Bidirectional Argument and Critical Clarification](#16-high-impact-bidirectional-argument-and-critical-clarification)
+17. [Optional Authority and Completion Contract](#17-optional-authority-and-completion-contract)
 
 ---
 
@@ -506,6 +507,22 @@ Before making the final judgment:
 
 Do not expose hidden chain of thought. Output only the reviewable current interpretation, assumptions, evidence, counterevidence, key variables, trade-offs, and conclusion summary.
 ```
+
+---
+
+## 17. Optional Authority and Completion Contract
+
+Use this optional block with a document-delivery prompt when the permitted work or stopping point needs clarification. Fill only the fields that matter; omit it for routine tasks whose scope is already clear. It records task-specific choices under the applicable rules, not a new approval process or permission to expand scope.
+
+```text
+Authorized work: {read-only analysis / drafting or editing specified artifacts / necessary document verification}
+May decide independently: {low-risk details that do not change material conclusions, scope, or authority}
+Decisions reserved for me: {unresolved choices affecting scope, key constraints, artifact status, or external effects}
+Completion criteria: {deliverable, applicable checks, and explicitly unverified items}
+Stop boundary: {subsequent actions or stages that are not part of this task}
+```
+
+A verified draft or recommendation may complete the requested work while stakeholder approval remains pending. Approval, baselining, publication, and downstream execution require their own applicable authority and evidence; this block does not supply them by implication.
 
 ---
 

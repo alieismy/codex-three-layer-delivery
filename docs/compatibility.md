@@ -1,20 +1,22 @@
 # Compatibility
 
-The npm registry latest versions were rechecked on 2026-09-18; the installed Codex CLI and release schema baseline are `0.155.0`. Other installed versions and runtime observations retain their original dates: Claude Code CLI 2026-09-07, Cursor version 2026-09-11, Cursor Rules/Skills/FAQ documentation 2026-09-16, detailed Claude Code documentation 2026-09-04, and the bounded Context7 stdio probe 2026-08-14. Recheck registry versions and decision-relevant tool/API surfaces before each release.
+The npm registry latest versions were rechecked on 2026-09-20; the installed Codex CLI and release schema baseline are `0.155.1`. Other installed versions and runtime observations retain their original dates: Claude Code CLI 2026-09-07, Cursor version 2026-09-11, Cursor Rules/Skills/FAQ documentation 2026-09-16, detailed Claude Code documentation 2026-09-04, and the bounded Context7 stdio probe 2026-08-14. Recheck registry versions and decision-relevant tool/API surfaces before each release.
 
 ## Codex
 
 | Component | Tested version | Registry latest checked | Notes |
 |---|---:|---:|---|
-| `@openai/codex` npm package | `0.147.0` | `0.155.0` | Registry latest and installed CLI `0.155.0` were rechecked on 2026-09-18. The tagged `0.155.0` schema was fetched for this release baseline; the release gate compares it with the current live schema and runs the four example checks. The broader tested baseline remains `0.147.0`. Do not hardcode this into the repository name or AGENTS rules. |
+| `@openai/codex` npm package | `0.147.0` | `0.155.1` | Registry latest and installed CLI `0.155.1` were rechecked on 2026-09-20. The tagged `0.155.1` schema was fetched for this release baseline; the release gate compares it with the current live schema and runs the four example checks. The broader tested baseline remains `0.147.0`. Do not hardcode this into the repository name or AGENTS rules. |
 
-The repository vendors the Codex `0.155.0` configuration schema as an offline snapshot with provenance and SHA-256 metadata under `schemas/`. `scripts/validate.ps1` uses the snapshot deterministically; the release-only `scripts/validate-release.ps1` compares it with the current official schema, checks the installed CLI version, validates all four examples against the live copy, and strict-loads each example from an isolated temporary `CODEX_HOME`.
+The repository vendors the Codex `0.155.1` configuration schema as an offline snapshot with provenance and SHA-256 metadata under `schemas/`. `scripts/validate.ps1` uses the snapshot deterministically; the release-only `scripts/validate-release.ps1` compares it with the current official schema, checks the installed CLI version, validates all four examples against the live copy, and strict-loads each example from an isolated temporary `CODEX_HOME`.
+
+The separate 2026-09-20 [dual-model evaluation](dual-model-compatibility.md) used CLI `0.155.1` and requested `gpt-5.6-sol` and `gpt-6-astra`, both with high reasoning and high verbosity. Supplied-text assertions scored 42/48 and 46/48 respectively; four native attempts were blocked. The report preserves failures and limits, does not verify backend identity or implicit routing, and does not replace the release schema or broader baseline above.
 
 ## Claude Code
 
 | Component | Tested/pinned version | Registry latest checked | Notes |
 |---|---:|---:|---|
-| `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.276` | Registry latest `2.1.276` was observed on 2026-09-18; the installed CLI `2.1.263` was observed on 2026-09-07. The settings schema, adapter structure, and `claude doctor` were last re-checked with `2.1.260` on 2026-09-04. Dangerous-command permission behavior was not exercised; settings validation is not proof that every wrapper or compound command will be intercepted. |
+| `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.278` | Registry latest `2.1.278` was observed on 2026-09-20; the installed CLI `2.1.263` was observed on 2026-09-07. The settings schema, adapter structure, and `claude doctor` were last re-checked with `2.1.260` on 2026-09-04. Dangerous-command permission behavior was not exercised; settings validation is not proof that every wrapper or compound command will be intercepted. |
 
 Official Claude Code docs checked: [memory](https://code.claude.com/docs/en/memory), [settings](https://code.claude.com/docs/en/settings), [permissions](https://code.claude.com/docs/en/permissions), and [skills](https://code.claude.com/docs/en/skills).
 
@@ -48,7 +50,7 @@ This repository does not ship an active Cursor `.cursor/mcp.json` and does not r
 | Tavily | `tavily-mcp` | `0.2.19` | `0.2.22` | Codex example disabled; omitted from Cursor minimal example |
 | Sequential Thinking | `@modelcontextprotocol/server-sequential-thinking` | `2025.12.18` | `2026.8.31` | Omitted from public minimal examples |
 | Brave Search | `@brave/brave-search-mcp-server` | `2.0.82` | `2.1.4` | Omitted from public minimal examples |
-| Playwright MCP | `@playwright/mcp` | `0.0.75` | `0.0.81` | Codex example disabled; omitted from Cursor minimal example |
+| Playwright MCP | `@playwright/mcp` | `0.0.75` | `0.0.82` | Codex example disabled; omitted from Cursor minimal example |
 | Chrome DevTools MCP | `chrome-devtools-mcp` | `1.1.1` | `1.9.0` | Codex example disabled; omitted from Cursor minimal example |
 | Augment Context Engine | `ace-tool-rs` | `0.1.16` | `0.1.16` | Omitted from public minimal examples |
 

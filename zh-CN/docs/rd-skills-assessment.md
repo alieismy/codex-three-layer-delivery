@@ -37,6 +37,8 @@
 
 ## 外部设计依据
 
+- 2026-09-20 的 [Astra 指南吸收与比较](astra-guidance-adoption.md)记录对当前 OpenAI 指南和 PrompTessor 任务模板示例的有边界吸收：说明导致阻塞的指令依据，以及可选的任务授权与完成条件块。改动保留 Skill 正文、description、权限和调用策略；显式提供文本的比较不证明原生加载或跨客户端行为。
+- 2026-09-20 的[双模型评估](dual-model-compatibility.md)以 high 推理/high 输出详细程度检查 Sol 与 Astra 的最终共享组合，保留失败与原生阻塞，并为 `rd-writing` eval 4 增加简短决策简报 fixture。每个 canonical 语言目录现有 44 个输出用例；九个 Skill 正文和路由保持不变。
 - [Agent Skills 规范](https://agentskills.io/specification) 将 `name` 和 `description` 定义为发现层，并建议渐进披露、聚焦参考文件、执行验证，以及主文件不超过 500 行。
 - 当前 [OpenAI Codex Skill 指南](https://learn.chatgpt.com/docs/build-skills) 要求描述前置核心用途，因为 Skill 较多时初始列表可能缩短描述或省略部分 Skill；该指南还说明了面向 ChatGPT/Codex 桌面的可选 `agents/openai.yaml` 元数据。
 - 原 [openai/skills 仓库](https://github.com/openai/skills) 已标记为不再用于当前分发示例；[openai/plugins](https://github.com/openai/plugins) 是当前打包参考。本项目为跨客户端编写和适配保留直接 Skill 目录，插件化属于独立的分发决策。

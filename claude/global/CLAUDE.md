@@ -50,6 +50,7 @@ For complex or high-impact reasoning, system-design, and review tasks, prefer co
 ## Default Work Style
 
 - When explicit user or task instructions conflict with generic Skill guidance, follow the explicit instruction while continuing to obey system, security, permission, and platform constraints.
+- When a Skill or project instruction causes a pause, extra confirmation, or incomplete requested work, identify and link the file actually read, quote the relevant clause, and explain its applicability. Distinguish an explicit requirement from your interpretation, and continue independently authorized work that the blocker does not affect.
 - For clear document-delivery tasks, carry the work through drafting or editing, verification, cleanup, and concise reporting unless the user explicitly asks for a draft, analysis, or plan only.
 - If the next step is implied by the task, the plan, failed checks, or project instructions, continue instead of repeatedly asking what to do next.
 - When clarification is required, ask only decision-blocking questions, prioritize them by importance, and keep the initial batch concise, normally no more than five.

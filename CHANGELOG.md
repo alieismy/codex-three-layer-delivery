@@ -6,6 +6,14 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+## 1.7.7 - 2026-09-20
+
+- Refreshed Codex schema provenance to `0.155.1` after verifying unchanged schema bytes against both the tagged source and live endpoint; refreshed registry observations without changing public configuration behavior.
+- Added a bilingual high/high Sol and Astra evaluation of the final shared instructions, retaining failed assertions, a separate diagnostic repeat, and four blocked native attempts without claiming full compatibility.
+- Added a synthetic concise decision-brief regression to `rd-writing` and all language/platform mirrors; each canonical language tree now contains 44 output cases. Skill bodies, descriptions, invocation policies, and personal settings remain unchanged.
+- Added source-linked explanations when Skill or project instructions block requested work, preserving authorization boundaries across English, Chinese, Codex, Claude, and Cursor conduct templates.
+- Added an optional task authority/completion prompt block and a focused baseline/candidate comparison record without changing Skill bodies, descriptions, invocation policies, permissions, or the evaluation framework.
+
 ## 1.7.6 - 2026-09-18
 
 - Removed two retired personal instruction drafts from the distributed tree and ignored their local paths; existing Git history remains unchanged.
