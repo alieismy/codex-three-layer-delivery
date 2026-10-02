@@ -31,13 +31,26 @@ This adapter maps the same document-delivery three-layer model to Claude Code:
 Install user-level Claude Code memory:
 
 ```bash
+(
+set -e
+if [ -e ~/.claude/CLAUDE.md ] || [ -L ~/.claude/CLAUDE.md ]; then
+  printf '%s\n' 'Stop: merge existing user-level Claude memory manually before installing.' >&2
+  exit 1
+fi
+mkdir -p ~/.claude
 cp claude/global/CLAUDE.md ~/.claude/CLAUDE.md
+)
 ```
 
 Install the shared project core and the Claude Code project adapter. If the target already has `AGENTS.md` (for example from the Codex installation), keep it and merge instead of overwriting:
 
 ```bash
 (
+set -e
+if [ -e /path/to/your-project/CLAUDE.md ] || [ -L /path/to/your-project/CLAUDE.md ] || [ -e /path/to/your-project/.claude ] || [ -L /path/to/your-project/.claude ]; then
+  printf '%s\n' 'Stop: merge existing Claude project files manually before installing.' >&2
+  exit 1
+fi
 if [ -s /path/to/your-project/AGENTS.override.md ]; then
   printf '%s\n' 'Stop: merge the effective override and select the Claude import target manually before installing.' >&2
   exit 1

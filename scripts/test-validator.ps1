@@ -210,12 +210,18 @@ try {
         }
     }
 
-    Invoke-NegativeCase -Name "claude-install-import-boundary" -ExpectedPattern "Claude installation must stop for an unresolved override or empty shared-core import" -Mutate {
+    Invoke-NegativeCase -Name "claude-install-import-boundary" -ExpectedPattern @(
+        "Claude installation must stop for an unresolved override or empty shared-core import",
+        "Claude installation must preflight existing project destinations before any copy",
+        "Claude installation must preserve existing user-level memory"
+    ) -Mutate {
         param($caseRoot)
 
         $path = Join-Path $caseRoot "claude/README.md"
         $text = Get-Content -LiteralPath $path -Raw
         $mutated = $text.Replace("if [ -s /path/to/your-project/AGENTS.override.md ]; then", "if [ ! -s /path/to/your-project/AGENTS.override.md ]; then")
+        $mutated = $mutated.Replace("if [ -e /path/to/your-project/CLAUDE.md ]", "if [ ! -e /path/to/your-project/CLAUDE.md ]")
+        $mutated = $mutated.Replace("if [ -e ~/.claude/CLAUDE.md ]", "if [ ! -e ~/.claude/CLAUDE.md ]")
         if ($mutated -eq $text) { throw "Fixture could not restore the broken override guard." }
         Set-LfText -Path $path -Content $mutated
     }

@@ -211,9 +211,17 @@ Install Chinese Claude Code files (the project `CLAUDE.md` imports the shared `A
 
 ```bash
 (
-cp zh-CN/claude/global/CLAUDE.md ~/.claude/CLAUDE.md
+set -e
+if [ -e /path/to/your-project/CLAUDE.md ] || [ -L /path/to/your-project/CLAUDE.md ] || [ -e /path/to/your-project/.claude ] || [ -L /path/to/your-project/.claude ]; then
+  printf '%s\n' 'Stop: merge existing Claude project files manually before installing.' >&2
+  exit 1
+fi
 if [ -s /path/to/your-project/AGENTS.override.md ]; then
   printf '%s\n' 'Stop: merge the effective override and select the Claude import target manually before installing.' >&2
+  exit 1
+fi
+if [ -e ~/.claude/CLAUDE.md ] || [ -L ~/.claude/CLAUDE.md ]; then
+  printf '%s\n' 'Stop: merge existing user-level Claude memory manually before installing.' >&2
   exit 1
 fi
 if [ ! -e /path/to/your-project/AGENTS.md ]; then
@@ -223,6 +231,8 @@ if [ ! -s /path/to/your-project/AGENTS.md ]; then
   printf '%s\n' 'Stop: the shared AGENTS.md import target must be non-empty.' >&2
   exit 1
 fi
+mkdir -p ~/.claude
+cp zh-CN/claude/global/CLAUDE.md ~/.claude/CLAUDE.md
 cp zh-CN/claude/project/CLAUDE.md /path/to/your-project/CLAUDE.md
 cp -r zh-CN/claude/project/.claude /path/to/your-project/.claude
 )
@@ -235,13 +245,26 @@ The English root remains the canonical baseline. Use `zh-CN/` as a translation p
 Install user-level Claude Code memory:
 
 ```bash
+(
+set -e
+if [ -e ~/.claude/CLAUDE.md ] || [ -L ~/.claude/CLAUDE.md ]; then
+  printf '%s\n' 'Stop: merge existing user-level Claude memory manually before installing.' >&2
+  exit 1
+fi
+mkdir -p ~/.claude
 cp claude/global/CLAUDE.md ~/.claude/CLAUDE.md
+)
 ```
 
 Install project-level Claude Code rules and skills. The project `CLAUDE.md` is a thin adapter that imports the shared project core with `@AGENTS.md`; if the target already has `AGENTS.md` (for example from the Codex installation), keep it and merge instead of overwriting:
 
 ```bash
 (
+set -e
+if [ -e /path/to/your-project/CLAUDE.md ] || [ -L /path/to/your-project/CLAUDE.md ] || [ -e /path/to/your-project/.claude ] || [ -L /path/to/your-project/.claude ]; then
+  printf '%s\n' 'Stop: merge existing Claude project files manually before installing.' >&2
+  exit 1
+fi
 if [ -s /path/to/your-project/AGENTS.override.md ]; then
   printf '%s\n' 'Stop: merge the effective override and select the Claude import target manually before installing.' >&2
   exit 1

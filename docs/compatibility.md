@@ -20,6 +20,8 @@ The [timed Chinese CLI follow-up](evidence/skill-routing-zh-cli-2026-10-02.json)
 
 ## Claude Code
 
+The release follow-up [installation guard probe](evidence/claude-installation-guards-2026-10-02.json) executed all eleven published Claude Bash installation blocks with isolated HOME and project targets on Windows Git Bash. All 52 cases passed, including existing project/user memory, existing settings, empty shared cores, and effective overrides. Guarded failures preserved the original files and did not copy user memory before project preflights. This establishes bounded installation file behavior, not Claude instruction loading; concurrent installers were not tested.
+
 | Component | Tested/pinned version | Registry latest checked | Notes |
 |---|---:|---:|---|
 | `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.287` | Registry latest and installed CLI `2.1.287` were observed on 2026-10-02. The settings schema, adapter structure, and `claude doctor` were last re-checked with `2.1.260` on 2026-09-04. Dangerous-command permission behavior was not exercised; settings validation is not proof that every wrapper or compound command will be intercepted. |

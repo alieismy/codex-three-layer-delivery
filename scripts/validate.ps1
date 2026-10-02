@@ -1152,9 +1152,23 @@ foreach ($relativePath in @("claude/README.md", "zh-CN/claude/README.md", "docs/
     $blocks = [regex]::Matches($text, '(?ms)^```bash\n(?<body>.*?)^```')
     foreach ($block in $blocks) {
         $body = $block.Groups['body'].Value
-        if ($body -notmatch 'cp (?:zh-CN/)?claude/project/CLAUDE\.md') { continue }
+        $hasProjectInstall = $body -match 'cp (?:zh-CN/)?claude/project/CLAUDE\.md'
+        $hasUserInstall = $body -match 'cp (?:zh-CN/)?claude/global/CLAUDE\.md'
+        if (-not $hasProjectInstall -and -not $hasUserInstall) { continue }
         if ($body -notmatch '(?s)^\(\n.*\n\)\n$') {
             Add-Failure "Claude installation exits must be confined to a subshell: $relativePath"
+        }
+        if ($hasUserInstall -and (-not $body.Contains('if [ -e ~/.claude/CLAUDE.md ] || [ -L ~/.claude/CLAUDE.md ]; then') -or
+            -not $body.Contains('Stop: merge existing user-level Claude memory manually before installing.'))) {
+            Add-Failure "Claude installation must preserve existing user-level memory: $relativePath"
+        }
+        if (-not $hasProjectInstall) { continue }
+        $firstCopy = [regex]::Match($body, '(?m)^\s*cp ').Index
+        $projectGuard = $body.IndexOf('if [ -e /path/to/your-project/CLAUDE.md ] || [ -L /path/to/your-project/CLAUDE.md ] || [ -e /path/to/your-project/.claude ] || [ -L /path/to/your-project/.claude ]; then')
+        $overrideGuard = $body.IndexOf('if [ -s /path/to/your-project/AGENTS.override.md ]; then')
+        if ($projectGuard -lt 0 -or $projectGuard -ge $firstCopy -or
+            $overrideGuard -lt 0 -or $overrideGuard -ge $firstCopy) {
+            Add-Failure "Claude installation must preflight existing project destinations before any copy: $relativePath"
         }
         if (-not $body.Contains('if [ -s /path/to/your-project/AGENTS.override.md ]; then') -or
             -not $body.Contains('if [ ! -s /path/to/your-project/AGENTS.md ]; then') -or

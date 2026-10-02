@@ -20,6 +20,8 @@ npm registry 最新版本已于 2026-10-02 重新核查；本机 Codex CLI 与�
 
 ## Claude Code
 
+发布前的[安装保护探针](../../docs/evidence/claude-installation-guards-2026-10-02.json)在 Windows Git Bash 中使用隔离的 HOME 和项目目标，执行全部十一个已发布 Claude Bash 安装块。52 个用例全部通过，包含既有项目/用户记忆、既有 settings、空共享核心和有效 override。guard 失败时原文件保持不变，用户记忆不会在项目预检前复制。这只证明有边界的安装文件行为，不证明 Claude 指令加载；未测试并发安装。
+
 | 组件 | 已测试 / 已固定版本 | registry 最新核查版本 | 备注 |
 |---|---:|---:|---|
 | `@anthropic-ai/claude-code` npm 包 | 本仓库不固定 | `2.1.287` | 已于 2026-10-02 观察到 registry 与本机 CLI 版本均为 `2.1.287`；settings Schema、适配器结构和 `claude doctor` 最近一次使用 `2.1.260` 重新核查的日期仍为 2026-09-04。未实际执行危险命令验证权限行为；settings 校验不能证明所有包装命令或复合命令都会被拦截。 |

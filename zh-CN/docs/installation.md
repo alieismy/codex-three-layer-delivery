@@ -128,13 +128,26 @@ zh-CN/codex/examples/config.full-access.example.toml
 安装用户级 Claude Code memory（记忆）：
 
 ```bash
+(
+set -e
+if [ -e ~/.claude/CLAUDE.md ] || [ -L ~/.claude/CLAUDE.md ]; then
+  printf '%s\n' 'Stop: merge existing user-level Claude memory manually before installing.' >&2
+  exit 1
+fi
+mkdir -p ~/.claude
 cp zh-CN/claude/global/CLAUDE.md ~/.claude/CLAUDE.md
+)
 ```
 
 安装项目级 Claude Code 规则和 Skills。项目级 `CLAUDE.md` 是通过 `@AGENTS.md` 导入共享项目核心的薄适配文件；目标项目已有 `AGENTS.md`（例如已按 Codex 方式安装）时保留并手动合并，不要覆盖：
 
 ```bash
 (
+set -e
+if [ -e /path/to/your-project/CLAUDE.md ] || [ -L /path/to/your-project/CLAUDE.md ] || [ -e /path/to/your-project/.claude ] || [ -L /path/to/your-project/.claude ]; then
+  printf '%s\n' 'Stop: merge existing Claude project files manually before installing.' >&2
+  exit 1
+fi
 if [ -s /path/to/your-project/AGENTS.override.md ]; then
   printf '%s\n' 'Stop: merge the effective override and select the Claude import target manually before installing.' >&2
   exit 1

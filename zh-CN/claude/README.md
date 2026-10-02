@@ -37,13 +37,26 @@ zh-CN/claude/
 安装用户级 Claude Code memory（记忆）：
 
 ```bash
+(
+set -e
+if [ -e ~/.claude/CLAUDE.md ] || [ -L ~/.claude/CLAUDE.md ]; then
+  printf '%s\n' 'Stop: merge existing user-level Claude memory manually before installing.' >&2
+  exit 1
+fi
+mkdir -p ~/.claude
 cp zh-CN/claude/global/CLAUDE.md ~/.claude/CLAUDE.md
+)
 ```
 
 安装共享项目核心和 Claude Code 项目适配文件。目标项目已有 `AGENTS.md`（例如已按 Codex 方式安装）时保留并手动合并，不要覆盖：
 
 ```bash
 (
+set -e
+if [ -e /path/to/your-project/CLAUDE.md ] || [ -L /path/to/your-project/CLAUDE.md ] || [ -e /path/to/your-project/.claude ] || [ -L /path/to/your-project/.claude ]; then
+  printf '%s\n' 'Stop: merge existing Claude project files manually before installing.' >&2
+  exit 1
+fi
 if [ -s /path/to/your-project/AGENTS.override.md ]; then
   printf '%s\n' 'Stop: merge the effective override and select the Claude import target manually before installing.' >&2
   exit 1
