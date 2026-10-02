@@ -6,6 +6,7 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+- Added bilingual Claude tool-output hygiene to the existing governance regression and retained measured Chinese CLI routing evidence, including UTF-8 capture/scoring failures and their correction; routing defaults remain unchanged.
 - Retained two bounded post-integration Codex behavior checks, including a false automatic approval-status flag and its text-grounded disposition; no reliability or causal improvement claim is made.
 - Preserved material-decision clarification and routine reversible-choice guidance in the shared project core while retaining thin Claude adapters during worktree integration.
 - Tightened the ChatGPT web custom-instruction profile and its Simplified Chinese mirror to clarify ambiguous professional deliverables, condition evidence reuse on valid sources and premises, and require risk-proportionate verification and rollback guidance for commands and configuration; refreshed both character counts without claiming web behavior validation.

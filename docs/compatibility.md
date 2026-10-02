@@ -16,6 +16,8 @@ The 2026-10-02 [native routing smoke record](evidence/skill-routing-smoke-2026-1
 
 The [matched-budget follow-up](evidence/skill-routing-followup-2026-10-02.json) ran T3 and the unhinted T6 with a 300-second limit on both Codex and Claude: all four attempts passed. Explicit orchestration loaded `rd-delivery`; a PRD plus short summary without a negative routing hint did not. These bounded observations preserve the earlier timeout and do not establish statistical stability or document quality.
 
+The [timed Chinese CLI follow-up](evidence/skill-routing-zh-cli-2026-10-02.json) copied Chinese project templates and all nine Chinese Skills into temporary projects. With corrected UTF-8 capture and event-based selection checks, all four 300-second attempts passed; each process and launcher duration is retained. The initial four scoring failures and two file-encoding diagnostic failures remain recorded: the PowerShell collector inherited codepage 936 and misdecoded UTF-8 CLI output, while the old scorer omitted actual Claude Skill calls. A deterministic capture probe verified the fix. These are measurement failures, not established routing regressions. The corrected phase uses the original Chinese prompts without an encoding or routing hint. Existing user-level context and same-name precedence limits remain; this is not desktop acceptance or a reliability estimate. Earlier English elapsed times and the exact Oct 1 invocation timeout remain unmeasured or unknown.
+
 ## Claude Code
 
 | Component | Tested/pinned version | Registry latest checked | Notes |

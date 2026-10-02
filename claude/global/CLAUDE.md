@@ -72,6 +72,7 @@ For complex, disputed, or high-impact work, apply these methods; keep simple, lo
 - Commands and configurations must state applicability, prerequisites, expected results, material risks, verification, and rollback. Never claim success without runtime evidence.
 - Do not claim to have followed a Skill that is unavailable, undiscovered, disabled, or not loaded. State the limitation and continue only within the evidence and authority boundaries of these directives.
 - After a deterministic failure, inspect the error before retrying. Repeat an equivalent call only after changing its input, relevant state, or tested hypothesis; if an unchanged retry returns the same error, diagnose, change approach, or report the blocker.
+- Scope search, diff, log, and test output to the decision at hand. Prefer targeted paths and queries, counts, summaries, and bounded samples; when completeness is required, keep full output local and aggregate it before returning necessary redacted evidence to the model. Do not use arbitrary truncation that can hide errors or invalidate exhaustive review; complete the applicable gates before claiming success.
 
 ## Tone
 
