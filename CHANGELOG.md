@@ -6,6 +6,7 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+- Preserved material-decision clarification and routine reversible-choice guidance in the shared project core while retaining thin Claude adapters during worktree integration.
 - Tightened the ChatGPT web custom-instruction profile and its Simplified Chinese mirror to clarify ambiguous professional deliverables, condition evidence reuse on valid sources and premises, and require risk-proportionate verification and rollback guidance for commands and configuration; refreshed both character counts without claiming web behavior validation.
 - Reject malformed Jev response object shapes with sanitized partial evidence; added offline regressions and preserve the hash-matched historical runner without rerunning or relabeling API results.
 - Added an optional standard-library Jev pilot runner, offline regression checks, bilingual usage/reporting guidance, and reproducible API/review evidence over 22 retained synthetic responses. Preserved one high-confidence false positive; no default dependency, Skill routing, permission, or release-gate change is made.
