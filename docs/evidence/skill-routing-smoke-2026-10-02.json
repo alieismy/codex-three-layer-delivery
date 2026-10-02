@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-02",
+  "status": "bounded-observation",
+  "scope": "Native Skill selection/loading for synthetic English prompts; no output-quality grading or platform acceptance.",
+  "context": "Throwaway projects outside the source repository; project templates and rd-* Skills copied from this workspace. Existing authentication, user-level configuration, global guidance and user-level Skills remain active. Global templates were not installed for this probe. No clean-environment or same-name precedence claim.",
+  "source_sha256": {
+    "codex/project/AGENTS.md": "119f6edd429e8b18d984d3ca8270a23093f5c38da37e87e8515378dfbb589fde",
+    "claude/project/CLAUDE.md": "eb41e79db1de082ed555c1262f27c8cc3ff52a548a39e6bd247ca8afa86b35bb",
+    "skills/rd-delivery/SKILL.md": "60be0714e9fbb59b85aa1700df24de33dfe2b2555b27763c8aa8810eea6326af",
+    "skills/rd-requirement/SKILL.md": "513251c7aaa49146bf9acb14de4947d99cbb89021e9249431dbcd6e5cdf06a1f"
+  },
+  "methods": {
+    "codex": "codex exec --json --sandbox read-only --skip-git-repo-check -C <throwaway-project> <prompt>",
+    "claude": "claude -p <prompt> --output-format stream-json --verbose --allowedTools Skill,Read,Glob,Grep --disallowedTools Bash,PowerShell,Edit,Write,NotebookEdit,WebFetch,WebSearch",
+    "measurement": "Skill body markers in the retained event stream; Claude Skill tool invocation is included in the summary. Loading does not prove compliance with the workflow.",
+    "constraints": "No repository edits were requested from the probe. Codex uses a read-only sandbox; Claude uses tool restrictions. User-level settings remain active."
+  },
+  "summary": {
+    "passed": 4,
+    "blocked_timeout": 1,
+    "failed": 0
+  },
+  "runs": [
+    {
+      "tool": "codex",
+      "version": "0.160.0",
+      "case": "T2-requirement-implicit",
+      "prompt": "Turn these meeting notes into one PRD with acceptance criteria.\n\nSynthetic meeting notes (test fixture): Sales wants customers to export invoices as PDF.\nFinance needs monthly totals. Someone mentioned it must be fast. Deadline unclear.\n",
+      "result": "PASS",
+      "timeout_seconds": 180,
+      "body_marker_observed": {
+        "rd-requirement": true,
+        "rd-delivery": false
+      },
+      "detail": "rd-requirement used=True (body=True heading=False skillTool=False) expected=True; rd-delivery used=False (body=False heading=False skillTool=False) expected=False",
+      "raw_event_sha256": "a32dda61018191687aea88b810d74b74386ff84e614d6038731fd0259b57bb2e"
+    },
+    {
+      "tool": "codex",
+      "version": "0.160.0",
+      "case": "T3-delivery-requested-unnamed",
+      "prompt": "Create a phased multi-document delivery plan with artifact status, decision traceability, blockers, gates, and cross-session handoff for an invoice-export feature. Answer in the chat only; do not create files.",
+      "result": "BLOCKED (timeout)",
+      "timeout_seconds": 180,
+      "body_marker_observed": {
+        "rd-requirement": false,
+        "rd-delivery": true
+      },
+      "detail": "Delivery body entered the event stream; the process did not complete within the timeout.",
+      "raw_event_sha256": "67ff84c15c5334cd5c83bd365b6ebf8c4d0f5ded178206c5450a34e440f0f88c"
+    },
+    {
+      "tool": "codex",
+      "version": "0.160.0",
+      "case": "T5-multiple-outputs-no-orchestration",
+      "prompt": "Produce a PRD and a short summary from these supplied meeting notes; no delivery plan or cross-session coordination is requested. Answer in the chat only.\n\nSynthetic meeting notes (test fixture): Sales wants customers to export invoices as PDF.\nFinance needs monthly totals. Someone mentioned it must be fast. Deadline unclear.\n",
+      "result": "PASS",
+      "timeout_seconds": 180,
+      "body_marker_observed": {
+        "rd-requirement": true,
+        "rd-delivery": false
+      },
+      "detail": "rd-requirement used=True (body=True heading=False skillTool=False) expected=True; rd-delivery used=False (body=False heading=False skillTool=False) expected=False",
+      "raw_event_sha256": "21ee78563328a9a80ad3d98cebf9fdc6bab981ad9c502ceb1d43d6554ac6e3e0"
+    },
+    {
+      "tool": "claude",
+      "version": "2.1.287",
+      "case": "T3-delivery-requested-unnamed",
+      "prompt": "Create a phased multi-document delivery plan with artifact status, decision traceability, blockers, gates, and cross-session handoff for an invoice-export feature. Answer in the chat only; do not create files.",
+      "result": "PASS",
+      "timeout_seconds": 120,
+      "body_marker_observed": {
+        "rd-requirement": false,
+        "rd-delivery": true
+      },
+      "detail": "rd-delivery used=True (body=True heading=True skillTool=True) expected=True",
+      "raw_event_sha256": "34f87eb5454fb4898e294d8e60a592fd77b504d97ee45fc18e08a10225355fa0"
+    },
+    {
+      "tool": "claude",
+      "version": "2.1.287",
+      "case": "T5-multiple-outputs-no-orchestration",
+      "prompt": "Produce a PRD and a short summary from these supplied meeting notes; no delivery plan or cross-session coordination is requested. Answer in the chat only.\n\nSynthetic meeting notes (test fixture): Sales wants customers to export invoices as PDF.\nFinance needs monthly totals. Someone mentioned it must be fast. Deadline unclear.\n",
+      "result": "PASS",
+      "timeout_seconds": 150,
+      "body_marker_observed": {
+        "rd-requirement": true,
+        "rd-delivery": false
+      },
+      "detail": "rd-delivery used=False (body=False heading=False skillTool=False) expected=False; rd-requirement used=True (body=True heading=False skillTool=True) expected=True",
+      "raw_event_sha256": "54ffe7557db07a143d4a6a1b7065a0b9272ff63cbe1903b7d48b2f9d0a289075"
+    }
+  ],
+  "unverified": [
+    "Output correctness and owner approval",
+    "Claude automatic @AGENTS.md import completeness and deduplication",
+    "Clean-environment routing and user/project same-name precedence",
+    "Chinese routing and Cursor runtime",
+    "Dangerous-command interception and Windows sandbox behavior"
+  ],
+  "prior_observation": {
+    "record": "skill-routing-smoke-2026-10-01.json",
+    "summary": "Four Codex passes and four Claude authentication blocks; the user confirms login before the Oct 2 passes. No upgrade causality claim.",
+    "comparison_limit": "Oct 1 Codex T3 completed after about 271 seconds of file capture; Oct 2 used a 180-second limit."
+  }
+}

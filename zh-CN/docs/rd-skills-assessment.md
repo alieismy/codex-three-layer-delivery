@@ -52,7 +52,7 @@
 
 | 机制 | 决定 | 本项目适配 |
 |---|---|---|
-| 用户显式调用的编排与模型自动调用的复用纪律分离 | 采纳 | `rd-delivery` 继续保持仅显式调用。Codex 使用 `agents/openai.yaml`；Claude 和 Cursor 适配器使用 `disable-model-invocation: true`。标准/Codex Skill 根目录继续只使用可移植的 `name` 和 `description` Frontmatter。 |
+| 用户显式调用的编排与模型自动调用的复用纪律分离 | 采纳，2026-10-01 修订 | 只有请求明确要求编排时才使用 `rd-delivery`；请求不必点名该 Skill。原先限制为点名调用的开关（`policy.allow_implicit_invocation: false` 与 `disable-model-invocation: true`）已移除，因为它们会阻断此类请求，而一次有界冒烟运行显示模型会绕过开关直接读取 Skill 文件。标准/Codex Skill 根目录继续只使用可移植的 `name` 和 `description` Frontmatter。 |
 | 每个步骤具备可检查且要求充分的完成标准 | 采纳 | 9 个主 Skill 的每个编号步骤都具备一个英文或中文完成标准，仓库验证在所有适配器中强制每一步恰好包含一个完成标准。 |
 | 单一权威来源；关系图和交接作为索引而非内容仓库 | 采纳 | 交付记录指向权威制品和决策记录，不重复维护完整内容。 |
 | Agent 文档作为上下文与认知负载路由器 | 采纳 | 项目 `AGENTS.md` 只维护稳定的效力、路由和完成规则；RD 详细流程由 9 个 Skills 单一维护。环境可发现事实在使用时检查，不缓存为长期说明。 |
@@ -63,7 +63,7 @@
 | 用真实消费端兼容形状解析 Skill YAML 并验证 reference 指针 | 作为维护门禁采纳 | 固定版本的 PyYAML Validator 会拒绝畸形或重复键的 Frontmatter、`agents/openai.yaml`、缺失或越界的本地链接、未被引用的 reference、嵌套 reference 和 reference 之间的链式跳转；PowerShell 继续负责仓库特有的语义检查。 |
 | 一手来源研究并形成单一带引用制品 | 已采纳 | `rd-research` 已包含来源层级、反证、日期/版本背景、单一权威证据包和下游交接。 |
 | 双轴评审 | 已覆盖更广范围 | `rd-review` 把对齐/证据轴与内在质量/论证轴用于需求、可研、研究、方案、设计、标准和文章，而非只评审代码差异。 |
-| 为大量手动命令增加 Router Skill | 暂不采纳 | 只有 `rd-delivery` 仅显式调用；8 个专业 Skill 可由模型独立触发，增加第二个路由器没有独立交付物，只会增加认知与维护成本。 |
+| 为大量手动命令增加 Router Skill | 暂不采纳 | 只有 `rd-delivery` 要求请求明确提出编排；8 个专业 Skill 可由模型独立触发，增加第二个路由器没有独立交付物，只会增加认知与维护成本。 |
 | 强制使用后台研究代理 | 不采纳 | 并行研究可能有价值，但 Skill 在子代理不可用、不适用或未获授权时仍必须正确运行。 |
 | Issue Tracker 状态机、编码流程、TDD、实现和代码评审 | 不采纳 | 与仓库明确限定的文档交付和系统设计范围冲突。 |
 | Tracker 专用关系图、标签、任务认领和自动外部写入 | 不采纳 | 持久化仓库制品和明确授权边界可移植；外部 Tracker 变更仍取决于具体任务与授权。 |
@@ -118,12 +118,12 @@
 - 每个 Skill 至少有 3 个输出质量评测；合入已发布的 v1.7.4 设计评估用例后，2026-09-17 英文和中文 canonical 根目录各有 42 个用例：v1.7.4 的 36 个加上六个配有 fixture 的吸收用例。此前试验基线包含这六个在内共 41 个。
 - `rd-requirement`、`rd-research`、`rd-review`、`rd-writing` 和 `rd-delivery` 使用聚焦的 `references/`
 - `agents/openai.yaml` 提供 UI 元数据且不声明 MCP 依赖；专业 Skill 保持默认调用策略
-- 只有 `rd-delivery` 禁止隐式调用：Codex 使用 `policy.allow_implicit_invocation: false`，Claude/Cursor 适配器使用 `disable-model-invocation: true`
+- 只有 `rd-delivery` 要求请求内容明确提出编排；不再使用将其限制为点名调用的平台专用开关
 - 全局 `AGENTS.md` v7.8 常驻真实性纪律、响应模式、价值优先执行、上下文健康、执行效率与上下文卫生、输出前审核、输出规则、证据状态边界、“无需修改”合法性、有边界的实现纪律、既有行为与指令面保护、验证失败归因、任务路由和按领域划分的精简基线，不复制完整 Skill 工作流；Skill 未被选择或不可用时会显式降级，而不是丢失控制面
 - Codex、Claude 和 Cursor 控制面区分文档、源码、静态/生效配置、运行和生产验收，并接受有证据支撑的“无需修改”结论
-- 除经过验证的 `rd-delivery` 平台专用调用字段外，Claude/Cursor 适配树与中英文主 Skill 精确镜像
+- Claude/Cursor 适配树与各自语言的主 Skill 精确镜像，包括按请求内容判断的 `rd-delivery` 调用契约
 - PowerShell 安装脚本把替换范围限制在声明的 9 个 Skills，校验备份和暂存树，在替换失败时恢复原安装，并支持只读的安装树精确检查
 - 仓库验证使用真实 YAML、TOML、JSON 和 JSON Schema Parser，再检查 Skill 结构与 reference、LF 换行、镜像一致性、价值优先与证据契约、Codex 示例的 Schema/运行基线语义、Cursor 仅一条常驻规则的策略、跨平台推理治理、Context7 版本一致性、平台提示词前缀、Claude Bash/PowerShell 权限与 attribution、Cursor MCP 凭据传递、Unix 安装前置条件、维护者/上下文/提示词契约、当前 GSD 归属以及 `.tmp/local/` 边界
-- 独立的二十项负向回归保留既有十六项 Skill、证据、全局规则、上下文、提示词、临时数据和平台配置用例，并新增 Codex 配置契约、Cursor 加载策略、跨平台推理治理和 GSD 当前/归档来源归属回归
+- 独立的二十四项负向回归保留既有十六项 Skill、证据、全局规则、上下文、提示词、临时数据和平台配置用例，并新增 Codex 配置契约、Cursor 加载策略、跨平台推理治理、GSD 当前/归档来源归属、明确交付编排请求边界、Claude 共享导入安装、维护者模板排除和安装父终端保护回归
 
 JSON eval 文件只定义路由与输出期望，本身不会执行模型。2026-09-17 试验仅为六个中文用例提供有边界的执行证据。运行评测应先做环境和认证 smoke test，再做变更面用例与相关回归；只有共享路由、公共契约、发布决策、已观察到跨表面风险或用户明确要求时，才运行 Codex/Claude/Cursor 的完整带 Skill 与对照矩阵。按实际达到的证据层级记录选择、断言、Token 和耗时。因此，下一次 description 修改应来自真实误触发、漏触发、步骤过早结束、交接断裂、权威记录重复或低质量输出。没有独立可触发的交付物或工作流证据就继续增加顶层 Skill，属于推测性扩展。

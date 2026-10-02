@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-02",
+  "scope": "Bounded post-integration behavior checks; existing user-level configuration retained, temporary project outside the repository, read-only CLI sandbox.",
+  "source_commit": "65f6d13a54edc233bbf7973d0f87a16f7acb2062",
+  "tool": "codex",
+  "cli_version": "codex-cli 0.160.0",
+  "timeout_seconds": 300,
+  "runs": [
+    {
+      "case": "bounded-revision",
+      "tool": "codex",
+      "exit_code": 0,
+      "seconds": 24.07,
+      "prompt": "$rd-requirement\nChange only the R-02 acceptance threshold from 2 seconds to 3 seconds in this PRD and return the full excerpt. Preserve all other text, status, identifiers and sections.\n# Query PRD\nStatus: draft, unapproved\n## Scope\nR-01: Exact lookup by ticket ID. Source: meeting A. Priority: P0. Acceptance: an existing ID returns only its matching ticket.\n## Performance\nR-02: Queries support internal use. Source: meeting A. Priority: P1. Acceptance: with 50 concurrent users, 10,000 records and 1,000 consecutive queries, P95 response time is at most 2 seconds.\n## Exclusions\nSemantic search is out of scope for the first release.\nAnswer in the chat only. Do not edit files or run installation, network, or operational commands.",
+      "assertions": {
+        "exact_authorized_excerpt": true,
+        "draft_unapproved_retained": true
+      },
+      "source_sha256": {
+        "codex/project/AGENTS.md": "be0a1951e7626ebf7f5482689c631b290169b1ea3f61fded89195370bb377365",
+        "skills/rd-requirement/SKILL.md": "513251c7aaa49146bf9acb14de4947d99cbb89021e9249431dbcd6e5cdf06a1f"
+      },
+      "raw_event_sha256": "173561b1560bb4ee0c7bca728a66450fda1f6fec2cc6f3e9322a2834b48b3045",
+      "answer_sha256": "1e68e44263a4dd16c878d6fcd8f7c00c31e858e27c5af93d785d8434a94ffb55",
+      "answer": "# Query PRD\nStatus: draft, unapproved\n## Scope\nR-01: Exact lookup by ticket ID. Source: meeting A. Priority: P0. Acceptance: an existing ID returns only its matching ticket.\n## Performance\nR-02: Queries support internal use. Source: meeting A. Priority: P1. Acceptance: with 50 concurrent users, 10,000 records and 1,000 consecutive queries, P95 response time is at most 3 seconds.\n## Exclusions\nSemantic search is out of scope for the first release.",
+      "review": {
+        "reviewer": "exact text comparison",
+        "result": "PASS",
+        "criteria": {
+          "exact_authorized_excerpt": true,
+          "draft_unapproved_retained": true
+        }
+      }
+    },
+    {
+      "case": "proposal-status",
+      "tool": "codex",
+      "exit_code": 0,
+      "seconds": 73.63,
+      "prompt": "$rd-solution\nSynthetic test scenario, not a real project. Approved requirements: 20 internal users must export monthly invoice totals to CSV; public access is excluded; operation must fit one existing Windows workstation. Compare a standalone desktop tool with a local browser interface using the same file storage. Today only the review-ready high-level proposal is due; the architecture owner will decide approval tomorrow. Produce a concise proposal now in the chat, mark recommendations unapproved, and do not claim downstream execution or baselining authority. Use only the supplied facts; keep unknown costs and implementation specifics bounded.\nAnswer in the chat only. Do not edit files or run installation, network, or operational commands.",
+      "assertions": {
+        "proposal_delivered": true,
+        "approval_status_explicit": false
+      },
+      "source_sha256": {
+        "codex/project/AGENTS.md": "be0a1951e7626ebf7f5482689c631b290169b1ea3f61fded89195370bb377365",
+        "skills/rd-solution/SKILL.md": "0e61abac9675658bca06a54e2216442f016318dec451823a12246fd2cb567f68"
+      },
+      "raw_event_sha256": "97332e18f418ce22ebfc32e6e2f8e043c4c88582423248f7bc394a0c0c3c8d31",
+      "answer_sha256": "7c61580d9b152c8d45988e0d8640d2723f3d3d806376d707f76e4bfb9a5b046e",
+      "answer": "**月度发票汇总 CSV 导出工具：高层方案（合成测试场景）**\n\n**状态：已形成供评审的方案；以下推荐未经批准。** 今天的交付范围为高层方案，架构负责人明天决定是否批准。本文不授予后续详细设计、实现、部署或基线化权限。事实依据仅为本次提供的已批准需求，其他内容均为方案建议或待确认事项。\n\n已批准需求是：20 名内部用户需要将月度发票总额导出为 CSV；排除公众访问；全部运行须容纳于一台现有 Windows 工作站。20 名用户不等于 20 个并发会话，现有工作站的配置、数据规模、预算和使用方式尚未提供。\n\n为使两种方案可比，本次暂按**用户在该工作站上使用工具**进行比较，两者采用相同的文件存储。是否需要内部用户从其他设备访问，仍属待决事项；公众访问被排除，并不能据此推定内部远程访问已经获准。\n\n**候选方案与共同边界**\n\n- **方案 A：独立桌面工具。** Windows 桌面界面调用本地汇总与导出逻辑，读取共同文件存储，生成 CSV。高层组件为桌面界面、汇总与校验模块、文件读写模块和 CSV 导出模块。\n- **方案 B：本地浏览器界面。** 工作站上的浏览器通过仅限本机的接口调用本地应用服务，由服务完成汇总、文件读写和 CSV 导出。高层组件为浏览器界面、本地应用服务，以及与方案 A 相同的业务和存储职责。\n\n两者的数据流均为“发票数据文件 → 月度汇总与校验 → CSV 导出”。输入来源、文件格式、月份归属规则和金额汇总规则尚未定义，因此目前可以比较架构边界，不能证明结果计算正确。\n\n| 维度 | 方案 A：独立桌面工具 | 方案 B：本地浏览器界面 |\n|---|---|---|\n| 功能覆盖 | 可设计为完成月度汇总与 CSV 导出；正确性待验证 | 同样可设计为满足功能；正确性待验证 |\n| 运行与维护 | 以本地应用进程提供操作入口 | 需要协调浏览器与本地服务的启动、连接和退出 |\n| 容量与性能 | 工作站能力、数据规模和并发未知，不能确认容量 | 同样不能确认容量；浏览器形式本身不能证明更能支持 20 人 |\n| 安全 | 需限定获准用户，控制数据文件和导出文件权限，并校验输入 | 具有相同要求，另需明确本机服务访问边界与请求校验；仅限本机不等于用户身份验证 |\n| 可靠性 | 依赖该工作站及共同文件存储；并发读写、失败恢复和备份待设计 | 具有相同存储风险，另需处理本地服务不可用的情况 |\n| 成本与交付风险 | 开发、许可、维护成本及工期未知 | 相同成本信息未知，不能声称任一方案更便宜或交付更快 |\n| 替代路径 | 若使用方式不适合桌面入口，可重新评估浏览器方案 | 若服务运行负担不可接受，可重新评估桌面方案；迁移成本未核定 |\n\n**推荐：优先考虑方案 A，未经批准；置信度为中。**\n\n支持方案 B 的最强理由是：如果用户偏好浏览器操作，或随后确认需要内部远程访问，它可能更符合实际使用方式。但这些条件目前没有得到确认；内部远程访问还会改变访问、身份验证及并发边界，需要另行评估。\n\n在当前单工作站、暂按本机使用的比较条件下，方案 A 的进程和接口边界较少，因此建议作为首选。这个判断来自上述架构比较，不代表已证明其成本更低或性能更好。方案 B 保留为有效备选。\n\n推荐架构保持在“**桌面界面 → 本地汇总与校验逻辑 → 共同文件存储／CSV 导出**”的层级。编程语言、界面框架、存储格式、安装方式及具体恢复机制均待后续授权设计，不在本次定案。\n\n**主要风险、待决事项与验证责任**\n\n| 风险或缺口 | 建议处理方式及后续验证 |\n|---|---|\n| 使用地点、用户身份与并发方式未知 | 架构负责人确认本机或内部远程使用方式，以及授权用户的识别方式；若改变本机假设，重新比较候选方案 |\n| 汇总与 CSV 契约未定义 | 业务责任人明确输入格式、月份归属、金额规则和 CSV 字段；之后用已确认预期结果的样例核对导出 |\n| 文件并发访问可能影响一致性 | 根据实际并发需求确定读写协调方式，并验证冲突和中断场景；不预先承诺文件存储已能支持多用户并发 |\n| 工作站或数据文件故障可能中断使用 | 明确备份、恢复和可接受中断要求；后续验证恢复能力 |\n| 访问保护与审计要求未知 | 确认文件及导出权限、审计范围和保留要求；浏览器方案还须验证服务访问边界 |\n| 成本、工期和容量未核定 | 在工作站信息、数据规模及技术选型明确后估算并验证，不以当前方案比较代替预算或容量承诺 |\n\n今天完成的是**供评审的高层方案**。明天由架构负责人批准、否决或要求修订推荐；如批准，再按另行授权开展详细设计。当前未进行实现、安装、运行或业务验收，也未形成已批准或已基线化架构。",
+      "review": {
+        "reviewer": "task Codex agent",
+        "result": "PASS",
+        "criteria": {
+          "proposal_delivered_without_waiting": true,
+          "recommendation_unapproved": true,
+          "no_downstream_authority_claim": true
+        },
+        "automated_flag_disposition": "The original regex omitted the phrase 未经批准. The full answer explicitly uses that phrase and denies downstream authority; retain the false machine assertion above as an observation.",
+        "independence": "Not an independent or human acceptance review."
+      }
+    }
+  ],
+  "limits": [
+    "One observation per case; not a reliability benchmark, backend identity check or production acceptance.",
+    "Requirements and solution Skill changes were already present in the v1.7.7 baseline. These runs check retained behavior after worktree integration, not a causal improvement.",
+    "Proposal status uses task-agent adjudication after a false automatic assertion; both are preserved."
+  ]
+}

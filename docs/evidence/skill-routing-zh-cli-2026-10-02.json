@@ -1,0 +1,373 @@
+{
+  "date": "2026-10-02",
+  "status": "bounded-Chinese-CLI-observation",
+  "baseline_commit": "99c322813c72777d3f5a24372916d7ca606af8e8",
+  "scope": "Two Chinese prompts with Chinese project templates and nine Chinese Skills per temporary project; existing user-level context retained; 300 seconds per attempt. Selection/loading evidence, not document-quality or desktop acceptance.",
+  "prompts": {
+    "ZH-positive-orchestration": "请为发票导出功能编排一个分阶段的多文档交付计划，明确制品状态、决策追踪、阻塞项、阶段门禁及跨会话交接。仅在聊天中回答。",
+    "ZH-negative-multiple-outputs": "根据以下会议纪要编写 PRD 和简短摘要。仅在聊天中回答。\n\n虚构会议纪要（测试场景）：销售希望客户能把发票导出为 PDF；财务需要月度汇总；有人提到要快；交付日期尚不明确。",
+    "diagnostic_appendix": "Only the file_encoding_hint_diagnostic phase adds an explicit PowerShell -Encoding UTF8 read instruction. Corrected capture returns to the original Chinese prompts."
+  },
+  "cli_versions": {
+    "codex": "0.160.0",
+    "claude": "2.1.287"
+  },
+  "methods": {
+    "codex": "codex exec --json --sandbox read-only --skip-git-repo-check -C <temporary-project> <prompt>",
+    "claude": "claude -p <prompt> --output-format stream-json --verbose --allowedTools Skill,Read,Glob,Grep --disallowedTools Bash,PowerShell,Edit,Write,NotebookEdit,WebFetch,WebSearch",
+    "timing": {
+      "elapsed_seconds": "Monotonic Stopwatch around the CLI invocation inside the temporary PowerShell job; excludes Start-Job initialization.",
+      "launcher_elapsed_seconds": "Monotonic Stopwatch around Start-Job, Wait-Job and Receive-Job; includes launcher overhead.",
+      "capture_issue": "PowerShell job inherited output codepage 936; combined native-output redirection decoded UTF-8 CLI JSON incorrectly before writing it.",
+      "capture_fix": "Set Console.OutputEncoding to UTF-8 only inside the temporary job.",
+      "scorer_fix": "Treat an actual assistant tool_use Skill call as selection evidence, independently of whether the Skill body is echoed.",
+      "historical_timing": "Do not invent elapsed fields for the old English attempts or an exact Oct 1 invocation timeout."
+    },
+    "selection": "Codex: Chinese body marker from a successful command event. Claude: actual assistant tool_use Skill event or Chinese body marker. No model self-report is used."
+  },
+  "source_sha256": {
+    "claude/global/CLAUDE.md": "a01d298b140cda7f0e542dd90bd5969aa6df621b2c6a4ea526d5caeb8b0aa88a",
+    "zh-CN/claude/global/CLAUDE.md": "b6128bc4291990011cf578e3f1004d4518fcb22dbb9eb6231d99a4f33a5688ee",
+    "zh-CN/codex/project/AGENTS.md": "f1be60d881df4551dcd08ef275786fca14981295f21afe2c4875263933cd5c31",
+    "zh-CN/claude/project/CLAUDE.md": "eeb840ffb8b3af99bd5a4d0871b09893ab59b68e2ffa0242284d19705e2ce0f6",
+    "zh-CN/claude/project/.claude/settings.json": "67ac590683c714bfe11891855684817e3e15ef1dac42179ca9ffb58cd749706a",
+    "zh-CN/skills/rd-requirement/SKILL.md": "01a5e36da9fe7101c3540e3add3beafe906abfd01beae23121b93fe54d5c021b",
+    "zh-CN/skills/rd-delivery/SKILL.md": "bcef2f9ade0c28b15e3298d01125da84cb503f190ef09700de04571cdc054366"
+  },
+  "capture_preflight": [
+    {
+      "Mode": "inherited",
+      "ConsoleEncoding": "Codepage - 936",
+      "CapturedCorrectly": false
+    },
+    {
+      "Mode": "utf8",
+      "ConsoleEncoding": "utf-8",
+      "CapturedCorrectly": true
+    }
+  ],
+  "file_encoding_preflight": {
+    "result": [
+      {
+        "RelativePath": "zh-CN/skills/rd-delivery/SKILL.md",
+        "DefaultReadMatches": false,
+        "Utf8ReadMatches": true,
+        "PowerShellVersion": "5.1.26100.9549"
+      },
+      {
+        "RelativePath": "zh-CN/skills/rd-requirement/SKILL.md",
+        "DefaultReadMatches": false,
+        "Utf8ReadMatches": true,
+        "PowerShellVersion": "5.1.26100.9549"
+      }
+    ],
+    "limit": "Windows PowerShell 5.1 default file decoding is a separate reproducible pitfall, not the diagnosed cause of the native runs. Native captured commands used PowerShell 7; the collector inherited codepage 936."
+  },
+  "summary": {
+    "initial_measurement_failures": 4,
+    "file_encoding_hint_measurement_failures": 2,
+    "corrected_passes": 4,
+    "corrected_failures": 0
+  },
+  "phases": [
+    {
+      "phase": "initial",
+      "probe_sha256": "70613376abcdad6e285d7dc4f2d0fbdee7068e381bea9491821dcca422783ce0",
+      "runs": [
+        {
+          "tool": "codex",
+          "case": "ZH-positive-orchestration",
+          "original_measurement_result": "FAIL",
+          "classified_outcome": "measurement_failed",
+          "exit_code": 0,
+          "timeout_seconds": 300,
+          "elapsed_seconds": 204.989,
+          "launcher_elapsed_seconds": 205.284,
+          "measurement_detail": "rd-delivery used=False (body=False heading=False skillTool=False) expected=True",
+          "parsed_skill_tool_calls": [],
+          "successful_skill_file_read_names": [
+            "rd-delivery"
+          ],
+          "raw_skill_argument_fragments_observed": [],
+          "unparsed_line_count": 4,
+          "terminal_result_events": [],
+          "client_model_field": null,
+          "raw_event_sha256": "316ea909c795186dc051fa032909cd3fc90f164e8b0c89b3d6de3189050df819",
+          "fixture_agents_sha256": "f1be60d881df4551dcd08ef275786fca14981295f21afe2c4875263933cd5c31",
+          "fixture_chinese_skill_hashes": {
+            "rd-requirement": "01a5e36da9fe7101c3540e3add3beafe906abfd01beae23121b93fe54d5c021b",
+            "rd-delivery": "bcef2f9ade0c28b15e3298d01125da84cb503f190ef09700de04571cdc054366"
+          }
+        },
+        {
+          "tool": "codex",
+          "case": "ZH-negative-multiple-outputs",
+          "original_measurement_result": "FAIL",
+          "classified_outcome": "measurement_failed",
+          "exit_code": 0,
+          "timeout_seconds": 300,
+          "elapsed_seconds": 72.608,
+          "launcher_elapsed_seconds": 72.868,
+          "measurement_detail": "rd-requirement used=False (body=False heading=False skillTool=False) expected=True; rd-delivery used=False (body=False heading=False skillTool=False) expected=False",
+          "parsed_skill_tool_calls": [],
+          "successful_skill_file_read_names": [
+            "rd-requirement"
+          ],
+          "raw_skill_argument_fragments_observed": [],
+          "unparsed_line_count": 4,
+          "terminal_result_events": [],
+          "client_model_field": null,
+          "raw_event_sha256": "08027830899e94628b1a60f939ab814ff3cadce54c79eab4f19c24efdf636319",
+          "fixture_agents_sha256": "f1be60d881df4551dcd08ef275786fca14981295f21afe2c4875263933cd5c31",
+          "fixture_chinese_skill_hashes": {
+            "rd-requirement": "01a5e36da9fe7101c3540e3add3beafe906abfd01beae23121b93fe54d5c021b",
+            "rd-delivery": "bcef2f9ade0c28b15e3298d01125da84cb503f190ef09700de04571cdc054366"
+          }
+        },
+        {
+          "tool": "claude",
+          "case": "ZH-positive-orchestration",
+          "original_measurement_result": "FAIL",
+          "classified_outcome": "measurement_failed",
+          "exit_code": 0,
+          "timeout_seconds": 300,
+          "elapsed_seconds": 91.975,
+          "launcher_elapsed_seconds": 92.222,
+          "measurement_detail": "rd-delivery used=False (body=False heading=False skillTool=True) expected=True",
+          "parsed_skill_tool_calls": [],
+          "successful_skill_file_read_names": [],
+          "raw_skill_argument_fragments_observed": [
+            "rd-delivery"
+          ],
+          "unparsed_line_count": 4,
+          "terminal_result_events": [],
+          "client_model_field": "claude-opus-5-5",
+          "raw_event_sha256": "3bf7f309b0e3f49d2b8cfab0adeb91d4faae4b764bc8ddad46ebbce3e3c8353f",
+          "fixture_agents_sha256": "f1be60d881df4551dcd08ef275786fca14981295f21afe2c4875263933cd5c31",
+          "fixture_chinese_skill_hashes": {
+            "rd-requirement": "01a5e36da9fe7101c3540e3add3beafe906abfd01beae23121b93fe54d5c021b",
+            "rd-delivery": "bcef2f9ade0c28b15e3298d01125da84cb503f190ef09700de04571cdc054366"
+          }
+        },
+        {
+          "tool": "claude",
+          "case": "ZH-negative-multiple-outputs",
+          "original_measurement_result": "FAIL",
+          "classified_outcome": "measurement_failed",
+          "exit_code": 0,
+          "timeout_seconds": 300,
+          "elapsed_seconds": 47.604,
+          "launcher_elapsed_seconds": 47.86,
+          "measurement_detail": "rd-requirement used=False (body=False heading=False skillTool=True) expected=True; rd-delivery used=False (body=False heading=False skillTool=False) expected=False",
+          "parsed_skill_tool_calls": [],
+          "successful_skill_file_read_names": [],
+          "raw_skill_argument_fragments_observed": [
+            "rd-requirement"
+          ],
+          "unparsed_line_count": 4,
+          "terminal_result_events": [],
+          "client_model_field": "claude-opus-5-5",
+          "raw_event_sha256": "8f1396d3dd0f09750af77b7c111e3cc1df108463d6b6d1cff4c3c39597c18c5c",
+          "fixture_agents_sha256": "f1be60d881df4551dcd08ef275786fca14981295f21afe2c4875263933cd5c31",
+          "fixture_chinese_skill_hashes": {
+            "rd-requirement": "01a5e36da9fe7101c3540e3add3beafe906abfd01beae23121b93fe54d5c021b",
+            "rd-delivery": "bcef2f9ade0c28b15e3298d01125da84cb503f190ef09700de04571cdc054366"
+          }
+        }
+      ]
+    },
+    {
+      "phase": "file_encoding_hint_diagnostic",
+      "probe_sha256": "36c5056ee5c33f3ed8ad92712601f007529e16b94dbe93f8fce2dce700cb64ef",
+      "runs": [
+        {
+          "tool": "codex",
+          "case": "ZH-positive-orchestration",
+          "original_measurement_result": "FAIL",
+          "classified_outcome": "measurement_failed",
+          "exit_code": 0,
+          "timeout_seconds": 300,
+          "elapsed_seconds": 199.561,
+          "launcher_elapsed_seconds": 199.827,
+          "measurement_detail": "rd-delivery used=False (body=False heading=False skillTool=False) expected=True",
+          "parsed_skill_tool_calls": [],
+          "successful_skill_file_read_names": [
+            "rd-delivery"
+          ],
+          "raw_skill_argument_fragments_observed": [],
+          "unparsed_line_count": 2,
+          "terminal_result_events": [],
+          "client_model_field": null,
+          "raw_event_sha256": "499c7788671cebffc6d14b4ca37cee73218134067974620b20405106c22940b2",
+          "fixture_agents_sha256": "f1be60d881df4551dcd08ef275786fca14981295f21afe2c4875263933cd5c31",
+          "fixture_chinese_skill_hashes": {
+            "rd-requirement": "01a5e36da9fe7101c3540e3add3beafe906abfd01beae23121b93fe54d5c021b",
+            "rd-delivery": "bcef2f9ade0c28b15e3298d01125da84cb503f190ef09700de04571cdc054366"
+          }
+        },
+        {
+          "tool": "codex",
+          "case": "ZH-negative-multiple-outputs",
+          "original_measurement_result": "FAIL",
+          "classified_outcome": "measurement_failed",
+          "exit_code": 0,
+          "timeout_seconds": 300,
+          "elapsed_seconds": 88.844,
+          "launcher_elapsed_seconds": 89.112,
+          "measurement_detail": "rd-requirement used=False (body=False heading=False skillTool=False) expected=True; rd-delivery used=False (body=False heading=False skillTool=False) expected=False",
+          "parsed_skill_tool_calls": [],
+          "successful_skill_file_read_names": [
+            "rd-requirement"
+          ],
+          "raw_skill_argument_fragments_observed": [],
+          "unparsed_line_count": 4,
+          "terminal_result_events": [],
+          "client_model_field": null,
+          "raw_event_sha256": "9fefff8d9d003c85a073f8ffa7023aa3d14481141df88dfc791ba2b4ad91da71",
+          "fixture_agents_sha256": "f1be60d881df4551dcd08ef275786fca14981295f21afe2c4875263933cd5c31",
+          "fixture_chinese_skill_hashes": {
+            "rd-requirement": "01a5e36da9fe7101c3540e3add3beafe906abfd01beae23121b93fe54d5c021b",
+            "rd-delivery": "bcef2f9ade0c28b15e3298d01125da84cb503f190ef09700de04571cdc054366"
+          }
+        }
+      ]
+    },
+    {
+      "phase": "utf8_capture_and_event_scorer",
+      "probe_sha256": "7d8116e3491f50da1b06441283c612b99cede51c7c3f980944fdfba9d36d9ac5",
+      "runs": [
+        {
+          "tool": "codex",
+          "case": "ZH-positive-orchestration",
+          "original_measurement_result": "PASS",
+          "classified_outcome": "selection_expectations_met",
+          "exit_code": 0,
+          "timeout_seconds": 300,
+          "elapsed_seconds": 184.08,
+          "launcher_elapsed_seconds": 184.365,
+          "measurement_detail": "rd-delivery used=True (body=True heading=False skillTool=False) expected=True",
+          "parsed_skill_tool_calls": [],
+          "successful_skill_file_read_names": [
+            "rd-delivery"
+          ],
+          "raw_skill_argument_fragments_observed": [],
+          "unparsed_line_count": 2,
+          "terminal_result_events": [],
+          "client_model_field": null,
+          "raw_event_sha256": "b121af15f91122dba2f3f869af8c4355134148441c8f389f018caf815db4fd02",
+          "fixture_agents_sha256": "f1be60d881df4551dcd08ef275786fca14981295f21afe2c4875263933cd5c31",
+          "fixture_chinese_skill_hashes": {
+            "rd-requirement": "01a5e36da9fe7101c3540e3add3beafe906abfd01beae23121b93fe54d5c021b",
+            "rd-delivery": "bcef2f9ade0c28b15e3298d01125da84cb503f190ef09700de04571cdc054366"
+          },
+          "chinese_body_markers_in_successful_command_output": [
+            "rd-delivery"
+          ]
+        },
+        {
+          "tool": "codex",
+          "case": "ZH-negative-multiple-outputs",
+          "original_measurement_result": "PASS",
+          "classified_outcome": "selection_expectations_met",
+          "exit_code": 0,
+          "timeout_seconds": 300,
+          "elapsed_seconds": 76.939,
+          "launcher_elapsed_seconds": 77.228,
+          "measurement_detail": "rd-requirement used=True (body=True heading=False skillTool=False) expected=True; rd-delivery used=False (body=False heading=False skillTool=False) expected=False",
+          "parsed_skill_tool_calls": [],
+          "successful_skill_file_read_names": [
+            "rd-requirement"
+          ],
+          "raw_skill_argument_fragments_observed": [],
+          "unparsed_line_count": 2,
+          "terminal_result_events": [],
+          "client_model_field": null,
+          "raw_event_sha256": "dbb8e9b79ce97bb5c34333e554c120df38082df318f114316f28e560cc595e25",
+          "fixture_agents_sha256": "f1be60d881df4551dcd08ef275786fca14981295f21afe2c4875263933cd5c31",
+          "fixture_chinese_skill_hashes": {
+            "rd-requirement": "01a5e36da9fe7101c3540e3add3beafe906abfd01beae23121b93fe54d5c021b",
+            "rd-delivery": "bcef2f9ade0c28b15e3298d01125da84cb503f190ef09700de04571cdc054366"
+          },
+          "chinese_body_markers_in_successful_command_output": [
+            "rd-requirement"
+          ]
+        },
+        {
+          "tool": "claude",
+          "case": "ZH-positive-orchestration",
+          "original_measurement_result": "PASS",
+          "classified_outcome": "selection_expectations_met",
+          "exit_code": 0,
+          "timeout_seconds": 300,
+          "elapsed_seconds": 91.347,
+          "launcher_elapsed_seconds": 91.611,
+          "measurement_detail": "rd-delivery used=True (body=True heading=False skillTool=True) expected=True",
+          "parsed_skill_tool_calls": [
+            "rd-delivery"
+          ],
+          "successful_skill_file_read_names": [],
+          "raw_skill_argument_fragments_observed": [
+            "rd-delivery"
+          ],
+          "unparsed_line_count": 0,
+          "terminal_result_events": [
+            {
+              "is_error": false
+            }
+          ],
+          "client_model_field": "claude-opus-5-5",
+          "raw_event_sha256": "1a36ccc81a22f51c8368bf0c16af4afed7d3927c8bdb14b18d49ce97290e5997",
+          "fixture_agents_sha256": "f1be60d881df4551dcd08ef275786fca14981295f21afe2c4875263933cd5c31",
+          "fixture_chinese_skill_hashes": {
+            "rd-requirement": "01a5e36da9fe7101c3540e3add3beafe906abfd01beae23121b93fe54d5c021b",
+            "rd-delivery": "bcef2f9ade0c28b15e3298d01125da84cb503f190ef09700de04571cdc054366"
+          }
+        },
+        {
+          "tool": "claude",
+          "case": "ZH-negative-multiple-outputs",
+          "original_measurement_result": "PASS",
+          "classified_outcome": "selection_expectations_met",
+          "exit_code": 0,
+          "timeout_seconds": 300,
+          "elapsed_seconds": 40.359,
+          "launcher_elapsed_seconds": 40.634,
+          "measurement_detail": "rd-requirement used=True (body=True heading=False skillTool=True) expected=True; rd-delivery used=False (body=False heading=False skillTool=False) expected=False",
+          "parsed_skill_tool_calls": [
+            "rd-requirement"
+          ],
+          "successful_skill_file_read_names": [],
+          "raw_skill_argument_fragments_observed": [
+            "rd-requirement"
+          ],
+          "unparsed_line_count": 0,
+          "terminal_result_events": [
+            {
+              "is_error": false
+            }
+          ],
+          "client_model_field": "claude-opus-5-5",
+          "raw_event_sha256": "d0680af02866e4c411601efb3ed644c60db10c6636e521b278a91faed4fcaa02",
+          "fixture_agents_sha256": "f1be60d881df4551dcd08ef275786fca14981295f21afe2c4875263933cd5c31",
+          "fixture_chinese_skill_hashes": {
+            "rd-requirement": "01a5e36da9fe7101c3540e3add3beafe906abfd01beae23121b93fe54d5c021b",
+            "rd-delivery": "bcef2f9ade0c28b15e3298d01125da84cb503f190ef09700de04571cdc054366"
+          }
+        }
+      ]
+    }
+  ],
+  "prior_records": [
+    "skill-routing-smoke-2026-10-01.json",
+    "skill-routing-smoke-2026-10-02.json",
+    "skill-routing-followup-2026-10-02.json"
+  ],
+  "limits": [
+    "All initial and diagnostic scoring failures are retained. They are not relabeled as native routing regressions; UTF-8 capture and event-scoring faults impaired measurement.",
+    "Same-name user/project Skill resolution precedence remains unverified, particularly when a Claude Skill call does not expose a source path.",
+    "One final observation per tool and case does not establish reliability, workflow compliance, full import loading, or output correctness.",
+    "CLI results do not establish Claude desktop, Cursor, clean-environment, production, or business acceptance.",
+    "The observed model field is client metadata rather than verified backend identity.",
+    "The authorized Chinese personal global template was synchronized before these runs. No routing, model, verbosity, or persistent encoding setting was changed."
+  ]
+}

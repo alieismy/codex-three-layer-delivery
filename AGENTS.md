@@ -18,11 +18,13 @@ This file governs maintenance of the `codex-three-layer-delivery` source reposit
 - Treat versions, installed tools, external releases, generated configuration, runtime state, and test results as dynamic evidence. Recheck them when they affect a conclusion; keep version snapshots in `docs/compatibility.md`, not in this file.
 - This root `AGENTS.md` is the sole repository-maintainer authority. Files under `codex/`, `zh-CN/`, `cursor/`, and `claude/` are distributable templates or adapters, not maintainer guidance. If an editor surfaces them as effective instructions while maintaining this source repository, treat that as an unresolved adapter-isolation conflict: do not assume this root file overrides a more specific instruction, and record reproduced platform behavior in `docs/compatibility.md` rather than turning a single observation into a repository-wide runtime claim.
 
+The maintainer-only `.claude/settings.json` excludes the declared distributable instruction templates from automatic loading while keeping them readable as source. It does not ship as a downstream project configuration; see `docs/compatibility.md` for the bounded loading evidence.
+
 ## Change and Mirror Discipline
 
 - Make the smallest coherent change and preserve unrelated content, encoding, LF line endings, terminology, numbering, and platform-specific behavior.
 - Change the authoritative English source first, then synchronize Simplified Chinese and platform adapters where the same contract applies. Semantic parity is required; byte equality is required only where the validator explicitly defines it.
-- Preserve invocation differences: Codex prompt examples use `$rd-*`; explicit Cursor and Claude Code examples use `/rd-*`; `rd-delivery` remains explicit-only.
+- Preserve invocation differences: Codex prompt examples use `$rd-*`; explicit Cursor and Claude Code examples use `/rd-*`; `rd-delivery` is used only when the request explicitly asks for orchestration, without requiring the Skill to be named.
 - Keep one authoritative source for each rule, fact, decision, or workflow. Use resolvable pointers instead of copying detailed procedures into multiple always-loaded files.
 - Use `.tmp/local/` for ignored task-local clones, downloads, logs, and probes. Do not place durable artifacts, credentials, or the only copy of evidence there.
 

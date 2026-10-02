@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-01",
+  "status": "historical-observation",
+  "scope": "All eight attempts from the retained local 22:42 smoke run; not a calibrated routing benchmark.",
+  "summary": {
+    "passed": 4,
+    "blocked_auth": 4,
+    "failed": 0
+  },
+  "authentication_chronology": {
+    "2026-10-01": "Raw Claude events report Not logged in / Please run /login.",
+    "2026-10-02": "The user confirms signing in before the successful Claude attempts. This is an authentication-state change, not evidence that upgrading fixed routing."
+  },
+  "timing": {
+    "script_default_timeout_seconds": 300,
+    "historical_effective_timeout_seconds": null,
+    "historical_effective_timeout_note": "The exact original invocation arguments were not retained in the summary; the script default is not proof of the supplied argument.",
+    "codex_T3_capture_seconds_approx": 270.84,
+    "capture_measurement": "Windows file creation/last-write difference, not API latency. The retained stream contains turn.completed.",
+    "later_2026_10_02_timeout_seconds": 180,
+    "comparison_limit": "Different time budgets prevent attributing completed-versus-timeout results to routing regression."
+  },
+  "context": "Existing user-level configuration, guidance, Skills and authentication remained active. Raw streams are retained locally; this record contains only safe aggregates and hashes.",
+  "runs": [
+    {
+      "tool": "codex",
+      "case": "T1-review-implicit",
+      "result": "PASS",
+      "detail": "rd-delivery used=False (body=False heading=False skillTool=False) expected=False; rd-review used=True (body=True heading=False skillTool=False) expected=True",
+      "raw_event_sha256": "a392a514164788f8153c9be63aa3d842fbbef938686c012bcbb9fd0f93ab909e",
+      "blocker": null,
+      "cli_version_observed": null
+    },
+    {
+      "tool": "codex",
+      "case": "T2-requirement-implicit",
+      "result": "PASS",
+      "detail": "rd-requirement used=True (body=True heading=False skillTool=False) expected=True; rd-delivery used=False (body=False heading=False skillTool=False) expected=False",
+      "raw_event_sha256": "5097ceb442c36a7db3f2c073fa0550ed3c56a84f81c9c4a32e1608f82ac0e73a",
+      "blocker": null,
+      "cli_version_observed": null
+    },
+    {
+      "tool": "codex",
+      "case": "T3-delivery-requested-unnamed",
+      "result": "PASS",
+      "detail": "rd-delivery used=True (body=True heading=True skillTool=False) expected=True",
+      "raw_event_sha256": "0425e80e2e32d66305cc8ddff469f11fcaeb548323df5779f102a7d8f4e64480",
+      "blocker": null,
+      "cli_version_observed": null
+    },
+    {
+      "tool": "codex",
+      "case": "T4-delivery-explicit",
+      "result": "PASS",
+      "detail": "rd-delivery used=True (body=True heading=True skillTool=False) expected=True",
+      "raw_event_sha256": "bd4d9273f12b1384ad2d7b43bf87e8170fe2b5a5a03ec4f4470c0ba23e04f0c0",
+      "blocker": null,
+      "cli_version_observed": null
+    },
+    {
+      "tool": "claude",
+      "case": "T1-review-implicit",
+      "result": "BLOCKED (exit 1)",
+      "detail": "rd-delivery used=False (body=False heading=False skillTool=False) expected=False; rd-review used=False (body=False heading=False skillTool=False) expected=True",
+      "raw_event_sha256": "66235afe54a999a89974adad38e56978228182e27101e38502b87b18d8c3dcee",
+      "blocker": "not_logged_in",
+      "cli_version_observed": "2.1.286"
+    },
+    {
+      "tool": "claude",
+      "case": "T2-requirement-implicit",
+      "result": "BLOCKED (exit 1)",
+      "detail": "rd-requirement used=False (body=False heading=False skillTool=False) expected=True; rd-delivery used=False (body=False heading=False skillTool=False) expected=False",
+      "raw_event_sha256": "cdce463f0ba7298201702ee597179b2f48cf08906e1dab15685817c741451841",
+      "blocker": "not_logged_in",
+      "cli_version_observed": "2.1.286"
+    },
+    {
+      "tool": "claude",
+      "case": "T3-delivery-requested-unnamed",
+      "result": "BLOCKED (exit 1)",
+      "detail": "rd-delivery used=False (body=False heading=False skillTool=False) expected=True",
+      "raw_event_sha256": "24005b91284634a4aa3992aedcbef78a625e6b42dd949792a037ca8587d190c1",
+      "blocker": "not_logged_in",
+      "cli_version_observed": "2.1.286"
+    },
+    {
+      "tool": "claude",
+      "case": "T4-delivery-explicit",
+      "result": "BLOCKED (exit 1)",
+      "detail": "rd-delivery used=False (body=False heading=False skillTool=False) expected=True",
+      "raw_event_sha256": "4976df59c7403108efa853e48d7f7eb548bd553a23061fba592ec51101f2fc31",
+      "blocker": "not_logged_in",
+      "cli_version_observed": "2.1.286"
+    }
+  ]
+}

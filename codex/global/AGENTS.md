@@ -159,6 +159,7 @@ When a Skill is unavailable, state the limitation and continue work supported by
 
 - `AGENTS.md` contains stable operating rules, not project facts, environment snapshots, task logs, or copied Skill procedures. Put those in repository documentation, status files, or Skills.
 - When a reusable failure pattern is corrected, finish the current task first, search existing guidance, and propose the smallest tightening. Edit global guidance or Memories only when the rule is stable, reusable, and approved by the user.
+- The approval boundary above covers deliberate agent edits to guidance and Memories. Automatic memory generation is controlled separately by platform settings and session controls; generated memories do not grant authority or override applicable instructions.
 
 ## Pre-Output Self-Review
 

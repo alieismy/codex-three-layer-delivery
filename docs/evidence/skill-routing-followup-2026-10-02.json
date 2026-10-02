@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-02",
+  "status": "bounded-followup",
+  "scope": "One unnamed orchestration request and one unhinted PRD-plus-summary request per tool, all with a 300-second budget. Loading expectations only, not document-quality acceptance.",
+  "prior_records": [
+    "skill-routing-smoke-2026-10-01.json",
+    "skill-routing-smoke-2026-10-02.json"
+  ],
+  "prompts": {
+    "T3-delivery-requested-unnamed": "Create a phased multi-document delivery plan with artifact status, decision traceability, blockers, gates, and cross-session handoff for an invoice-export feature. Answer in the chat only; do not create files.",
+    "T6-multiple-outputs-unhinted": "Produce a PRD and a short summary from these supplied meeting notes. Answer in the chat only.",
+    "meeting_notes": "Synthetic meeting notes (test fixture): Sales wants customers to export invoices as PDF. Finance needs monthly totals. Someone mentioned it must be fast. Deadline unclear."
+  },
+  "runs": [
+    {
+      "tool": "codex",
+      "cli_version": "0.160.0",
+      "case": "T3-delivery-requested-unnamed",
+      "result": "PASS",
+      "timeout_seconds": 300,
+      "detail": "rd-delivery used=True (body=True heading=True skillTool=False) expected=True",
+      "body_marker_observed": {
+        "rd-requirement": false,
+        "rd-delivery": true
+      },
+      "model_field_observed": null,
+      "raw_event_sha256": "cebb6643f51dbe63786572c7d6250abfae2ce160ddce3009d195a218a4168f30"
+    },
+    {
+      "tool": "codex",
+      "cli_version": "0.160.0",
+      "case": "T6-multiple-outputs-unhinted",
+      "result": "PASS",
+      "timeout_seconds": 300,
+      "detail": "rd-requirement used=True (body=True heading=False skillTool=False) expected=True; rd-delivery used=False (body=False heading=False skillTool=False) expected=False",
+      "body_marker_observed": {
+        "rd-requirement": true,
+        "rd-delivery": false
+      },
+      "model_field_observed": null,
+      "raw_event_sha256": "88494d86623820160b26d858a005c5419050cfaa058040468d02b160596b6402"
+    },
+    {
+      "tool": "claude",
+      "cli_version": "2.1.287",
+      "case": "T3-delivery-requested-unnamed",
+      "result": "PASS",
+      "timeout_seconds": 300,
+      "detail": "rd-delivery used=True (body=True heading=True skillTool=True) expected=True",
+      "body_marker_observed": {
+        "rd-requirement": false,
+        "rd-delivery": true
+      },
+      "model_field_observed": "claude-opus-5-5",
+      "raw_event_sha256": "6317164402d76aa7bf12f99aed960ae6e1fea45ec0ccbd799265371a63232055"
+    },
+    {
+      "tool": "claude",
+      "cli_version": "2.1.287",
+      "case": "T6-multiple-outputs-unhinted",
+      "result": "PASS",
+      "timeout_seconds": 300,
+      "detail": "rd-delivery used=False (body=False heading=False skillTool=False) expected=False; rd-requirement used=True (body=True heading=False skillTool=True) expected=True",
+      "body_marker_observed": {
+        "rd-requirement": true,
+        "rd-delivery": false
+      },
+      "model_field_observed": "claude-opus-5-5",
+      "raw_event_sha256": "51fd7a632a48ba7135419e46450c1e815f73f787aff7be4117339bfce65d503f"
+    }
+  ],
+  "source_sha256": {
+    "codex/project/AGENTS.md": "119f6edd429e8b18d984d3ca8270a23093f5c38da37e87e8515378dfbb589fde",
+    "claude/project/CLAUDE.md": "eb41e79db1de082ed555c1262f27c8cc3ff52a548a39e6bd247ca8afa86b35bb",
+    "skills/rd-delivery/SKILL.md": "60be0714e9fbb59b85aa1700df24de33dfe2b2555b27763c8aa8810eea6326af",
+    "skills/rd-requirement/SKILL.md": "513251c7aaa49146bf9acb14de4947d99cbb89021e9249431dbcd6e5cdf06a1f"
+  },
+  "limits": [
+    "Existing user-level settings, Skills and authentication are retained. Public global templates were not newly installed for these routing attempts.",
+    "A prior installation probe overwrote the user-level Claude file with the previous Chinese public template; inherited context cannot be treated as the original personal baseline.",
+    "One pair per tool does not estimate reliability; all earlier failures and timeouts remain preserved.",
+    "The observed Claude model field is client metadata, not verified backend identity."
+  ]
+}

@@ -1,6 +1,5 @@
 ---
 name: rd-delivery
-disable-model-invocation: true
 description: >-
   Coordinate a multi-stage, multi-document decision or design engagement across
   requirements, research, feasibility, solution, design, specification, writing,
@@ -26,7 +25,7 @@ For a durable engagement record, read [delivery-record.md](references/delivery-r
 
 ## Operating Rules
 
-- Use this Skill only for explicit orchestration requests; route a single deliverable directly to its specialist Skill
+- Use this Skill only when the request explicitly asks for multi-stage or multi-document orchestration, phase gates, or a durable cross-session handoff. The request need not name the Skill, but task complexity or multiple outputs alone do not qualify; route a single deliverable directly to its specialist Skill
 - Select only the stages required by the decision and deliverables; never force all `rd-*` Skills into a pipeline
 - Treat identified, current authoritative project artifacts as sources of truth and chat as transient working context
 - Keep authority explicit: an agent may draft, verify, or recommend, but only an authorized stakeholder can approve or baseline an artifact
