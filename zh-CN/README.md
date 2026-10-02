@@ -46,6 +46,8 @@ Skill 清单（8 个专业 Skill + 1 个显式编排 Skill）：
 
 每个 Skill 都在 `evals/` 下提供输出质量和触发边界用例，并在 `agents/openai.yaml` 中提供 ChatGPT/Codex 桌面元数据。多模式 Skill 在 `SKILL.md` 中保留公共流程，只按所选模式加载 `references/` 检查表。共享 Skill 正文使用中性 `rd-*` 标识；Codex 示例使用 `$rd-*`，Cursor 和 Claude Code 显式调用使用 `/rd-*`。
 
+如需了解对历史虚构评估回答进行可选外部模型检查的试验，见 [Jev 语义检查试验](docs/jev-pilot.md)。记录保留了一条高置信度误报，Jev 仅作辅助，不是默认依赖、Skill 路由或发布门禁。
+
 维护规则和显式 `rd-delivery` 工作流遵循价值优先：先明确当前阶段与首要结果，验证最短证据路径，并复用适用门禁，再扩展辅助工作。新增通用 Validator、宽泛测试矩阵、安全加固专项或框架，必须由已批准范围、已复现缺陷、权威要求或重大风险驱动。行为评测按环境 smoke test、变更面用例、相关回归逐层推进；只有共享路由、公共契约、发布决策、已观察到跨表面风险或用户明确要求时，才运行完整跨平台矩阵。
 
 角色任务覆盖矩阵、非目标、外部设计依据以及采用 8 个专业 Skill 加 1 个显式编排 Skill 的理由，见 [RD Skills 评估与演进说明](docs/rd-skills-assessment.md)。

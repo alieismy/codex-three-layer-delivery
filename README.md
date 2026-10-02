@@ -186,6 +186,8 @@ The first eight specialist Skills in the table are independently usable and do n
 
 Each skill includes output and trigger-boundary cases under `evals/` plus ChatGPT/Codex desktop metadata under `agents/openai.yaml`. Multi-mode Skills keep their common workflow in `SKILL.md` and load only the selected checklist from `references/`. Shared bodies use neutral `rd-*` identifiers; Codex examples use `$rd-*`, while explicit Cursor and Claude Code invocation uses `/rd-*`.
 
+For an optional external-model experiment over retained synthetic evaluation responses, see the [Jev semantic-check pilot](docs/jev-pilot.md). It records a high-confidence false positive and keeps Jev advisory; it is not a default dependency, Skill router, or release gate.
+
 The maintained rules and explicit `rd-delivery` workflow are value-first: identify the current stage and primary outcome, validate the shortest evidence path, and reuse applicable gates before expanding support work. New generalized validators, broad test matrices, security-hardening tracks, or frameworks require approved scope, an observed reproducible failure, an authoritative requirement, or a material risk. Behavior evaluation proceeds from an environment smoke test to changed-surface cases and related regression; a full cross-platform matrix is reserved for shared routing, public contracts, release decisions, observed cross-surface risk, or an explicit user request.
 
 See [RD Skills Assessment and Evolution](docs/rd-skills-assessment.md) for the role-coverage matrix, non-goals, external design evidence, and the reason the taxonomy contains eight specialist Skills plus one explicit orchestrator.

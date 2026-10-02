@@ -6,6 +6,8 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+- Reject malformed Jev response object shapes with sanitized partial evidence; added offline regressions and preserve the hash-matched historical runner without rerunning or relabeling API results.
+- Added an optional standard-library Jev pilot runner, offline regression checks, bilingual usage/reporting guidance, and reproducible API/review evidence over 22 retained synthetic responses. Preserved one high-confidence false positive; no default dependency, Skill routing, permission, or release-gate change is made.
 - Preserved the Oct 1 smoke chronology and authentication blocks, added an unhinted multi-output routing case across six mirrors, supplemented bounded Claude research/operations and self-review rules, and documented permission-version and NotebookEdit boundaries.
 - Confined Bash installation exits to subshells, added native PowerShell project instructions, and added source-maintainer template exclusions after a reproduced loading probe; validator negatives now total 24.
 - Retained a sanitized five-attempt native routing smoke record: four loading checks passed, one Codex orchestration attempt timed out; preserve inherited-context and output-quality limits.

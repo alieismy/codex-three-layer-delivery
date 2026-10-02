@@ -75,6 +75,10 @@ This is package, static-configuration, and stdio-protocol evidence. It does not 
 
 All Codex/Cursor Context7 examples use the unversioned `@upstash/context7-mcp` package; other npm MCP invocations are also unpinned. The table's `4.0.2` remains a historical tested baseline, not proof that the version resolved by a future installation has been tested. Check the resolved version and runtime requirements before enabling it; consumers needing reproducible installs should pin their own verified version. Other servers remain routing candidates in `docs/mcp-routing.md` and should be added one at a time for a verified need rather than copied as a full catalog. The versions above remain compatibility evidence and must be re-checked before release.
 
+## Optional Jev pilot
+
+On 2026-09-21, a PowerShell synthetic preflight and 22 Python `3.13.12` standard-library evaluation requests on Windows called `https://api.typesafe.ai/v1/systemone` and returned `jev-1.13.0`; no SDK was installed. The [pilot report](jev-pilot.md) records 78 narrow judgments, a high-confidence false positive, deterministic checks and bounded Codex review. This is authenticated API evidence for this experiment, not native Skill-routing integration, calibrated accuracy, Chinese parity, future service/model compatibility, or production acceptance. Jev is optional and absent from default configurations and repository gates.
+
 ## Release Rule
 
 Before tagging a release:
