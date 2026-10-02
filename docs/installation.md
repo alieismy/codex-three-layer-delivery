@@ -139,7 +139,7 @@ On Windows, user-level environment variables can also be set with `setx`, but re
 
 Before copying the Cursor adapter, inspect every Skill root that Cursor discovers: project and user `.agents/skills/`, `.cursor/skills/`, `.claude/skills/`, and `.codex/skills/` ([Cursor Skills](https://cursor.com/docs/skills.md)). Cursor does not document precedence or deduplication for the same Skill name found in more than one root. The shared/Codex installation above already places `rd-*` under `.agents/skills/` or `~/.agents/skills/`; copying this adapter's `.cursor/skills/` as well creates multiple discoverable definitions with the same names even when Claude Code is not installed.
 
-Choosing only one project adapter does not eliminate duplicates already present in user-level roots. Do not assume the shared tree is a drop-in replacement for the Cursor tree: the Cursor `rd-delivery` mirror carries `disable-model-invocation: true`, while Codex enforces the same explicit-only policy through `agents/openai.yaml`. This repository therefore does not yet document a runtime-verified, general-purpose installation recipe that both removes same-name ambiguity and preserves every client's platform-specific invocation contract. For Cursor-only use, ensure that the Cursor copy is the sole discoverable definition of each `rd-*` Skill in that environment. If Cursor must share the environment with Codex or Claude Code, preserve the platform-specific copies, verify which definition Cursor selects and whether `rd-delivery` remains explicit-only in a fresh session, and record the accepted arrangement. Remove or relocate an existing Skill copy only with authorization appropriate to its scope.
+Choosing only one project adapter does not eliminate duplicates already present in user-level roots. The shared, Claude Code, and Cursor `rd-*` trees now carry identical Skill content, including `rd-delivery`, so the remaining risk is same-name selection ambiguity rather than divergent invocation policy. This repository does not yet document a runtime-verified installation recipe that removes that ambiguity. For Cursor-only use, ensure that one copy is the sole discoverable definition of each `rd-*` Skill in that environment. If Cursor must share the environment with Codex or Claude Code, verify which definition Cursor selects in a fresh session and record the accepted arrangement. Remove or relocate an existing Skill copy only with authorization appropriate to its scope.
 
 The Claude Code adapter adds another Skill root and a project `CLAUDE.md`. Cursor reads `CLAUDE.md` the same way it reads `AGENTS.md` and applies it to every conversation regardless of any `alwaysApply` setting ([Cursor rules FAQ](https://cursor.com/help/customization/rules#how-does-claudemd-work-in-cursor), checked 2026-09-16). Review both same-name Skill sources and always-on instruction files before combining adapters; do not call them deduplicated until the target Cursor runtime has been verified. See `cursor/README.md`.
 
@@ -207,12 +207,25 @@ done
 cp -R zh-CN/skills/rd-* "$skill_target/"
 ```
 
-Install Chinese Claude Code files:
+Install Chinese Claude Code files (the project `CLAUDE.md` imports the shared `AGENTS.md`; keep and merge an existing `AGENTS.md` instead of overwriting it):
 
 ```bash
+(
 cp zh-CN/claude/global/CLAUDE.md ~/.claude/CLAUDE.md
+if [ -s /path/to/your-project/AGENTS.override.md ]; then
+  printf '%s\n' 'Stop: merge the effective override and select the Claude import target manually before installing.' >&2
+  exit 1
+fi
+if [ ! -e /path/to/your-project/AGENTS.md ]; then
+  cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+fi
+if [ ! -s /path/to/your-project/AGENTS.md ]; then
+  printf '%s\n' 'Stop: the shared AGENTS.md import target must be non-empty.' >&2
+  exit 1
+fi
 cp zh-CN/claude/project/CLAUDE.md /path/to/your-project/CLAUDE.md
 cp -r zh-CN/claude/project/.claude /path/to/your-project/.claude
+)
 ```
 
 The English root remains the canonical baseline. Use `zh-CN/` as a translation pack and merge manually if destination files already exist.
@@ -225,13 +238,57 @@ Install user-level Claude Code memory:
 cp claude/global/CLAUDE.md ~/.claude/CLAUDE.md
 ```
 
-Install project-level Claude Code rules and skills:
+Install project-level Claude Code rules and skills. The project `CLAUDE.md` is a thin adapter that imports the shared project core with `@AGENTS.md`; if the target already has `AGENTS.md` (for example from the Codex installation), keep it and merge instead of overwriting:
 
 ```bash
+(
+if [ -s /path/to/your-project/AGENTS.override.md ]; then
+  printf '%s\n' 'Stop: merge the effective override and select the Claude import target manually before installing.' >&2
+  exit 1
+fi
+if [ ! -e /path/to/your-project/AGENTS.md ]; then
+  cp codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+fi
+if [ ! -s /path/to/your-project/AGENTS.md ]; then
+  printf '%s\n' 'Stop: the shared AGENTS.md import target must be non-empty.' >&2
+  exit 1
+fi
 cp claude/project/CLAUDE.md /path/to/your-project/CLAUDE.md
 cp -r claude/project/.claude /path/to/your-project/.claude
+)
 ```
 
-If the target workspace already has `CLAUDE.md` or `.claude/`, merge manually.
+If a non-empty `AGENTS.override.md` exists, the recipe stops before installing the adapter. Merge that effective Codex source deliberately and select the matching Claude import (for example `@AGENTS.override.md`) before continuing; Claude does not discover override files automatically. An existing empty `AGENTS.md` also requires manual repair.
 
-The Claude Code adapter is optional and should be kept aligned with the Codex rules when rules change.
+If the target workspace already has `CLAUDE.md` or `.claude/`, merge manually. Claude Code reads `AGENTS.md` directly only when no `CLAUDE.md` exists (v2.1.277 or later); the explicit import works on earlier versions as well and does not load `AGENTS.md` twice. Run `/memory` or `/context` in a new session to confirm that both files loaded.
+
+Project rules now have one source: change `codex/project/AGENTS.md` for project-wide behavior and `claude/project/CLAUDE.md` only for Claude Code-specific guidance.
+
+### Windows PowerShell project installation
+
+Run from this repository root with an existing target project directory. This project-only recipe preserves an existing shared core and stops before overwriting existing Claude files. Replace the target placeholder; merge existing files manually. `throw` stops the installation block while leaving an interactive PowerShell session available.
+
+```powershell
+& {
+    $target = (Resolve-Path -LiteralPath 'path/to/your-project').Path
+    if ((Test-Path -LiteralPath (Join-Path $target 'CLAUDE.md')) -or
+        (Test-Path -LiteralPath (Join-Path $target '.claude'))) {
+        throw 'Stop: merge existing Claude files manually before installing.'
+    }
+    $override = Join-Path $target 'AGENTS.override.md'
+    if ((Test-Path -LiteralPath $override) -and (Get-Item -LiteralPath $override).Length -gt 0) {
+        throw 'Stop: merge the effective override and select the Claude import target manually before installing.'
+    }
+    $core = Join-Path $target 'AGENTS.md'
+    if (-not (Test-Path -LiteralPath $core)) {
+        Copy-Item -LiteralPath 'codex/project/AGENTS.md' -Destination $core -ErrorAction Stop
+    }
+    if (-not (Test-Path -LiteralPath $core) -or (Get-Item -LiteralPath $core).Length -eq 0) {
+        throw 'Stop: the shared AGENTS.md import target must be non-empty.'
+    }
+    Copy-Item -LiteralPath 'claude/project/CLAUDE.md' -Destination (Join-Path $target 'CLAUDE.md') -ErrorAction Stop
+    Copy-Item -LiteralPath 'claude/project/.claude' -Destination $target -Recurse -ErrorAction Stop
+}
+```
+
+The Bash project recipes run in a subshell so a guard's `exit 1` stops the installation block rather than the parent interactive shell. The commands still require Bash (for example Git Bash on Windows); the PowerShell recipe above uses native cmdlets. After installation, verify the non-empty core, the `@AGENTS.md` import, settings and all nine Skills. Roll back only files newly created by this installation after checking for subsequent edits; restore any deliberately merged files from their pre-install backup.

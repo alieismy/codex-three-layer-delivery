@@ -1,22 +1,28 @@
 # 兼容性
 
-npm registry 最新版本已于 2026-09-20 重新核查；本机 Codex CLI 与发布 Schema 基线均为 `0.155.1`。其它已安装版本和运行测试保留各自原有日期：Claude Code CLI 为 2026-09-07，Cursor 版本为 2026-09-11，Cursor Rules、Skills 和 FAQ 文档为 2026-09-16，Claude Code 详细文档检查为 2026-09-04，Context7 有边界 stdio 探针为 2026-08-14。每次公开发布前重新核查 registry 最新版本和影响结论的工具/API surface。
+npm registry 最新版本已于 2026-10-02 重新核查；本机 Codex CLI 与发布 Schema 基线均为 `0.160.0`。2026-10-02 观察到本机 Claude Code CLI 为 `2.1.287`。其它已安装版本和运行测试保留各自原有日期：Cursor 版本为 2026-09-11，Cursor Rules、Skills 和 FAQ 文档为 2026-09-16，Claude Code 详细文档检查为 2026-09-04，Context7 有边界 stdio 探针为 2026-08-14。每次公开发布前重新核查 registry 最新版本和影响结论的工具/API surface。
 
 ## Codex
 
 | 组件 | 已测试版本 | registry 最新核查版本 | 备注 |
 |---|---:|---:|---|
-| `@openai/codex` npm 包 | `0.147.0` | `0.155.1` | registry 与本机 CLI `0.155.1` 已于 2026-09-20 重新核查。已为本次发布基线获取 tag 固定的 `0.155.1` Schema；发布门禁会将其与实时 Schema 比较并执行四份示例检查。更广的测试基线仍为 `0.147.0`。不要把该版本写进仓库名或 AGENTS 规则。 |
+| `@openai/codex` npm 包 | `0.147.0` | `0.160.0` | registry 与本机 CLI `0.160.0` 已于 2026-10-02 重新核查。已为本次发布基线获取 tag 固定的 `0.160.0` Schema；发布门禁会将其与实时 Schema 比较并执行四份示例检查。更广的测试基线仍为 `0.147.0`。不要把该版本写进仓库名或 AGENTS 规则。 |
 
-仓库在 `schemas/` 下保存带来源和 SHA-256 元数据的 Codex `0.155.1` 配置 Schema 离线快照。`scripts/validate.ps1` 确定性使用该快照；仅发布前执行的 `scripts/validate-release.ps1` 会将其与当前官方 Schema 比较，核对已安装 CLI 版本，使用实时副本验证四份示例，并从隔离的临时 `CODEX_HOME` 严格加载每份示例。
+仓库在 `schemas/` 下保存带来源和 SHA-256 元数据的 Codex `0.160.0` 配置 Schema 离线快照。`scripts/validate.ps1` 确定性使用该快照；仅发布前执行的 `scripts/validate-release.ps1` 会将其与当前官方 Schema 比较，核对已安装 CLI 版本，使用实时副本验证四份示例，并从隔离的临时 `CODEX_HOME` 严格加载每份示例。
 
 独立的 2026-09-20 [双模型评估](dual-model-compatibility.md)使用 CLI `0.155.1`，请求 `gpt-5.6-sol` 与 `gpt-6-astra`，两者均为 high 推理和 high 输出详细程度。基于所提供文本的断言分别为 42/48 和 46/48，四次原生尝试均受阻。报告保留失败与限制，不证明后端模型身份或隐式路由，也不替代上述发布 Schema 或更广测试基线。
+
+2026-10-02 的[原生路由冒烟记录](../../docs/evidence/skill-routing-smoke-2026-10-02.json)保留五次英文虚构用例尝试：四次符合加载期望，一次 Codex 编排尝试在加载 delivery 正文后超时。两个工具均未对不要求编排的“PRD 加摘要”加载 `rd-delivery`；Claude 完成了未点名 Skill 的编排请求。测试沿用现有用户级上下文，仅验证有界选择与加载，不证明输出质量、干净环境行为、导入完整性或 Cursor 兼容性。
+
+[相同上限的补测](../../docs/evidence/skill-routing-followup-2026-10-02.json)在 Codex 和 Claude 中分别以 300 秒上限运行 T3 和无否定提示的 T6，四次均通过。明确编排请求加载 `rd-delivery`；仅要求 PRD 加简短摘要时没有加载。此次有界观察保留此前超时，不能证明统计稳定性或文档质量。
 
 ## Claude Code
 
 | 组件 | 已测试 / 已固定版本 | registry 最新核查版本 | 备注 |
 |---|---:|---:|---|
-| `@anthropic-ai/claude-code` npm 包 | 本仓库不固定 | `2.1.278` | 已于 2026-09-20 观察到 registry 最新版本为 `2.1.278`；本机 CLI `2.1.263` 的观察日期为 2026-09-07；settings Schema、适配器结构和 `claude doctor` 最近一次使用 `2.1.260` 重新核查的日期仍为 2026-09-04。未实际执行危险命令验证权限行为；settings 校验不能证明所有包装命令或复合命令都会被拦截。 |
+| `@anthropic-ai/claude-code` npm 包 | 本仓库不固定 | `2.1.287` | 已于 2026-10-02 观察到 registry 与本机 CLI 版本均为 `2.1.287`；settings Schema、适配器结构和 `claude doctor` 最近一次使用 `2.1.260` 重新核查的日期仍为 2026-09-04。未实际执行危险命令验证权限行为；settings 校验不能证明所有包装命令或复合命令都会被拦截。 |
+
+2026-10-01 核查的 [memory 文档](https://code.claude.com/docs/en/memory#agents-md) 说明：Claude Code 自 v2.1.277 起仅在不存在 `CLAUDE.md` 时直接读取 `AGENTS.md`；`CLAUDE.md` 中的 `@AGENTS.md` 导入不会导致重复读取。项目适配因此采用导入方式。这是文档证据，尚未在维护者本机 CLI 上验证加载行为。
 
 Claude Code 官方文档核查入口：
 
@@ -25,12 +31,21 @@ Claude Code 官方文档核查入口：
 - https://code.claude.com/docs/en/permissions
 - https://code.claude.com/docs/en/skills
 
+
+[2026-10-01 历史冒烟记录](../../docs/evidence/skill-routing-smoke-2026-10-01.json)保留四次完成的 Codex 尝试和四次 Claude 鉴权阻塞（`Not logged in`）。用户确认 10 月 2 日 Claude 通过前已经登录，不能据此归因为升级修复。Codex T3 此前约 271 秒才完成文件捕获，后次上限为 180 秒，不是受控的路由回归比较。
+
+[2026-10-02 源码维护隔离探针](../../docs/evidence/claude-source-isolation-2026-10-02.json)复现了两个 Claude 全局语言模板的嵌套指令加载。排除对应路径后，这些加载消失，正向控制指令仍加载，虚构文件仍可读取；随后用最终排除配置复核了八个模板目录、正向控制文件及根维护者规则的读取。因此源码仓库增加仅用于维护的 `.claude/settings.json`，排除八个声明的指令模板；不得将此根配置复制到下游项目。直接加载 AGENTS 不触发 `InstructionsLoaded`，不能仅凭 hook 证明 AGENTS 的加载或排除行为。测试仍沿用用户级上下文。
+
+上轮安装探针曾意外执行组合安装块中的用户级复制，将当时的中文公共模板覆盖到用户 `~/.claude/CLAUDE.md`。本轮识别了该偏离，原文件尚未从可验证备份恢复。当前安装探针隔离 HOME 和目标目录，解读继承上下文时保留这一限制；此处不保留个人标识或凭据。
+
+用户随后确认没有原备份，并授权以本轮修订后的中文全局模板为准；已先备份当前文件，再更新用户级 `~/.claude/CLAUDE.md`，文件哈希与中文模板一致。这是采用新基线，不是恢复原内容；上述探针均发生在该更新之前。
+
 ## Cursor
 
 Cursor Rules、Skills 和 FAQ 官方文档已于 2026-09-16 重新核查；2026-09-11 观察到的本机 Windows 桌面版本为 `3.20.10`（system setup）：
 
 - [Rules](https://cursor.com/docs/rules.md)：项目规则必须是 `.cursor/rules` 下的 `.mdc` 文件；规则系统会忽略普通 `.md` 文件。需要普通 Markdown 指令时，应使用 `AGENTS.md`。Cursor 支持嵌套 `AGENTS.md`，在处理其所在目录或后代目录中的文件时应用这些指令，将其与父级指令合并，并使更具体的指令优先。
-- [Skills](https://cursor.com/docs/skills.md)：Agent Skills 是可版本化的能力包，可包含脚本、模板和参考资料。Cursor 会从 `.agents/skills/`、`.cursor/skills/`、`~/.agents/skills/` 和 `~/.cursor/skills/` 发现项目级和用户级 Skill，也会加载 `.claude/skills/`、`.codex/skills/`、`~/.claude/skills/` 和 `~/.codex/skills/`。官方文档没有定义多个根发现同名 Skill 时的优先级或去重行为。共享/Codex Skills 安装在 Agents 根中，再与 Cursor 适配包的 `.cursor/skills/` 组合时，即使未安装 Claude Code，也已经属于多来源安装。不同来源的行为并不完全等价：Cursor 的 `rd-delivery` 镜像使用 `disable-model-invocation: true`，Codex 源则在 `agents/openai.yaml` 中承载显式调用策略。
+- [Skills](https://cursor.com/docs/skills.md)：Agent Skills 是可版本化的能力包，可包含脚本、模板和参考资料。Cursor 会从 `.agents/skills/`、`.cursor/skills/`、`~/.agents/skills/` 和 `~/.cursor/skills/` 发现项目级和用户级 Skill，也会加载 `.claude/skills/`、`.codex/skills/`、`~/.claude/skills/` 和 `~/.codex/skills/`。官方文档没有定义多个根发现同名 Skill 时的优先级或去重行为。共享/Codex Skills 安装在 Agents 根中，再与 Cursor 适配包的 `.cursor/skills/` 组合时，即使未安装 Claude Code，也已经属于多来源安装。自 2026-10-01 起，共享、Claude Code 和 Cursor 的 `rd-delivery` 副本内容一致，均不再使用平台专用调用开关；同名定义的选择歧义仍然存在。
 - [MCP](https://cursor.com/docs/mcp.md)：项目级 MCP 服务器通过 `.cursor/mcp.json` 配置，全局 MCP 服务器使用 `~/.cursor/mcp.json`。
 - [Rules FAQ](https://cursor.com/help/customization/rules#how-does-claudemd-work-in-cursor)（2026-09-16 核查）：Cursor 读取 `CLAUDE.md` 的方式与 `AGENTS.md` 相同，且 `CLAUDE.md` 会始终应用于每个会话，不受任何 `alwaysApply` frontmatter 设置影响。因此组合 Claude Code 和 Cursor 适配包会再增加一个常驻指令文件和一个可发现 Skill 来源；详见 `cursor/README.md`。
 

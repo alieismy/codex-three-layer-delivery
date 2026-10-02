@@ -131,12 +131,27 @@ zh-CN/codex/examples/config.full-access.example.toml
 cp zh-CN/claude/global/CLAUDE.md ~/.claude/CLAUDE.md
 ```
 
-安装项目级 Claude Code 规则和 Skills：
+安装项目级 Claude Code 规则和 Skills。项目级 `CLAUDE.md` 是通过 `@AGENTS.md` 导入共享项目核心的薄适配文件；目标项目已有 `AGENTS.md`（例如已按 Codex 方式安装）时保留并手动合并，不要覆盖：
 
 ```bash
+(
+if [ -s /path/to/your-project/AGENTS.override.md ]; then
+  printf '%s\n' 'Stop: merge the effective override and select the Claude import target manually before installing.' >&2
+  exit 1
+fi
+if [ ! -e /path/to/your-project/AGENTS.md ]; then
+  cp zh-CN/codex/project/AGENTS.md /path/to/your-project/AGENTS.md
+fi
+if [ ! -s /path/to/your-project/AGENTS.md ]; then
+  printf '%s\n' 'Stop: the shared AGENTS.md import target must be non-empty.' >&2
+  exit 1
+fi
 cp zh-CN/claude/project/CLAUDE.md /path/to/your-project/CLAUDE.md
 cp -r zh-CN/claude/project/.claude /path/to/your-project/.claude
+)
 ```
+
+存在非空 `AGENTS.override.md` 时，示例会在安装适配文件前停止。应先有意识地合并这一 Codex 生效来源，再选择对应的 Claude 导入（例如 `@AGENTS.override.md`）后继续；Claude 不会自动发现 override 文件。已有但为空的 `AGENTS.md` 也必须先手动修复。
 
 如果目标项目已有 `CLAUDE.md` 或 `.claude/`，请手动合并。
 
@@ -144,7 +159,7 @@ cp -r zh-CN/claude/project/.claude /path/to/your-project/.claude
 
 复制 Cursor 适配包前，应检查 Cursor 会发现的全部 Skill 根：项目级和用户级 `.agents/skills/`、`.cursor/skills/`、`.claude/skills/` 与 `.codex/skills/`（[Cursor Skills](https://cursor.com/docs/skills.md)）。官方文档没有定义在多个根中发现同名 Skill 时的优先级或去重行为。上文的共享/Codex 安装已经把 `rd-*` 放在 `.agents/skills/` 或 `~/.agents/skills/`；再复制本适配包的 `.cursor/skills/` 时，即使未安装 Claude Code，也会产生多个同名可发现定义。
 
-只选择一个项目适配包，不能消除用户级根中已有的同名副本。不要假定共享 Skill 树可以直接替代 Cursor Skill 树：Cursor 的 `rd-delivery` 镜像带有 `disable-model-invocation: true`，而 Codex 通过 `agents/openai.yaml` 实现同一显式调用策略。因此，本仓库目前还没有一套经过运行验证、既消除同名选择歧义又保留所有客户端平台专用调用契约的通用安装方案。若只使用 Cursor，应确保 Cursor 副本是该环境中每个 `rd-*` Skill 唯一可发现的定义。如 Cursor 必须与 Codex 或 Claude Code 共用环境，应保留平台专用副本，在新的 Cursor 会话中验证实际选择的定义以及 `rd-delivery` 是否仍只能显式调用，并记录接受的安装安排。移除或迁移既有 Skill 副本前，应取得与其作用域相称的授权。
+只选择一个项目适配包，不能消除用户级根中已有的同名副本。共享、Claude Code 和 Cursor 三套 `rd-*` Skill 树（包括 `rd-delivery`）的内容现已一致，剩余风险是同名定义的选择歧义，而不是调用策略不一致。本仓库目前还没有经过运行验证、能够消除该歧义的安装方案。若只使用 Cursor，应确保每个 `rd-*` Skill 在该环境中只有一个可发现的定义。如 Cursor 必须与 Codex 或 Claude Code 共用环境，应在新的 Cursor 会话中验证实际选择的定义，并记录接受的安装安排。移除或迁移既有 Skill 副本前，应取得与其作用域相称的授权。
 
 Claude Code 适配包会再增加一个 Skill 根和项目级 `CLAUDE.md`。Cursor 读取 `CLAUDE.md` 的方式与 `AGENTS.md` 相同，并会将其应用于每个会话，不受任何 `alwaysApply` 设置影响（[Cursor rules FAQ](https://cursor.com/help/customization/rules#how-does-claudemd-work-in-cursor)，2026-09-16 核查）。组合适配包前，应同时审查同名 Skill 来源和常驻指令文件；在目标 Cursor 运行时验证完成前，不应声称它们已经去重。详见 `cursor/README.md`。
 
@@ -191,3 +206,32 @@ cp .env.example .env
 Windows 用户级环境变量也可用 `setx` 设置，但设置后需要重启 shell、Codex CLI、Codex App、Cursor 或 Claude Code。
 
 英文根目录仍是权威基线；`zh-CN/` 是简体中文翻译包。目标文件已存在时，应手动合并，避免覆盖本地项目规则。
+
+### Windows PowerShell 项目安装
+
+在本仓库根目录运行，目标项目目录应已存在。该示例仅安装项目层，保留已有共享核心，并在覆盖已有 Claude 文件前停止。替换目标占位路径；已有文件应手动合并。`throw` 会停止安装块，但保留交互式 PowerShell 会话。
+
+```powershell
+& {
+    $target = (Resolve-Path -LiteralPath 'path/to/your-project').Path
+    if ((Test-Path -LiteralPath (Join-Path $target 'CLAUDE.md')) -or
+        (Test-Path -LiteralPath (Join-Path $target '.claude'))) {
+        throw 'Stop: merge existing Claude files manually before installing.'
+    }
+    $override = Join-Path $target 'AGENTS.override.md'
+    if ((Test-Path -LiteralPath $override) -and (Get-Item -LiteralPath $override).Length -gt 0) {
+        throw 'Stop: merge the effective override and select the Claude import target manually before installing.'
+    }
+    $core = Join-Path $target 'AGENTS.md'
+    if (-not (Test-Path -LiteralPath $core)) {
+        Copy-Item -LiteralPath 'zh-CN/codex/project/AGENTS.md' -Destination $core -ErrorAction Stop
+    }
+    if (-not (Test-Path -LiteralPath $core) -or (Get-Item -LiteralPath $core).Length -eq 0) {
+        throw 'Stop: the shared AGENTS.md import target must be non-empty.'
+    }
+    Copy-Item -LiteralPath 'zh-CN/claude/project/CLAUDE.md' -Destination (Join-Path $target 'CLAUDE.md') -ErrorAction Stop
+    Copy-Item -LiteralPath 'zh-CN/claude/project/.claude' -Destination $target -Recurse -ErrorAction Stop
+}
+```
+
+Bash 项目安装示例使用子 shell，因此 guard 中的 `exit 1` 只停止安装块，不退出父交互式 shell；这些命令仍需 Bash，例如 Windows 上的 Git Bash。上面的 PowerShell 示例使用原生命令。安装后检查非空共享核心、`@AGENTS.md` 导入、settings 和九个 Skills。回退时先检查后续编辑，仅移除本次新建的文件；主动合并的文件应从安装前备份恢复。

@@ -58,7 +58,7 @@ cp cursor/zh-CN/.cursor/mcp.example.json /path/to/your-project/.cursor/mcp.json
 
 Cursor 会从 `.agents/skills/`、`.cursor/skills/`、`~/.agents/skills/` 和 `~/.cursor/skills/` 发现 Skills，也会加载兼容的 `.claude/skills/`、`.codex/skills/`、`~/.claude/skills/` 和 `~/.codex/skills/`（[Cursor Skills](https://cursor.com/docs/skills.md)）。官方文档没有定义在多个根中发现同名 Skill 时的优先级或去重行为。安装本适配包前，应盘点全部发现根。只选择一个项目适配包，不能消除用户级根中已有的同名定义。
 
-常规的共享/Codex 安装会把 Skills 放在 `~/.agents/skills/` 或项目 `.agents/skills/`，再与本适配包的 `.cursor/skills/` 组合时，即使未安装 Claude Code，也已经会产生多个同名 `rd-*` 可发现定义。不要通过直接省略 Cursor Skill 目录来解决：Cursor 的 `rd-delivery` 镜像带有平台专用的 `disable-model-invocation: true` 护栏，而 Codex 通过 `agents/openai.yaml` 实现同一显式调用策略。本仓库目前还没有一套经过运行验证、既消除同名选择歧义又保留所有客户端平台专用调用契约的通用安装方案。若只使用 Cursor，应确保 Cursor 副本是该环境中每个 `rd-*` Skill 唯一可发现的定义。如 Cursor 必须与 Codex 或 Claude Code 共用环境，应保留平台专用副本，在新会话中验证 Cursor 实际选择的定义以及 `rd-delivery` 是否仍只能显式调用，并记录接受的安装安排。移除或迁移既有 Skill 副本前，应取得与其作用域相称的授权。
+常规的共享/Codex 安装会把 Skills 放在 `~/.agents/skills/` 或项目 `.agents/skills/`，再与本适配包的 `.cursor/skills/` 组合时，即使未安装 Claude Code，也已经会产生多个同名 `rd-*` 可发现定义。共享、Claude Code 和 Cursor 三套 `rd-*` Skill 树（包括 `rd-delivery`）的内容现已一致，剩余风险是同名定义的选择歧义，而不是调用策略不一致。本仓库目前还没有经过运行验证、能够消除该歧义的安装方案。若只使用 Cursor，应确保每个 `rd-*` Skill 在该环境中只有一个可发现的定义。如 Cursor 必须与 Codex 或 Claude Code 共用环境，应在新的 Cursor 会话中验证实际选择的定义，并记录接受的安装安排。移除或迁移既有 Skill 副本前，应取得与其作用域相称的授权。
 
 安装 Claude Code 适配包还会增加 `.claude/skills/` 和项目级 `CLAUDE.md`。Cursor 读取 `CLAUDE.md` 的方式与 `AGENTS.md` 相同，且会将其应用于每个会话，不受任何 `alwaysApply` 设置影响（[Cursor rules FAQ](https://cursor.com/help/customization/rules#how-does-claudemd-work-in-cursor)，2026-09-16 核查）。组合适配包前，应同时审查同名 Skill 来源和常驻指令文件；在目标 Cursor 运行时验证完成前，不应声称它们已经去重。
 

@@ -1,0 +1,169 @@
+{
+  "date": "2026-10-02",
+  "cli_version": "2.1.287",
+  "scope": "Source-repository maintenance isolation; project-level exclusion applies only here, not to distributed adapters.",
+  "method": "Two fresh temporary fixtures outside this repository, existing user authentication/config retained, same Read-only prompt, InstructionsLoaded command hook records only relative file paths and load reasons; a control instruction remains enabled. A third fresh fixture checks all eight declared paths with the final exclusion set.",
+  "source_sha256": {
+    "claude/global/CLAUDE.md": "0651e9bd1eae7acf5632bdd1cb31d3c4f18ab60cc8d1ce8cb3a688b1485ff123",
+    "zh-CN/claude/global/CLAUDE.md": "2d25fe15b04513fb29602bbb8b0a085c0e14e2d3a398ccc1136c607c09f52667",
+    "codex/project/AGENTS.md": "119f6edd429e8b18d984d3ca8270a23093f5c38da37e87e8515378dfbb589fde",
+    "zh-CN/codex/project/AGENTS.md": "21415bffb74c9f767d85c1d2f127a8a8bc2726567015d773e241395a5212ff68"
+  },
+  "runs": [
+    {
+      "mode": "baseline",
+      "exit_code": 0,
+      "seconds": 11.07,
+      "loads": [
+        {
+          "file": "[external-user-or-managed]",
+          "reason": "session_start",
+          "event": "InstructionsLoaded"
+        },
+        {
+          "file": "control/CLAUDE.md",
+          "reason": "nested_traversal",
+          "event": "InstructionsLoaded"
+        },
+        {
+          "file": "claude/global/CLAUDE.md",
+          "reason": "nested_traversal",
+          "event": "InstructionsLoaded"
+        },
+        {
+          "file": "zh-CN/claude/global/CLAUDE.md",
+          "reason": "nested_traversal",
+          "event": "InstructionsLoaded"
+        }
+      ],
+      "control_hook_seen": true,
+      "raw_event_sha256": "424f7ccb655dc5198b5491dce5c3e88cb2ff900f0e000bbb884e01a3ad415e27",
+      "sample_paths_seen": {
+        "control/sample.txt": true,
+        "claude/global/sample.txt": true,
+        "zh-CN/claude/global/sample.txt": true,
+        "codex/project/sample.txt": true,
+        "zh-CN/codex/project/sample.txt": true
+      },
+      "read_paths": [
+        "control/sample.txt",
+        "claude/global/sample.txt",
+        "zh-CN/claude/global/sample.txt",
+        "codex/project/sample.txt",
+        "zh-CN/codex/project/sample.txt",
+        "AGENTS.md"
+      ],
+      "terminal_success": true
+    },
+    {
+      "mode": "excluded",
+      "exit_code": 0,
+      "seconds": 10.83,
+      "loads": [
+        {
+          "file": "[external-user-or-managed]",
+          "reason": "session_start",
+          "event": "InstructionsLoaded"
+        },
+        {
+          "file": "control/CLAUDE.md",
+          "reason": "nested_traversal",
+          "event": "InstructionsLoaded"
+        }
+      ],
+      "control_hook_seen": true,
+      "raw_event_sha256": "70c51538b7a43305fd007d50baaf875240b14a40d4c5e7cd4868a274ed761f5c",
+      "sample_paths_seen": {
+        "control/sample.txt": true,
+        "claude/global/sample.txt": true,
+        "zh-CN/claude/global/sample.txt": true,
+        "codex/project/sample.txt": true,
+        "zh-CN/codex/project/sample.txt": true
+      },
+      "read_paths": [
+        "control/sample.txt",
+        "claude/global/sample.txt",
+        "zh-CN/claude/global/sample.txt",
+        "codex/project/sample.txt",
+        "zh-CN/codex/project/sample.txt",
+        "AGENTS.md"
+      ],
+      "terminal_success": true
+    },
+    {
+      "mode": "final-config",
+      "exit_code": 0,
+      "seconds": 13.59,
+      "loads": [
+        {
+          "file": "[external-user-or-managed]",
+          "reason": "session_start",
+          "event": "InstructionsLoaded"
+        },
+        {
+          "file": "control/CLAUDE.md",
+          "reason": "nested_traversal",
+          "event": "InstructionsLoaded"
+        }
+      ],
+      "control_hook_seen": true,
+      "raw_event_sha256": "16e065bd87e900cd1d740d1e7ab4a0bb9b9b5c52cdc2150e3e979e17d42758bb",
+      "sample_paths_seen": {
+        "control/sample.txt": true,
+        "claude/global/sample.txt": true,
+        "claude/project/sample.txt": true,
+        "zh-CN/claude/global/sample.txt": true,
+        "zh-CN/claude/project/sample.txt": true,
+        "codex/global/sample.txt": true,
+        "codex/project/sample.txt": true,
+        "zh-CN/codex/global/sample.txt": true,
+        "zh-CN/codex/project/sample.txt": true
+      },
+      "read_paths": [
+        "control/sample.txt",
+        "claude/global/sample.txt",
+        "zh-CN/claude/global/sample.txt",
+        "claude/project/sample.txt",
+        "zh-CN/claude/project/sample.txt",
+        "codex/global/sample.txt",
+        "codex/project/sample.txt",
+        "zh-CN/codex/global/sample.txt",
+        "zh-CN/codex/project/sample.txt",
+        "AGENTS.md"
+      ],
+      "terminal_success": true,
+      "fixture_source_sha256": {
+        "claude/global/CLAUDE.md": "0651e9bd1eae7acf5632bdd1cb31d3c4f18ab60cc8d1ce8cb3a688b1485ff123",
+        "claude/project/CLAUDE.md": "eb41e79db1de082ed555c1262f27c8cc3ff52a548a39e6bd247ca8afa86b35bb",
+        "zh-CN/claude/global/CLAUDE.md": "2d25fe15b04513fb29602bbb8b0a085c0e14e2d3a398ccc1136c607c09f52667",
+        "zh-CN/claude/project/CLAUDE.md": "eeb840ffb8b3af99bd5a4d0871b09893ab59b68e2ffa0242284d19705e2ce0f6",
+        "codex/global/AGENTS.md": "0ffdba96fdab40b38e3b7e27cf292a2f79ab8fed2b6028dd6ee6edf4e53c9a38",
+        "codex/project/AGENTS.md": "119f6edd429e8b18d984d3ca8270a23093f5c38da37e87e8515378dfbb589fde",
+        "zh-CN/codex/global/AGENTS.md": "f720a2abfc32db345a9489ed143f0bb8a3ebdc7e4b2dc783409318decc88c0fc",
+        "zh-CN/codex/project/AGENTS.md": "21415bffb74c9f767d85c1d2f127a8a8bc2726567015d773e241395a5212ff68"
+      },
+      "settings_sha256": "2a8e78e8b5c7c13b1dad4d115d517b9c0d2f588d4c046b4680eb403ef83b163c"
+    }
+  ],
+  "installed_config": ".claude/settings.json",
+  "configured_exclusions": [
+    "**/claude/global/CLAUDE.md",
+    "**/claude/project/CLAUDE.md",
+    "**/zh-CN/claude/global/CLAUDE.md",
+    "**/zh-CN/claude/project/CLAUDE.md",
+    "**/codex/global/AGENTS.md",
+    "**/codex/project/AGENTS.md",
+    "**/zh-CN/codex/global/AGENTS.md",
+    "**/zh-CN/codex/project/AGENTS.md"
+  ],
+  "result": "Baseline loaded both language variants of the Claude global template as nested instructions. Exclusion suppressed those loads while the control remained observable and all synthetic files were read.",
+  "limits": [
+    "AGENTS.md loaded by the built-in Project instructions setting does not emit InstructionsLoaded; no hook-only claim about AGENTS automatic loading is made.",
+    "The final exclusion set was exercised with reads in all eight template directories. Hook observation verifies CLAUDE suppression, but cannot establish AGENTS automatic loading or exclusion.",
+    "Existing user-level context is retained; its Claude global rules were overwritten by the earlier installation probe. No original-personal-baseline, clean-environment or output-quality acceptance is claimed."
+  ],
+  "official_sources": [
+    "https://code.claude.com/docs/en/memory#exclude-specific-claudemd-files",
+    "https://code.claude.com/docs/en/hooks#instructionsloaded"
+  ]
+}

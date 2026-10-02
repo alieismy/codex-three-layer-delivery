@@ -57,7 +57,7 @@ Layer 3: Document Delivery Skills
 Adapter mappings:
   Cursor: cursor/project/.cursor/rules/ and cursor/project/.cursor/skills/
   Cursor zh-CN: cursor/zh-CN/.cursor/rules/ and cursor/zh-CN/.cursor/skills/
-  Claude Code: claude/project/CLAUDE.md and claude/project/.claude/skills/
+  Claude Code: claude/project/CLAUDE.md (imports the shared project AGENTS.md) and claude/project/.claude/skills/
   Simplified Chinese: zh-CN/
 ```
 
@@ -182,7 +182,7 @@ cursor/zh-CN/
 | `$rd-review` | Independent review findings | review engineering documents, research reports, standards, and technical or public-affairs articles |
 | `$rd-delivery` | Delivery charter / artifact map / phase gates / handoff | explicitly coordinate multi-stage, multi-document, or cross-session engagements |
 
-The first eight specialist Skills in the table are independently usable and do not form a forced pipeline. `rd-delivery` is the ninth Skill and serves only as an explicit orchestrator. Use `$rd-research` when external or contested evidence is needed, `$rd-writing` when verified evidence must become an audience-ready narrative, and `$rd-review` when an independent verdict is required. Invoke `$rd-delivery` only when the user explicitly requests cross-artifact orchestration, phase gates, or a durable handoff. This boundary is encoded with `agents/openai.yaml` for Codex and with platform-specific `disable-model-invocation: true` frontmatter in the Claude and Cursor adapters.
+The first eight specialist Skills in the table are independently usable and do not form a forced pipeline. `rd-delivery` is the ninth Skill and serves only as an explicit orchestrator. Use `$rd-research` when external or contested evidence is needed, `$rd-writing` when verified evidence must become an audience-ready narrative, and `$rd-review` when an independent verdict is required. Use `$rd-delivery` only when the request explicitly asks for cross-artifact orchestration, phase gates, or a durable handoff; the request need not name the Skill, but complexity or multiple outputs alone do not qualify. This boundary lives in the Skill description, the shared routing rules, and the trigger evals; no platform-specific invocation flag restricts it to named invocation.
 
 Each skill includes output and trigger-boundary cases under `evals/` plus ChatGPT/Codex desktop metadata under `agents/openai.yaml`. Multi-mode Skills keep their common workflow in `SKILL.md` and load only the selected checklist from `references/`. Shared bodies use neutral `rd-*` identifiers; Codex examples use `$rd-*`, while explicit Cursor and Claude Code invocation uses `/rd-*`.
 
@@ -242,6 +242,8 @@ claude/
   project/.claude/skills/rd-*/SKILL.md
 ```
 
+The project `CLAUDE.md` is a thin adapter: it imports the shared project core with `@AGENTS.md` (installed from `codex/project/AGENTS.md`) and adds only Claude Code-specific guidance, so project rules have one source across Codex and Claude Code.
+
 Codex remains the primary target of this repository. Treat Claude Code support as optional and re-check Claude Code file conventions before changing `CLAUDE.md`, `.claude/settings.json`, or `.claude/skills/` behavior.
 
 ## Reviewed Public Defaults
@@ -255,7 +257,7 @@ The public examples combine safety boundaries with explicit capability choices; 
 - Codex uses `workspace-write`, live search, Memories, full shell-environment inheritance, and the default sensitive-name exclusions; merge these choices manually for the target environment;
 - Codex MCP servers remain disabled until credentials and use cases are reviewed;
 - Cursor adapter MCP config is shipped as a one-server Context7 `mcp.example.json`, not as an active `.cursor/mcp.json`;
-- Claude Code project settings deny direct reads of common secret paths and ask for confirmation on matching Bash and Windows PowerShell commit, push, tag, publish, and delete command prefixes; these permission patterns are guardrails, not a complete security boundary for every wrapper or complex command;
+- Claude Code project settings deny direct reads of common secret paths at any depth under the working directory and ask for confirmation on matching Bash and Windows PowerShell commit, push, tag, publish, delete, and uncommitted-work-discarding Git command prefixes (`reset --hard`, `clean`, `checkout --`, `restore`); these permission patterns are guardrails, not a complete security boundary for every wrapper or complex command;
 - package versions are documented in `docs/compatibility.md` and should be refreshed before release;
 - Context7 uses the same unversioned package name across Codex/Cursor examples; compatibility documents retain the historical tested version, and each resolved version needs separate client-runtime verification.
 
@@ -352,7 +354,7 @@ The validator checks common release blockers:
 - obvious secret leaks;
 - stale private/internal strings.
 
-The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects twenty regression cases. In addition to the existing Skill, mirror, evidence, global-rule, context, prompt, temporary-data, and platform-configuration cases, it now covers the Codex schema/runtime-aligned configuration contract, Cursor's exactly-one always-on loading policy, cross-platform reasoning and durable-guidance governance, and current-versus-archived GSD attribution.
+The negative-test runner copies the current repository into verified system-temporary directories and proves that the real validator rejects twenty-four regression cases. In addition to the existing Skill, mirror, evidence, global-rule, context, prompt, temporary-data, and platform-configuration cases, it now covers the Codex schema/runtime-aligned configuration contract, Cursor's exactly-one always-on loading policy, cross-platform reasoning and durable-guidance governance, current-versus-archived GSD attribution, the explicit delivery-request boundary, and Claude shared-import installation guards.
 
 Before publishing a release, also run the networked dynamic gate:
 
@@ -387,3 +389,5 @@ This project was informed by broad patterns from the following public repositori
 ## License
 
 MIT. See `LICENSE`.
+
+Source maintainers: root `.claude/settings.json` is a repository-only instruction-template exclusion, not a distributable Claude adapter. See [compatibility evidence](docs/compatibility.md).
