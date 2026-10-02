@@ -6,6 +6,7 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+- Retained two bounded post-integration Codex behavior checks, including a false automatic approval-status flag and its text-grounded disposition; no reliability or causal improvement claim is made.
 - Preserved material-decision clarification and routine reversible-choice guidance in the shared project core while retaining thin Claude adapters during worktree integration.
 - Tightened the ChatGPT web custom-instruction profile and its Simplified Chinese mirror to clarify ambiguous professional deliverables, condition evidence reuse on valid sources and premises, and require risk-proportionate verification and rollback guidance for commands and configuration; refreshed both character counts without claiming web behavior validation.
 - Reject malformed Jev response object shapes with sanitized partial evidence; added offline regressions and preserve the hash-matched historical runner without rerunning or relabeling API results.
