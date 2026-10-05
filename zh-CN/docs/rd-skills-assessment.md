@@ -43,6 +43,7 @@
 - 2026-10-05 随后的[七项上游复查与有边界试点](upstream-learning-pilot.md)区分原生 `rd-review` 加载与输出质量，并将可选的证据复用及设计方法与既有文本进行比较。四个合成交付/设计案例使每个 canonical 语言目录达到 51 个输出用例定义。报告记录采用决策、实测用量字段、继承上下文限制及仍缺少的真实工作流证据。
 - 后续的[真实制品交接](upstream-learning-pilot.md#真实制品交接跟进2026-10-05)使用该仓库的实际交付包恢复报告证据，并离线准备全部14份 prompt。修复了 manifest 精确序列化说明的缺口，原实验和 Skill 指令保持不变；长期工作流及应用接口收益仍未测量。
 - [面向专业场景的采用跟进](rd-method-adoption.md)为九项职责分别映射已有覆盖、可选方法候选及排除项。当前真实采用简报及一名代理读者完成七项阅读任务，未发现实质解释缺陷，因此保留首稿和全部 Skill 指令。记录允许在没有先证明基线失败的情况下开展有边界的能力试验，并保留真人和外部业务成果未验证的状态。
+- 后续[真实需求跟进](rd-method-adoption.md#真实需求跟进2026-10-05)记录一条外部项目需求、两项经来源核验的 Minor 修订，以及获授权的本地 HTTP 和浏览器检查。预定的两次方法对照均超时且未产出完整需求，因此增量收益仍未知。保留工作样例及按实质歧义选用的实例方法；Skill 指令和每个 canonical 语言目录的 51 个输出用例定义保持不变。
 - [Agent Skills 规范](https://agentskills.io/specification) 将 `name` 和 `description` 定义为发现层，并建议渐进披露、聚焦参考文件、执行验证，以及主文件不超过 500 行。
 - 当前 [OpenAI Codex Skill 指南](https://learn.chatgpt.com/docs/build-skills) 要求描述前置核心用途，因为 Skill 较多时初始列表可能缩短描述或省略部分 Skill；该指南还说明了面向 ChatGPT/Codex 桌面的可选 `agents/openai.yaml` 元数据。
 - 原 [openai/skills 仓库](https://github.com/openai/skills) 已标记为不再用于当前分发示例；[openai/plugins](https://github.com/openai/plugins) 是当前打包参考。本项目为跨客户端编写和适配保留直接 Skill 目录，插件化属于独立的分发决策。

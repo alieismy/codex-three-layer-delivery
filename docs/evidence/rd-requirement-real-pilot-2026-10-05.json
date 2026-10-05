@@ -1,0 +1,267 @@
+{
+  "artifact": "Source-checked, sanitized summary of one real requirement pilot",
+  "date": "2026-10-05",
+  "case_id": "external-requirement-01",
+  "status": "Real requirement and authorized local functional follow-up completed; method comparison inconclusive.",
+  "authority": {
+    "task": "The user supplied a local application repository and requested one verifiable manual-attribution requirement.",
+    "implementation": "The user subsequently authorized result-page explanations and local acceptance while keeping existing thresholds and calibration, without a Git commit.",
+    "framework_record": "The user then selected recording the real pilot and forming the RD method-adoption conclusion.",
+    "pending": "Formal product baselining, priority, and business acceptance are not established by these authorizations."
+  },
+  "provenance": {
+    "source_records": [
+      {
+        "id": "current_requirement",
+        "sha256": "e50906ce57695df5f23751cdcca0736a637bac0350f72b185904bf99a21ac395",
+        "scope": "One requirement with five acceptance rows and dated implementation/verification status."
+      },
+      {
+        "id": "initial_requirement_evidence",
+        "sha256": "e2adc1eb1bd9ac6900537b22691e39580c78755c87ec6194b3768433b1a9733e",
+        "scope": "Frozen method inputs, both first attempts, offline observations, initial draft, source review, repairs, and focused rereview."
+      },
+      {
+        "id": "local_functional_acceptance_evidence",
+        "sha256": "d5b9cdd12f3beacf710ecfd0d7579a4d4b7dd9510724d049f20c51bfb44769c0",
+        "scope": "Authorized code changes, HTTP and browser observations, guidance screenshots, reproduction details, setup diagnostics, and cleanup."
+      }
+    ],
+    "identity_check": "All three artifact hashes were recomputed; the current requirement, both changed scripts, and all protected source/data hashes match the acceptance record.",
+    "public_scope": "Project identity and machine paths are omitted. Original sources and full records remain in the user-owned project. This summary is not a self-contained, independently reproducible public benchmark; hashes identify artifacts but do not prove their correctness.",
+    "followup_scope": "This framework update rechecked the recorded evidence and current file identities. It did not rerun the application or the model comparison."
+  },
+  "method_comparison": {
+    "baseline": "Supplied current Chinese rd-requirement instructions and the same frozen project sources.",
+    "candidate": "The baseline plus optional source-grounded normal, counterexample, and boundary scenarios for a material ambiguity, with no invented obligation or reward for more text.",
+    "frozen_input_sha256": "9acfce698a72ca36cadf9f51515ad95fcb55c79025a06f494eb53b8f7ee274da",
+    "requested_model": "gpt-6-astra",
+    "requested_reasoning_effort": "max",
+    "cli_version_at_run": "codex-cli 0.160.0",
+    "sampling": "One scheduled first response per arm; no retry or replacement response.",
+    "attempts": [
+      {
+        "condition": "baseline",
+        "first_attempt_only": true,
+        "elapsed_seconds": 240.027,
+        "outcome": "timeout without completed requirement",
+        "completed_requirement": false,
+        "partial_agent_message_count": 1,
+        "turn_usage": null,
+        "turn_usage_note": "Not reported; unknown, not zero.",
+        "final_response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "condition": "candidate",
+        "first_attempt_only": true,
+        "elapsed_seconds": 240.027,
+        "outcome": "timeout without completed requirement",
+        "completed_requirement": false,
+        "partial_agent_message_count": 2,
+        "turn_usage": null,
+        "turn_usage_note": "Not reported; unknown, not zero.",
+        "final_response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "quality_comparison": "Unavailable: neither arm produced a completed requirement.",
+    "incremental_method_benefit": "Unknown.",
+    "execution_boundary": "Supplied-text comparison, not native Skill-selection proof. Shared host/system/provider context and order/runtime effects remain; backend identity is not independently attested. Timeouts do not establish method inferiority or explain their own cause.",
+    "authoring_separation": "The main agent independently produced the delivered requirement. The source-review agent did not read the frozen candidate method or attempted responder outputs. The completed artifact is not attributed to either comparison arm."
+  },
+  "real_delivery": {
+    "requirement_count": 1,
+    "acceptance_rows": 5,
+    "verified_behavior": "Three challenge slots permit one, two, or three valid responses; only accepted responses contribute. Zero accepted responses produce an error and hide stale results.",
+    "boundary_rule": "For the actual target count N_i, use L_i = max(80, ceil(0.55 * N_i)). The local generator selects distinct counts from 292 through 332. Fixed N=300 applies only to the offline scoring fixture.",
+    "initial_review": {
+      "reviewer": "A separate read-only agent checking the requirement and actual sources; not an external human review.",
+      "findings": [
+        {
+          "id": "RR-01",
+          "severity": "Minor",
+          "problem": "Fixed N=300 scoring examples were not mapped to actual page-generated counts.",
+          "repair": "Page acceptance now derives each threshold from its actual N_i; fixed-count function fixtures are explicitly scoped.",
+          "status": "closed"
+        },
+        {
+          "id": "RR-02",
+          "severity": "Minor",
+          "problem": "Per-response diagnostics and evidence obligations did not clearly distinguish success from the all-invalid failure.",
+          "repair": "Diagnostics apply to successful results; the all-invalid case records inputs, thresholds, error, and hidden state, with probability/calibration fields not applicable.",
+          "status": "closed"
+        }
+      ],
+      "focused_rereview": "Passed with no remaining finding in the repair scope; this was a document-quality verdict before the later implementation."
+    },
+    "implementation_followup": {
+      "observed_gap": "The proposed result explanation needed to make uniform prior and the absence of identity proof explicit.",
+      "change": "One explanatory paragraph in each of the local and static result pages; existing scoring, thresholds, calibration, and data unchanged.",
+      "validation": "The explanation was subsequently observed in both local browser flows, including recovery after an all-invalid input.",
+      "remaining_authority": "Local functional checks are complete; formal product priority/baselining and human business acceptance remain open."
+    }
+  },
+  "functional_verification": [
+    {
+      "layer": "offline_python",
+      "source_record": "initial_requirement_evidence",
+      "case_count": 5,
+      "passed": 5,
+      "fixture_expected_count": 300,
+      "boundary": "Direct scoring-function fixture; does not establish HTTP or page behavior."
+    },
+    {
+      "layer": "offline_javascript",
+      "source_record": "initial_requirement_evidence",
+      "case_count": 5,
+      "passed": 5,
+      "fixture_expected_count": 300,
+      "boundary": "Direct scoring-function fixture; does not establish HTTP or page behavior."
+    },
+    {
+      "layer": "http",
+      "source_record": "local_functional_acceptance_evidence",
+      "case_count": 5,
+      "passed": 5,
+      "actual_challenge_counts": [
+        308,
+        320,
+        322
+      ],
+      "minimum_accepted_counts": [
+        170,
+        176,
+        178
+      ],
+      "cases": [
+        {
+          "id": "AC-01",
+          "status": "passed"
+        },
+        {
+          "id": "AC-02",
+          "status": "passed"
+        },
+        {
+          "id": "AC-03",
+          "status": "passed"
+        },
+        {
+          "id": "AC-04-equal",
+          "status": "passed"
+        },
+        {
+          "id": "AC-04-below",
+          "status": "passed"
+        }
+      ],
+      "boundary": "Real local execution with artificial numeric input; no identity or accuracy ground truth."
+    },
+    {
+      "layer": "local_web",
+      "source_record": "local_functional_acceptance_evidence",
+      "case_count": 6,
+      "passed": 6,
+      "actual_challenge_counts": [
+        305,
+        310,
+        322
+      ],
+      "minimum_accepted_counts": [
+        168,
+        171,
+        178
+      ],
+      "cases": [
+        {
+          "id": "AC-01",
+          "status": "passed"
+        },
+        {
+          "id": "AC-02",
+          "status": "passed"
+        },
+        {
+          "id": "AC-03",
+          "status": "passed"
+        },
+        {
+          "id": "AC-04-equal",
+          "status": "passed"
+        },
+        {
+          "id": "AC-04-below-and-AC-05-error",
+          "status": "passed"
+        },
+        {
+          "id": "AC-05-recovery-and-explanation",
+          "status": "passed"
+        }
+      ],
+      "boundary": "Real local execution with artificial numeric input; no identity or accuracy ground truth."
+    },
+    {
+      "layer": "static_manual_page",
+      "source_record": "local_functional_acceptance_evidence",
+      "case_count": 6,
+      "passed": 6,
+      "actual_challenge_counts": [
+        292,
+        329,
+        328
+      ],
+      "minimum_accepted_counts": [
+        161,
+        181,
+        181
+      ],
+      "cases": [
+        {
+          "id": "AC-01",
+          "status": "passed"
+        },
+        {
+          "id": "AC-02",
+          "status": "passed"
+        },
+        {
+          "id": "AC-03",
+          "status": "passed"
+        },
+        {
+          "id": "AC-04-equal",
+          "status": "passed"
+        },
+        {
+          "id": "AC-04-below-and-AC-05-error",
+          "status": "passed"
+        },
+        {
+          "id": "AC-05-recovery-and-explanation",
+          "status": "passed"
+        }
+      ],
+      "boundary": "Real local execution with artificial numeric input; no identity or accuracy ground truth."
+    }
+  ],
+  "verification_limits": [
+    "Browser cases used visible textboxes and real button clicks with no mocked backend or scorer; numeric inputs were artificial.",
+    "The local HTTP/browser checks observed calibration query counts for one, two, and three accepted responses. The static browser run did not separately observe internal calibration parameters.",
+    "Two targeted guidance screenshots were inspected; they establish only the recorded viewport and explanation area.",
+    "No real model response, identity ground truth, attribution-accuracy measurement, performance study, hosted static deployment, production readiness, or human business acceptance was established.",
+    "Model-call usage was unavailable. Main-agent, review, evidence-assembly, implementation, and human effort were not comprehensively metered; no efficiency or human-savings claim follows."
+  ],
+  "adoption": {
+    "retain": "Keep this worked example and use source-grounded normal, exception, and boundary examples when they resolve a material requirement ambiguity.",
+    "observed_value": "Two source-verified acceptance ambiguities were repaired and the resulting local behavior was exercised. This demonstrates completion of this case, without causal attribution to the extra candidate method.",
+    "existing_contract": "Current rd-requirement step 4 already requires material normal/exception/boundary coverage; step 6 requires scoped convergence.",
+    "default_skill_changes": "None: bodies, routing, metadata, adapters, references, and eval definitions remain unchanged.",
+    "canonical_output_case_definitions_per_language": 51,
+    "optional_future_trial": "A reversible, bounded real task with a clear value hypothesis can try the method without requiring the current baseline to fail first. Check that the execution path can complete before another comparison.",
+    "broader_adoption_evidence": "Representative usable outcomes and acceptable total effort; comparable inputs and retained first attempts are additionally required if claiming comparative benefit. Question counts, document length, model agreement, or local application test counts are not method-benefit evidence.",
+    "confidence": {
+      "recorded_case_completion": "high within the recorded scope",
+      "incremental_method_benefit": "unknown",
+      "generalization_to_other_RD_responsibilities": "unverified"
+    }
+  }
+}
