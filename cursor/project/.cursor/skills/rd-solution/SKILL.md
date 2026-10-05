@@ -29,21 +29,24 @@ Produce decision-ready **technical proposals, high-level designs, solution archi
 - Clarify the document type (technical proposal / high-level design / solution architecture / construction plan)
 - Confirm the audience (decision-makers / technical team / client reviewers)
 - Confirm constraints: timeline, budget, tech stack, compliance requirements
+- Separate approved constraints from current practices or candidate assumptions that may be changed within the requested design space
+- When validation or adoption is in scope, identify its decision stage: exploration, bounded pilot, wider adoption, or production commitment. Distinguish the target architecture, next recommended step, and immediate authorized scope
 - Check for existing requirements documents (`rd-requirement` output)
 - Check for feasibility inputs (`rd-feasibility` output) when the project has an approval phase
 - Resolve discoverable facts from project artifacts; ask the user only for material decisions that remain open
 - Use established domain terminology and surface conflicts instead of silently creating synonyms
 
-**Completion criterion:** the target document, audience, approved inputs, constraints, open decisions, and terminology basis are explicit enough to generate real alternatives.
+**Completion criterion:** the target document, audience, approved inputs, constraints, material decision stage, open decisions, and terminology basis are explicit enough to generate real alternatives; validation or adoption scope is not confused with the target architecture or execution authority.
 
 ### 2. Solution Research & Candidate Generation
 
 - Generate at least **2 candidate solutions** when a real architectural or technical choice exists
+- Where there is meaningful design space, seek a materially different approach with a credible benefit mechanism, including emerging technology or a new workflow when relevant. Mark untested benefits as hypotheses and judge novelty by fit and value; retain only justified alternatives
 - Each solution should include: architecture overview, core components, data/interface boundaries, technology choices, deployment or operating assumptions
 - Route decision-material maturity, compatibility, policy, cost, or current-version claims to `rd-research`; do not turn candidate generation into an unbounded search phase
 - For infrastructure, networking, proxy, VPN, VPS, or AI-tool solutions, model trust boundaries, control/data flows, credential ownership, platform/version constraints, observability, recovery, and exit path
 
-**Completion criterion:** every real decision has at least two viable candidates or a documented reason only one remains, and each candidate states the same material boundaries and assumptions.
+**Completion criterion:** every real decision has at least two candidates viable for the decision in scope or a documented reason only one remains; each candidate states the same material boundaries and assumptions, and a promising hypothesis is not misrepresented as established capability.
 
 ### 3. Multi-Dimensional Cross-Check
 
@@ -57,6 +60,7 @@ Evaluate each candidate solution across the following dimensions:
 | Security | Authentication & authorization, input validation, data protection, auditing |
 | Maintainability | component ownership, observability, operational complexity |
 | Cost | Development cost, operational cost, licensing fees |
+| Opportunity and evolution | Expected gains, learning value, cost of delay, migration burden, and future choices enabled or constrained |
 | Risk | Technical risk, staffing risk, schedule risk, external dependency risk |
 | Exit path | Alternative path if the recommended solution is rejected or fails validation |
 | Verifiability | Evidence, prototype, compatibility check, or acceptance method needed before commitment |
@@ -69,8 +73,9 @@ Evaluate each candidate solution across the following dimensions:
 - Clearly state the rationale for the recommendation and the reasons for rejecting alternatives
 - Label the recommendation confidence level (High / Medium / Low) with supporting basis
 - State residual risks and items requiring further confirmation
+- When a promising option needs more evidence, recommend the next justified step with bounded validation, success and stop criteria, recovery, and conditions for broader adoption; distinguish the target architecture from the immediate authorized scope
 
-**Completion criterion:** the recommendation, rejected alternatives, confidence, residual risks, and verification actions required before committing to the option are traceable to the comparison.
+**Completion criterion:** the recommendation, rejected alternatives, confidence, residual risks, and any material decision stage or verification/adoption conditions are traceable to the comparison, including opportunity costs and future evolution when material.
 
 ### 5. Structured Document Output
 
@@ -139,6 +144,7 @@ Pre-delivery checklist:
 
 - [ ] Candidate solutions are compared when a real choice exists
 - [ ] Recommendation rationale is clear, confidence level labeled
+- [ ] Materially different options, opportunity costs, and future evolution are assessed where relevant; for untested options or staged adoption, proposed benefits and the next justified verification/adoption step are explicit
 - [ ] Security dimension covered (authentication, validation, protection, auditing)
 - [ ] Risks identified, each with mitigation measures
 - [ ] Exit path or alternative path documented for high-impact decisions

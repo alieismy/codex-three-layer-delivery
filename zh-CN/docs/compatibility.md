@@ -4,6 +4,8 @@ npm registry 最新版本已于 2026-10-02 重新核查；本机 Codex CLI 与�
 
 ## Codex
 
+另行进行的 2026-10-05 [前瞻 RD 改进](forward-looking-rd.md)修改了共享指令和部分 RD 契约，并记录 Astra `max` / Sol 6.1 `high` 的有界给定文本比较。它不能证明这些变更的原生 Skill 发现、委派或跨客户端加载行为。
+
 2026-10-05 的[配置与 Skill 补充验证](config-skill-tuning.md)使用 CLI `0.160.0`，有界比较了给定文本后 Astra `xhigh/max` 和 Sol 5.6/6.1 `high` 的表现，保留失败样本和继承上下文限制；同时检查 Hugging Face 描述收窄、移除公共示例中的退役 personality 设置，并澄清 explorer 权限表述。原生工具执行受阻，因此不扩大下方更广运行基线的适用范围。
 
 | 组件 | 已测试版本 | registry 最新核查版本 | 备注 |

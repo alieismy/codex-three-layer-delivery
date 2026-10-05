@@ -2,13 +2,15 @@
 
 Date: 2026-10-05. Status: scoped maintenance implemented; supplied-text pilot complete; native tool execution remains blocked.
 
+Release scope: `v1.8.1`. This dated record retains the decisions and verification boundaries of the earlier configuration follow-up. The subsequent shared-instruction changes are recorded in [Forward-Looking RD Recommendations](forward-looking-rd.md).
+
 ## Decision and changes
 
 Remove the retired `personality = "pragmatic"` setting from the English and Chinese public Codex examples. Clarify that the explorer description expresses a task constraint, while actual permissions inherit from the parent and depend on role configuration and runtime overrides. The official [changelog](https://learn.chatgpt.com/docs/changelog#codex-2026-09-22-gpt-6-sol-luna) and [subagent permission documentation](https://learn.chatgpt.com/docs/agent-configuration/subagents#approvals-and-sandbox-controls), inspected on this date, support these distinctions. Schema acceptance alone does not establish a setting's continuing effect or an enforced permission boundary.
 
 Separately authorized personal maintenance narrowed the installed `hf-cli` description to explicit Hugging Face resources and operations, removed the same retired setting, corrected High-profile and MCP comments, disabled standalone Context7/Tavily in the base configuration, and added an opt-in `cli-research` profile that enables those two servers. Existing service definitions and credential references were preserved. A single personal governance clause now distinguishes deliberate memory edits from automatic generation, matching the existing public rule. These personal files and their verified backups are outside the repository.
 
-Retain the existing Astra `max` / Plan `high` and Sol 5.6 `high` subagent defaults. The strongest argument for changing them is that Astra `xhigh` and Sol 6.1 met all declared content assertions here, while `max` took longer and Sol 5.6 missed two assertions. The counterweight is the narrow experiment: three English synthetic cases, one sample per setting, inherited personal instructions, and no native tool or actual subagent execution. This supports a broader Sol 6.1 trial, not a general migration or a lower-effort policy for architecture and standards work. The nine shared RD Skill bodies and public model defaults remain unchanged.
+At this earlier follow-up, the decision was to retain the existing Astra `max` / Plan `high` and Sol 5.6 `high` subagent defaults. The strongest argument for changing them is that Astra `xhigh` and Sol 6.1 met all declared content assertions here, while `max` took longer and Sol 5.6 missed two assertions. The counterweight is the narrow experiment: three English synthetic cases, one sample per setting, inherited personal instructions, and no native tool or actual subagent execution. This supports a broader Sol 6.1 trial, not a general migration or a lower-effort policy for architecture and standards work. The nine shared RD Skill bodies and public model defaults were unchanged by that follow-up.
 
 ## Supplied-text results
 
@@ -35,7 +37,7 @@ The native preflight agent reported automatic approval rejection of a read-only 
 
 Personal verification used schema checks, strict base `app-server` loading and `config/read`, and native `mcp list` for base/profile enablement and inherited service definitions. CLI `0.160.0` rejects `--profile` for `app-server` and `--strict-config` for `mcp`; these are separate validation paths. An isolated candidate initially lacked two relative role files; adding hash-matched copies of those existing dependencies removed the warnings. Final base and profile checks completed without warnings. This establishes configuration loading, not a successful Context7/Tavily business call or Desktop reload.
 
-Repository validation passed: `scripts/validate.ps1`, all 24 negative cases in `scripts/test-validator.ps1`, the live-schema/four-example strict-load checks in `scripts/validate-release.ps1`, and `git diff --check`. The first static run caught CRLF in the new evidence JSON; the writer was corrected to emit LF and validation passed on rerun. Integrity checks confirmed the narrow personal semantic changes, unchanged Hugging Face Skill body, verified originals, and public UTF-8/LF/privacy checks. The guarded restore script passed `-WhatIf`; an actual rollback was not executed. No commit, push, or release was performed.
+Repository validation passed: `scripts/validate.ps1`, all 24 negative cases in `scripts/test-validator.ps1`, the live-schema/four-example strict-load checks in `scripts/validate-release.ps1`, and `git diff --check`. The first static run caught CRLF in the new evidence JSON; the writer was corrected to emit LF and validation passed on rerun. Integrity checks confirmed the narrow personal semantic changes, unchanged Hugging Face Skill body, verified originals, and public UTF-8/LF/privacy checks. The guarded restore script passed `-WhatIf`; an actual rollback was not executed. No commit, push, or release was performed during that maintenance phase.
 
 ## Remaining feedback and re-entry conditions
 

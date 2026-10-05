@@ -1,5 +1,5 @@
 ---
-description: Use when deciding execution, decision, approval, and verification responsibilities for consequential document work.
+description: Use when deciding execution, decision, approval, and verification responsibilities for consequential document work, or defining permitted subagent delegation.
 alwaysApply: false
 ---
 
@@ -18,6 +18,7 @@ Select responsibilities from task risk, ambiguity, authority, reversibility, and
 
 - Act directly when the request and authority are clear, the scope is contained, and verification is available.
 - Ask only when ambiguity would materially change scope, cost, compliance, risk, architecture, authority, or acceptance.
-- For non-trivial choices, present the strongest material alternative or objection before the recommendation.
+- For non-trivial choices, test the strongest material alternative or objection before forming the recommendation; normally lead the response with the conclusion, then its evidence and trade-offs.
 - Preserve the distinction between agent analysis, human decisions, explicit approvals, machine checks, and human acceptance.
-- Use background or parallel work only when subtasks are independent, write scopes do not overlap, and results can be verified independently.
+- Use subagents for independent evidence research, candidate analysis, or counterexample review when the host permits delegation and the expected benefit exceeds coordination cost. Give each an objective, bounded inputs, output and completion criteria, and permission or write scope; keep simple work with the main agent.
+- The main agent retains problem framing, decision criteria, synthesis, disagreement resolution, and final reporting. Subagents return findings, source anchors, counterevidence, and open items; verify decision-critical claims against their sources rather than treating model agreement as independent corroboration. Parallelize independent read-heavy work; assign non-overlapping write ownership or serialize shared mutations.

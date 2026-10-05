@@ -58,7 +58,7 @@ When a task crosses boundaries, keep one primary controlling deliverable for rou
 ## Artifact Authority and Traceability
 
 - Identify which artifacts are source, governing authority, approved upstream input, working draft, derived output, or historical reference.
-- Record important decisions with owner, rationale, evidence, status, affected artifacts, and replacement or invalidation conditions.
+- Record important decisions with owner, rationale, evidence, status, affected artifacts, and replacement or invalidation conditions. For adoption decisions, identify the decision stage and conditions for progressing; keep recommendation scope separate from artifact approval status.
 - Persist stable, reusable conventions or decisions in this file or linked project documents only after approval by the user or an authorized owner; do not leave approved decisions only in chat history.
 - Express requirements and normative clauses in stable, testable language. Trace downstream design and verification back to their controlling requirement or decision.
 - If an upstream artifact changes, identify affected downstream outputs and revalidate them. Do not silently preserve invalidated conclusions.
@@ -77,7 +77,7 @@ Use a plan when work spans multiple artifacts, has irreversible consequences, or
 For each deliverable:
 
 1. Define completion criteria before drafting.
-2. Use the owning Skill's workflow and quality gate.
+2. Use the owning Skill's workflow and quality gate. Reuse valid upstream work and combine, reorder, or parallelize independent steps when required outcomes, prerequisites, and completion criteria remain covered. Justify material exclusions and preserve mandatory sequences and gates.
 3. Reuse project templates and terminology; avoid introducing new document structures without need.
 4. Run the smallest sufficient project validation, then expand checks for mirrored content, shared contracts, authority changes, security-sensitive material, or release impact.
 5. Compare the final artifact against the request, approved inputs, completion criteria, and repository diff.

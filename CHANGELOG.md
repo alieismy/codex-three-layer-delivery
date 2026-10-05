@@ -6,7 +6,10 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
-- Removed the retired personality setting from bilingual Codex examples and clarified that explorer descriptions do not enforce sandbox permissions. Added a bounded configuration/Skill follow-up with a six-case metadata comparison and twelve supplied-text model samples, preserving failures, presentation differences, and native-execution limits without changing shared RD Skill bodies or public model defaults.
+## 1.8.1 - 2026-10-05
+
+- Added contextual opportunity seeking, stage-appropriate recommendation strength, adaptable workflow coverage, and bounded subagent task contracts across shared conduct and applicable RD workflows. Synchronized language/platform mirrors and added three synthetic output cases; the forward-looking RD record preserves the bounded two-model comparison, fixture correction, independent review, and native-behavior limits.
+- Removed the retired personality setting from bilingual Codex examples and clarified that explorer descriptions do not enforce sandbox permissions. Added a bounded configuration/Skill follow-up with a six-case metadata comparison and twelve supplied-text model samples, preserving failures, presentation differences, and native-execution limits. That earlier follow-up left shared RD Skill bodies unchanged; the later instruction changes are listed above. Public model defaults remain unchanged.
 
 ## 1.8.0 - 2026-10-02
 

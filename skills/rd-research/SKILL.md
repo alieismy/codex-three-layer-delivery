@@ -84,6 +84,7 @@ Assess each material source for authority, currency, directness, independence, a
 - Answer each research question directly and state the evidence strength
 - Preserve disagreements and explain why one source should dominate, if justified
 - Separate observed behavior from documented behavior and both from recommendation
+- For opportunity or adoption research, state which decision stage the evidence can inform. When technology and open-source mode is selected, use its reference to turn material unknowns into testable hypotheses and a bounded evidence-gathering handoff
 - When the evidence does not justify a modification, state a bounded no-change conclusion and what new evidence would reopen it; do not manufacture an optimization
 - List evidence gaps, verification actions, and what would change the conclusion
 - For multi-stage work, maintain one canonical evidence package in the repository's established location and link supporting notes rather than scattering final claims across temporary files

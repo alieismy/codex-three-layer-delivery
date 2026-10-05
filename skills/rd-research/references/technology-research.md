@@ -12,6 +12,9 @@ Apply the checks relevant to the research question. For adoption recommendations
 - Assess architecture fit, integration boundary, interoperability, data flow, security, privacy, supply chain, performance evidence, maintainability, support, and exit path
 - For AI systems, distinguish model capability, host-product capability, tool availability, account entitlement, prompt behavior, and end-to-end system performance
 - Compare alternatives against explicit decision criteria, including the current-state baseline when relevant
+- For opportunity or adoption questions, inspect credible new approaches and the baseline's opportunity costs; distinguish proposed benefit mechanisms, observed results, and unsupported promises
+- Rank decision-material unknowns by how much their answer could change the next decision. Propose the smallest useful verification with observable success and failure, resource or exposure bounds, and what result would change the conclusion; do not conduct it without the required authority
+- State whether the evidence informs exploration, a bounded pilot, wider adoption, or production commitment. Hand off evidence and hypotheses to the owning workflow identified when framing the research; missing production proof alone is not a verdict against exploration
 
 ## Reproducibility Record
 

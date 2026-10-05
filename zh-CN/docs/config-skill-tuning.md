@@ -2,13 +2,15 @@
 
 日期：2026-10-05。状态：范围内维护已实施；给定文本后的行为试验已完成；原生工具执行仍受阻。
 
+发布范围：`v1.8.1`。本日期化记录保留前一轮配置补充工作的决策与验证边界，后续共享指令修改见[面向前瞻决策的 RD 建议改进](forward-looking-rd.md)。
+
 ## 决策与修改
 
 从中英文公共 Codex 示例中移除已退役的 `personality = "pragmatic"`。补充 explorer 注释，说明角色描述表达任务约束，实际权限仍取决于父任务继承、角色配置与运行时覆盖。本日检查的官方[更新记录](https://learn.chatgpt.com/docs/changelog#codex-2026-09-22-gpt-6-sol-luna)和[子代理权限说明](https://learn.chatgpt.com/docs/agent-configuration/subagents#approvals-and-sandbox-controls)支持上述区分。通过 schema 不证明设置仍有预期效果，也不证明权限隔离已实施。
 
 另行获授权的个人维护包括：将已安装 `hf-cli` 的描述收窄到明确的 Hugging Face 资源和操作，移除同一退役设置，修正 High 档和 MCP 注释，在基础配置中禁用独立 Context7/Tavily，并新增按需启用两者的 `cli-research` profile。原有服务定义和凭据引用保留。个人治理规则补充一条主动编辑记忆与后台自动生成记忆的区分，与既有公共规则保持一致。这些个人文件及其经过哈希校验的备份均保存在仓库外。
 
-保留现有 Astra `max` / Plan `high` 和 Sol 5.6 `high` 子代理默认值。支持调整的最强理由是：本次 Astra `xhigh` 与 Sol 6.1 满足全部内容断言，而 `max` 耗时更长，Sol 5.6 漏掉两项断言。但试验只有三个英文合成用例，每档仅一个样本，继承了个人指令，也没有原生工具或真实子代理执行。因此，可将 Sol 6.1 纳入更广的试用，尚不足以全面迁移或降低架构、标准类工作的默认推理强度。九个共享 RD Skill 正文和公共模型默认值保持不变。
+在前一轮补充工作中，当时的决定是保留既有 Astra `max` / Plan `high` 和 Sol 5.6 `high` 子代理默认值。支持调整的最强理由是：本次 Astra `xhigh` 与 Sol 6.1 满足全部内容断言，而 `max` 耗时更长，Sol 5.6 漏掉两项断言。但试验只有三个英文合成用例，每档仅一个样本，继承了个人指令，也没有原生工具或真实子代理执行。因此，可将 Sol 6.1 纳入更广的试用，尚不足以全面迁移或降低架构、标准类工作的默认推理强度。该轮补充工作未修改九个共享 RD Skill 正文和公共模型默认值。
 
 ## 给定文本后的结果
 
@@ -35,7 +37,7 @@ Astra `max` 为 PRD 摘录增加了 Markdown 代码围栏。摘录正文完全�
 
 个人配置验证分别使用 schema、基础配置的严格 `app-server` 加载与 `config/read`，以及原生 `mcp list` 检查基础配置和 profile 的启用状态、服务定义继承。CLI `0.160.0` 的 `app-server` 不接受 `--profile`，`mcp` 不接受 `--strict-config`，因此这些是不同验证入口。隔离候选最初缺少两个相对路径的角色文件；补入既有依赖的哈希一致副本后警告消失。最终基础配置和各 profile 检查均无警告。这证明配置加载，不证明 Context7/Tavily 业务调用成功或 Desktop 已重新加载。
 
-仓库验证已通过：`scripts/validate.ps1`、`scripts/test-validator.ps1` 的全部 24 个负例、`scripts/validate-release.ps1` 的实时 schema 与四份示例严格加载，以及 `git diff --check`。首次静态检查发现新证据 JSON 使用 CRLF；生成器改为输出 LF 后，重新检查通过。完整性检查确认个人配置语义修改范围准确、Hugging Face Skill 正文字节不变、原件备份哈希一致，以及公开文件 UTF-8/LF/隐私检查通过。带哈希保护的回退脚本已通过 `-WhatIf`，没有实际回退。没有提交、推送或发布。
+仓库验证已通过：`scripts/validate.ps1`、`scripts/test-validator.ps1` 的全部 24 个负例、`scripts/validate-release.ps1` 的实时 schema 与四份示例严格加载，以及 `git diff --check`。首次静态检查发现新证据 JSON 使用 CRLF；生成器改为输出 LF 后，重新检查通过。完整性检查确认个人配置语义修改范围准确、Hugging Face Skill 正文字节不变、原件备份哈希一致，以及公开文件 UTF-8/LF/隐私检查通过。带哈希保护的回退脚本已通过 `-WhatIf`，没有实际回退。该维护阶段没有提交、推送或发布。
 
 ## 待反馈项与重新评估条件
 
