@@ -20,7 +20,6 @@ model_reasoning_effort = "medium"
 plan_mode_reasoning_effort = "high"
 model_reasoning_summary = "none"
 model_verbosity = "high"
-personality = "pragmatic"
 # 对复杂任务，可通过 codex --profile high 叠加 $CODEX_HOME/high.config.toml。
 # 省略 service_tier 时仍使用标准处理。
 # 仅当当前模型明确支持对应层级时，才通过 Fast 界面/命令或显式服务层级设置启用。
@@ -63,6 +62,9 @@ description = "General-purpose helper."
 description = "Drafts or edits scoped document content and configuration files."
 
 [agents.explorer]
+# “只读”是任务指导；角色描述本身不强制实施沙箱权限。
+# 权限从父任务继承。经过审查的 config_file 可以设置角色默认值，
+# 但父任务的 CLI 运行时覆盖仍可能优先于这些默认值。
 description = "Read-only exploration: searches, reads, maps documents, sources, and references."
 
 [agents.awaiter]

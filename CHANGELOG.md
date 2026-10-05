@@ -6,6 +6,8 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+- Removed the retired personality setting from bilingual Codex examples and clarified that explorer descriptions do not enforce sandbox permissions. Added a bounded configuration/Skill follow-up with a six-case metadata comparison and twelve supplied-text model samples, preserving failures, presentation differences, and native-execution limits without changing shared RD Skill bodies or public model defaults.
+
 ## 1.8.0 - 2026-10-02
 
 - Guarded existing Claude project and user-level destinations before copying, retained 52 isolated Git Bash installation checks, synchronized the schema README version, and labeled historical Jev validation counts explicitly during release review.

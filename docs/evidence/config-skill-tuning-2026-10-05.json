@@ -1,0 +1,1197 @@
+{
+  "date": "2026-10-05",
+  "scope": "Bounded configuration maintenance and supplied-text behavior pilot; no default model migration or runtime acceptance.",
+  "execution": {
+    "cli_version": "0.160.0",
+    "platform": "Windows/PowerShell",
+    "model_provider_requested": "openai",
+    "model_identity": "Requested CLI identifiers; backend identity not independently attested.",
+    "fresh_ephemeral_process_per_sample": true,
+    "sequential_execution": true,
+    "verbosity_requested": "high",
+    "timeout_seconds": 240,
+    "retries": 0,
+    "instruction_context": "Existing personal global AGENTS remained active despite --ignore-user-config and project_doc_max_bytes=0. It was unchanged for all samples and is not published. Full prompt context is therefore not portable or proven isolated.",
+    "disabled": [
+      "discovered Skill instructions",
+      "shell tools",
+      "web search",
+      "apps",
+      "plugins",
+      "hooks",
+      "memories",
+      "multi-agent features",
+      "experimental context management"
+    ],
+    "cli_flags": [
+      "exec",
+      "--ignore-user-config",
+      "--ignore-rules",
+      "--strict-config",
+      "--ephemeral",
+      "--sandbox read-only",
+      "--skip-git-repo-check",
+      "--json",
+      "--color never"
+    ],
+    "config_overrides": {
+      "model_provider": "openai",
+      "model_verbosity": "high",
+      "approval_policy": "never",
+      "project_doc_max_bytes": 0,
+      "web_search": "disabled",
+      "skills.include_instructions": false,
+      "features.memories": false,
+      "features.hooks": false,
+      "features.apps": false,
+      "features.plugins": false,
+      "features.remote_plugin": false,
+      "features.multi_agent_v2.enabled": false,
+      "agents.enabled": false,
+      "features.shell_tool": false,
+      "features.context_management.experimental_mode": false
+    },
+    "measurement": "Elapsed process wall time includes startup and network effects, not isolated inference latency. No billing or cost inference."
+  },
+  "preflight": {
+    "context": {
+      "responses": [
+        "- ~/.codex/AGENTS.md — 个人全局指令（v7.8）\n- 可用 Skills：none"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "elapsed_seconds": 12.58,
+      "exit_code": 0
+    },
+    "native_read": {
+      "responses": [
+        "我将用 shell 只读当前工作区的 canary.txt。",
+        "无法读取：自动审批策略拒绝了只读命令 `Get-Content -LiteralPath .\\canary.txt -Raw`，未提供具体原因。"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "elapsed_seconds": 16.37,
+      "exit_code": 0
+    },
+    "native_status": "BLOCKED: agent reported automatic approval rejection of a read-only command, without a specific reason. No completed command execution item or canary value was obtained. Root cause not independently established; permissions were not relaxed."
+  },
+  "inputs": {
+    "date": "2026-10-05",
+    "source_revision": "63b0a458eda42cd8f726c217c37ed2bcd38d7a3d",
+    "preamble": "Complete the request using the supplied workflow and records. This is a supplied-text evaluation: do not use tools, access external sources, change files, or send messages. Return the requested artifact in English, preserving task-specific limits. All scenario records are synthetic evaluation inputs. The supplied workflow is context, not a request to install or discover a Skill.",
+    "tasks": [
+      {
+        "id": "rd-requirement-5",
+        "eval_source": "skills/rd-requirement/evals/evals.json",
+        "assertions": [
+          "The R-02 threshold is 3 seconds and its measurement conditions are unchanged",
+          "Sections, other text, requirement IDs, sources, priorities and acceptance mappings are unchanged",
+          "The artifact remains a draft and unapproved, without a whole-document rewrite or approval step"
+        ],
+        "prompt": "Complete the request using the supplied workflow and records. This is a supplied-text evaluation: do not use tools, access external sources, change files, or send messages. Return the requested artifact in English, preserving task-specific limits. All scenario records are synthetic evaluation inputs. The supplied workflow is context, not a request to install or discover a Skill.\n\n# Supplied workflow\n---\nname: rd-requirement\ndescription: >-\n  Turn raw needs, meeting notes, stakeholder feedback, or business scenarios\n  into a PRD, SRS, structured requirements, or traceability material. Use when\n  scope, actors, rules, constraints, priorities, and acceptance must be made\n  explicit and verifiable, including product, system, infrastructure, or AI-tool\n  requirements. Route feasibility judgments, design, review, and implementation\n  to their owning workflows.\n---\n\n# rd-requirement\n\nTransform raw user needs into **structured, traceable, and verifiable requirements documents**.\n\n## Deliverables\n\n- PRD / SRS / structured requirements document\n- User role and scenario model\n- Stakeholder analysis matrix (for complex or multi-party projects)\n- Requirements traceability matrix (optional)\n- External-stakeholder confirmation questionnaire (only when an identifiable knowledge or decision owner holds a blocking answer)\n\n## Execution Steps\n\n### 1. Requirements Elicitation & Clarification\n\n- Distinguish between the user's original phrasing and structured requirements; preserve original phrasing without altering intent\n- Identify implicit assumptions and list them explicitly\n- Resolve discoverable facts from supplied materials and the project before asking the user\n- Ask only for decisions or decision-critical ambiguity; handle one high-impact decision branch at a time, and if risk is low, state assumptions and proceed\n- When a decision-critical fact, decision, or approval is held by an identifiable external stakeholder and the current user lacks the knowledge or authority to answer, read [external-stakeholder-questionnaire.md](references/external-stakeholder-questionnaire.md); ask the current user only for the recipient and required return, not to answer on the recipient's behalf\n- Identify overloaded or conflicting domain terms and propose a canonical term without inventing business meaning\n- Use the 5W1H framework (Who / What / Why / When / Where / How) to ensure full dimensional coverage\n\n**Completion criterion:** every decision-critical ambiguity is resolved or explicitly owned as an assumption, open decision, or verification action; discoverable facts are not left as user questions, and any external knowledge or authority gap has a recipient role and return criterion rather than an invented answer.\n\n### 2. Requirements Classification & Structuring\n\nClassify and organize along the following dimensions:\n\n| Category | Content |\n|----------|---------|\n| Functional Requirements (FR) | What the system must do |\n| Non-Functional Requirements (NFR) | Performance, availability, scalability, security, compatibility |\n| Constraints | Tech stack, platform, regulations, budget, timeline |\n| Assumptions | Unconfirmed premises that affect design |\n| Exclusions | Items explicitly out of scope |\n| Operating context | environment, topology, user capability, support, migration, and lifecycle constraints |\n\nFor document-centered projects, also classify:\n\n| Category | Content |\n|----------|---------|\n| Stakeholders | users, owners, reviewers, maintainers, external agencies |\n| Business rules | policy, process, approval, compliance, or operational rules |\n| Data and interfaces | required data objects, external systems, exchange boundaries |\n| Evidence sources | meeting notes, standards, existing documents, laws, product decisions |\n\n**Completion criterion:** every in-scope scenario maps to identified actors, rules, data or interface boundaries, and at least one classified requirement or explicit exclusion.\n\n### 3. Priority Labeling\n\nLabel each requirement with a priority:\n\n- **P0 (Must Have)**: Project fails without it\n- **P1 (Should Have)**: Important, but can be deferred to next iteration\n- **P2 (Nice to Have)**: Beneficial if included\n- **P3 (Won't Have)**: Identified but explicitly excluded\n\n**Completion criterion:** every requirement has an explicit priority under the chosen scheme, and any priority conflict or missing decision authority is recorded instead of silently resolved.\n\n### 4. Acceptance Criteria Definition\n\nAttach verifiable acceptance criteria to each functional requirement:\n\n- Use Given / When / Then when it fits the requirement\n- Include normal path, exception path, boundary condition, and review/approval evidence\n- For non-functional requirements, define measurable thresholds or explicit evaluation methods\n- For policy or document requirements, define the review criterion and evidence needed for acceptance\n- For installation, configuration, migration, or integration requirements, define the observable end state, verification method, failure behavior, and rollback expectation without prescribing an unapproved implementation\n\n**Completion criterion:** every requirement has a checkable acceptance or evaluation method covering the material normal, exception, and boundary behavior, or is explicitly unresolved with a verification action.\n\n### 5. Feasibility and Evidence Flags\n\nFlag requirements that need evidence or a later feasibility decision without deciding viability here:\n\n- Evidence status: verified, assumed, disputed, unknown, or decision-owned\n- Risk routing: identify requirements that need `rd-feasibility`, stakeholder confirmation, or standards/legal verification\n- Dependency flagging: identify upstream decisions, external systems, approvals, and standards references\n\n**Completion criterion:** every requirement that could materially fail or block delivery has an evidence status, a named dependency or follow-up action, and an explicit downstream route where a feasibility verdict is needed; this artifact does not make that verdict.\n\n### 6. Requirements Convergence Pass\n\nBefore delivery, perform a convergence check scoped to the requested change:\n\n- Rewrite affected sections only where duplication, contradiction, temporary notes, or broken traceability require it; keep each fact, rule, or scenario in its owning section\n- Perform document-wide consolidation for a new document, an explicitly requested full revision, or an identified cross-document consistency risk\n- Preserve every requirement ID, source anchor, decision, constraint, priority, acceptance mapping, and existing artifact status; retain decisions before removing resolved questions or temporary notes\n- Review affected dependencies and reopen any contradiction, missing acceptance method, or unresolved blocking decision\n\n**Completion criterion:** the authorized changes and affected dependencies are internally consistent, identifiers and mappings remain intact, and no unresolved blocker is hidden in temporary notes; rewriting is required only where the check identifies a need.\n\n## Context and Baseline Check\n\nPre-execution checks:\n- Applicable project guidance, templates, and rules for requirements work\n- Whether established product standards or quality attribute baselines exist\n- Existing requirements document format and naming conventions\n- Existing glossary, stakeholder map, review checklist, or standard terminology constraints\n\n## Tool Selection\n\n- Inspect user-provided and local project sources before external retrieval\n- Use `rd-research` when laws, standards, policy, external interfaces, or other evidence materially affect a requirement\n- Use only configured tools, prefer primary sources, and use library/API documentation retrieval only for current interface facts\n- If retrieval is unavailable, mark the evidence gap instead of inventing a requirement\n\n## Quality Gates\n\nPre-delivery checklist:\n\n- [ ] Every identified in-scope core scenario is covered and traceable to a source or decision\n- [ ] Every functional requirement has acceptance criteria\n- [ ] Priorities use stated criteria, and every identified P0 need maps to a requirement or an explicit exclusion\n- [ ] Assumptions and exclusions explicitly listed\n- [ ] Every requirement has an acceptance method, or is explicitly marked as unresolved with a verification action\n- [ ] Proposed products, models, vendors, tools, or configurations are separated from the underlying need unless approved as constraints\n- [ ] Key terms, stakeholder roles, and business rules are consistent\n- [ ] Decision-critical ambiguity is either resolved or explicitly listed\n- [ ] Every blocking external knowledge or authority gap has a recipient role, questionnaire or equivalent action, and checkable return criterion; no answer is invented\n- [ ] Requirements are traceable to original user statements or cited source material\n- [ ] The scoped convergence check addressed relevant duplication or conflicts without losing IDs, source anchors, decisions, acceptance mappings, or artifact status\n\n## Out of Scope\n\n- Do not skip requirements clarification and jump directly into design\n- Do not make technology selections during requirements analysis\n- Do not approve requirements that cannot be verified\n- Do not invent business rules, standards clauses, metrics, or stakeholder decisions without evidence\n\n\n# Request\nChange only the R-02 acceptance threshold from 2 seconds to 3 seconds in this PRD and return the full excerpt. Preserve all other text, status, identifiers and sections.\n# Query PRD\nStatus: draft, unapproved\n## Scope\nR-01: Exact lookup by ticket ID. Source: meeting A. Priority: P0. Acceptance: an existing ID returns only its matching ticket.\n## Performance\nR-02: Queries support internal use. Source: meeting A. Priority: P1. Acceptance: with 50 concurrent users, 10,000 records and 1,000 consecutive queries, P95 response time is at most 2 seconds.\n## Exclusions\nSemantic search is out of scope for the first release.",
+        "prompt_sha256": "e581b59ad41b3fa16112cd892ddaa54dcec8619d43ec3e9b3c2cf1c325eef55c",
+        "sources": [
+          {
+            "path": "skills/rd-requirement/SKILL.md",
+            "sha256": "513251c7aaa49146bf9acb14de4947d99cbb89021e9249431dbcd6e5cdf06a1f"
+          }
+        ]
+      },
+      {
+        "id": "rd-review-9",
+        "eval_source": "skills/rd-review/evals/evals.json",
+        "assertions": [
+          "CR1 and W1 are recognized as valid authority for the limited pilot rather than rejected solely because the old test failed",
+          "T1's original FAIL remains intact and any evaluation against 120 seconds is explicitly separate",
+          "The seven-day/D/E limits and re-review or production boundary remain explicit",
+          "The authorized document review finishes without duplicate approval or a claim of new testing or production release"
+        ],
+        "prompt": "Complete the request using the supplied workflow and records. This is a supplied-text evaluation: do not use tools, access external sources, change files, or send messages. Return the requested artifact in English, preserving task-specific limits. All scenario records are synthetic evaluation inputs. The supplied workflow is context, not a request to install or discover a Skill.\n\n# Supplied workflow\n---\nname: rd-review\ndescription: >-\n  Independently review requirements, feasibility studies, research or tool\n  evaluations, technical proposals, detailed designs, standards, technical\n  articles, or public-affairs articles. Use when findings must identify location,\n  evidence, impact, severity, remediation, and a defensible approval or\n  publication verdict. Route primary authoring to the owning creation workflow.\n---\n\n# rd-review\n\nPerform an independent, evidence-based review with severity-graded findings, actionable remediation, and a defensible verdict.\n\n## Deliverables\n\n- Findings-first review report\n- Verdict and explicit conditions for approval, publication, or re-review\n- Optional clause-, claim-, or section-level revision table\n- Evidence gaps, unresolved risks, and verification actions\n\n## Select One Review Mode\n\nRead only the reference for the selected target:\n\n| Mode | Target | Reference |\n|------|--------|-----------|\n| Requirements | PRD / SRS / requirements | [requirements-review.md](references/requirements-review.md) |\n| Feasibility | Feasibility study / analysis | [feasibility-review.md](references/feasibility-review.md) |\n| Research | research report / open-source, product, or AI-tool evaluation | [research-review.md](references/research-review.md) |\n| Proposal | technical proposal / high-level design / construction plan | [proposal-review.md](references/proposal-review.md) |\n| Design | detailed design | [design-review.md](references/design-review.md) |\n| Standards | standard / specification / guideline / normative clauses | [standards-review.md](references/standards-review.md) |\n| Article | technical article / white paper / public-affairs article / fact-check | [article-review.md](references/article-review.md) |\n\nIf the target spans modes, identify the primary mode and load one additional reference only for a material secondary section.\n\n## Common Review Framework\n\n### 1. Pin the Review Basis\n\n- Identify the exact target, version, scope, audience, intended decision, and review authority\n- Read applicable upstream requirements, decisions, source material, templates, standards, and review policy\n- Distinguish a content review from copyediting, fact-checking, compliance checking, and design approval\n- Resolve discoverable facts from the materials; ask only for missing authority or intent that blocks the verdict\n- Preserve approved intent and separate bounded remediation from redesign or ghostwriting\n\n**Completion criterion:** the exact target, version, scope, mode, authority, upstream basis, and verdict vocabulary are fixed before findings are graded.\n\n### 2. Review on Two Independent Axes\n\n- **Alignment/evidence axis**: Does the target match upstream intent and authoritative evidence?\n- **Intrinsic-quality/argument axis**: Is it internally complete, consistent, feasible, logically valid, understandable, and verifiable?\n- Apply the mode reference to refine these axes; strength on one axis cannot hide failure on the other\n- Track the highest evidence state supporting each behavior claim: documentation, source, static configuration, final generated or effective configuration, runtime, or business/production acceptance. A lower state cannot establish a higher one.\n\n**Completion criterion:** every material section is assessed on both axes or explicitly marked not applicable, and neither axis is collapsed into the other.\n\n### 3. Test Failure Hypotheses\n\n- Classify material assumptions as verified, reasonable but unverified, questionable, or contradicted\n- Test the strongest plausible counterexample, failure path, boundary condition, alternative explanation, and evidence gap\n- For causal claims, test chronology, mechanism, confounders, and whether evidence supports causation rather than correlation\n- Report a finding only when its location, evidence, and impact can be stated; do not manufacture findings to appear thorough\n\n**Completion criterion:** every material assumption and central conclusion has been tested against the strongest plausible counterexample, failure path, boundary condition, or alternative explanation.\n\n### 4. Grade Findings by Impact\n\n| Severity | Meaning |\n|----------|---------|\n| **Blocker** | Invalidates the decision or publication basis, or makes safe progression impossible without fundamental rework |\n| **Critical** | Can materially change scope, correctness, safety, compliance, feasibility, or a central conclusion and must be resolved |\n| **Major** | Substantial weakness that should be corrected or explicitly accepted but does not alone invalidate the core result |\n| **Minor** | Local improvement with limited effect on the decision, argument, or document usability |\n\nEach finding must include location, axis, problem, evidence, impact, severity rationale, concrete remediation or verification action, and owner/date when known.\n\n**Completion criterion:** every retained finding is reproducible from its location and evidence, has an impact-based severity rationale, and names a bounded corrective or verification action.\n\n### 5. Determine the Verdict\n\nDefault document verdicts are **Approved / Conditionally Approved / Rejected**. Article mode may use **Publishable / Publishable after revision / Not publishable**. In either form:\n\n- No unresolved Blocker is compatible with approval or publication\n- Unresolved Critical findings normally require rejection or revision before approval\n- Conditional approval requires bounded conditions, verification actions, assignment state, and a re-review trigger\n- Project policy overrides these defaults; never use a universal issue-count threshold\n- A well-supported finding-free or no-change outcome is valid. Do not force remediation when the evidence supports the current state.\n\n**Completion criterion:** the verdict follows from unresolved impact and evidence limits, and every condition has an action, assignment state, and re-review trigger.\n\n## Tool Selection\n\n- Inspect the target and applicable upstream sources before external retrieval\n- Use `rd-research` when standards, law, policy, source code, current technology behavior, quotations, timelines, or public facts materially affect a finding\n- Prefer primary sources and use independent sources to test self-interested or disputed claims\n- If authoritative evidence is inaccessible, narrow the finding and verdict instead of filling the gap\n- Redact secrets and unnecessary personal or infrastructure identifiers from findings and evidence excerpts; preserve a controlled source pointer when reviewers need the raw material\n\n## Quality Gates\n\n- [ ] Primary mode, target version, scope, authority, and verdict vocabulary are explicit\n- [ ] Evidence/alignment and intrinsic-quality/argument axes were both evaluated\n- [ ] Claimed behavior is bounded to the highest evidence state actually established\n- [ ] Material assumptions, counterexamples, failure paths, and alternative explanations were tested\n- [ ] Every finding has location, evidence, impact, severity rationale, and action\n- [ ] Findings lead; strengths and supporting observations follow\n- [ ] Verdict follows from unresolved impact and evidence limits, not issue count or reviewer preference\n- [ ] No finding or modification is invented when evidence supports no change\n- [ ] Facts, quotations, dates, versions, and external claims are verified or explicitly bounded\n- [ ] Findings and evidence excerpts contain no secrets or unnecessary sensitive identifiers\n\n## Out of Scope\n\n- Do not redesign or rewrite the whole target during independent review; propose bounded remediation instead\n- Do not override well-supported decisions or arguments based on reviewer preference or political agreement\n- Do not report style-only findings unless they materially affect meaning, credibility, accessibility, or usability\n- Do not fabricate evidence, sources, standards clauses, quotations, owners, dates, or document status\n\n\n# Request\nComplete the criterion-change review using the supplied authorized addendum. Its owner authority and scope are already established. State whether the limited pilot document change can be accepted and what remains unresolved; do not request the same approval again.\n\n# Supplied record: skills/rd-review/evals/fixtures/criteria-change.md\n# Synthetic fixture: acceptance criterion change\n\nThis is a fictional document review. Test records below are supplied scenario evidence, not tests performed by the evaluating agent.\n\n- **R1 — Approved requirement:** a report completes within 60 seconds on dataset D under environment E. The product owner role PO-1 can approve changes for an internal pilot; production release requires separate authority.\n- **T1 — Recorded test against R1:** completion took 90 seconds on D in E. The recorded verdict is FAIL against 60 seconds.\n- **D1 — Proposed revised requirement:** change the threshold to 120 seconds for a seven-day internal pilot on D in E. No implementation change is proposed.\n- **A1 — Current assignment:** review whether the document change can be accepted. The evaluating agent may issue a document-review verdict but cannot grant product-owner approval or authorize production release.\n\nUnless a separate approval record is supplied, D1 is an unapproved proposal. No other defect is established by the supplied records.\n\n\n# Supplied record: skills/rd-review/evals/fixtures/authorized-change.md\n# Synthetic approval addendum\n\nThis fictional record supplements `criteria-change.md` and is an authoritative input within the scenario.\n\n- **CR1 — Authorized decision:** PO-1 approves D1's 120-second threshold only for the seven-day internal pilot on D in E. Reason: that pilot uses a reduced service objective; production retains the 60-second requirement.\n- **W1 — Bounded exception:** PO-1 accepts the unresolved R1 failure for this pilot only. Re-review occurs when the seven days expire, D or E changes, or production release is requested.\n- **H1 — Record integrity:** T1 remains FAIL against its original 60-second criterion. It may be re-evaluated separately against the approved pilot criterion without rewriting the original test result.\n- **A2 — Continuing authorization:** complete the document review now using CR1 and W1. Their scope, authority, and validity are established; no new approval is required merely to finish this review.\n\nNo production release or new test execution has been authorized or performed by this addendum.\n",
+        "prompt_sha256": "4fa26b138311fd487d3199537a22154642d4b62ebba59493260ce17c6c1693b9",
+        "sources": [
+          {
+            "path": "skills/rd-review/SKILL.md",
+            "sha256": "73ce461d007bbbaa349abdd4459e391b68431c5fe9cdff4648683303f6baee53"
+          },
+          {
+            "path": "skills/rd-review/evals/fixtures/criteria-change.md",
+            "sha256": "2ac9789a330a992679e38d08c5c45368756a8e0b162ba0d63a2bb0b3f4d97d94"
+          },
+          {
+            "path": "skills/rd-review/evals/fixtures/authorized-change.md",
+            "sha256": "017c490119a1faa726e0512b6d1e8b4cd8e177cde6096c35674b89e707983a8f"
+          }
+        ]
+      },
+      {
+        "id": "rd-writing-4",
+        "eval_source": "skills/rd-writing/evals/evals.json",
+        "assertions": [
+          "The recommendation defers production expansion without inventing approval and distinguishes the existing pilot from a new authorized action.",
+          "T1 is represented as 10 correct and 2 superseded-citation answers out of 12; its convenience sample is not presented as established general accuracy.",
+          "T2 gaps and the unresolved J1 acceptance decisions remain explicit; missing facts or decision owners are not invented.",
+          "The downside of manual citation checking and a concrete next verification tied to the observed failures or missing evidence are retained.",
+          "The brief identifies the records as synthetic, cites the relevant record IDs, and stays within 220 whitespace-separated words without padding."
+        ],
+        "prompt": "Complete the request using the supplied workflow and records. This is a supplied-text evaluation: do not use tools, access external sources, change files, or send messages. Return the requested artifact in English, preserving task-specific limits. All scenario records are synthetic evaluation inputs. The supplied workflow is context, not a request to install or discover a Skill.\n\n# Supplied workflow\n---\nname: rd-writing\ndescription: >-\n  Write source-backed technical articles, white papers, research or fact-check\n  reports, decision briefs, and other professional explanatory documents. Use\n  when verified evidence must be shaped for a real audience and publication or\n  decision purpose without losing uncertainty, counterarguments, or traceability.\n  Route PRDs, architecture selection, detailed design, standards, and independent\n  review to their owning workflows.\n---\n\n# rd-writing\n\nTurn verified material into an audience-ready professional document whose claims, logic, and evidence remain auditable.\n\n## Deliverables\n\n- Technical article, explanatory article, or technical white paper\n- Research synthesis or fact-check report\n- Decision brief, position paper, or evidence-led recommendation memo\n- Claim-source map and unresolved evidence notes when material\n\n## Select an Output Mode\n\nRead only the reference needed for the target:\n\n| Mode | Target | Reference |\n|------|--------|-----------|\n| Technical article | technical article, explanatory article, technical white paper | [technical-article.md](references/technical-article.md) |\n| Evidence report | research synthesis, fact-check report, evidence review | [evidence-report.md](references/evidence-report.md) |\n| Decision brief | decision memo, position paper, executive technical brief | [decision-brief.md](references/decision-brief.md) |\n\n## Common Workflow\n\n### 1. Pin the Writing Contract\n\n- Confirm audience, decision or publication purpose, scope, genre, length, tone, date boundary, and required citation style\n- Identify supplied source material, claims that require current verification, and any editorial or organizational constraints\n- Preserve established terminology, names, dates, quotations, numbering, and traceability\n- If the user supplies a desired conclusion, treat it as a proposition to test rather than a fact to defend\n\n**Completion criterion:** audience, purpose, scope, mode, date boundary, source set, tone, length, and citation contract are explicit.\n\n### 2. Establish the Claim Architecture\n\n- State the central question and candidate conclusion\n- Build a claim hierarchy: central claim, supporting claims, evidence, counterclaims, limitations, and implications\n- Separate fact, estimate, inference, prediction, opinion, and value judgment\n- Remove claims that are irrelevant to the document purpose or unsupported by available evidence\n\n**Completion criterion:** every retained claim supports the document purpose, has a claim type, and maps to evidence, reasoning, counterclaim, limitation, or an explicit verification gap.\n\n### 3. Verify Before Drafting\n\n- Inspect supplied and project sources first; use `rd-research` for volatile, disputed, external, or decision-critical claims\n- Resolve timeline, version, jurisdiction, units, denominator, quotation context, and source ownership where material\n- Record conflicts and evidence gaps; do not let polished prose conceal uncertainty\n\n**Completion criterion:** every decision-critical or publishable factual claim is verified to the required precision or bounded in the planned wording before prose drafting begins.\n\n### 4. Draft for the Audience\n\n- Lead with the answer or decision relevance unless the genre requires another structure\n- Use the minimum sufficient structure and explain specialized terms only when audience knowledge requires it\n- Present the strongest material counterargument fairly before rebutting it\n- Keep evidence close to the claim it supports and distinguish sourced facts from the author's analysis\n- Use tables only for genuine comparison and diagrams only when they clarify structure, flow, or causality\n\n**Completion criterion:** the draft answers the central question for the target audience, preserves evidence boundaries and counterarguments, and contains no section without a decision or explanatory purpose.\n\n### 5. Edit and Verify\n\n- Check factual accuracy, citation entailment, chronology, causal logic, internal consistency, terminology, and numerical units\n- Remove promotional, slogan-like, template-like, repetitive, and unsupported language\n- Confirm the conclusion does not exceed the evidence and that limitations are specific rather than boilerplate\n- Preserve one canonical claim-source map for high-impact or contested documents\n- Remove secrets and unnecessary personal or infrastructure identifiers from publishable prose, quotations, screenshots, and appendices without obscuring material evidence limits\n\n**Completion criterion:** every material claim, citation, number, quotation, term, and conclusion passes the final accuracy and entailment check, with unresolved limitations still visible.\n\n## Tool Selection\n\n- Use local document and repository inspection before external retrieval\n- Use `rd-research` to build or refresh the evidence package; do not duplicate a deep research workflow inside drafting\n- Use document-format Skills for `.docx`, PDF, presentation, or spreadsheet artifacts after the content is stable\n- Use language-polish Skills only after factual and argumentative integrity is established\n\n## Quality Gates\n\n- [ ] Audience, purpose, scope, mode, and date boundary are explicit\n- [ ] Central and supporting claims are evidence-backed and logically connected\n- [ ] Facts, inferences, estimates, predictions, opinions, and examples are distinguishable\n- [ ] Strong counterarguments and material limitations are represented fairly\n- [ ] Citations support the adjacent claims and volatile facts carry time/version context\n- [ ] Tone is professional and specific, without promotional or template filler\n- [ ] Final conclusion stays within the evidence boundary\n- [ ] Publication content contains no secrets or unnecessary sensitive identifiers\n\n## Out of Scope\n\n- Use `rd-requirement`, `rd-solution`, `rd-design`, or `rd-specification` when that structured deliverable is the actual target\n- Use `rd-review` when the primary task is an independent verdict on an existing document\n- Do not invent sources, quotations, data, examples presented as real, dates, or causal certainty\n- Do not optimize persuasion by hiding counterevidence, uncertainty, or conflicts of interest\n\n\n# Request\nWrite a concise decision brief for the project owner using the supplied records, in at most 220 words. State the recommendation and its basis, the strongest material downside, unresolved decisions, and the next verification needed. Preserve source references and evidence limits. Do not execute any proposed action.\n\n# Supplied record: skills/rd-writing/evals/fixtures/concise-decision-brief.md\n# Concise decision brief: synthetic records\n\nAll records below are fictional evaluation inputs, not real product or deployment evidence.\n\n- R1: The owner must decide whether to expand a document assistant from an existing internal pilot to production use. The decision requires verifiable citations and an explicit acceptance policy.\n- D1: The supplied product-documentation excerpt describes document lookup and citation export. It contains no measured accuracy or production-acceptance claim.\n- T1: A convenience sample of 12 pilot questions produced 10 correct answers and 2 answers citing superseded documents. The sample was not randomized and does not establish general accuracy.\n- T2: No sensitive-data evaluation, sustained-load result, or production acceptance record is available.\n- A1: The user authorizes this decision brief only. No rollout, configuration change, approval, or baselining is authorized.\n- O1: Options are to retain the existing pilot with manual citation checks, or to expand to production. Manual checking reduces scale benefits and adds review work.\n- J1: The owner has not decided the tolerated citation-error rate or who will approve production acceptance.\n",
+        "prompt_sha256": "3b257b69529ba3db8849992458436174d7acb4fb5f02536107bdcdfa0f02eac9",
+        "sources": [
+          {
+            "path": "skills/rd-writing/SKILL.md",
+            "sha256": "cb77fed4ab080a36f1c697d1475314f12e80ae277e31405112e18e7b3a9eba07"
+          },
+          {
+            "path": "skills/rd-writing/evals/fixtures/concise-decision-brief.md",
+            "sha256": "fd59b9798aabbf027eedda1b6ede9e66db56f1fb01e66b9700787bc95b4ef702"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      [
+        "astra-xhigh",
+        "gpt-6-astra",
+        "xhigh"
+      ],
+      [
+        "astra-max",
+        "gpt-6-astra",
+        "max"
+      ],
+      [
+        "sol-5.6-high",
+        "gpt-5.6-sol",
+        "high"
+      ],
+      [
+        "sol-6.1-high",
+        "gpt-6.1-sol",
+        "high"
+      ]
+    ],
+    "route_cases": [
+      {
+        "id": "hf-baseline",
+        "description": "Hugging Face Hub CLI (`hf`) for downloading, uploading, and managing models, datasets, spaces, buckets, repos, papers, jobs, and more on the Hugging Face Hub. Use when: handling authentication; managing local cache; managing Hugging Face Buckets; running or scheduling jobs on Hugging Face infrastructure; managing Hugging Face repos; discussions and pull requests; browsing models, datasets and spaces; reading, searching, or browsing academic papers; managing collections; querying datasets; configuring spaces; setting up webhooks; or deploying and managing HF Inference Endpoints. Make sure to use this skill whenever the user mentions 'hf', 'huggingface', 'Hugging Face', 'huggingface-cli', or 'hugging face cli', or wants to do anything related to the Hugging Face ecosystem and to AI and ML in general. Also use for cloud storage needs like training checkpoints, data pipelines, or agent traces. Use even if the user doesn't explicitly ask for a CLI command. Replaces the deprecated `huggingface-cli`.",
+        "prompt": "This is a metadata routing decision test. Use only the supplied Skill description to decide whether to load hf-cli for each request. Do not execute requests or use tools. Return only a JSON object mapping each case ID to true or false.\n\nSkill description:\nHugging Face Hub CLI (`hf`) for downloading, uploading, and managing models, datasets, spaces, buckets, repos, papers, jobs, and more on the Hugging Face Hub. Use when: handling authentication; managing local cache; managing Hugging Face Buckets; running or scheduling jobs on Hugging Face infrastructure; managing Hugging Face repos; discussions and pull requests; browsing models, datasets and spaces; reading, searching, or browsing academic papers; managing collections; querying datasets; configuring spaces; setting up webhooks; or deploying and managing HF Inference Endpoints. Make sure to use this skill whenever the user mentions 'hf', 'huggingface', 'Hugging Face', 'huggingface-cli', or 'hugging face cli', or wants to do anything related to the Hugging Face ecosystem and to AI and ML in general. Also use for cloud storage needs like training checkpoints, data pipelines, or agent traces. Use even if the user doesn't explicitly ask for a CLI command. Replaces the deprecated `huggingface-cli`.\n\nRequests:\n[{\"id\": \"H1\", \"request\": \"Download a model revision from a Hugging Face Hub repository to a local folder.\"}, {\"id\": \"H2\", \"request\": \"Inspect a Hugging Face Space and its build status.\"}, {\"id\": \"H3\", \"request\": \"List files in a Hugging Face Bucket without uploading or deleting anything.\"}, {\"id\": \"N1\", \"request\": \"Review an AI coding assistant PRD for traceability and acceptance criteria.\"}, {\"id\": \"N2\", \"request\": \"Find primary research papers on power-grid anomaly detection.\"}, {\"id\": \"N3\", \"request\": \"Design an Amazon S3 data pipeline for training checkpoints.\"}]",
+        "prompt_sha256": "1e0e9dc3e45c7f3395259dd9953ca5b1df6c3f003cd13e8d4b33ea2c108bb1f6"
+      },
+      {
+        "id": "hf-candidate",
+        "description": "Use the Hugging Face Hub CLI (`hf`) for tasks involving Hugging Face Hub repositories, models, datasets, Spaces, Buckets, Jobs, collections, papers, or Inference Endpoints, including related authentication, cache management, downloads, uploads, and administration. Use when the requested resource or operation is explicitly in the Hugging Face ecosystem, even if the user does not request a CLI command. Do not use for general AI/ML research, academic papers, cloud storage, or data pipelines without a Hugging Face target.",
+        "prompt": "This is a metadata routing decision test. Use only the supplied Skill description to decide whether to load hf-cli for each request. Do not execute requests or use tools. Return only a JSON object mapping each case ID to true or false.\n\nSkill description:\nUse the Hugging Face Hub CLI (`hf`) for tasks involving Hugging Face Hub repositories, models, datasets, Spaces, Buckets, Jobs, collections, papers, or Inference Endpoints, including related authentication, cache management, downloads, uploads, and administration. Use when the requested resource or operation is explicitly in the Hugging Face ecosystem, even if the user does not request a CLI command. Do not use for general AI/ML research, academic papers, cloud storage, or data pipelines without a Hugging Face target.\n\nRequests:\n[{\"id\": \"H1\", \"request\": \"Download a model revision from a Hugging Face Hub repository to a local folder.\"}, {\"id\": \"H2\", \"request\": \"Inspect a Hugging Face Space and its build status.\"}, {\"id\": \"H3\", \"request\": \"List files in a Hugging Face Bucket without uploading or deleting anything.\"}, {\"id\": \"N1\", \"request\": \"Review an AI coding assistant PRD for traceability and acceptance criteria.\"}, {\"id\": \"N2\", \"request\": \"Find primary research papers on power-grid anomaly detection.\"}, {\"id\": \"N3\", \"request\": \"Design an Amazon S3 data pipeline for training checkpoints.\"}]",
+        "prompt_sha256": "be2ab719217e1af09ed91ef084169b30b6b83b175e656b4f20217703976dc533"
+      }
+    ],
+    "route_expected": {
+      "H1": true,
+      "H2": true,
+      "H3": true,
+      "N1": false,
+      "N2": false,
+      "N3": false
+    },
+    "criteria_frozen_before_execution": true,
+    "sample_count": 12,
+    "timeout_seconds": 240,
+    "retries": 0,
+    "comparison_boundary": "Single supplied-text sample per case and variant; no native subagent or tool-use test. CLI model identifiers are requested identities; backend identity is not independently attested."
+  },
+  "grading": {
+    "assertions_frozen_before_execution": true,
+    "grader": "Task agent, manual semantic review with exact-excerpt and word-count checks; not independent or blinded.",
+    "presentation_rule": "PRD content assertions assess the excerpt. One outer Markdown fence is stripped for the excerpt comparison; raw equality and the fence remain recorded separately. This interpretation was documented during grading, not predeclared as a normalization policy.",
+    "compound_assertions": "Fail when any component fails; no failed sample is replaced."
+  },
+  "routing_description_comparison": [
+    {
+      "id": "hf-baseline",
+      "description": "Hugging Face Hub CLI (`hf`) for downloading, uploading, and managing models, datasets, spaces, buckets, repos, papers, jobs, and more on the Hugging Face Hub. Use when: handling authentication; managing local cache; managing Hugging Face Buckets; running or scheduling jobs on Hugging Face infrastructure; managing Hugging Face repos; discussions and pull requests; browsing models, datasets and spaces; reading, searching, or browsing academic papers; managing collections; querying datasets; configuring spaces; setting up webhooks; or deploying and managing HF Inference Endpoints. Make sure to use this skill whenever the user mentions 'hf', 'huggingface', 'Hugging Face', 'huggingface-cli', or 'hugging face cli', or wants to do anything related to the Hugging Face ecosystem and to AI and ML in general. Also use for cloud storage needs like training checkpoints, data pipelines, or agent traces. Use even if the user doesn't explicitly ask for a CLI command. Replaces the deprecated `huggingface-cli`.",
+      "prompt": "This is a metadata routing decision test. Use only the supplied Skill description to decide whether to load hf-cli for each request. Do not execute requests or use tools. Return only a JSON object mapping each case ID to true or false.\n\nSkill description:\nHugging Face Hub CLI (`hf`) for downloading, uploading, and managing models, datasets, spaces, buckets, repos, papers, jobs, and more on the Hugging Face Hub. Use when: handling authentication; managing local cache; managing Hugging Face Buckets; running or scheduling jobs on Hugging Face infrastructure; managing Hugging Face repos; discussions and pull requests; browsing models, datasets and spaces; reading, searching, or browsing academic papers; managing collections; querying datasets; configuring spaces; setting up webhooks; or deploying and managing HF Inference Endpoints. Make sure to use this skill whenever the user mentions 'hf', 'huggingface', 'Hugging Face', 'huggingface-cli', or 'hugging face cli', or wants to do anything related to the Hugging Face ecosystem and to AI and ML in general. Also use for cloud storage needs like training checkpoints, data pipelines, or agent traces. Use even if the user doesn't explicitly ask for a CLI command. Replaces the deprecated `huggingface-cli`.\n\nRequests:\n[{\"id\": \"H1\", \"request\": \"Download a model revision from a Hugging Face Hub repository to a local folder.\"}, {\"id\": \"H2\", \"request\": \"Inspect a Hugging Face Space and its build status.\"}, {\"id\": \"H3\", \"request\": \"List files in a Hugging Face Bucket without uploading or deleting anything.\"}, {\"id\": \"N1\", \"request\": \"Review an AI coding assistant PRD for traceability and acceptance criteria.\"}, {\"id\": \"N2\", \"request\": \"Find primary research papers on power-grid anomaly detection.\"}, {\"id\": \"N3\", \"request\": \"Design an Amazon S3 data pipeline for training checkpoints.\"}]",
+      "prompt_sha256": "1e0e9dc3e45c7f3395259dd9953ca5b1df6c3f003cd13e8d4b33ea2c108bb1f6",
+      "result": {
+        "id": "hf-baseline",
+        "model_requested": "gpt-6-astra",
+        "reasoning_requested": "high",
+        "exit_code": 0,
+        "timed_out": false,
+        "elapsed_seconds": 11.84,
+        "prompt_sha256": "1e0e9dc3e45c7f3395259dd9953ca5b1df6c3f003cd13e8d4b33ea2c108bb1f6",
+        "responses": [
+          "{\"H1\":true,\"H2\":true,\"H3\":true,\"N1\":true,\"N2\":true,\"N3\":true}"
+        ],
+        "response_sha256": [
+          "d2c0a4a1ab12417332f28f82924479d33f0dc8d1e18bcdcc7732dbd4c14ea1c4"
+        ],
+        "item_types": [
+          "agent_message"
+        ],
+        "usage": [
+          {
+            "input_tokens": 14291,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 58,
+            "reasoning_output_tokens": 21
+          }
+        ],
+        "errors": [],
+        "malformed_event_lines": 0,
+        "stderr_observations": [
+          "PowerShell shell snapshots unsupported; text response completed.",
+          "Websocket prewarm setup reported a connection/TLS close warning; response completed. The sample is retained."
+        ]
+      },
+      "observed": {
+        "H1": true,
+        "H2": true,
+        "H3": true,
+        "N1": true,
+        "N2": true,
+        "N3": true
+      },
+      "expected": {
+        "H1": true,
+        "H2": true,
+        "H3": true,
+        "N1": false,
+        "N2": false,
+        "N3": false
+      },
+      "passed": 3,
+      "total": 6
+    },
+    {
+      "id": "hf-candidate",
+      "description": "Use the Hugging Face Hub CLI (`hf`) for tasks involving Hugging Face Hub repositories, models, datasets, Spaces, Buckets, Jobs, collections, papers, or Inference Endpoints, including related authentication, cache management, downloads, uploads, and administration. Use when the requested resource or operation is explicitly in the Hugging Face ecosystem, even if the user does not request a CLI command. Do not use for general AI/ML research, academic papers, cloud storage, or data pipelines without a Hugging Face target.",
+      "prompt": "This is a metadata routing decision test. Use only the supplied Skill description to decide whether to load hf-cli for each request. Do not execute requests or use tools. Return only a JSON object mapping each case ID to true or false.\n\nSkill description:\nUse the Hugging Face Hub CLI (`hf`) for tasks involving Hugging Face Hub repositories, models, datasets, Spaces, Buckets, Jobs, collections, papers, or Inference Endpoints, including related authentication, cache management, downloads, uploads, and administration. Use when the requested resource or operation is explicitly in the Hugging Face ecosystem, even if the user does not request a CLI command. Do not use for general AI/ML research, academic papers, cloud storage, or data pipelines without a Hugging Face target.\n\nRequests:\n[{\"id\": \"H1\", \"request\": \"Download a model revision from a Hugging Face Hub repository to a local folder.\"}, {\"id\": \"H2\", \"request\": \"Inspect a Hugging Face Space and its build status.\"}, {\"id\": \"H3\", \"request\": \"List files in a Hugging Face Bucket without uploading or deleting anything.\"}, {\"id\": \"N1\", \"request\": \"Review an AI coding assistant PRD for traceability and acceptance criteria.\"}, {\"id\": \"N2\", \"request\": \"Find primary research papers on power-grid anomaly detection.\"}, {\"id\": \"N3\", \"request\": \"Design an Amazon S3 data pipeline for training checkpoints.\"}]",
+      "prompt_sha256": "be2ab719217e1af09ed91ef084169b30b6b83b175e656b4f20217703976dc533",
+      "result": {
+        "id": "hf-candidate",
+        "model_requested": "gpt-6-astra",
+        "reasoning_requested": "high",
+        "exit_code": 0,
+        "timed_out": false,
+        "elapsed_seconds": 9.56,
+        "prompt_sha256": "be2ab719217e1af09ed91ef084169b30b6b83b175e656b4f20217703976dc533",
+        "responses": [
+          "{\"H1\":true,\"H2\":true,\"H3\":true,\"N1\":false,\"N2\":false,\"N3\":false}"
+        ],
+        "response_sha256": [
+          "9ad7a97a06f832203537ebc77e352bd693ee03ee514033c23918d64aa611fe66"
+        ],
+        "item_types": [
+          "agent_message"
+        ],
+        "usage": [
+          {
+            "input_tokens": 14183,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 35,
+            "reasoning_output_tokens": 0
+          }
+        ],
+        "errors": [],
+        "malformed_event_lines": 0,
+        "stderr_observations": [
+          "PowerShell shell snapshots unsupported; text response completed."
+        ]
+      },
+      "observed": {
+        "H1": true,
+        "H2": true,
+        "H3": true,
+        "N1": false,
+        "N2": false,
+        "N3": false
+      },
+      "expected": {
+        "H1": true,
+        "H2": true,
+        "H3": true,
+        "N1": false,
+        "N2": false,
+        "N3": false
+      },
+      "passed": 6,
+      "total": 6
+    }
+  ],
+  "model_samples": [
+    {
+      "id": "rd-requirement-5--astra-xhigh",
+      "model_requested": "gpt-6-astra",
+      "reasoning_requested": "xhigh",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 14.82,
+      "prompt_sha256": "e581b59ad41b3fa16112cd892ddaa54dcec8619d43ec3e9b3c2cf1c325eef55c",
+      "responses": [
+        "# Query PRD\nStatus: draft, unapproved\n## Scope\nR-01: Exact lookup by ticket ID. Source: meeting A. Priority: P0. Acceptance: an existing ID returns only its matching ticket.\n## Performance\nR-02: Queries support internal use. Source: meeting A. Priority: P1. Acceptance: with 50 concurrent users, 10,000 records and 1,000 consecutive queries, P95 response time is at most 3 seconds.\n## Exclusions\nSemantic search is out of scope for the first release."
+      ],
+      "response_sha256": [
+        "1e68e44263a4dd16c878d6fcd8f7c00c31e858e27c5af93d785d8434a94ffb55"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "usage": [
+        {
+          "input_tokens": 15771,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 210,
+          "reasoning_output_tokens": 89
+        }
+      ],
+      "errors": [],
+      "malformed_event_lines": 0,
+      "case_id": "rd-requirement-5",
+      "variant": "astra-xhigh",
+      "run_order": 1,
+      "grades": [
+        {
+          "assertion": "The R-02 threshold is 3 seconds and its measurement conditions are unchanged",
+          "passed": true,
+          "rationale": "Threshold and measurement conditions preserved."
+        },
+        {
+          "assertion": "Sections, other text, requirement IDs, sources, priorities and acceptance mappings are unchanged",
+          "passed": true,
+          "rationale": "Compare the returned excerpt to the expected full excerpt; an outer Markdown fence is recorded separately as presentation."
+        },
+        {
+          "assertion": "The artifact remains a draft and unapproved, without a whole-document rewrite or approval step",
+          "passed": true,
+          "rationale": "Draft/unapproved status retained; no approval request or whole-document rewrite."
+        }
+      ],
+      "diagnostics": {
+        "raw_exact_match": true,
+        "outer_markdown_fence": false,
+        "excerpt_exact_match": true
+      },
+      "stderr_observations": [
+        "PowerShell shell snapshots unsupported; text response completed."
+      ]
+    },
+    {
+      "id": "rd-requirement-5--astra-max",
+      "model_requested": "gpt-6-astra",
+      "reasoning_requested": "max",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 24.1,
+      "prompt_sha256": "e581b59ad41b3fa16112cd892ddaa54dcec8619d43ec3e9b3c2cf1c325eef55c",
+      "responses": [
+        "```markdown\n# Query PRD\nStatus: draft, unapproved\n## Scope\nR-01: Exact lookup by ticket ID. Source: meeting A. Priority: P0. Acceptance: an existing ID returns only its matching ticket.\n## Performance\nR-02: Queries support internal use. Source: meeting A. Priority: P1. Acceptance: with 50 concurrent users, 10,000 records and 1,000 consecutive queries, P95 response time is at most 3 seconds.\n## Exclusions\nSemantic search is out of scope for the first release.\n```"
+      ],
+      "response_sha256": [
+        "19122f8a579d3521536be8d89ca4b08d9f1c99887c4adeb2cf01ed34a041c25f"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "usage": [
+        {
+          "input_tokens": 15771,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 459,
+          "reasoning_output_tokens": 334
+        }
+      ],
+      "errors": [],
+      "malformed_event_lines": 0,
+      "case_id": "rd-requirement-5",
+      "variant": "astra-max",
+      "run_order": 2,
+      "grades": [
+        {
+          "assertion": "The R-02 threshold is 3 seconds and its measurement conditions are unchanged",
+          "passed": true,
+          "rationale": "Threshold and measurement conditions preserved."
+        },
+        {
+          "assertion": "Sections, other text, requirement IDs, sources, priorities and acceptance mappings are unchanged",
+          "passed": true,
+          "rationale": "Compare the returned excerpt to the expected full excerpt; an outer Markdown fence is recorded separately as presentation."
+        },
+        {
+          "assertion": "The artifact remains a draft and unapproved, without a whole-document rewrite or approval step",
+          "passed": true,
+          "rationale": "Draft/unapproved status retained; no approval request or whole-document rewrite."
+        }
+      ],
+      "diagnostics": {
+        "raw_exact_match": false,
+        "outer_markdown_fence": true,
+        "excerpt_exact_match": true
+      },
+      "stderr_observations": [
+        "PowerShell shell snapshots unsupported; text response completed."
+      ]
+    },
+    {
+      "id": "rd-requirement-5--sol-5.6-high",
+      "model_requested": "gpt-5.6-sol",
+      "reasoning_requested": "high",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 12.68,
+      "prompt_sha256": "e581b59ad41b3fa16112cd892ddaa54dcec8619d43ec3e9b3c2cf1c325eef55c",
+      "responses": [
+        "Status: draft, unapproved\n## Scope\nR-01: Exact lookup by ticket ID. Source: meeting A. Priority: P0. Acceptance: an existing ID returns only its matching ticket.\n## Performance\nR-02: Queries support internal use. Source: meeting A. Priority: P1. Acceptance: with 50 concurrent users, 10,000 records and 1,000 consecutive queries, P95 response time is at most 3 seconds.\n## Exclusions\nSemantic search is out of scope for the first release."
+      ],
+      "response_sha256": [
+        "982d836db1bf94f1e15e416c9eb6086cf24abb10da2ef9f11d4234c9a9955f9e"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "usage": [
+        {
+          "input_tokens": 14594,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 114,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "errors": [],
+      "malformed_event_lines": 0,
+      "case_id": "rd-requirement-5",
+      "variant": "sol-5.6-high",
+      "run_order": 3,
+      "grades": [
+        {
+          "assertion": "The R-02 threshold is 3 seconds and its measurement conditions are unchanged",
+          "passed": true,
+          "rationale": "Threshold and measurement conditions preserved."
+        },
+        {
+          "assertion": "Sections, other text, requirement IDs, sources, priorities and acceptance mappings are unchanged",
+          "passed": false,
+          "rationale": "Compare the returned excerpt to the expected full excerpt; an outer Markdown fence is recorded separately as presentation."
+        },
+        {
+          "assertion": "The artifact remains a draft and unapproved, without a whole-document rewrite or approval step",
+          "passed": true,
+          "rationale": "Draft/unapproved status retained; no approval request or whole-document rewrite."
+        }
+      ],
+      "diagnostics": {
+        "raw_exact_match": false,
+        "outer_markdown_fence": false,
+        "excerpt_exact_match": false,
+        "failure": "The response omits the original # Query PRD title."
+      },
+      "stderr_observations": [
+        "PowerShell shell snapshots unsupported; text response completed."
+      ]
+    },
+    {
+      "id": "rd-requirement-5--sol-6.1-high",
+      "model_requested": "gpt-6.1-sol",
+      "reasoning_requested": "high",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 11.92,
+      "prompt_sha256": "e581b59ad41b3fa16112cd892ddaa54dcec8619d43ec3e9b3c2cf1c325eef55c",
+      "responses": [
+        "# Query PRD\nStatus: draft, unapproved\n## Scope\nR-01: Exact lookup by ticket ID. Source: meeting A. Priority: P0. Acceptance: an existing ID returns only its matching ticket.\n## Performance\nR-02: Queries support internal use. Source: meeting A. Priority: P1. Acceptance: with 50 concurrent users, 10,000 records and 1,000 consecutive queries, P95 response time is at most 3 seconds.\n## Exclusions\nSemantic search is out of scope for the first release."
+      ],
+      "response_sha256": [
+        "1e68e44263a4dd16c878d6fcd8f7c00c31e858e27c5af93d785d8434a94ffb55"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "usage": [
+        {
+          "input_tokens": 15835,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 119,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "errors": [],
+      "malformed_event_lines": 0,
+      "case_id": "rd-requirement-5",
+      "variant": "sol-6.1-high",
+      "run_order": 4,
+      "grades": [
+        {
+          "assertion": "The R-02 threshold is 3 seconds and its measurement conditions are unchanged",
+          "passed": true,
+          "rationale": "Threshold and measurement conditions preserved."
+        },
+        {
+          "assertion": "Sections, other text, requirement IDs, sources, priorities and acceptance mappings are unchanged",
+          "passed": true,
+          "rationale": "Compare the returned excerpt to the expected full excerpt; an outer Markdown fence is recorded separately as presentation."
+        },
+        {
+          "assertion": "The artifact remains a draft and unapproved, without a whole-document rewrite or approval step",
+          "passed": true,
+          "rationale": "Draft/unapproved status retained; no approval request or whole-document rewrite."
+        }
+      ],
+      "diagnostics": {
+        "raw_exact_match": true,
+        "outer_markdown_fence": false,
+        "excerpt_exact_match": true
+      },
+      "stderr_observations": [
+        "PowerShell shell snapshots unsupported; text response completed."
+      ]
+    },
+    {
+      "id": "rd-review-9--astra-max",
+      "model_requested": "gpt-6-astra",
+      "reasoning_requested": "max",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 89.65,
+      "prompt_sha256": "4fa26b138311fd487d3199537a22154642d4b62ebba59493260ce17c6c1693b9",
+      "responses": [
+        "T1’s recorded 90-second completion remains a **FAIL against R1’s 60-second requirement**. W1 explicitly accepts this unresolved failure for the limited internal pilot. No additional document defect is established by the supplied records.\n\n**Document-review verdict: Approved for D1’s 120-second threshold solely for the seven-day internal pilot on dataset D in environment E.** CR1 supplies the required product-owner approval, and A2 authorizes completion of this review. No further approval is needed to accept this document change.\n\nThis is a **Requirements-mode review** of the supplied D1 proposal together with the authorized addendum CR1, W1, H1, and A2; no separate version identifier is supplied. The review addresses requirement wording, exception boundaries, and test-record integrity for the internal pilot’s decision-makers. R1 and T1 provide the baseline requirement and recorded result. The reviewer’s authority under A1 is limited to issuing a document-review verdict.\n\nBoth review axes support acceptance within that scope:\n\n| Review subject | Alignment and evidence assessment | Intrinsic quality assessment |\n|---|---|---|\n| Pilot criterion | CR1 explicitly authorizes 120 seconds for seven days on D in E. | The threshold is measurable, and its dataset, environment, and duration are bounded. |\n| Existing failure | W1 explicitly accepts the unresolved R1 failure for this pilot only. | The exception permits the reduced pilot service objective while preserving the original requirement and failure record. |\n| Test-record integrity | H1 requires T1 to remain FAIL against its original criterion and permits a separate pilot comparison. | Keeping the two assessments distinct avoids misrepresenting a criterion change as a performance improvement. |\n| Scope and authority | CR1 retains the production requirement; W1 defines re-review triggers. | The document decision has clear limits and does not confer production-release authority. |\n\nThe recorded observation supports two distinct assessments:\n\n| Criterion | Assessment of T1’s recorded 90 seconds |\n|---|---|\n| Original R1: completion within 60 seconds | **FAIL**, unchanged: 90 > 60. |\n| Approved pilot D1: completion within 120 seconds | **Meets the pilot threshold in a separate comparison**: 90 ≤ 120. |\n\nThe second assessment uses the existing observation. It is not a new test execution, does not replace T1’s original verdict, and does not establish repeatability or successful operation throughout the pilot. No implementation change or performance improvement is demonstrated.\n\nThe following matters remain unresolved or reserved for later review:\n\n- **Original performance nonconformance:** R1 remains unmet by T1. W1 accepts its impact only within the authorized pilot. No remediation or successful result against 60 seconds is supplied.\n- **Re-review:** Review must reopen when the seven days expire, D or E changes, or production release is requested. Continued applicability of the pilot exception cannot be assumed beyond those boundaries.\n- **Production disposition:** Production retains the 60-second requirement and requires separate authority. Any production decision must address the outstanding R1 failure. The supplied records do not identify a remediation owner, remediation date, or production approver.\n\nThese are the existing limits of the approved change and its accepted exception. They do not prevent completion of the current document review."
+      ],
+      "response_sha256": [
+        "29b70ccfa8efbe997e07adc40ef0e2f80eeacd0ebc0c9c9909fc0c05b0b45694"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "usage": [
+        {
+          "input_tokens": 15947,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2740,
+          "reasoning_output_tokens": 2070
+        }
+      ],
+      "errors": [],
+      "malformed_event_lines": 0,
+      "case_id": "rd-review-9",
+      "variant": "astra-max",
+      "run_order": 5,
+      "grades": [
+        {
+          "assertion": "CR1 and W1 are recognized as valid authority for the limited pilot rather than rejected solely because the old test failed",
+          "passed": true,
+          "rationale": "CR1 and W1 recognized as valid pilot authority."
+        },
+        {
+          "assertion": "T1's original FAIL remains intact and any evaluation against 120 seconds is explicitly separate",
+          "passed": true,
+          "rationale": "Original FAIL retained; comparison with 120 seconds is separate."
+        },
+        {
+          "assertion": "The seven-day/D/E limits and re-review or production boundary remain explicit",
+          "passed": true,
+          "rationale": "Seven-day/D/E limits, re-review triggers, and production boundary retained."
+        },
+        {
+          "assertion": "The authorized document review finishes without duplicate approval or a claim of new testing or production release",
+          "passed": true,
+          "rationale": "Review completes without duplicate approval or a new-test/production-release claim."
+        }
+      ],
+      "diagnostics": {},
+      "stderr_observations": [
+        "PowerShell shell snapshots unsupported; text response completed."
+      ]
+    },
+    {
+      "id": "rd-review-9--astra-xhigh",
+      "model_requested": "gpt-6-astra",
+      "reasoning_requested": "xhigh",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 59.44,
+      "prompt_sha256": "4fa26b138311fd487d3199537a22154642d4b62ebba59493260ce17c6c1693b9",
+      "responses": [
+        "**Finding: the original performance failure remains unresolved, but it is explicitly accepted for the limited pilot. No approval-blocking defect in the proposed document change is established by the supplied records.**\n\n| Finding field | Assessment |\n|---|---|\n| Location | R1 and T1; disposition established by D1, CR1, W1, and H1 |\n| Axes | Alignment with the approved requirements and authorization; internal consistency and integrity of the test record |\n| Evidence | R1 requires completion within 60 seconds on D in E. T1 records 90 seconds and a FAIL. CR1 approves a 120-second threshold for the seven-day internal pilot only; W1 accepts the unresolved R1 failure within that scope. |\n| Impact and severity | **Critical against the unchanged production acceptance criterion:** the recorded result exceeds the required threshold by 30 seconds and cannot support acceptance against R1. For the pilot document decision, this is an expressly accepted exception, not an unresolved approval blocker. |\n| Required disposition | Preserve T1’s original FAIL, retain the production requirement of 60 seconds, and confine the 120-second criterion and accepted exception to the authorized pilot. Resolving the production nonconformance requires evidence of compliance with R1; changing the pilot document does not provide that evidence. |\n| Ownership and timing | PO-1’s pilot approval and exception acceptance are established. A remediation owner, production approval authority, and remediation deadline are not identified in the records. Re-review triggers are already defined by W1. |\n\n**Verdict: Approved for the limited pilot document change.** CR1 and W1 supply the necessary owner decision and bounded exception; A2 authorizes completion of this review without another approval request. This is a document-review verdict, not a new product-owner approval or a production-release authorization.\n\nThe review uses **Requirements mode** and covers D1 as qualified by the authoritative addendum CR1/W1/H1/A2. No separate version identifier is supplied. Its intended decision is acceptance of the requirement change for the seven-day internal pilot on D in E. The review authority comes from A1 and A2, with the verdict vocabulary **Approved / Conditionally Approved / Rejected**.\n\nBoth review axes support that verdict:\n\n- **Alignment and evidence:** D1’s 120-second threshold, duration, dataset, and environment match CR1’s approved scope. Production retains R1’s 60-second requirement. The supplied evidence reaches a **recorded runtime observation** through T1; it does not establish new execution, sustained pilot performance, or production acceptance.\n- **Internal consistency and reasoning:** T1 can remain FAIL against 60 seconds while its recorded 90-second duration satisfies the separate 120-second pilot criterion. Any separate documentary re-evaluation must identify the pilot criterion and retain the original result. The change reflects an approved reduction in the pilot service objective; it provides no evidence of implementation or performance improvement.\n\nThe strongest objection is that relaxing a criterion after a failed test could conceal the failure. Here, CR1 explicitly authorizes the reduced pilot objective, W1 accepts the residual failure, and H1 preserves the original evidence. Those records resolve the objection for this bounded document decision.\n\n**What remains unresolved:** compliance with the original 60-second requirement has not been demonstrated. No implementation change or new test execution is supplied, and no production release is authorized. The approval remains confined to the existing authorized scope. Re-review is required when the seven days expire, D or E changes, or production release is requested; it must reassess the applicable requirement, supporting evidence, and authority for the next decision. These are existing limits, not requests to approve the same pilot change again."
+      ],
+      "response_sha256": [
+        "309f5bbe19c0f2fd6a74bbad4c23685e8047026a103863c4eebcc9aef8c92b67"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "usage": [
+        {
+          "input_tokens": 15947,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1701,
+          "reasoning_output_tokens": 946
+        }
+      ],
+      "errors": [],
+      "malformed_event_lines": 0,
+      "case_id": "rd-review-9",
+      "variant": "astra-xhigh",
+      "run_order": 6,
+      "grades": [
+        {
+          "assertion": "CR1 and W1 are recognized as valid authority for the limited pilot rather than rejected solely because the old test failed",
+          "passed": true,
+          "rationale": "CR1 and W1 recognized as valid pilot authority."
+        },
+        {
+          "assertion": "T1's original FAIL remains intact and any evaluation against 120 seconds is explicitly separate",
+          "passed": true,
+          "rationale": "Original FAIL retained; comparison with 120 seconds is separate."
+        },
+        {
+          "assertion": "The seven-day/D/E limits and re-review or production boundary remain explicit",
+          "passed": true,
+          "rationale": "Seven-day/D/E limits, re-review triggers, and production boundary retained."
+        },
+        {
+          "assertion": "The authorized document review finishes without duplicate approval or a claim of new testing or production release",
+          "passed": true,
+          "rationale": "Review completes without duplicate approval or a new-test/production-release claim."
+        }
+      ],
+      "diagnostics": {},
+      "stderr_observations": [
+        "PowerShell shell snapshots unsupported; text response completed."
+      ]
+    },
+    {
+      "id": "rd-review-9--sol-6.1-high",
+      "model_requested": "gpt-6.1-sol",
+      "reasoning_requested": "high",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 43.27,
+      "prompt_sha256": "4fa26b138311fd487d3199537a22154642d4b62ebba59493260ce17c6c1693b9",
+      "responses": [
+        "**No document defect blocking the limited pilot change is established. The original performance failure remains unresolved, but W1 expressly accepts it for the authorized pilot. Verdict: Approved for the document change to a 120-second threshold, limited to the seven-day internal pilot on D in E.** This review does not grant product-owner approval or authorize production release; CR1 already supplies the applicable product-owner approval.\n\nThe review target is D1 as bounded by CR1, W1, and H1. The primary mode is **Requirements review**, and the decision is whether to accept the criterion change in the pilot document. The review basis consists exclusively of the supplied synthetic records. No new test execution or external verification was performed.\n\nThe retained issue is the existing performance nonconformance, not a newly established defect in D1:\n\n| Review element | Assessment |\n|---|---|\n| **Location** | R1 and T1; exception and integrity requirements in W1 and H1 |\n| **Axes** | **Alignment/evidence:** T1 fails the original approved requirement. **Intrinsic quality:** the pilot document must preserve the distinct pilot and production criteria and the original test verdict. |\n| **Evidence** | R1 requires completion within 60 seconds on D in E. T1 records 90 seconds and a FAIL verdict. CR1 approves 120 seconds for the pilot; W1 accepts the unresolved R1 failure only within that scope. |\n| **Impact and severity rationale** | **Critical for demonstrating compliance with the retained production requirement:** the recorded result exceeds 60 seconds, so it cannot support a production acceptance decision. For this document review, the issue is an expressly accepted pilot exception and does not block approval of D1. |\n| **Bounded action** | Preserve T1 as FAIL against R1. Any separate assessment against the pilot criterion must identify the 120-second criterion and remain distinct from the original verdict. Before production acceptance, resolve the R1 nonconformance and obtain the separately required authority. |\n| **Assignment and timing** | PO-1 owns the supplied pilot approval and exception acceptance. No remediation owner or deadline is supplied. Re-review is triggered by expiry of the seven days, a change to D or E, or a production-release request. |\n\nBoth review axes support the limited document approval. On **alignment and evidence**, D1 matches CR1’s approved threshold, duration, dataset, and environment. The addendum supersedes the fixture’s default treatment of D1 as an unapproved proposal. On **intrinsic quality**, the supplied records establish a consistent distinction between the reduced pilot objective, the retained production requirement, and the historical test result. No implementation change or other defect is established.\n\nThe strongest counterexample is that changing the criterion could conceal the original failure or imply production readiness. H1 prevents retrospective rewriting of T1, while CR1 and W1 restrict the exception to the pilot. A result outside the seven-day window, on a different dataset or environment, or offered for production acceptance would exceed this authorization and trigger re-review.\n\nThe document change is accepted with these established boundaries:\n\n- The 120-second criterion applies only to the seven-day internal pilot on D in E.\n- Production retains the 60-second requirement.\n- T1 remains FAIL against its original criterion.\n- The specified expiry, dataset/environment changes, and production-release request trigger re-review.\n\n**What remains unresolved:** compliance with R1’s 60-second requirement and production acceptance. T1’s recorded 90 seconds is numerically within the approved pilot threshold, but that comparison is not a newly executed test or evidence of sustained pilot performance. No additional approval is needed to complete this document review."
+      ],
+      "response_sha256": [
+        "d38d961969b684e91ff682b126327d9f86cc806a4376da615c29c146ee1b2ed9"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "usage": [
+        {
+          "input_tokens": 16011,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1079,
+          "reasoning_output_tokens": 331
+        }
+      ],
+      "errors": [],
+      "malformed_event_lines": 0,
+      "case_id": "rd-review-9",
+      "variant": "sol-6.1-high",
+      "run_order": 7,
+      "grades": [
+        {
+          "assertion": "CR1 and W1 are recognized as valid authority for the limited pilot rather than rejected solely because the old test failed",
+          "passed": true,
+          "rationale": "CR1 and W1 recognized as valid pilot authority."
+        },
+        {
+          "assertion": "T1's original FAIL remains intact and any evaluation against 120 seconds is explicitly separate",
+          "passed": true,
+          "rationale": "Original FAIL retained; comparison with 120 seconds is separate."
+        },
+        {
+          "assertion": "The seven-day/D/E limits and re-review or production boundary remain explicit",
+          "passed": true,
+          "rationale": "Seven-day/D/E limits, re-review triggers, and production boundary retained."
+        },
+        {
+          "assertion": "The authorized document review finishes without duplicate approval or a claim of new testing or production release",
+          "passed": true,
+          "rationale": "Review completes without duplicate approval or a new-test/production-release claim."
+        }
+      ],
+      "diagnostics": {},
+      "stderr_observations": [
+        "PowerShell shell snapshots unsupported; text response completed."
+      ]
+    },
+    {
+      "id": "rd-review-9--sol-5.6-high",
+      "model_requested": "gpt-5.6-sol",
+      "reasoning_requested": "high",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 28.43,
+      "prompt_sha256": "4fa26b138311fd487d3199537a22154642d4b62ebba59493260ce17c6c1693b9",
+      "responses": [
+        "# Criterion-Change Review Report\n\n## Findings\n\nNo Blocker, Critical, Major, or Minor defect is established by the supplied records.\n\nThe earlier absence of product-owner approval is resolved by **CR1** and **A2**. PO-1 has authorized the 120-second criterion for the specifically bounded seven-day internal pilot, and the supplied record establishes that PO-1 has authority for that scope. The same approval must not be requested again merely to complete this review.\n\n## Review basis\n\n| Item | Review basis |\n|---|---|\n| Primary review mode | Requirements |\n| Target | D1 acceptance-criterion change |\n| Scope | Seven-day internal pilot, dataset D, environment E |\n| Intended decision | Whether the limited document change may be accepted |\n| Authority | Document-review verdict under A1/A2; product-owner decision supplied by CR1 |\n| Upstream requirement | R1: completion within 60 seconds on D in E |\n| Recorded evidence | T1: 90 seconds on D in E; FAIL against R1 |\n| Authorized change | CR1: 120 seconds for the bounded internal pilot only |\n| Exception | W1: PO-1 accepts the unresolved R1 failure for this pilot only |\n| Verdict vocabulary | Approved / Conditionally Approved / Rejected |\n\n## Assessment\n\n### Alignment and evidence\n\nThe limited change is aligned with the authorized decision:\n\n- CR1 expressly approves D1’s 120-second threshold.\n- The authorization is restricted to a seven-day internal pilot on D in E.\n- Production continues to use the original 60-second requirement.\n- W1 expressly accepts the unresolved R1 failure within the pilot boundary.\n- H1 preserves the integrity of T1: it remains a failure against the criterion under which it was executed.\n\nThe highest supplied evidence state is a recorded test result. The addendum authorizes a requirements-document change; it does not establish production acceptance, authorize production release, or record execution of a new test against the pilot criterion.\n\n### Intrinsic quality and verifiability\n\nThe change is internally coherent when D1 is read together with CR1, W1, and H1. The two thresholds do not conflict because they govern different scopes:\n\n| Scope | Applicable threshold |\n|---|---:|\n| Seven-day internal pilot on D in E | 120 seconds |\n| Production | 60 seconds |\n\nThe relevant failure paths are bounded:\n\n- Expiration after seven days triggers re-review.\n- A change to D or E triggers re-review.\n- A production-release request triggers re-review and requires separate authority.\n- T1 cannot be relabeled or rewritten as a pass against R1.\n- Applying the pilot criterion outside its authorized scope would be unsupported.\n\n## Verdict\n\n**Approved — limited document change only.**\n\nThe 120-second criterion may be accepted for the authorized seven-day internal pilot on dataset D in environment E. This verdict recognizes the already-established PO-1 decision in CR1; it does not independently grant product-owner approval and does not authorize production release.\n\nThe controlling document or attached decision record must preserve these boundaries:\n\n1. The 120-second threshold applies only to the seven-day internal pilot on D in E.\n2. Production retains the 60-second requirement.\n3. T1 remains recorded as **FAIL** against the original 60-second criterion.\n4. Any evaluation of T1 against the pilot criterion must be recorded separately rather than replacing the original result.\n5. Re-review is required when the seven-day period expires, D or E changes, or production release is requested.\n\n## Unresolved matters\n\n- **Original requirement failure:** T1 remains an unresolved failure against R1. W1 accepts that failure only for the bounded pilot; it does not correct or eliminate it.\n- **Pilot-criterion verification:** No separate re-evaluation of T1 against the approved 120-second pilot criterion is supplied. Although the recorded 90-second duration is numerically below 120 seconds, H1 requires any resulting pilot verdict to be recorded separately.\n- **Production suitability:** The records provide no basis for accepting 90 seconds against the production requirement or changing production’s 60-second threshold.\n- **Post-pilot disposition:** The applicable requirement after the seven-day pilot must be determined at the mandated re-review. No continuation or expansion is presently authorized.\n- **Changed conditions:** Any change to dataset D or environment E falls outside this approval until re-reviewed.\n\nNo further PO-1 approval is needed to complete this document review. New authority would be required only for an extension, scope change, production release, or another decision outside CR1 and W1."
+      ],
+      "response_sha256": [
+        "7c4ce70594d430528e6e59b99687826e7c79294deca371a47861f4941d79433c"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "usage": [
+        {
+          "input_tokens": 14770,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1455,
+          "reasoning_output_tokens": 516
+        }
+      ],
+      "errors": [],
+      "malformed_event_lines": 0,
+      "case_id": "rd-review-9",
+      "variant": "sol-5.6-high",
+      "run_order": 8,
+      "grades": [
+        {
+          "assertion": "CR1 and W1 are recognized as valid authority for the limited pilot rather than rejected solely because the old test failed",
+          "passed": true,
+          "rationale": "CR1 and W1 recognized as valid pilot authority."
+        },
+        {
+          "assertion": "T1's original FAIL remains intact and any evaluation against 120 seconds is explicitly separate",
+          "passed": true,
+          "rationale": "Original FAIL retained; comparison with 120 seconds is separate."
+        },
+        {
+          "assertion": "The seven-day/D/E limits and re-review or production boundary remain explicit",
+          "passed": true,
+          "rationale": "Seven-day/D/E limits, re-review triggers, and production boundary retained."
+        },
+        {
+          "assertion": "The authorized document review finishes without duplicate approval or a claim of new testing or production release",
+          "passed": true,
+          "rationale": "Review completes without duplicate approval or a new-test/production-release claim."
+        }
+      ],
+      "diagnostics": {},
+      "stderr_observations": [
+        "PowerShell shell snapshots unsupported; text response completed."
+      ]
+    },
+    {
+      "id": "rd-writing-4--astra-xhigh",
+      "model_requested": "gpt-6-astra",
+      "reasoning_requested": "xhigh",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 39.83,
+      "prompt_sha256": "3b257b69529ba3db8849992458436174d7acb4fb5f02536107bdcdfa0f02eac9",
+      "responses": [
+        "**Recommendation:** Retain the existing pilot with manual citation checks; defer production expansion until an explicit acceptance policy and supporting verification are available. Production requires verifiable citations and an acceptance policy. [R1, O1]\n\nThe documentation describes document lookup and citation export, but establishes neither measured accuracy nor production readiness. [D1] The convenience sample yielded 10 correct answers and two answers citing superseded documents across 12 questions. This demonstrates a citation problem within the sample; its nonrandom selection does not establish general accuracy. No sensitive-data evaluation, sustained-load result, or production acceptance record is available. [T1, T2]\n\nThe strongest downside is that manual checks add review work and reduce scale benefits. [O1] Nevertheless, the available evidence does not justify accepting production citation risk before the owner defines an acceptable error rate.\n\nThe owner still needs to decide the tolerated citation-error rate and who will approve production acceptance, then establish the explicit acceptance policy. This brief supplies neither a threshold nor approval. [J1, R1]\n\nNext, subject to separate authorization, verify answer correctness and citation currency using a representative evaluation against that policy; obtain sensitive-data and sustained-load results before seeking documented production acceptance. [T1, T2, R1]\n\nThis recommendation rests solely on synthetic supplied records. Authorization covers this brief only; no operational action, approval, or baselining is authorized. [A1]"
+      ],
+      "response_sha256": [
+        "45afe414843d86de0047aec15f3063ccea172e4e44bbfaa6e1afc542964ee217"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "usage": [
+        {
+          "input_tokens": 15434,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 987,
+          "reasoning_output_tokens": 696
+        }
+      ],
+      "errors": [],
+      "malformed_event_lines": 0,
+      "case_id": "rd-writing-4",
+      "variant": "astra-xhigh",
+      "run_order": 9,
+      "grades": [
+        {
+          "assertion": "The recommendation defers production expansion without inventing approval and distinguishes the existing pilot from a new authorized action.",
+          "passed": true,
+          "rationale": "Defers production and distinguishes recommendation from authority."
+        },
+        {
+          "assertion": "T1 is represented as 10 correct and 2 superseded-citation answers out of 12; its convenience sample is not presented as established general accuracy.",
+          "passed": true,
+          "rationale": "Retains 10 correct and two superseded citations out of 12 without generalizing accuracy."
+        },
+        {
+          "assertion": "T2 gaps and the unresolved J1 acceptance decisions remain explicit; missing facts or decision owners are not invented.",
+          "passed": true,
+          "rationale": "Retains T2 gaps and J1 acceptance decisions."
+        },
+        {
+          "assertion": "The downside of manual citation checking and a concrete next verification tied to the observed failures or missing evidence are retained.",
+          "passed": true,
+          "rationale": "Includes manual-review downside and concrete proposed verification."
+        },
+        {
+          "assertion": "The brief identifies the records as synthetic, cites the relevant record IDs, and stays within 220 whitespace-separated words without padding.",
+          "passed": true,
+          "rationale": "Compound assertion: synthetic provenance, record references, and 220-word limit."
+        }
+      ],
+      "diagnostics": {
+        "whitespace_word_count": 213,
+        "synthetic_provenance_present": true
+      },
+      "stderr_observations": [
+        "PowerShell shell snapshots unsupported; text response completed."
+      ]
+    },
+    {
+      "id": "rd-writing-4--astra-max",
+      "model_requested": "gpt-6-astra",
+      "reasoning_requested": "max",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 68.0,
+      "prompt_sha256": "3b257b69529ba3db8849992458436174d7acb4fb5f02536107bdcdfa0f02eac9",
+      "responses": [
+        "Recommend retaining the existing pilot with manual citation checks and deferring production expansion until an explicit acceptance policy and supporting validation are available. [R1, O1] This assessment relies solely on the supplied synthetic records.\n\nThe strongest downside is reduced scale benefits and added review work. [O1] Production readiness remains unverified: documentation describes lookup and citation export without measured accuracy or production-acceptance claims. [D1] Twelve pilot questions produced 10 correct answers and two answers citing superseded documents; the nonrandom convenience sample cannot establish general accuracy. [T1] Sensitive-data evaluation, sustained-load results, and production-acceptance records are absent. [T2]\n\nThe owner must decide the tolerated citation-error rate and who will approve production acceptance, and establish the explicit acceptance policy. [J1, R1]\n\nThe next proposed verification is to assess answer correctness and citation validity and currency using a representative question set checked against current authoritative documents, evaluate sensitive-data handling and sustained load, and document results against the agreed acceptance policy for the designated approver. These are proposed checks; their outcomes remain unknown. [R1, T1, T2, J1]\n\nAuthorization covers this brief only; rollout, configuration changes, approval, and baselining remain unauthorized. [A1]"
+      ],
+      "response_sha256": [
+        "527b46eb613019b7084bd212664758d157437f0cc8e8b2ba81416a76d74ccc2e"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "usage": [
+        {
+          "input_tokens": 15434,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2031,
+          "reasoning_output_tokens": 1766
+        }
+      ],
+      "errors": [],
+      "malformed_event_lines": 0,
+      "case_id": "rd-writing-4",
+      "variant": "astra-max",
+      "run_order": 10,
+      "grades": [
+        {
+          "assertion": "The recommendation defers production expansion without inventing approval and distinguishes the existing pilot from a new authorized action.",
+          "passed": true,
+          "rationale": "Defers production and distinguishes recommendation from authority."
+        },
+        {
+          "assertion": "T1 is represented as 10 correct and 2 superseded-citation answers out of 12; its convenience sample is not presented as established general accuracy.",
+          "passed": true,
+          "rationale": "Retains 10 correct and two superseded citations out of 12 without generalizing accuracy."
+        },
+        {
+          "assertion": "T2 gaps and the unresolved J1 acceptance decisions remain explicit; missing facts or decision owners are not invented.",
+          "passed": true,
+          "rationale": "Retains T2 gaps and J1 acceptance decisions."
+        },
+        {
+          "assertion": "The downside of manual citation checking and a concrete next verification tied to the observed failures or missing evidence are retained.",
+          "passed": true,
+          "rationale": "Includes manual-review downside and concrete proposed verification."
+        },
+        {
+          "assertion": "The brief identifies the records as synthetic, cites the relevant record IDs, and stays within 220 whitespace-separated words without padding.",
+          "passed": true,
+          "rationale": "Compound assertion: synthetic provenance, record references, and 220-word limit."
+        }
+      ],
+      "diagnostics": {
+        "whitespace_word_count": 185,
+        "synthetic_provenance_present": true
+      },
+      "stderr_observations": [
+        "PowerShell shell snapshots unsupported; text response completed."
+      ]
+    },
+    {
+      "id": "rd-writing-4--sol-5.6-high",
+      "model_requested": "gpt-5.6-sol",
+      "reasoning_requested": "high",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 15.19,
+      "prompt_sha256": "3b257b69529ba3db8849992458436174d7acb4fb5f02536107bdcdfa0f02eac9",
+      "responses": [
+        "## Decision Brief\n\n**Recommendation:** Retain the internal pilot with mandatory manual citation checks; do not expand to production yet.\n\n**Basis:** Production use requires verifiable citations and an explicit acceptance policy (R1), but the available documentation only describes document lookup and citation export; it makes no measured accuracy or production-acceptance claim (D1). In a convenience sample of 12 pilot questions, 10 answers were correct and 2 cited superseded documents (T1). Because the sample was small and non-randomized, it does not establish general accuracy. No sensitive-data evaluation, sustained-load result, or production acceptance record is available (T2). The current evidence therefore cannot demonstrate production readiness.\n\n**Strongest material downside:** Continuing manual citation checks reduces the assistant’s scale benefits and adds review work (O1). Delaying expansion may also postpone operational learning, although the records do not quantify that cost.\n\n**Unresolved decisions:** The owner must define the tolerated citation-error rate and designate who has authority to approve production acceptance (J1). The acceptance policy should also specify required evidence for sensitive-data handling and sustained-load performance.\n\n**Next verification:** Run a representative, pre-specified evaluation against current and superseded documents, measuring citation correctness against the owner-approved threshold. Separately verify sensitive-data behavior and sustained-load performance, then record an authorized production-acceptance decision.\n\nThis brief authorizes no rollout, configuration change, approval, or baseline (A1)."
+      ],
+      "response_sha256": [
+        "cac6ccc703563ca79c5c5c8410e57279bbcea02a2bdf55380bb66d3fd09e9143"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "usage": [
+        {
+          "input_tokens": 14257,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 398,
+          "reasoning_output_tokens": 97
+        }
+      ],
+      "errors": [],
+      "malformed_event_lines": 0,
+      "case_id": "rd-writing-4",
+      "variant": "sol-5.6-high",
+      "run_order": 11,
+      "grades": [
+        {
+          "assertion": "The recommendation defers production expansion without inventing approval and distinguishes the existing pilot from a new authorized action.",
+          "passed": true,
+          "rationale": "Defers production and distinguishes recommendation from authority."
+        },
+        {
+          "assertion": "T1 is represented as 10 correct and 2 superseded-citation answers out of 12; its convenience sample is not presented as established general accuracy.",
+          "passed": true,
+          "rationale": "Retains 10 correct and two superseded citations out of 12 without generalizing accuracy."
+        },
+        {
+          "assertion": "T2 gaps and the unresolved J1 acceptance decisions remain explicit; missing facts or decision owners are not invented.",
+          "passed": true,
+          "rationale": "Retains T2 gaps and J1 acceptance decisions."
+        },
+        {
+          "assertion": "The downside of manual citation checking and a concrete next verification tied to the observed failures or missing evidence are retained.",
+          "passed": true,
+          "rationale": "Includes manual-review downside and concrete proposed verification."
+        },
+        {
+          "assertion": "The brief identifies the records as synthetic, cites the relevant record IDs, and stays within 220 whitespace-separated words without padding.",
+          "passed": false,
+          "rationale": "Compound assertion: synthetic provenance, record references, and 220-word limit."
+        }
+      ],
+      "diagnostics": {
+        "whitespace_word_count": 211,
+        "synthetic_provenance_present": false,
+        "failure": "The brief omits synthetic provenance; its 211-word length meets the limit."
+      },
+      "stderr_observations": [
+        "PowerShell shell snapshots unsupported; text response completed."
+      ]
+    },
+    {
+      "id": "rd-writing-4--sol-6.1-high",
+      "model_requested": "gpt-6.1-sol",
+      "reasoning_requested": "high",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 21.59,
+      "prompt_sha256": "3b257b69529ba3db8849992458436174d7acb4fb5f02536107bdcdfa0f02eac9",
+      "responses": [
+        "**Recommendation:** Retain the existing internal pilot with manual citation checks and defer production expansion until an explicit acceptance policy and supporting evidence are available [R1, O1]. This is a recommendation based solely on synthetic supplied records, not a production-readiness finding.\n\n**Basis:** Documentation describes document lookup and citation export but supplies no measured accuracy or production-acceptance evidence [D1]. Of 12 convenience-sampled pilot questions, 10 produced correct answers and two cited superseded documents; the nonrandom sample cannot establish general accuracy [T1]. Sensitive-data evaluation, sustained-load results, and production acceptance records are absent [T2]. Together, these records do not establish that the assistant meets the owner’s citation and acceptance requirements [R1].\n\n**Strongest material downside:** Continued manual checking adds review work and reduces scale benefits; deferring expansion prolongs those costs [O1]. That tradeoff supports promptly establishing acceptance criteria and testing against them.\n\n**Unresolved decisions:** The owner must determine the tolerated citation-error rate and designate who approves production acceptance [J1], then make the acceptance policy explicit [R1].\n\n**Next verification needed:** Once those decisions are made, evaluate a representative question set against authoritative, current documents, record citation failures against the agreed threshold, and obtain sensitive-data and sustained-load evidence for acceptance review [T1, T2].\n\nThis brief does not approve production use or authorize rollout, configuration changes, or baselining [A1]."
+      ],
+      "response_sha256": [
+        "3764746aaddd2e6dc91a5e2f0ec340a7eeed2e021f985802c4cdf47a3fd27c6d"
+      ],
+      "item_types": [
+        "agent_message"
+      ],
+      "usage": [
+        {
+          "input_tokens": 15498,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 434,
+          "reasoning_output_tokens": 133
+        }
+      ],
+      "errors": [],
+      "malformed_event_lines": 0,
+      "case_id": "rd-writing-4",
+      "variant": "sol-6.1-high",
+      "run_order": 12,
+      "grades": [
+        {
+          "assertion": "The recommendation defers production expansion without inventing approval and distinguishes the existing pilot from a new authorized action.",
+          "passed": true,
+          "rationale": "Defers production and distinguishes recommendation from authority."
+        },
+        {
+          "assertion": "T1 is represented as 10 correct and 2 superseded-citation answers out of 12; its convenience sample is not presented as established general accuracy.",
+          "passed": true,
+          "rationale": "Retains 10 correct and two superseded citations out of 12 without generalizing accuracy."
+        },
+        {
+          "assertion": "T2 gaps and the unresolved J1 acceptance decisions remain explicit; missing facts or decision owners are not invented.",
+          "passed": true,
+          "rationale": "Retains T2 gaps and J1 acceptance decisions."
+        },
+        {
+          "assertion": "The downside of manual citation checking and a concrete next verification tied to the observed failures or missing evidence are retained.",
+          "passed": true,
+          "rationale": "Includes manual-review downside and concrete proposed verification."
+        },
+        {
+          "assertion": "The brief identifies the records as synthetic, cites the relevant record IDs, and stays within 220 whitespace-separated words without padding.",
+          "passed": true,
+          "rationale": "Compound assertion: synthetic provenance, record references, and 220-word limit."
+        }
+      ],
+      "diagnostics": {
+        "whitespace_word_count": 211,
+        "synthetic_provenance_present": true
+      },
+      "stderr_observations": [
+        "PowerShell shell snapshots unsupported; text response completed."
+      ]
+    }
+  ],
+  "totals": {
+    "astra-xhigh": {
+      "assertions_passed": 12,
+      "assertions_total": 12,
+      "cases_passed": 3,
+      "cases_total": 3,
+      "elapsed_seconds": 114.09,
+      "output_tokens": 2898
+    },
+    "astra-max": {
+      "assertions_passed": 12,
+      "assertions_total": 12,
+      "cases_passed": 3,
+      "cases_total": 3,
+      "elapsed_seconds": 181.75,
+      "output_tokens": 5230
+    },
+    "sol-5.6-high": {
+      "assertions_passed": 10,
+      "assertions_total": 12,
+      "cases_passed": 1,
+      "cases_total": 3,
+      "elapsed_seconds": 56.3,
+      "output_tokens": 1967
+    },
+    "sol-6.1-high": {
+      "assertions_passed": 12,
+      "assertions_total": 12,
+      "cases_passed": 3,
+      "cases_total": 3,
+      "elapsed_seconds": 76.78,
+      "output_tokens": 1632
+    }
+  },
+  "personal_configuration_verification": {
+    "applied_load_results": [
+      {
+        "profile": "base",
+        "model": "gpt-6-astra",
+        "model_reasoning_effort": "max",
+        "plan_mode_reasoning_effort": "high",
+        "mcp_servers": {
+          "context7": {
+            "enabled": false,
+            "has_command": true
+          },
+          "tavily": {
+            "enabled": false,
+            "has_command": true
+          }
+        },
+        "skill_errors": 0,
+        "hf": [
+          {
+            "name": "hf-cli",
+            "description": "Use the Hugging Face Hub CLI (`hf`) for tasks involving Hugging Face Hub repositories, models, datasets, Spaces, Buckets, Jobs, collections, papers, or Inference Endpoints, including related authentication, cache management, downloads, uploads, and administration. Use when the requested resource or operation is explicitly in the Hugging Face ecosystem, even if the user does not request a CLI command. Do not use for general AI/ML research, academic papers, cloud storage, or data pipelines without a Hugging Face target.",
+            "enabled": true
+          }
+        ],
+        "exit_code": 0,
+        "stderr_lines": 0,
+        "warning_lines": 0
+      },
+      {
+        "profile": "high",
+        "validation_path": "native mcp list; schema validated separately; reasoning values read from profile source",
+        "reasoning_overrides": {
+          "model_reasoning_effort": "high",
+          "plan_mode_reasoning_effort": "high"
+        },
+        "mcp_servers": {
+          "context7": {
+            "enabled": false,
+            "has_command": true
+          },
+          "tavily": {
+            "enabled": false,
+            "has_command": true
+          }
+        },
+        "exit_code": 0,
+        "stderr_lines": 0
+      },
+      {
+        "profile": "routine",
+        "validation_path": "native mcp list; schema validated separately; reasoning values read from profile source",
+        "reasoning_overrides": {
+          "model_reasoning_effort": "medium",
+          "plan_mode_reasoning_effort": "high"
+        },
+        "mcp_servers": {
+          "context7": {
+            "enabled": false,
+            "has_command": true
+          },
+          "tavily": {
+            "enabled": false,
+            "has_command": true
+          }
+        },
+        "exit_code": 0,
+        "stderr_lines": 0
+      },
+      {
+        "profile": "cli-research",
+        "validation_path": "native mcp list; schema validated separately; reasoning values read from profile source",
+        "reasoning_overrides": {},
+        "mcp_servers": {
+          "context7": {
+            "enabled": true,
+            "has_command": true
+          },
+          "tavily": {
+            "enabled": true,
+            "has_command": true
+          }
+        },
+        "exit_code": 0,
+        "stderr_lines": 0
+      }
+    ],
+    "hf_quick_validate": "passed",
+    "backup": "Four originals copied and hash-verified outside the repository; new profile absence checked before creation.",
+    "candidate_diagnostics": [
+      "An isolated candidate initially omitted two relative role files; hash-matched copies of the unchanged dependencies resolved the warnings.",
+      "The installed CLI rejects --profile for app-server and --strict-config for mcp. Profiles were instead checked with schema validation and native mcp list."
+    ],
+    "service_boundary": "MCP declarations and enablement loaded; business calls and Desktop reload not established."
+  },
+  "decision": "Apply the narrow Hugging Face description and configuration hygiene changes. Retain current Astra max/Plan high and Sol 5.6 high subagent defaults; Sol 6.1 is a candidate for a broader authorized trial, not proven equivalent by three supplied-text cases. Do not rewrite the nine shared RD Skill bodies.",
+  "limits": [
+    "Three English synthetic cases per model/effort variant; one sample per cell.",
+    "No actual subagent, implicit native routing, live retrieval, Chinese deliverable, multi-source architecture/standards, or production task evaluation.",
+    "Personal global instructions and host system context remain uncontrolled published-context dependencies.",
+    "Observed latency and token counts do not establish reliable speed, cost, or quality superiority.",
+    "Metadata routing comparison tests decisions from supplied descriptions, not live Skill selection/loading."
+  ],
+  "validation": {
+    "repository_static": "passed after correcting new evidence JSON CRLF to LF",
+    "negative_cases": "24/24 passed",
+    "dynamic_gate": "live schema matched pinned 0.160.0; four public examples schema-validated and strict-loaded",
+    "diff_check": "passed",
+    "private_integrity": "four original/candidate hash pairs verified; new profile guarded by hash; semantic delta limited to approved fields; HF body byte-identical; one personal governance clause",
+    "rollback": "guarded restore -WhatIf passed; rollback not executed",
+    "publication": "no commit, push, or release"
+  }
+}

@@ -4,6 +4,8 @@ The npm registry latest versions were rechecked on 2026-10-02; the installed Cod
 
 ## Codex
 
+The 2026-10-05 [configuration and Skill follow-up](config-skill-tuning.md) used CLI `0.160.0` for a bounded supplied-text comparison of Astra `xhigh/max` and Sol 5.6/6.1 `high`, with retained failures and inherited-context limits. It also checked a narrowed Hugging Face description, removed the retired personality setting from public examples, and clarified explorer permission wording. Native tool execution was blocked; this does not expand the broader runtime baseline below.
+
 | Component | Tested version | Registry latest checked | Notes |
 |---|---:|---:|---|
 | `@openai/codex` npm package | `0.147.0` | `0.160.0` | Registry latest and installed CLI `0.160.0` were rechecked on 2026-10-02. The tagged `0.160.0` schema was fetched for this release baseline; the release gate compares it with the current live schema and runs the four example checks. The broader tested baseline remains `0.147.0`. Do not hardcode this into the repository name or AGENTS rules. |

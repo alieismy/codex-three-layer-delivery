@@ -4,6 +4,8 @@ npm registry 最新版本已于 2026-10-02 重新核查；本机 Codex CLI 与�
 
 ## Codex
 
+2026-10-05 的[配置与 Skill 补充验证](config-skill-tuning.md)使用 CLI `0.160.0`，有界比较了给定文本后 Astra `xhigh/max` 和 Sol 5.6/6.1 `high` 的表现，保留失败样本和继承上下文限制；同时检查 Hugging Face 描述收窄、移除公共示例中的退役 personality 设置，并澄清 explorer 权限表述。原生工具执行受阻，因此不扩大下方更广运行基线的适用范围。
+
 | 组件 | 已测试版本 | registry 最新核查版本 | 备注 |
 |---|---:|---:|---|
 | `@openai/codex` npm 包 | `0.147.0` | `0.160.0` | registry 与本机 CLI `0.160.0` 已于 2026-10-02 重新核查。已为本次发布基线获取 tag 固定的 `0.160.0` Schema；发布门禁会将其与实时 Schema 比较并执行四份示例检查。更广的测试基线仍为 `0.147.0`。不要把该版本写进仓库名或 AGENTS 规则。 |
