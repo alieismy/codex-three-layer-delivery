@@ -12,6 +12,7 @@ alwaysApply: false
 - Run the smallest sufficient checks first. Broaden verification for shared behavior, cross-module contracts, security-critical paths, build or release contracts, or an explicit user request.
 - Record commands and results. If a check cannot run, state why and identify the resulting evidence limit.
 - Apply the selected `rd-*` Skill's own completion criteria rather than copying specialist procedures into this rule.
+- Use workflows to cover required outcomes. Reuse valid upstream work and combine, reorder, or parallelize independent steps when prerequisites and completion criteria remain satisfied; justify material exclusions. Preserve mandatory sequences, authority boundaries, and applicable gates. Report the decision-relevant result without reproducing every internal check.
 - For explicit `/rd-delivery`, also verify artifact authority, dependencies, phase gates, decisions, waivers, re-review triggers, and durable handoff pointers.
 
 ## Completion Report

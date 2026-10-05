@@ -25,11 +25,12 @@ Produce **decision-ready feasibility studies** that distinguish confirmed facts,
 ### 1. Study Scope Confirmation
 
 - Clarify the decision question: what needs to be judged feasible or infeasible
+- Identify the decision stage when it changes the evidence needed: exploration, a bounded pilot, wider adoption, or production commitment
 - Identify the target audience: decision-makers, project approval committee, client reviewers, technical leadership
 - Confirm input sources: PRD, meeting notes, existing system documents, standards, policies, budgets, schedules
 - Separate facts from assumptions before evaluating feasibility
 
-**Completion criterion:** the decision question, comparison scope, audience, source set, facts, assumptions, and evidence gaps are explicit.
+**Completion criterion:** the decision question, relevant decision stage, comparison scope, audience, source set, facts, assumptions, and evidence gaps are explicit.
 
 ### 2. Feasibility Dimensions
 
@@ -37,13 +38,13 @@ Evaluate the option or project across these dimensions:
 
 | Dimension | Check Content |
 |-----------|---------------|
-| Necessity | problem value, policy/business driver, stakeholder demand |
+| Necessity and opportunity | problem value, policy/business driver, stakeholder demand, potential gains, and the cost of delaying or retaining the current approach |
 | Technical feasibility | maturity, compatibility, integration constraints, data availability, architecture fit |
 | Economic feasibility | budget, lifecycle cost, licensing, staffing, procurement |
 | Schedule feasibility | milestones, dependencies, review cycles, delivery risks |
 | Operational feasibility | installability, maintainability, staffing model, process fit, training, support and rollback |
 | Security and compliance | regulations, standards, privacy, supply-chain exposure, security controls, auditability |
-| Sustainability | upstream maintenance, release cadence, licensing, vendor or community dependency, exit path |
+| Sustainability | upstream maintenance, release cadence, licensing, vendor or community dependency, future evolution, learning value, and exit path |
 | Risk feasibility | high-risk assumptions, external dependencies, failure modes, fallback options |
 
 **Completion criterion:** every material dimension is assessed against evidence or explicitly excluded with a reason; no missing dimension is silently treated as favorable.
@@ -52,6 +53,7 @@ Evaluate the option or project across these dimensions:
 
 - Compare at least two options when a real choice exists
 - Include the baseline option, such as maintaining the current process, when relevant
+- Assess the baseline's costs and risks on the same basis as new options; distinguish promising hypotheses from options already supported for the proposed stage
 - Explain why any option is excluded before detailed comparison
 - Do not present a single preferred option as if alternatives do not exist
 
@@ -73,9 +75,10 @@ Evaluate the option or project across these dimensions:
 - Provide a clear verdict: feasible / conditionally feasible / not feasible
 - State confidence level: high / medium / low
 - Explain the minimum conditions required to proceed
+- Recommend a bounded experiment or staged adoption when the evidence supports that step, with scope, resource limits, success and stop criteria, recovery, and evidence needed before expansion. Missing production evidence alone does not rule out a supported pilot; an unmet pilot-critical condition remains a condition or blocker
 - List blocking issues, open questions, and recommended next actions
 
-**Completion criterion:** the verdict, confidence, proceed conditions, blockers, residual risks, and next verification actions follow from the comparison rather than from preference.
+**Completion criterion:** the verdict is tied to the stated decision stage; confidence, proceed conditions, blockers, residual risks, and the next verification or adoption action follow from the comparison rather than from preference. A recommendation does not claim approval or execution.
 
 ## Context and Baseline Check
 
@@ -103,7 +106,7 @@ Pre-delivery checklist:
 - [ ] Core feasibility dimensions are covered or exclusions are justified
 - [ ] At least two options are compared when a choice exists
 - [ ] Key data and standards claims have source attribution
-- [ ] Verdict, confidence, conditions, risks, and next actions are clear
+- [ ] Verdict, confidence, conditions, risks, and next actions match the decision stage; material opportunity costs and the evidence needed for expansion are visible
 - [ ] Compatibility, lifecycle, security, support, and exit-path concerns are covered when technology adoption is in scope
 - [ ] No fabricated cost, schedule, benchmark, policy, or standards claims
 
