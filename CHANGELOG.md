@@ -4,7 +4,7 @@ All notable changes to this project should be documented here.
 
 This project uses GitHub releases for versioning. Directory names should not contain edition or version suffixes such as `v4` or `-en`.
 
-## Unreleased
+## 1.8.2 - 2026-10-05
 
 - Recorded a seven-upstream source follow-up and a fourteen-response paired pilot separating native Skill loading, semantic quality, and observed cost. Added four synthetic delivery/design regressions across six payload mirrors (51 canonical output definitions), refreshed attribution including the current OMX MIT license, and retained all first responses, grading, diagnostics, and causal limits. Equal observed assertion results leave Skill instructions, routing, permissions, and public model defaults unchanged.
 - Checked the actual pilot package through a fresh artifact handoff and offline preparation of all fourteen prompts. Clarified exact manifest serialization with a verified export recipe while preserving the original evidence and separating preparation checks from new model or business results.
