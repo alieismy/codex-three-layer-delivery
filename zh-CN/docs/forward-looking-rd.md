@@ -18,7 +18,7 @@
 
 其余五个 RD 工作流保持不变。本次工作未改变 Skill 描述、调用策略、公共模型默认值、Validator 逻辑或维护者 `AGENTS.md`；模型选择仍归配置管理。英文来源已同步至简体中文及适用的 Claude Code、Cursor 适配文件；Claude 项目适配器继续只作薄层导入。Cursor 保持一条常驻规则，其余专业规则按条件加载。
 
-新增三个合成输出用例：有依据的试点、无依据的生产压力，以及固定接口约束下的有潜力架构。每个 canonical 语言目录现有 47 个输出用例；该清单数量不同于下方选定的行为样本数。
+新增三个合成输出用例：有依据的试点、无依据的生产压力，以及固定接口约束下的有潜力架构。本次更新完成时，每个 canonical 语言目录有 47 个输出用例；该清单数量不同于下方选定的行为样本数。随后的[上游学习试点](upstream-learning-pilot.md)另行记录其新增案例与观察。
 
 该方法与 OpenAI 强调意图、结果和必要约束、避免过度程序化控制的建议一致；官方指南提供设计依据，不能证明本次变更已产生效果。参见 [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra) 和[当前模型提示指南](https://developers.openai.com/api/docs/guides/latest-model)。委派仍服从宿主实际能力和适用授权，相关能力边界参见[子代理文档](https://learn.chatgpt.com/docs/agent-configuration/subagents)。
 
