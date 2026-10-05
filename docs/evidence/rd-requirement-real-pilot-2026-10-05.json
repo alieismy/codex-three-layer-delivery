@@ -254,7 +254,7 @@
     "retain": "Keep this worked example and use source-grounded normal, exception, and boundary examples when they resolve a material requirement ambiguity.",
     "observed_value": "Two source-verified acceptance ambiguities were repaired and the resulting local behavior was exercised. This demonstrates completion of this case, without causal attribution to the extra candidate method.",
     "existing_contract": "Current rd-requirement step 4 already requires material normal/exception/boundary coverage; step 6 requires scoped convergence.",
-    "default_skill_changes": "None: bodies, routing, metadata, adapters, references, and eval definitions remain unchanged.",
+    "default_skill_changes": "None during this requirement follow-up: bodies, routing, metadata, adapters, references, and eval definitions remained unchanged.",
     "canonical_output_case_definitions_per_language": 51,
     "optional_future_trial": "A reversible, bounded real task with a clear value hypothesis can try the method without requiring the current baseline to fail first. Check that the execution path can complete before another comparison.",
     "broader_adoption_evidence": "Representative usable outcomes and acceptable total effort; comparable inputs and retained first attempts are additionally required if claiming comparative benefit. Question counts, document length, model agreement, or local application test counts are not method-benefit evidence.",
