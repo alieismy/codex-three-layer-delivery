@@ -1,0 +1,1361 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-05",
+  "purpose": "Real repository artifact handoff and dated recipe preparation follow-up",
+  "authority": "User explicitly selected the current repository change as the real document package; no commit, remote write, model rerun, or business deployment is part of this follow-up.",
+  "baseline_commit": "075338c4273a0b5e4575268e77c516e135e85f3e",
+  "scope": [
+    "Actual English/Chinese pilot reports and public evidence",
+    "Affected canonical eval and fixture mappings",
+    "Dated launcher preparation and caller prerequisites",
+    "Bounded documentation correction and applicable validation"
+  ],
+  "input_identity": {
+    "baseline_commit": "075338c4273a0b5e4575268e77c516e135e85f3e",
+    "changed_paths": [
+      "ATTRIBUTION.md",
+      "CHANGELOG.md",
+      "claude/project/.claude/skills/rd-delivery/evals/evals.json",
+      "claude/project/.claude/skills/rd-delivery/evals/fixtures/consumption-boundary.md",
+      "claude/project/.claude/skills/rd-delivery/evals/fixtures/scope-validity.md",
+      "claude/project/.claude/skills/rd-design/evals/evals.json",
+      "claude/project/.claude/skills/rd-design/evals/fixtures/contract-semantics.md",
+      "claude/project/.claude/skills/rd-design/evals/fixtures/interface-burden.md",
+      "cursor/project/.cursor/skills/rd-delivery/evals/evals.json",
+      "cursor/project/.cursor/skills/rd-delivery/evals/fixtures/consumption-boundary.md",
+      "cursor/project/.cursor/skills/rd-delivery/evals/fixtures/scope-validity.md",
+      "cursor/project/.cursor/skills/rd-design/evals/evals.json",
+      "cursor/project/.cursor/skills/rd-design/evals/fixtures/contract-semantics.md",
+      "cursor/project/.cursor/skills/rd-design/evals/fixtures/interface-burden.md",
+      "cursor/zh-CN/.cursor/skills/rd-delivery/evals/evals.json",
+      "cursor/zh-CN/.cursor/skills/rd-delivery/evals/fixtures/consumption-boundary.md",
+      "cursor/zh-CN/.cursor/skills/rd-delivery/evals/fixtures/scope-validity.md",
+      "cursor/zh-CN/.cursor/skills/rd-design/evals/evals.json",
+      "cursor/zh-CN/.cursor/skills/rd-design/evals/fixtures/contract-semantics.md",
+      "cursor/zh-CN/.cursor/skills/rd-design/evals/fixtures/interface-burden.md",
+      "docs/compatibility.md",
+      "docs/evidence/upstream-learning-pilot-2026-10-05.json",
+      "docs/forward-looking-rd.md",
+      "docs/rd-skills-assessment.md",
+      "docs/upstream-learning-pilot.md",
+      "skills/rd-delivery/evals/evals.json",
+      "skills/rd-delivery/evals/fixtures/consumption-boundary.md",
+      "skills/rd-delivery/evals/fixtures/scope-validity.md",
+      "skills/rd-design/evals/evals.json",
+      "skills/rd-design/evals/fixtures/contract-semantics.md",
+      "skills/rd-design/evals/fixtures/interface-burden.md",
+      "zh-CN/claude/project/.claude/skills/rd-delivery/evals/evals.json",
+      "zh-CN/claude/project/.claude/skills/rd-delivery/evals/fixtures/consumption-boundary.md",
+      "zh-CN/claude/project/.claude/skills/rd-delivery/evals/fixtures/scope-validity.md",
+      "zh-CN/claude/project/.claude/skills/rd-design/evals/evals.json",
+      "zh-CN/claude/project/.claude/skills/rd-design/evals/fixtures/contract-semantics.md",
+      "zh-CN/claude/project/.claude/skills/rd-design/evals/fixtures/interface-burden.md",
+      "zh-CN/docs/compatibility.md",
+      "zh-CN/docs/forward-looking-rd.md",
+      "zh-CN/docs/rd-skills-assessment.md",
+      "zh-CN/docs/upstream-learning-pilot.md",
+      "zh-CN/skills/rd-delivery/evals/evals.json",
+      "zh-CN/skills/rd-delivery/evals/fixtures/consumption-boundary.md",
+      "zh-CN/skills/rd-delivery/evals/fixtures/scope-validity.md",
+      "zh-CN/skills/rd-design/evals/evals.json",
+      "zh-CN/skills/rd-design/evals/fixtures/contract-semantics.md",
+      "zh-CN/skills/rd-design/evals/fixtures/interface-burden.md"
+    ],
+    "files": {
+      "AGENTS.md": {
+        "sha256": "e61111e9b7c3d5d735da8b96a370d207b9791e7c477a3cd3a13d15f61e2b2bfd",
+        "bytes": 7589
+      },
+      "ATTRIBUTION.md": {
+        "sha256": "47a7b4c53f76d009e3b492c64a5b82426e6ae15ebb79dd976f303108c7cd1b1f",
+        "bytes": 8381
+      },
+      "CHANGELOG.md": {
+        "sha256": "6eb44e700b7cbdb84d64a05864364a357c63c13f91963d55813fd90670726fc3",
+        "bytes": 21051
+      },
+      "README.md": {
+        "sha256": "150f5e0cf5e45c4b039326642b1529efe413f378128d8eb03fac5efa3baa9dc3",
+        "bytes": 20155
+      },
+      "claude/project/.claude/skills/rd-delivery/evals/evals.json": {
+        "sha256": "dd234b9592220d88ee1ccea64613b9ad89be4ce3ce3e999289607d13a2a01368",
+        "bytes": 7973
+      },
+      "claude/project/.claude/skills/rd-delivery/evals/fixtures/consumption-boundary.md": {
+        "sha256": "5e8937a99e5aa773dee07365469441db8636e8904079827dfe2a9c14d89376bf",
+        "bytes": 1885
+      },
+      "claude/project/.claude/skills/rd-delivery/evals/fixtures/scope-validity.md": {
+        "sha256": "365ca7cc07dc55c584a14cd64b9fafdd555e7dd6c2304ec9c3e2148331559cd7",
+        "bytes": 2375
+      },
+      "claude/project/.claude/skills/rd-design/evals/evals.json": {
+        "sha256": "2260e5e475404913c28bef23aa180b097b3d4bef9793a1be13a4c76b943bf7b3",
+        "bytes": 6565
+      },
+      "claude/project/.claude/skills/rd-design/evals/fixtures/contract-semantics.md": {
+        "sha256": "6d166493214d6ede932edd29e39f937ce2bf29d36c39027014363ac1e70462fe",
+        "bytes": 2114
+      },
+      "claude/project/.claude/skills/rd-design/evals/fixtures/interface-burden.md": {
+        "sha256": "80efd82215655cc4154e8e86783d568fb730ee463632dc268a87b253b1d3ea71",
+        "bytes": 2663
+      },
+      "cursor/project/.cursor/skills/rd-delivery/evals/evals.json": {
+        "sha256": "dd234b9592220d88ee1ccea64613b9ad89be4ce3ce3e999289607d13a2a01368",
+        "bytes": 7973
+      },
+      "cursor/project/.cursor/skills/rd-delivery/evals/fixtures/consumption-boundary.md": {
+        "sha256": "5e8937a99e5aa773dee07365469441db8636e8904079827dfe2a9c14d89376bf",
+        "bytes": 1885
+      },
+      "cursor/project/.cursor/skills/rd-delivery/evals/fixtures/scope-validity.md": {
+        "sha256": "365ca7cc07dc55c584a14cd64b9fafdd555e7dd6c2304ec9c3e2148331559cd7",
+        "bytes": 2375
+      },
+      "cursor/project/.cursor/skills/rd-design/evals/evals.json": {
+        "sha256": "2260e5e475404913c28bef23aa180b097b3d4bef9793a1be13a4c76b943bf7b3",
+        "bytes": 6565
+      },
+      "cursor/project/.cursor/skills/rd-design/evals/fixtures/contract-semantics.md": {
+        "sha256": "6d166493214d6ede932edd29e39f937ce2bf29d36c39027014363ac1e70462fe",
+        "bytes": 2114
+      },
+      "cursor/project/.cursor/skills/rd-design/evals/fixtures/interface-burden.md": {
+        "sha256": "80efd82215655cc4154e8e86783d568fb730ee463632dc268a87b253b1d3ea71",
+        "bytes": 2663
+      },
+      "cursor/zh-CN/.cursor/skills/rd-delivery/evals/evals.json": {
+        "sha256": "726d60961f2976efc938a2c7cb7fe5cdfe91a5e7e30903dc81dd54c6b082276e",
+        "bytes": 6705
+      },
+      "cursor/zh-CN/.cursor/skills/rd-delivery/evals/fixtures/consumption-boundary.md": {
+        "sha256": "0d7d47372bdd585e55ab238320d36b0159f9416d869be0b31b4f12bc15d98d2c",
+        "bytes": 1540
+      },
+      "cursor/zh-CN/.cursor/skills/rd-delivery/evals/fixtures/scope-validity.md": {
+        "sha256": "80f3d5b4fea79c9827829a8639f16eacc6c2067a4915195c134479fc8776a65d",
+        "bytes": 1949
+      },
+      "cursor/zh-CN/.cursor/skills/rd-design/evals/evals.json": {
+        "sha256": "3469bc9da203142b1ee62fc19522d33a3874e2a8820049376b92b0679d184120",
+        "bytes": 5275
+      },
+      "cursor/zh-CN/.cursor/skills/rd-design/evals/fixtures/contract-semantics.md": {
+        "sha256": "d8478011df785dac1792163d5606d6915efe592052f0c30e0504d94e2c0e76d1",
+        "bytes": 1715
+      },
+      "cursor/zh-CN/.cursor/skills/rd-design/evals/fixtures/interface-burden.md": {
+        "sha256": "edffd84e43cb64597879bea791f570741ea5ac35d0aeded8e83f5e4024dc3047",
+        "bytes": 2123
+      },
+      "docs/compatibility.md": {
+        "sha256": "c31beeeb0055c6197af306675d4accf461d05d85c7b61cacd189b5f46fbda5b1",
+        "bytes": 17152
+      },
+      "docs/evidence/upstream-learning-pilot-2026-10-05.json": {
+        "sha256": "7f1cfe571af77db1200b3a7452fe9a98a788ec81ea0aece55363658811da0a4e",
+        "bytes": 283075
+      },
+      "docs/forward-looking-rd.md": {
+        "sha256": "195f358a4298b967f38ec8d89c918a35ee00ef40def91287f6075f04cd404fc5",
+        "bytes": 9098
+      },
+      "docs/rd-skills-assessment.md": {
+        "sha256": "18e35f1488130695dd9d567b5f57573c21fa4bf35cfef44d5494a975946b232e",
+        "bytes": 26327
+      },
+      "docs/release-checklist.md": {
+        "sha256": "4b3805e8318e974eaf59b16fe5ad75a4395fbd2f4552da5ef58d4edf231713b1",
+        "bytes": 9303
+      },
+      "docs/upstream-learning-pilot.md": {
+        "sha256": "7a73bc92006809ff95dab2e659edbc2935b31c7195e445f0e4e323571cc8ef53",
+        "bytes": 17752
+      },
+      "scripts/test-validator.ps1": {
+        "sha256": "494632be54847d19267028bbe3e0bb7a03f363dafef32414427b4dfa68654937",
+        "bytes": 48919
+      },
+      "scripts/validate-release.ps1": {
+        "sha256": "2c9d3c30ab52057a86ea8802b2fb796cb46df73aee47de91e4176b78767f4a8c",
+        "bytes": 6774
+      },
+      "scripts/validate.ps1": {
+        "sha256": "21c863ed5903b059f7ae5b827bbcce1de9b36e826daf64281cf88768b6d59cec",
+        "bytes": 67927
+      },
+      "skills/rd-delivery/evals/evals.json": {
+        "sha256": "dd234b9592220d88ee1ccea64613b9ad89be4ce3ce3e999289607d13a2a01368",
+        "bytes": 7973
+      },
+      "skills/rd-delivery/evals/fixtures/consumption-boundary.md": {
+        "sha256": "5e8937a99e5aa773dee07365469441db8636e8904079827dfe2a9c14d89376bf",
+        "bytes": 1885
+      },
+      "skills/rd-delivery/evals/fixtures/scope-validity.md": {
+        "sha256": "365ca7cc07dc55c584a14cd64b9fafdd555e7dd6c2304ec9c3e2148331559cd7",
+        "bytes": 2375
+      },
+      "skills/rd-design/evals/evals.json": {
+        "sha256": "2260e5e475404913c28bef23aa180b097b3d4bef9793a1be13a4c76b943bf7b3",
+        "bytes": 6565
+      },
+      "skills/rd-design/evals/fixtures/contract-semantics.md": {
+        "sha256": "6d166493214d6ede932edd29e39f937ce2bf29d36c39027014363ac1e70462fe",
+        "bytes": 2114
+      },
+      "skills/rd-design/evals/fixtures/interface-burden.md": {
+        "sha256": "80efd82215655cc4154e8e86783d568fb730ee463632dc268a87b253b1d3ea71",
+        "bytes": 2663
+      },
+      "zh-CN/claude/project/.claude/skills/rd-delivery/evals/evals.json": {
+        "sha256": "726d60961f2976efc938a2c7cb7fe5cdfe91a5e7e30903dc81dd54c6b082276e",
+        "bytes": 6705
+      },
+      "zh-CN/claude/project/.claude/skills/rd-delivery/evals/fixtures/consumption-boundary.md": {
+        "sha256": "0d7d47372bdd585e55ab238320d36b0159f9416d869be0b31b4f12bc15d98d2c",
+        "bytes": 1540
+      },
+      "zh-CN/claude/project/.claude/skills/rd-delivery/evals/fixtures/scope-validity.md": {
+        "sha256": "80f3d5b4fea79c9827829a8639f16eacc6c2067a4915195c134479fc8776a65d",
+        "bytes": 1949
+      },
+      "zh-CN/claude/project/.claude/skills/rd-design/evals/evals.json": {
+        "sha256": "3469bc9da203142b1ee62fc19522d33a3874e2a8820049376b92b0679d184120",
+        "bytes": 5275
+      },
+      "zh-CN/claude/project/.claude/skills/rd-design/evals/fixtures/contract-semantics.md": {
+        "sha256": "d8478011df785dac1792163d5606d6915efe592052f0c30e0504d94e2c0e76d1",
+        "bytes": 1715
+      },
+      "zh-CN/claude/project/.claude/skills/rd-design/evals/fixtures/interface-burden.md": {
+        "sha256": "edffd84e43cb64597879bea791f570741ea5ac35d0aeded8e83f5e4024dc3047",
+        "bytes": 2123
+      },
+      "zh-CN/docs/compatibility.md": {
+        "sha256": "64f31a046c9af3ced25f970934c8194f3a06e532912c064efd7645f1a8778693",
+        "bytes": 15601
+      },
+      "zh-CN/docs/forward-looking-rd.md": {
+        "sha256": "3f62d1bb7e64f1a785de09934a93111956bf9c656217be5852dee0ab43b63f7c",
+        "bytes": 7620
+      },
+      "zh-CN/docs/rd-skills-assessment.md": {
+        "sha256": "31d1aaa0c7bc26089e8927258e273b3516acbf03b928a4f2723c291386f8842b",
+        "bytes": 22934
+      },
+      "zh-CN/docs/upstream-learning-pilot.md": {
+        "sha256": "c58ad8efa0673187b2bc7afab24101809eb4a5c03d9ad053a718c968b0853041",
+        "bytes": 15811
+      },
+      "zh-CN/skills/rd-delivery/evals/evals.json": {
+        "sha256": "726d60961f2976efc938a2c7cb7fe5cdfe91a5e7e30903dc81dd54c6b082276e",
+        "bytes": 6705
+      },
+      "zh-CN/skills/rd-delivery/evals/fixtures/consumption-boundary.md": {
+        "sha256": "0d7d47372bdd585e55ab238320d36b0159f9416d869be0b31b4f12bc15d98d2c",
+        "bytes": 1540
+      },
+      "zh-CN/skills/rd-delivery/evals/fixtures/scope-validity.md": {
+        "sha256": "80f3d5b4fea79c9827829a8639f16eacc6c2067a4915195c134479fc8776a65d",
+        "bytes": 1949
+      },
+      "zh-CN/skills/rd-design/evals/evals.json": {
+        "sha256": "3469bc9da203142b1ee62fc19522d33a3874e2a8820049376b92b0679d184120",
+        "bytes": 5275
+      },
+      "zh-CN/skills/rd-design/evals/fixtures/contract-semantics.md": {
+        "sha256": "d8478011df785dac1792163d5606d6915efe592052f0c30e0504d94e2c0e76d1",
+        "bytes": 1715
+      },
+      "zh-CN/skills/rd-design/evals/fixtures/interface-burden.md": {
+        "sha256": "edffd84e43cb64597879bea791f570741ea5ac35d0aeded8e83f5e4024dc3047",
+        "bytes": 2123
+      }
+    }
+  },
+  "original_evidence": {
+    "path": "docs/evidence/upstream-learning-pilot-2026-10-05.json",
+    "sha256": "7f1cfe571af77db1200b3a7452fe9a98a788ec81ea0aece55363658811da0a4e",
+    "unchanged_by_followup": true
+  },
+  "review_roles": "Two fresh task agents without the preceding conversation; maintainer returned to the public source, source code, hashes, and correction. Not an external benchmark or certification.",
+  "cold_artifact_review": {
+    "date": "2026-10-05",
+    "review_kind": "真实仓库改动的只读冷交接评审",
+    "basis": "仅以指定公开制品自行恢复事实；不沿用此前聊天评分或摘要。公开evidence中已有评分也接受重新核对。",
+    "verdict": "通过本次公开制品证据一致性与有边界接续检查；不是部署、发布、模型稳定可靠性或长期交接验收",
+    "findings": [],
+    "finding_statement": "未发现可定位、可复现且有实质影响的语义或复用边界缺陷。没有以风格偏好或已披露限制制造问题。",
+    "read_artifacts": [
+      {
+        "path": "AGENTS.md",
+        "coverage": "全文",
+        "purpose": "维护权限与证据规则"
+      },
+      {
+        "path": "rd-review/SKILL.md",
+        "location": "installed-user-skill",
+        "coverage": "全文",
+        "purpose": "独立评审流程"
+      },
+      {
+        "path": "rd-review/references/research-review.md",
+        "location": "installed-user-skill",
+        "coverage": "全文",
+        "purpose": "研究评审两轴"
+      },
+      {
+        "path": "docs/upstream-learning-pilot.md",
+        "coverage": "全文",
+        "purpose": "中心主张、汇总、限制、复用边界"
+      },
+      {
+        "path": "zh-CN/docs/upstream-learning-pilot.md",
+        "coverage": "全文，分段补读被工具输出截断的来源表",
+        "purpose": "中英文语义核对"
+      },
+      {
+        "path": "docs/evidence/upstream-learning-pilot-2026-10-05.json",
+        "coverage": "完整JSON解析；全部14完整回答、7冻结案例、两套完整基线/候选指令、全部冻结断言、launcher、control/probe/diagnostic、评分及汇总关键字段的语义检查；全部相关hash与摘录计算",
+        "purpose": "重新聚合与独立语义恢复"
+      },
+      {
+        "path": "docs/compatibility.md",
+        "coverage": "本次diff完整",
+        "purpose": "原生观察声明范围"
+      },
+      {
+        "path": "docs/rd-skills-assessment.md",
+        "coverage": "本次diff完整",
+        "purpose": "采用决策与51定义边界"
+      },
+      {
+        "path": "skills/rd-delivery/evals/evals.json",
+        "coverage": "完整解析；本次新增对象全文，English既有对象与HEAD自动结构比较",
+        "purpose": "新回归定义与冻结判据映射"
+      },
+      {
+        "path": "skills/rd-delivery/evals/fixtures/scope-validity.md",
+        "coverage": "全文",
+        "purpose": "公开fixture与冻结文本语义/字节核对"
+      },
+      {
+        "path": "skills/rd-delivery/evals/fixtures/consumption-boundary.md",
+        "coverage": "全文",
+        "purpose": "公开fixture与冻结文本语义/字节核对"
+      },
+      {
+        "path": "skills/rd-design/evals/evals.json",
+        "coverage": "完整解析；本次新增对象全文，English既有对象与HEAD自动结构比较",
+        "purpose": "新回归定义与冻结判据映射"
+      },
+      {
+        "path": "skills/rd-design/evals/fixtures/contract-semantics.md",
+        "coverage": "全文",
+        "purpose": "公开fixture与冻结文本语义/字节核对"
+      },
+      {
+        "path": "skills/rd-design/evals/fixtures/interface-burden.md",
+        "coverage": "全文",
+        "purpose": "公开fixture与冻结文本语义/字节核对"
+      },
+      {
+        "path": "zh-CN/skills/rd-delivery/evals/evals.json",
+        "coverage": "完整解析；本次新增对象全文。既有对象的HEAD结构比较仅针对English文件。",
+        "purpose": "新回归定义与冻结判据映射"
+      },
+      {
+        "path": "zh-CN/skills/rd-delivery/evals/fixtures/scope-validity.md",
+        "coverage": "全文",
+        "purpose": "公开fixture与冻结文本语义/字节核对"
+      },
+      {
+        "path": "zh-CN/skills/rd-delivery/evals/fixtures/consumption-boundary.md",
+        "coverage": "全文",
+        "purpose": "公开fixture与冻结文本语义/字节核对"
+      },
+      {
+        "path": "zh-CN/skills/rd-design/evals/evals.json",
+        "coverage": "完整解析；本次新增对象全文。既有对象的HEAD结构比较仅针对English文件。",
+        "purpose": "新回归定义与冻结判据映射"
+      },
+      {
+        "path": "zh-CN/skills/rd-design/evals/fixtures/contract-semantics.md",
+        "coverage": "全文",
+        "purpose": "公开fixture与冻结文本语义/字节核对"
+      },
+      {
+        "path": "zh-CN/skills/rd-design/evals/fixtures/interface-burden.md",
+        "coverage": "全文",
+        "purpose": "公开fixture与冻结文本语义/字节核对"
+      }
+    ],
+    "recomputed": {
+      "cells": 14,
+      "cases": 7,
+      "first_attempt_exit_zero": 14,
+      "native_assertions": 24,
+      "document_assertions": 32,
+      "all_assertions_passed": 56,
+      "groups": {
+        "native/without": {
+          "cells": 3,
+          "elapsed_seconds": 212.483,
+          "input_tokens": 110518,
+          "cached_input_tokens": 43520,
+          "output_tokens": 4901,
+          "reasoning_output_tokens": 3222,
+          "assertions_passed": 12
+        },
+        "native/with": {
+          "cells": 3,
+          "elapsed_seconds": 193.962,
+          "input_tokens": 190839,
+          "cached_input_tokens": 116864,
+          "output_tokens": 4536,
+          "reasoning_output_tokens": 2514,
+          "assertions_passed": 12
+        },
+        "documents/baseline": {
+          "cells": 4,
+          "elapsed_seconds": 484.094,
+          "input_tokens": 97729,
+          "cached_input_tokens": 13312,
+          "output_tokens": 11822,
+          "reasoning_output_tokens": 8688,
+          "assertions_passed": 16
+        },
+        "documents/candidate": {
+          "cells": 4,
+          "elapsed_seconds": 564.26,
+          "input_tokens": 98683,
+          "cached_input_tokens": 0,
+          "output_tokens": 14243,
+          "reasoning_output_tokens": 11034,
+          "assertions_passed": 16
+        }
+      },
+      "document_candidate_minus_baseline": {
+        "elapsed_seconds": 80.166,
+        "output_tokens": 2421
+      },
+      "hash_and_excerpt_checks_passed": 217,
+      "hash_and_excerpt_checks_failed": 0,
+      "exact_excerpt_elements": 152,
+      "canonical_definitions": {
+        "English": 51,
+        "Simplified_Chinese": 51
+      },
+      "new_english_eval_assertions_match_frozen": 4,
+      "new_chinese_fixtures_match_frozen": 4,
+      "english_existing_eval_objects_preserved": true
+    },
+    "reproducible_methods": [
+      "json.loads(path.read_text(encoding=\"utf-8\")); group cells by (group,arm), sum elapsed_seconds, turn_usage fields and assertion status. Do not add reasoning_output_tokens to output_tokens.",
+      "Reconstruct native prompt from task_text; document prompt = \"<workflow-instructions>\\n\" + instruction_[arm] + \"\\n</workflow-instructions>\\n\\n\" + task_text. sha256(logical UTF-8 text) must match prompt_sha256 and response_sha256.",
+      "For every input/native snapshot and launcher source: sha256(text.encode(\"utf-8\")); for every grader response_evidence element: element in complete response. 152 exact spans checked.",
+      "Frozen manifest byte hash is reconstructible: (json.dumps(frozen_inputs,ensure_ascii=False,indent=2)+\"\\n\").replace(\"\\n\",\"\\r\\n\").encode(\"utf-8\"). This matches both frozen_manifest_sha256 and run_controls.manifest_sha256; no new model execution is implied.",
+      "Normalize native SKILL.md snapshot by CRLF-to-LF and strip surrounding whitespace; compare SHA-256 and UTF-8 byte length to both recorded complete_target_body_observation objects. This checks consistency of published observation fields, not original command streams.",
+      "Match English rd-delivery 7/8 and rd-design 5/6 assertions exactly to frozen document rubric criteria. Match four Chinese fixture texts exactly to frozen snapshot texts and verify each occurs in the sampled task.",
+      "Parse canonical evals for definition counts; compare existing English rd-delivery/rd-design eval objects to git show HEAD:<path>. No semantic review of unrelated existing cases was claimed.",
+      "Read all 14 complete first responses against governing frozen fixtures and four corresponding criteria, check failure hypotheses (historical evidence vs new criterion; actual read vs index; receipt vs approval; both interface candidates eligible). All 56 published ratings sustained."
+    ],
+    "central_conclusion": {
+      "status": "支持",
+      "basis": "全部基线同样达到所选断言上限，候选没有断言收益；本批输出/耗时更高但受cache/启动/顺序/后端影响。维持原Skill正文并采用四个回归定义，是与证据匹配的有边界决定。",
+      "counterargument": "候选方法可能改善未被本批断言覆盖的质量，或改善真实长期交接/接口成本；本批不能排除，报告已保留真实材料失败或测得负担作为重开条件。"
+    },
+    "reusable_evidence": [
+      {
+        "item": "Frozen prompts, assertions, full first responses, candidate text and hashes",
+        "level": "当前可独立检查的公开文本与内部一致性",
+        "reuse_boundary": "同一响应和判据可保留历史语义评分；更改其一只重评相应单元，不改写历史"
+      },
+      {
+        "item": "Four synthetic fixtures and canonical eval definitions",
+        "level": "当前公开定义和语义映射",
+        "reuse_boundary": "可用于后续回归；采样仅证明中文给定文本条件，不是English/Claude/Cursor原生通过记录"
+      },
+      {
+        "item": "14 cells,56 assertions,elapsed/token aggregates",
+        "level": "从公开字段直接重算",
+        "reuse_boundary": "只能描述本批；不可升级成收益因果、货币成本或稳定可靠性估计"
+      },
+      {
+        "item": "N1-with/N2-with target-body reading and other native arms without target read",
+        "level": "作者保留的脱敏运行观察，字段与snapshot/hash/launcher一致",
+        "reuse_boundary": "本次未重新目击命令或审计原始流；若决策要求事件级独立确认，需要获准读取受控原始流或另起标识的新比较"
+      },
+      {
+        "item": "Repository static_validation",
+        "level": "作者保留的本地门禁结果记录",
+        "reuse_boundary": "本次没有重跑门禁；当前相关文件、镜像、validator或发布契约改变时需按维护规则重跑适用门禁"
+      },
+      {
+        "item": "Seven upstream pins and mechanism/license claims",
+        "level": "公开材料所载日期化来源索引",
+        "reuse_boundary": "本次没有重新读取外部上游源码或license；pin/file改变或此事实影响新决策时重新核验"
+      }
+    ],
+    "unverified": [
+      "原始CLI事件流与stdout/stderr hash的事件级真实性",
+      "backend model identity",
+      "所有51定义执行",
+      "English/Claude/Cursor/desktop行为",
+      "重复采样可靠性",
+      "真实业务包或接口的长周期交接与用户工作量收益",
+      "运行、生产、发布或干系人审批"
+    ],
+    "execution_limits": [
+      "未修改源文件",
+      "未调用模型",
+      "未运行仓库门禁",
+      "未提交、推送、发布或执行外部写入"
+    ]
+  },
+  "recipe_review": {
+    "review_scope": "仅公开durable recipe的输入恢复、grader分离、原生准备与CLI参数生成；不读取作者旧临时runner/manifest/grading，不调用模型、网络或认证，不修改仓库源码。",
+    "conclusion": "公开recipe足以独立准备运行；离线准备14个cell全部恢复一致prompt，原生6个cell的完整payload一致。存在一项Minor的原始manifest字节格式说明缺口，不影响内容等价恢复，也不使历史采样失效。",
+    "evidence_level": "静态阅读、baseline Git blob核验、离线mock process准备；不证明实际CLI运行、模型行为、网络隔离或收益。",
+    "actually_read": [
+      "AGENTS.md",
+      "installed-user-skill/skill-maintenance-review/SKILL.md",
+      "docs/upstream-learning-pilot.md完整正文",
+      "docs/evidence/upstream-learning-pilot-2026-10-05.json的frozen_inputs、launcher、run_controls.native_skill_snapshot、cells的prompt hash、freeze_note及hash_normalization",
+      "zh-CN/skills/rd-review/SKILL.md完整正文",
+      "原生payload九个文件完整bytes及指定baseline commit九个Git blobs"
+    ],
+    "not_read_or_used": [
+      ".tmp/local/upstream-pilot-20261005旧runner/manifest/grading目录",
+      "隐藏的作者运行材料",
+      "外部网络、认证配置、真实模型调用",
+      "codebase-design Skill；本次证据足以评价具体调用前提，无需扩大Skill加载"
+    ],
+    "offline_results": {
+      "launcher_sha256_matches": true,
+      "public_input_snapshot_logical_hashes": "10/10一致",
+      "native_baseline_git_blob_hashes": "9/9一致",
+      "cells_prepared": 14,
+      "prompt_hashes_match_recorded": "14/14",
+      "native_staged_payload_match": "6/6",
+      "document_workspaces_empty": true,
+      "original_mock_call_key_check_is_structural_only": true,
+      "grader_separation_actual_evidence": "后续audit逐cell从冻结responder字段独立构造预期stdin，14/14实际prompt字节和逻辑内容一致；14/14 workspace精确允许文件集及文件bytes一致。原grader_data_was_passed_to_mock键检查不能证明stdin内容，不作为分离证据。",
+      "actual_existing_prompt_byte_checks": "14/14",
+      "actual_existing_workspace_exact_file_set_checks": "14/14",
+      "generated_cli_configs_valid_toml": true,
+      "generated_result_files_valid_json": true,
+      "existing_first_attempt_cell_refused": true,
+      "mock_process_proof_only": true,
+      "runtime_relocation": "为遵守授权临时写入目录，只在导入后的namespace中将REPO指向已核验baseline仓库；launcher源码未修改。正式指定布局的HERE.parents[2]已独立验证成立。"
+    },
+    "findings": [
+      {
+        "id": "recipe-1",
+        "severity": "Minor",
+        "location": "docs/evidence/upstream-learning-pilot-2026-10-05.json:1872 reproduction_note，以及:7 frozen_manifest_sha256和:1945 hash_normalization",
+        "issue": "调用者被要求保存frozen_inputs，但未明确给出恢复原始manifest bytes所需JSON序列化/换行规则。",
+        "reproduction": "json.dumps(frozen_inputs, ensure_ascii=False, indent=2) + '\\n' 以UTF-8 LF保存，其SHA256为358ca4f4773e93639dce3348a5ef15b4e57449e64b4b3141a5a40735c834d14b；将所有LF转CRLF后得到原始2188bc20dd04d8739c439444d4d4d19932d56ff23d4fe430d58daf8fbaedf90b。",
+        "impact": "只影响原样复现manifest byte hash及调用者识别等价内容是否漂移的负担。内容等价LF manifest仍被launcher读取，14个prompt hash全部匹配；不是历史采样输入失效。",
+        "minimal_action": "在reproduction_note补充原始序列化为UTF-8、ensure_ascii=False、indent=2、结尾换行、CRLF；明确内容等价LF导出的manifest bytes hash可不同，记录为重建表示即可。无需引入框架或改Skill。"
+      }
+    ],
+    "caller_obligations": [
+      {
+        "obligation": "固定基线",
+        "published_contract": "在baseline_commit checkout运行；原生staging读仓库，document cells读manifest快照。",
+        "observed": "当前HEAD等于公开baseline；九个原生Git blobs可可靠恢复完整payload。"
+      },
+      {
+        "obligation": "固定目录层级",
+        "published_contract": "launcher.reproduction_note明确.tmp/local/<dated-run>/。",
+        "observed": "HERE.parents[2]依赖这个准确层级；额外嵌套recipe-review会把REPO解析为.tmp。属于已说明但调用者必须遵守的布局前提，不计作缺失材料缺陷。"
+      },
+      {
+        "obligation": "恢复文件结构",
+        "published_contract": "frozen_inputs保存为frozen-inputs.json；launcher.source保存为run_pilot.py，二者同目录。",
+        "observed": "所有七个case的id/group/arms/task_text/workspace_files、document instruction_<arm>及顶层model/effort/timeout都满足launcher访问契约。"
+      },
+      {
+        "obligation": "grader分离",
+        "published_contract": "grader-only数据保持在responder workspaces之外。",
+        "observed": "audit_prepared.py从冻结task_text及document instruction_<arm>独立构造准确预期stdin，实际已生成prompt的bytes和逻辑文本14/14一致。workspace精确允许文件集14/14一致：N1 TASK.md加9个payload，其他native仅9个payload，document空。原mock记录键检查已撤回为内容证据。manifest本身在workspace外；不声称因此建立完整文件读取隔离或观察了真实模型请求。"
+      },
+      {
+        "obligation": "运行前置条件",
+        "published_contract": "Codex CLI与已有批准provider/auth；dated CLI/model设置。",
+        "observed": "source另调用本地git和Python标准库。此审阅未运行CLI、读取私有配置或核对当前远端backend。"
+      },
+      {
+        "obligation": "首次尝试和失败检查",
+        "published_contract": "空的新run目录，existing first attempts不可覆盖，changed settings记录为新comparison。",
+        "observed": "result.json提供exit_code、error events和raw stream hashes，timeout进入timeout记录；cell目录存在时直接拒绝覆盖。主入口对非零cell仍继续并输出finished_cells，调用者应检查每cell结果而不能把finished_cells或进程结束当全部成功。此行为只静态检查，未引入额外failure矩阵。"
+      }
+    ],
+    "minimal_recommendation": "仅补充manifest原始序列化与内容等价重建说明；其余保持现有recipe，若以后需不同目录布局再显式传入repo root。当前证据不支持新增框架、通用validator或更改Skill指令。"
+  },
+  "offline_mock_preparation": {
+    "scope": "Public recipe preparation, exact-byte recovery, arguments, and local output controls only",
+    "no_model_or_network_process": true,
+    "runtime_paths_relocated_for_authorized_mock": true,
+    "launcher_source_sha256_matches": true,
+    "restored_crlf_manifest_sha256_matches": true,
+    "lf_manifest_sha256": "358ca4f4773e93639dce3348a5ef15b4e57449e64b4b3141a5a40735c834d14b",
+    "expected_manifest_sha256": "2188bc20dd04d8739c439444d4d4d19932d56ff23d4fe430d58daf8fbaedf90b",
+    "extracted_nested_repo_relative": ".tmp",
+    "prescribed_layout_repo_matches": true,
+    "native_baseline_snapshots": [
+      {
+        "path": "zh-CN/skills/rd-review/SKILL.md",
+        "baseline_blob_matches": true
+      },
+      {
+        "path": "zh-CN/skills/rd-review/agents/openai.yaml",
+        "baseline_blob_matches": true
+      },
+      {
+        "path": "zh-CN/skills/rd-review/references/article-review.md",
+        "baseline_blob_matches": true
+      },
+      {
+        "path": "zh-CN/skills/rd-review/references/design-review.md",
+        "baseline_blob_matches": true
+      },
+      {
+        "path": "zh-CN/skills/rd-review/references/feasibility-review.md",
+        "baseline_blob_matches": true
+      },
+      {
+        "path": "zh-CN/skills/rd-review/references/proposal-review.md",
+        "baseline_blob_matches": true
+      },
+      {
+        "path": "zh-CN/skills/rd-review/references/requirements-review.md",
+        "baseline_blob_matches": true
+      },
+      {
+        "path": "zh-CN/skills/rd-review/references/research-review.md",
+        "baseline_blob_matches": true
+      },
+      {
+        "path": "zh-CN/skills/rd-review/references/standards-review.md",
+        "baseline_blob_matches": true
+      }
+    ],
+    "existing_first_attempt_refused": true,
+    "process_calls": 28,
+    "cells": [
+      {
+        "cell_id": "N1-without",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": true,
+        "workspace_files": [
+          ".agents/skills/rd-review/SKILL.md",
+          ".agents/skills/rd-review/agents/openai.yaml",
+          ".agents/skills/rd-review/references/article-review.md",
+          ".agents/skills/rd-review/references/design-review.md",
+          ".agents/skills/rd-review/references/feasibility-review.md",
+          ".agents/skills/rd-review/references/proposal-review.md",
+          ".agents/skills/rd-review/references/requirements-review.md",
+          ".agents/skills/rd-review/references/research-review.md",
+          ".agents/skills/rd-review/references/standards-review.md",
+          "TASK.md"
+        ]
+      },
+      {
+        "cell_id": "N1-with",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": true,
+        "workspace_files": [
+          ".agents/skills/rd-review/SKILL.md",
+          ".agents/skills/rd-review/agents/openai.yaml",
+          ".agents/skills/rd-review/references/article-review.md",
+          ".agents/skills/rd-review/references/design-review.md",
+          ".agents/skills/rd-review/references/feasibility-review.md",
+          ".agents/skills/rd-review/references/proposal-review.md",
+          ".agents/skills/rd-review/references/requirements-review.md",
+          ".agents/skills/rd-review/references/research-review.md",
+          ".agents/skills/rd-review/references/standards-review.md",
+          "TASK.md"
+        ]
+      },
+      {
+        "cell_id": "N2-with",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": true,
+        "workspace_files": [
+          ".agents/skills/rd-review/SKILL.md",
+          ".agents/skills/rd-review/agents/openai.yaml",
+          ".agents/skills/rd-review/references/article-review.md",
+          ".agents/skills/rd-review/references/design-review.md",
+          ".agents/skills/rd-review/references/feasibility-review.md",
+          ".agents/skills/rd-review/references/proposal-review.md",
+          ".agents/skills/rd-review/references/requirements-review.md",
+          ".agents/skills/rd-review/references/research-review.md",
+          ".agents/skills/rd-review/references/standards-review.md"
+        ]
+      },
+      {
+        "cell_id": "N2-without",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": true,
+        "workspace_files": [
+          ".agents/skills/rd-review/SKILL.md",
+          ".agents/skills/rd-review/agents/openai.yaml",
+          ".agents/skills/rd-review/references/article-review.md",
+          ".agents/skills/rd-review/references/design-review.md",
+          ".agents/skills/rd-review/references/feasibility-review.md",
+          ".agents/skills/rd-review/references/proposal-review.md",
+          ".agents/skills/rd-review/references/requirements-review.md",
+          ".agents/skills/rd-review/references/research-review.md",
+          ".agents/skills/rd-review/references/standards-review.md"
+        ]
+      },
+      {
+        "cell_id": "N3-without",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": true,
+        "workspace_files": [
+          ".agents/skills/rd-review/SKILL.md",
+          ".agents/skills/rd-review/agents/openai.yaml",
+          ".agents/skills/rd-review/references/article-review.md",
+          ".agents/skills/rd-review/references/design-review.md",
+          ".agents/skills/rd-review/references/feasibility-review.md",
+          ".agents/skills/rd-review/references/proposal-review.md",
+          ".agents/skills/rd-review/references/requirements-review.md",
+          ".agents/skills/rd-review/references/research-review.md",
+          ".agents/skills/rd-review/references/standards-review.md"
+        ]
+      },
+      {
+        "cell_id": "N3-with",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": true,
+        "workspace_files": [
+          ".agents/skills/rd-review/SKILL.md",
+          ".agents/skills/rd-review/agents/openai.yaml",
+          ".agents/skills/rd-review/references/article-review.md",
+          ".agents/skills/rd-review/references/design-review.md",
+          ".agents/skills/rd-review/references/feasibility-review.md",
+          ".agents/skills/rd-review/references/proposal-review.md",
+          ".agents/skills/rd-review/references/requirements-review.md",
+          ".agents/skills/rd-review/references/research-review.md",
+          ".agents/skills/rd-review/references/standards-review.md"
+        ]
+      },
+      {
+        "cell_id": "A1-baseline",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": null,
+        "workspace_files": []
+      },
+      {
+        "cell_id": "A1-candidate",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": null,
+        "workspace_files": []
+      },
+      {
+        "cell_id": "A2-candidate",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": null,
+        "workspace_files": []
+      },
+      {
+        "cell_id": "A2-baseline",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": null,
+        "workspace_files": []
+      },
+      {
+        "cell_id": "B1-baseline",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": null,
+        "workspace_files": []
+      },
+      {
+        "cell_id": "B1-candidate",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": null,
+        "workspace_files": []
+      },
+      {
+        "cell_id": "B2-candidate",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": null,
+        "workspace_files": []
+      },
+      {
+        "cell_id": "B2-baseline",
+        "prompt_hash_matches_published": true,
+        "model": "gpt-6-astra",
+        "timeout": 240,
+        "sandbox": "read-only",
+        "native_payload_equal": null,
+        "workspace_files": []
+      }
+    ],
+    "process_calls_note": "All 28 process calls in this count were intercepted mock calls; the separate baseline Git blob reads were real local read-only Git commands.",
+    "content_isolation_evidence": "Use the corrected actual-file audit below, not the original fixed-record-key check."
+  },
+  "actual_prepared_file_audit": {
+    "scope": "Actual existing prompt/workspace/result file audit; no cell rerun, model, network, or process launch",
+    "correction": "Original grader_data_was_passed_to_mock checked only record keys. It is structural information and does not prove stdin contents. This audit uses exact independently constructed expected stdin and exact allowed workspace file sets.",
+    "prompt_file_byte_representation": "Path.write_text default newline translation on this Windows host: CRLF. Logical stdin uses the frozen text and LF wrapper.",
+    "all_checks_passed": true,
+    "cells": [
+      {
+        "cell_id": "N1-without",
+        "expected_stdin_fields": [
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [
+          ".agents/skills/rd-review/SKILL.md",
+          ".agents/skills/rd-review/agents/openai.yaml",
+          ".agents/skills/rd-review/references/article-review.md",
+          ".agents/skills/rd-review/references/design-review.md",
+          ".agents/skills/rd-review/references/feasibility-review.md",
+          ".agents/skills/rd-review/references/proposal-review.md",
+          ".agents/skills/rd-review/references/requirements-review.md",
+          ".agents/skills/rd-review/references/research-review.md",
+          ".agents/skills/rd-review/references/standards-review.md",
+          "TASK.md"
+        ],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      },
+      {
+        "cell_id": "N1-with",
+        "expected_stdin_fields": [
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [
+          ".agents/skills/rd-review/SKILL.md",
+          ".agents/skills/rd-review/agents/openai.yaml",
+          ".agents/skills/rd-review/references/article-review.md",
+          ".agents/skills/rd-review/references/design-review.md",
+          ".agents/skills/rd-review/references/feasibility-review.md",
+          ".agents/skills/rd-review/references/proposal-review.md",
+          ".agents/skills/rd-review/references/requirements-review.md",
+          ".agents/skills/rd-review/references/research-review.md",
+          ".agents/skills/rd-review/references/standards-review.md",
+          "TASK.md"
+        ],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      },
+      {
+        "cell_id": "N2-with",
+        "expected_stdin_fields": [
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [
+          ".agents/skills/rd-review/SKILL.md",
+          ".agents/skills/rd-review/agents/openai.yaml",
+          ".agents/skills/rd-review/references/article-review.md",
+          ".agents/skills/rd-review/references/design-review.md",
+          ".agents/skills/rd-review/references/feasibility-review.md",
+          ".agents/skills/rd-review/references/proposal-review.md",
+          ".agents/skills/rd-review/references/requirements-review.md",
+          ".agents/skills/rd-review/references/research-review.md",
+          ".agents/skills/rd-review/references/standards-review.md"
+        ],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      },
+      {
+        "cell_id": "N2-without",
+        "expected_stdin_fields": [
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [
+          ".agents/skills/rd-review/SKILL.md",
+          ".agents/skills/rd-review/agents/openai.yaml",
+          ".agents/skills/rd-review/references/article-review.md",
+          ".agents/skills/rd-review/references/design-review.md",
+          ".agents/skills/rd-review/references/feasibility-review.md",
+          ".agents/skills/rd-review/references/proposal-review.md",
+          ".agents/skills/rd-review/references/requirements-review.md",
+          ".agents/skills/rd-review/references/research-review.md",
+          ".agents/skills/rd-review/references/standards-review.md"
+        ],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      },
+      {
+        "cell_id": "N3-without",
+        "expected_stdin_fields": [
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [
+          ".agents/skills/rd-review/SKILL.md",
+          ".agents/skills/rd-review/agents/openai.yaml",
+          ".agents/skills/rd-review/references/article-review.md",
+          ".agents/skills/rd-review/references/design-review.md",
+          ".agents/skills/rd-review/references/feasibility-review.md",
+          ".agents/skills/rd-review/references/proposal-review.md",
+          ".agents/skills/rd-review/references/requirements-review.md",
+          ".agents/skills/rd-review/references/research-review.md",
+          ".agents/skills/rd-review/references/standards-review.md"
+        ],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      },
+      {
+        "cell_id": "N3-with",
+        "expected_stdin_fields": [
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [
+          ".agents/skills/rd-review/SKILL.md",
+          ".agents/skills/rd-review/agents/openai.yaml",
+          ".agents/skills/rd-review/references/article-review.md",
+          ".agents/skills/rd-review/references/design-review.md",
+          ".agents/skills/rd-review/references/feasibility-review.md",
+          ".agents/skills/rd-review/references/proposal-review.md",
+          ".agents/skills/rd-review/references/requirements-review.md",
+          ".agents/skills/rd-review/references/research-review.md",
+          ".agents/skills/rd-review/references/standards-review.md"
+        ],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      },
+      {
+        "cell_id": "A1-baseline",
+        "expected_stdin_fields": [
+          "instruction_baseline",
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      },
+      {
+        "cell_id": "A1-candidate",
+        "expected_stdin_fields": [
+          "instruction_candidate",
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      },
+      {
+        "cell_id": "A2-candidate",
+        "expected_stdin_fields": [
+          "instruction_candidate",
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      },
+      {
+        "cell_id": "A2-baseline",
+        "expected_stdin_fields": [
+          "instruction_baseline",
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      },
+      {
+        "cell_id": "B1-baseline",
+        "expected_stdin_fields": [
+          "instruction_baseline",
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      },
+      {
+        "cell_id": "B1-candidate",
+        "expected_stdin_fields": [
+          "instruction_candidate",
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      },
+      {
+        "cell_id": "B2-candidate",
+        "expected_stdin_fields": [
+          "instruction_candidate",
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      },
+      {
+        "cell_id": "B2-baseline",
+        "expected_stdin_fields": [
+          "instruction_baseline",
+          "task_text"
+        ],
+        "actual_prompt_bytes_equal_expected": true,
+        "actual_prompt_logical_text_equal_expected": true,
+        "actual_prompt_sha256_equal_published": true,
+        "workspace_exact_allowed_files": true,
+        "expected_workspace_files": [],
+        "unexpected_workspace_files": [],
+        "missing_workspace_files": [],
+        "workspace_bytes_match_frozen_sources": true,
+        "all_recorded_c_configurations_parse_as_toml": true,
+        "result_json_readable_and_cell_id_matches": true
+      }
+    ],
+    "totals": {
+      "actual_prompt_bytes_equal_expected": 14,
+      "actual_prompt_logical_text_equal_expected": 14,
+      "actual_prompt_sha256_equal_published": 14,
+      "workspace_exact_allowed_files": 14,
+      "workspace_bytes_match_frozen_sources": 14,
+      "all_recorded_c_configurations_parse_as_toml": 14,
+      "result_json_readable_and_cell_id_matches": 14
+    },
+    "limits": [
+      "The prompt file is written from the same prompt variable later passed to subprocess in the retained source; this audit does not observe a real pipe or model request.",
+      "Grader fields are absent from supplied stdin and staged workspace; this does not establish unrestricted-file-read isolation."
+    ]
+  },
+  "maintainer_input_identity_check": {
+    "source_identity_checks": [
+      {
+        "input": "zh-CN/skills/rd-review/evals/fixtures/reviewer-findings.md",
+        "frozen_text_hash_valid": true,
+        "current_byte_hash_matches_frozen": true
+      },
+      {
+        "input": "zh-CN/skills/rd-review/evals/fixtures/criteria-change.md",
+        "frozen_text_hash_valid": true,
+        "current_byte_hash_matches_frozen": true
+      },
+      {
+        "input": "zh-CN/skills/rd-review/evals/fixtures/authorized-change.md",
+        "frozen_text_hash_valid": true,
+        "current_byte_hash_matches_frozen": true
+      },
+      {
+        "input": "zh-CN/skills/rd-delivery/SKILL.md",
+        "frozen_text_hash_valid": true,
+        "current_byte_hash_matches_frozen": true
+      },
+      {
+        "input": "zh-CN/skills/rd-delivery/references/delivery-record.md",
+        "frozen_text_hash_valid": true,
+        "current_byte_hash_matches_frozen": true
+      },
+      {
+        "input": "zh-CN/skills/rd-delivery/evals/fixtures/scope-validity.md",
+        "frozen_text_hash_valid": true,
+        "current_byte_hash_matches_frozen": true
+      },
+      {
+        "input": "zh-CN/skills/rd-delivery/evals/fixtures/consumption-boundary.md",
+        "frozen_text_hash_valid": true,
+        "current_byte_hash_matches_frozen": true
+      },
+      {
+        "input": "zh-CN/skills/rd-design/SKILL.md",
+        "frozen_text_hash_valid": true,
+        "current_byte_hash_matches_frozen": true
+      },
+      {
+        "input": "zh-CN/skills/rd-design/evals/fixtures/contract-semantics.md",
+        "frozen_text_hash_valid": true,
+        "current_byte_hash_matches_frozen": true
+      },
+      {
+        "input": "zh-CN/skills/rd-design/evals/fixtures/interface-burden.md",
+        "frozen_text_hash_valid": true,
+        "current_byte_hash_matches_frozen": true
+      }
+    ],
+    "current_native_body_normalized_sha256": "c718545ed26c59b5c8ac27352109a132a6a71046943958f23ce96ec941bd3cd3"
+  },
+  "deterministic_export_check": {
+    "recipe_sha256": "cecf1ecc1ed8c12835fec27828e615e4038d399e357f8cb6a99250b07811791b",
+    "manifest_sha256": "2188bc20dd04d8739c439444d4d4d19932d56ff23d4fe430d58daf8fbaedf90b",
+    "launcher_sha256": "b0af98dcc8a31e137f46650b3ca818cbbc2842425080414581a35b3c91a06ea5",
+    "prescribed_layout_resolves_repo": true,
+    "loaded_cases": 7,
+    "model_processes_started": 0,
+    "duplicate_export_refused": true,
+    "existing_bytes_preserved": true
+  },
+  "finding_resolution": {
+    "id": "recipe-1",
+    "severity": "Minor",
+    "status": "resolved",
+    "issue": "The old recipe did not specify exact original manifest serialization.",
+    "cause": "UTF-8 LF reconstruction is content-equivalent but differs from the original UTF-8 CRLF file hash.",
+    "change": "Added the verified deterministic export block to the English report and Chinese mirror, including baseline, native payload, hash, layout, and no-overwrite preconditions.",
+    "location": "docs/upstream-learning-pilot.md#real-artifact-handoff-follow-up-2026-10-05",
+    "historical_sampling_invalidated": false,
+    "verification": "Recovered both original hashes, imported seven case definitions without the main entry point, confirmed the prescribed root, and refused a duplicate export without changing bytes."
+  },
+  "review_measurement_correction": {
+    "issue": "The first mock metadata-key check could not prove stdin contents.",
+    "resolution": "Replaced its evidentiary use with independent exact expected prompt bytes/text and complete allowed workspace-file comparisons, without rerunning or overwriting cells.",
+    "effect": "All fourteen preparation checks passed; no original response, rubric, score, or launcher changed."
+  },
+  "probe_sources": {
+    "recipe-review/probe_recipe.py": {
+      "sha256": "bbff9b49b68517bc0a77c051a283f4ba505a044627e61f6aa942549d4e1f7df3",
+      "source": "\"\"\"Offline review of the public dated recipe; no Codex or network process runs.\"\"\"\nimport hashlib\nimport json\nfrom pathlib import Path\nimport subprocess\nimport types\n\nREVIEW = Path(__file__).resolve().parent\nREPO = REVIEW.parents[3]\nrecord = json.loads((REPO / 'docs/evidence/upstream-learning-pilot-2026-10-05.json').read_text(encoding='utf-8'))\nsource = record['launcher']['source']\nfrozen = record['frozen_inputs']\n(REVIEW / 'run_pilot.py').write_bytes(source.encode('utf-8'))\nmanifest_text = json.dumps(frozen, ensure_ascii=False, indent=2) + '\\n'\n(REVIEW / 'frozen-inputs.json').write_bytes(manifest_text.replace('\\n', '\\r\\n').encode('utf-8'))\n\n# Import the exact retained source, without its main entry point.\nmodule = types.ModuleType('retained_recipe')\nmodule.__file__ = str(REVIEW / 'run_pilot.py')\nexec(compile(source, module.__file__, 'exec'), module.__dict__)\nextracted_repo = str(module.REPO.relative_to(REPO))\n# The documented run layout is .tmp/local/<dated-run>/, three parents below root.\nprescribed = REPO / '.tmp/local/example-dated-run'\nassert prescribed.parents[2] == REPO\n# Relocate only runtime paths to this authorized review directory. The launcher\n# itself remains byte-identical; no external process or model invocation occurs.\nmodule.REPO = REPO\nmodule.CODEX = 'OFFLINE-CODEX-MOCK'\n\ncalls = []\ndef mock_run(argv, **kwargs):\n    calls.append({'argv': argv, 'input': kwargs.get('input'), 'timeout': kwargs.get('timeout')})\n    if argv[0] == 'git':\n        return types.SimpleNamespace(stdout='', stderr='', returncode=0)\n    assert argv[0] == 'OFFLINE-CODEX-MOCK'\n    response_path = Path(argv[argv.index('-o') + 1])\n    response_path.write_bytes(b'OFFLINE MOCK RESPONSE\\n')\n    return types.SimpleNamespace(stdout='', stderr='', returncode=0)\nmodule.subprocess = types.SimpleNamespace(run=mock_run, TimeoutExpired=subprocess.TimeoutExpired)\n\ncell_checks = []\nfor case in frozen['cases']:\n    for arm in case['arms']:\n        result = module.run_cell(case, arm)\n        call = calls[-1]\n        argv = call['argv']\n        workspace = Path(argv[argv.index('--cd') + 1])\n        configs = [argv[i+1] for i, arg in enumerate(argv[:-1]) if arg == '-c']\n        published = next(c for c in record['cells'] if c['cell_id'] == result['cell_id'])\n        staged = workspace / '.agents/skills/rd-review'\n        payload_equal = None\n        if case['group'] == 'native':\n            payload_equal = all(hashlib.sha256((staged / path).read_bytes()).hexdigest() == snap['sha256']\n                                for path, snap in record['run_controls']['native_skill_snapshot'].items())\n        cell_checks.append({\n            'cell_id': result['cell_id'],\n            'prompt_hash_matches_published': result['prompt_sha256'] == published['prompt_sha256'],\n            'model': argv[argv.index('-m')+1],\n            'timeout': call['timeout'],\n            'sandbox': argv[argv.index('--sandbox')+1],\n            'configs': configs,\n            'native_payload_equal': payload_equal,\n            'workspace_files': sorted(p.relative_to(workspace).as_posix() for p in workspace.rglob('*') if p.is_file()),\n            'grader_data_was_passed_to_mock': any(k in call for k in ['assertions', 'document_rubrics']),\n        })\n\nsnapshot_checks = []\nfor relative, snapshot in record['run_controls']['native_skill_snapshot'].items():\n    git_path = 'zh-CN/skills/rd-review/' + relative\n    blob = subprocess.check_output(['git', 'show', record['baseline_commit'] + ':' + git_path], cwd=REPO)\n    snapshot_checks.append({'path': git_path, 'baseline_blob_matches': hashlib.sha256(blob).hexdigest() == snapshot['sha256']})\n\nexisting_first_attempt_refused = False\ntry:\n    module.run_cell(frozen['cases'][0], frozen['cases'][0]['arms'][0])\nexcept SystemExit as error:\n    existing_first_attempt_refused = 'Refusing to overwrite' in str(error)\n\nreport = {\n    'scope': 'Public recipe preparation, exact-byte recovery, arguments, and local output controls only',\n    'no_model_or_network_process': True,\n    'runtime_paths_relocated_for_authorized_mock': True,\n    'launcher_source_sha256_matches': hashlib.sha256(source.encode()).hexdigest() == record['launcher']['sha256'],\n    'restored_crlf_manifest_sha256_matches': hashlib.sha256((REVIEW/'frozen-inputs.json').read_bytes()).hexdigest() == record['frozen_manifest_sha256'],\n    'lf_manifest_sha256': hashlib.sha256(manifest_text.encode()).hexdigest(),\n    'expected_manifest_sha256': record['frozen_manifest_sha256'],\n    'extracted_nested_repo_relative': extracted_repo,\n    'prescribed_layout_repo_matches': prescribed.parents[2] == REPO,\n    'native_baseline_snapshots': snapshot_checks,\n    'cells': cell_checks,\n    'existing_first_attempt_refused': existing_first_attempt_refused,\n    'process_calls': len(calls),\n}\n(REVIEW / 'offline-probe.json').write_bytes((json.dumps(report, ensure_ascii=False, indent=2) + '\\n').encode())\nprint(json.dumps({\n    'cells': len(cell_checks),\n    'prompt_hash_matches': sum(c['prompt_hash_matches_published'] for c in cell_checks),\n    'native_payload_matches': sum(c['native_payload_equal'] is True for c in cell_checks),\n    'baseline_blob_matches': sum(c['baseline_blob_matches'] for c in snapshot_checks),\n    'nested_root': extracted_repo,\n    'repeat_cell_refused': existing_first_attempt_refused,\n    'report': str(REVIEW/'offline-probe.json'),\n}, ensure_ascii=False))\n"
+    },
+    "recipe-review/audit_prepared.py": {
+      "sha256": "3bbddeda6d617ee882db44a93cecd0a76ea6ea96732314c33c103fac28794ec7",
+      "source": "\"\"\"Read-only audit of already prepared cells; never rerun a cell or process.\"\"\"\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport tomllib\n\nHERE = Path(__file__).resolve().parent\nREPO = HERE.parents[3]\npublic = json.loads((REPO / 'docs/evidence/upstream-learning-pilot-2026-10-05.json').read_text(encoding='utf-8'))\nprobe = json.loads((HERE / 'offline-probe.json').read_text(encoding='utf-8'))\nsnapshots = public['run_controls']['native_skill_snapshot']\nchecks = []\n\nfor case in public['frozen_inputs']['cases']:\n    for arm in case['arms']:\n        cell_id = case['id'] + '-' + arm\n        directory = HERE / 'runs' / cell_id\n        # Construct stdin directly from frozen responder fields, independently\n        # of the launcher and mock implementation; grader fields are excluded.\n        expected = case['task_text']\n        if case['group'] == 'documents':\n            expected = ('<workflow-instructions>\\n' + case['instruction_' + arm]\n                        + '\\n</workflow-instructions>\\n\\n' + case['task_text'])\n        expected_bytes = expected.replace('\\n', os.linesep).encode('utf-8')\n        actual_prompt_bytes = (directory / 'prompt.txt').read_bytes()\n        actual_logical_prompt = (directory / 'prompt.txt').read_text(encoding='utf-8')\n        workspace = directory / 'workspace'\n        expected_files = set(case['workspace_files'])\n        expected_contents = {path: text.replace('\\n', os.linesep).encode('utf-8')\n                             for path, text in case['workspace_files'].items()}\n        if case['group'] == 'native':\n            for path, snapshot in snapshots.items():\n                relative = '.agents/skills/rd-review/' + path\n                expected_files.add(relative)\n                expected_contents[relative] = snapshot['text'].encode('utf-8')\n        actual_files = {p.relative_to(workspace).as_posix()\n                        for p in workspace.rglob('*') if p.is_file()}\n        configurations = next(c['configs'] for c in probe['cells'] if c['cell_id'] == cell_id)\n        parsed_configs = [tomllib.loads(c) for c in configurations]\n        result = json.loads((directory / 'result.json').read_text(encoding='utf-8'))\n        published = next(c for c in public['cells'] if c['cell_id'] == cell_id)\n        check = {\n            'cell_id': cell_id,\n            'expected_stdin_fields': ['task_text'] if case['group'] == 'native'\n                                    else ['instruction_' + arm, 'task_text'],\n            'actual_prompt_bytes_equal_expected': actual_prompt_bytes == expected_bytes,\n            'actual_prompt_logical_text_equal_expected': actual_logical_prompt == expected,\n            'actual_prompt_sha256_equal_published': hashlib.sha256(actual_logical_prompt.encode()).hexdigest()\n                                                   == published['prompt_sha256'],\n            'workspace_exact_allowed_files': actual_files == expected_files,\n            'expected_workspace_files': sorted(expected_files),\n            'unexpected_workspace_files': sorted(actual_files - expected_files),\n            'missing_workspace_files': sorted(expected_files - actual_files),\n            'workspace_bytes_match_frozen_sources': all((workspace / path).read_bytes() == data\n                                                        for path, data in expected_contents.items()),\n            'all_recorded_c_configurations_parse_as_toml': len(parsed_configs) == len(configurations),\n            'result_json_readable_and_cell_id_matches': result['cell_id'] == cell_id,\n        }\n        checks.append(check)\n\nboolean_checks = ['actual_prompt_bytes_equal_expected', 'actual_prompt_logical_text_equal_expected',\n                  'actual_prompt_sha256_equal_published', 'workspace_exact_allowed_files',\n                  'workspace_bytes_match_frozen_sources', 'all_recorded_c_configurations_parse_as_toml',\n                  'result_json_readable_and_cell_id_matches']\nreport = {\n    'scope': 'Actual existing prompt/workspace/result file audit; no cell rerun, model, network, or process launch',\n    'correction': 'Original grader_data_was_passed_to_mock checked only record keys. It is structural information and does not prove stdin contents. This audit uses exact independently constructed expected stdin and exact allowed workspace file sets.',\n    'prompt_file_byte_representation': 'Path.write_text default newline translation on this Windows host: CRLF. Logical stdin uses the frozen text and LF wrapper.',\n    'all_checks_passed': all(check[key] for check in checks for key in boolean_checks),\n    'cells': checks,\n    'totals': {key: sum(check[key] for check in checks) for key in boolean_checks},\n    'limits': ['The prompt file is written from the same prompt variable later passed to subprocess in the retained source; this audit does not observe a real pipe or model request.',\n               'Grader fields are absent from supplied stdin and staged workspace; this does not establish unrestricted-file-read isolation.'],\n}\n(HERE / 'audit.json').write_bytes((json.dumps(report, ensure_ascii=False, indent=2) + '\\n').encode())\nprint(json.dumps({'cells': len(checks), 'all_checks_passed': report['all_checks_passed'],\n                  'totals': report['totals']}, ensure_ascii=False))\n"
+    }
+  },
+  "probe_reproduction": "Save the two probe sources beneath .tmp/local/<fresh-followup>/recipe-review/ in the baseline repository containing the public evidence JSON. Create that fresh directory, run probe_recipe.py once, then audit_prepared.py. The probe intercepts subprocess.run for cell preparation; baseline Git reads remain local. Do not use the mock responses as new model evidence.",
+  "reuse_decisions": [
+    {
+      "evidence": "Frozen inputs, fourteen original responses and corresponding ratings",
+      "decision": "Retain at original scope; input files and public evidence identity unchanged.",
+      "reopen_when": "Relevant input, rubric, response, or instruction content changes."
+    },
+    {
+      "evidence": "Original native read events and original repository gates",
+      "decision": "Retain as dated author observations; the fresh review only checks public consistency.",
+      "reopen_when": "Claim needs current runtime or a changed source/gate surface."
+    },
+    {
+      "evidence": "Reproduction instructions",
+      "decision": "Refresh with actual deterministic export and offline preparation.",
+      "reopen_when": "Directory contract, representation, launcher, CLI controls, or native payload changes."
+    },
+    {
+      "evidence": "Upstream source and license observations",
+      "decision": "Retain as previously inspected fixed-source observations; no fresh external inspection here.",
+      "reopen_when": "A new decision depends on changed sources, pins, or copying scope."
+    }
+  ],
+  "limits": [
+    "A real repository document package was reviewed; no real application interface or production service was exercised.",
+    "No new Codex experiment process, backend model invocation, or network/credential operation was performed by the export or mock probes.",
+    "The task-agent reviews are analysis by agents, not independently certified runtime evidence.",
+    "Original private raw streams were not re-audited; native event summaries are not re-observed commands.",
+    "Preparation does not prove operating-system sandbox enforcement or unrestricted-file-read isolation.",
+    "No measured human time saving, repeated reliability, causal quality gain, cross-client acceptance, or publication claim."
+  ],
+  "validation": {
+    "status": "passed",
+    "focused_document_checks": {
+      "changed_in_followup": [
+        "CHANGELOG.md",
+        "docs/evidence/upstream-learning-real-artifact-2026-10-05.json",
+        "docs/rd-skills-assessment.md",
+        "docs/upstream-learning-pilot.md",
+        "zh-CN/docs/rd-skills-assessment.md",
+        "zh-CN/docs/upstream-learning-pilot.md"
+      ],
+      "previous_identity_entries_unchanged": 48,
+      "previous_identity_entries_intentionally_updated": 5,
+      "total_current_changed_paths": 48,
+      "original_evidence_bytes_unchanged": true,
+      "bilingual_export_blocks_equal_executed_source": true,
+      "json_python_syntax_utf8_lf_privacy_checks_passed": true,
+      "local_markdown_file_links_checked": 20,
+      "negative_gate_reuse_basis": "No validator, Skill, eval, fixture, or validation contract changed in this follow-up; the prior 24/24 record remains historical evidence at its recorded scope."
+    },
+    "commands": [
+      {
+        "command": "pwsh ./scripts/validate.ps1",
+        "exit_code": 0
+      },
+      {
+        "command": "git diff --check",
+        "exit_code": 0
+      }
+    ],
+    "negative_gate_reuse": {
+      "previous_result": "24/24 passed",
+      "source": "docs/evidence/upstream-learning-pilot-2026-10-05.json#/static_validation",
+      "rerun_in_this_followup": false,
+      "basis": "Validated scope shows no change to validators, Skills, evals, fixtures, mirrors, or validation contracts."
+    },
+    "original_canonical_quick_validations": {
+      "passed_packages": 4,
+      "rerun_in_this_followup": false,
+      "basis": "Affected Skill packages are unchanged."
+    },
+    "release_gate": "not run; no release requested"
+  },
+  "fix_review": {
+    "scope": "仅复核Minor的文档修复、中英文导出一致性及新增公开证据的范围/隐私/证据层级；未重跑模型、mock、导出或全仓门禁。",
+    "read_paths": [
+      "docs/upstream-learning-pilot.md",
+      "zh-CN/docs/upstream-learning-pilot.md",
+      "docs/evidence/upstream-learning-real-artifact-2026-10-05.json",
+      "docs/evidence/upstream-learning-pilot-2026-10-05.json",
+      ".tmp/local/real-artifact-followup-20261005/restore_recipe.py",
+      ".tmp/local/real-artifact-followup-20261005/restore-check.json",
+      ".tmp/local/real-artifact-followup-20261005/recipe-review/probe_recipe.py",
+      ".tmp/local/real-artifact-followup-20261005/recipe-review/audit_prepared.py"
+    ],
+    "minor_recipe_1": {
+      "status": "resolved",
+      "basis": "EN/ZH追加段明确原始manifest为UTF-8无BOM、ensure_ascii=False、indent=2、末尾换行和CRLF；完全一致的导出代码验证manifest/launcher原hash、基线与九个原生payload后才创建规定层级新目录，并拒绝覆盖。内容等价LF与原始byte hash差异已明确，不改写历史采样。"
+    },
+    "static_checks": {
+      "english_chinese_export_blocks_byte_equal_after_lf_read": true,
+      "export_python_body_equals_executed_restore_recipe": true,
+      "export_python_ast_parse_passed": true,
+      "export_source_sha256_matches_public_restore_check": true,
+      "original_evidence_current_sha256_matches_retained_identity": true,
+      "both_public_probe_sources_sha256_match": true,
+      "both_public_probe_sources_equal_executed_local_sources": true,
+      "decoded_public_evidence_personal_absolute_path_matches": 0,
+      "credential_access_or_authorization_value_patterns_found": false,
+      "restore_check_reports_model_processes_started": 0,
+      "historical_minor_finding_has_explicit_resolved_record": true
+    },
+    "scope_and_level": "报告明确本次为真实仓库文档包交接和准备检查，未启动Codex/模型；历史事件未重新目击、私有raw streams未重审；实际文件审计代替原无效mock键检查。新增证据包含相对路径、源码及受限检查结果，未将mock作为模型行为、读取隔离、因果收益、生产或发布证明。",
+    "new_substantive_findings": [],
+    "refreshed_validation_record": "已在主代理通知后重新读取公开validation：status=passed，正向validate.ps1及diffcheck退出码0；限定6路径scope记录48个既有身份不变和5个授权更新，negative gate 24/24及4个quick validation按明确未变更依据作历史复用。本审阅未独立重跑这些门禁。",
+    "remaining_unverified": [
+      "本轮不独立执行导出，运行结果来自已核对源码一致的restore-check.json。",
+      "真实模型运行、操作系统沙箱执行、业务接口、长期用户收益与发布未验证。"
+    ],
+    "recommendation": "保留此次范围化文档修复和公开证据；无需改launcher、历史14份响应、评分、Skill或增加框架。"
+  }
+}

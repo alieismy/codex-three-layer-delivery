@@ -6,6 +6,10 @@ This project uses GitHub releases for versioning. Directory names should not con
 
 ## Unreleased
 
+- Recorded a seven-upstream source follow-up and a fourteen-response paired pilot separating native Skill loading, semantic quality, and observed cost. Added four synthetic delivery/design regressions across six payload mirrors (51 canonical output definitions), refreshed attribution including the current OMX MIT license, and retained all first responses, grading, diagnostics, and causal limits. Equal observed assertion results leave Skill instructions, routing, permissions, and public model defaults unchanged.
+- Checked the actual pilot package through a fresh artifact handoff and offline preparation of all fourteen prompts. Clarified exact manifest serialization with a verified export recipe while preserving the original evidence and separating preparation checks from new model or business results.
+- Added a bilingual nine-role method-adoption map and a real current decision-brief exercise with one proxy reader. Retained both first responses, source review, costs, and unverified human/business boundaries. No material explanation defect justified another sample, new eval, or Skill-instruction expansion.
+
 ## 1.8.1 - 2026-10-05
 
 - Added contextual opportunity seeking, stage-appropriate recommendation strength, adaptable workflow coverage, and bounded subagent task contracts across shared conduct and applicable RD workflows. Synchronized language/platform mirrors and added three synthetic output cases; the forward-looking RD record preserves the bounded two-model comparison, fixture correction, independent review, and native-behavior limits.
