@@ -7,6 +7,7 @@ This project uses GitHub releases for versioning. Directory names should not con
 ## Unreleased
 
 - Added `scripts/package-claude-ai-skills.ps1` to package the nine Claude adapter RD Skills as claude.ai upload archives, with a `-Changed` mode that packages only Skills missing from or different from the copies Claude Code synced from the account. Because claude.ai rewrites `SKILL.md` frontmatter layout on upload, the comparison checks `name` and `description` by value and other content byte for byte. Documented the upload path and the one-source rule for project, personal, and account-synced copies in the English and Chinese Claude adapter READMEs, and made the project adapter's Skill-source line hold for both project and account installation. One English upload was confirmed current through the synced copies; same-name replacement and sync latency were not measured.
+- Recorded a 2026-10-09 [nested Skill override probe](docs/evidence/claude-nested-skill-overrides-2026-10-09.json) in the compatibility notes. During source maintenance, a bare `skillOverrides` key set to `off`, paired with the `anthropic-skills:` name set to `on`, hid the Claude adapters' nested `rd-*` Skills and kept the account-synced copies; directory-qualified keys alone and a bare key alone failed. The repository does not commit the override.
 
 ## 1.8.3 - 2026-10-09
 
