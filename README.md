@@ -307,6 +307,7 @@ codex-three-layer-delivery/
     release-checklist.md
   scripts/
     install-rd-skills.ps1
+    package-claude-ai-skills.ps1
     validate-codex-configs.py
     validate-release.ps1
     validate-skill-metadata.py

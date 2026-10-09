@@ -43,6 +43,10 @@ Claude Code 官方文档核查入口：
 - https://code.claude.com/docs/en/permissions
 - https://code.claude.com/docs/en/skills
 
+2026-10-09 的 claude.ai Skill 打包核查观察到本机 CLI 为 `2.1.295`。2026-10-01 上传的九个 RD Skill，其同步副本的 `SKILL.md` 与 Claude 适配目录的历史 blob 逐字节一致，且没有新增文件。2026-10-09 上传 `scripts/package-claude-ai-skills.ps1` 生成的九个英文压缩包后，同步副本没有新增文件，references 与 `SKILL.md` 正文逐字节一致，但每个折叠的 `description: >-` 块都被改写为单行标量；九个 Skill 解析后的 `name` 与 `description` 取值均一致。仅按字节比较的 `-Changed` 因此把九个都报告为 changed；脚本现已按取值比较这部分元数据并报告为 current，无法解析的 frontmatter 形式按 changed 处理。同一会话中，个人 `~/.claude/skills/rd-*` 副本与同步的 `anthropic-skills:rd-*` 副本同时出现在技能列表中，与文档所述“短名优先但不去重”一致。claude.ai 的同名替换行为和同步时延尚未测量。
+
+同日的冒烟检查把修订后的英文项目适配（不含 `.claude/skills/`）复制到隔离的临时项目。一次 headless 运行在 PRD 请求下选用了账户同步的 `anthropic-skills:rd-requirement`；另一次询问应在哪里修改 `rd-review`，回答指向账户源副本，并引用了“不要修改同步副本、不要再添加项目副本”的指令。每个场景只运行一次，继承了用户级上下文，且没有基线对照。维护本仓库时，编辑 `claude/project/CLAUDE.md` 和 `zh-CN/claude/project/CLAUDE.md` 会使 Claude Code 把各自适配目录下的 `.claude/skills/rd-*` 作为目录限定的嵌套 Skill（`claude/project:rd-*`、`zh-CN/claude/project:rd-*`）与账户副本一同加载；该适配隔离现象已记录，尚无缓解措施。
+
 
 [2026-10-01 历史冒烟记录](../../docs/evidence/skill-routing-smoke-2026-10-01.json)保留四次完成的 Codex 尝试和四次 Claude 鉴权阻塞（`Not logged in`）。用户确认 10 月 2 日 Claude 通过前已经登录，不能据此归因为升级修复。Codex T3 此前约 271 秒才完成文件捕获，后次上限为 180 秒，不是受控的路由回归比较。
 

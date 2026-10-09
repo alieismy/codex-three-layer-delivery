@@ -81,6 +81,21 @@ Claude Code v2.1.277 and later can read `AGENTS.md` directly, but only when no `
 
 The import shares textual instructions only; it does not replace Claude Code settings, permissions, hooks, Skill discovery, or other platform controls. Imported content still consumes context. Cursor also reads both `AGENTS.md` and `CLAUDE.md`; review that combination before using both adapters together.
 
+## claude.ai Skill Upload
+
+Use this path when the RD Skills should follow your Claude account into claude.ai chat, Cowork, and Claude Code instead of being installed per project. Uploaded Skills are saved to the account; Claude Code signed in with that account downloads them to `~/.claude/skills/synced/` as `anthropic-skills:rd-*` ([Claude Code skills](https://code.claude.com/docs/en/skills), checked 2026-10-09).
+
+```powershell
+pwsh -File ./scripts/package-claude-ai-skills.ps1 -Language en            # all nine archives
+pwsh -File ./scripts/package-claude-ai-skills.ps1 -Language en -Changed   # only Skills missing from or different on claude.ai
+```
+
+- The script packages the selected language's Claude adapter Skills into `.tmp/local/claude-ai-skills/<language>/rd-*.zip` (ignored, reproducible scratch output): one archive per Skill, with the Skill folder at the archive root as claude.ai requires ([Create custom skills](https://claude.com/docs/skills/how-to)). It omits `evals/` and `agents/`, which hold repository test definitions and Codex metadata. `manifest.json` records the source commit and archive hashes.
+- It refuses uncommitted changes under the source tree so each upload maps to a commit; pass `-AllowDirty` for a trial package.
+- `-Changed` compares the runtime payload with the copies Claude Code last synced, so Claude Code must be signed in with the same account with skill sync on. claude.ai rewrites the `SKILL.md` frontmatter layout on upload, so the comparison checks `name` and `description` by value and everything else byte for byte. Pass `-SyncedRoot` when more than one synced account directory exists.
+- Upload each archive from **Customize > Skills**: select **+**, then **Create skill > Upload a skill**. Keep one copy per Skill: the claude.ai documentation does not say whether uploading an existing name replaces it, so remove or replace the older copy. After the next sync, rerun with `-Changed`; "nothing to upload" confirms that the synced copies match the source.
+- Keep one source per environment. A project `.claude/skills/rd-*` or personal `~/.claude/skills/rd-*` copy does not hide the synced Skill: both load, the local copy takes `/rd-*`, and the synced copy remains available as `/anthropic-skills:rd-*`. When using uploaded Skills, install the project adapter without `.claude/skills/`.
+
 ## Public-Release Posture
 
 For the first public release, treat Claude Code support as optional:

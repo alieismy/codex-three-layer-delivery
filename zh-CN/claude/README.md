@@ -87,6 +87,21 @@ Claude Code v2.1.277 及以上版本可直接读取 `AGENTS.md`，但仅限不�
 
 导入只共享文本指令，不能替代 Claude Code 的 settings、permissions、hooks、Skill 发现或其他平台控制；导入内容仍会占用上下文。Cursor 也会同时读取 `AGENTS.md` 和 `CLAUDE.md`，同时使用两个适配包前应先审查这一组合。
 
+## claude.ai Skill 上传
+
+当 RD Skills 需要随 Claude 账户出现在 claude.ai 对话、Cowork 和 Claude Code 中，而不是按项目安装时，使用这一路径。上传的 Skill 保存在账户中；以同一账户登录的 Claude Code 会把它们下载到 `~/.claude/skills/synced/`，名称为 `anthropic-skills:rd-*`（[Claude Code skills 文档](https://code.claude.com/docs/en/skills)，2026-10-09 核查）。
+
+```powershell
+pwsh -File ./scripts/package-claude-ai-skills.ps1 -Language zh-CN            # 全部九个压缩包
+pwsh -File ./scripts/package-claude-ai-skills.ps1 -Language zh-CN -Changed   # 仅打包 claude.ai 上缺失或内容不同的 Skill
+```
+
+- 脚本把所选语言的 Claude 适配 Skills 打包到 `.tmp/local/claude-ai-skills/<language>/rd-*.zip`（已被忽略，可随时重新生成）：每个 Skill 一个压缩包，压缩包顶层是 Skill 文件夹，这是 claude.ai 的要求（[Create custom skills](https://claude.com/docs/skills/how-to)）。`evals/` 和 `agents/` 是仓库测试定义和 Codex 元数据，不打包。`manifest.json` 记录源提交和压缩包哈希。
+- 源目录存在未提交改动时脚本拒绝打包，使每次上传都能对应到提交；试验性打包可加 `-AllowDirty`。
+- `-Changed` 将运行时载荷与 Claude Code 最近同步的副本比较，因此 Claude Code 必须以同一账户登录并开启技能同步。claude.ai 上传时会改写 `SKILL.md` frontmatter 的排版，因此比较时 `name` 和 `description` 按取值比较，其余内容逐字节比较。存在多个同步账户目录时，用 `-SyncedRoot` 指定。
+- 在 **Customize > Skills** 中逐个上传：选择 **+**，再选 **Create skill > Upload a skill**。每个 Skill 只保留一份：claude.ai 文档未说明上传同名 Skill 是否会替换原有版本，因此应删除或替换旧版本。下次同步后再运行 `-Changed`，输出 "nothing to upload" 即表示同步副本与源一致。
+- 每个环境只保留一个来源。项目 `.claude/skills/rd-*` 或个人 `~/.claude/skills/rd-*` 副本不会隐藏同步副本：两者都会加载，本地副本占用 `/rd-*`，同步副本仍可通过 `/anthropic-skills:rd-*` 使用。使用上传的 Skill 时，安装项目适配应省略 `.claude/skills/`。
+
 ## 公开发布姿态
 
 首次公开发布时，Claude Code 支持应作为可选能力处理：

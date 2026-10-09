@@ -4,6 +4,10 @@ All notable changes to this project should be documented here.
 
 This project uses GitHub releases for versioning. Directory names should not contain edition or version suffixes such as `v4` or `-en`.
 
+## Unreleased
+
+- Added `scripts/package-claude-ai-skills.ps1` to package the nine Claude adapter RD Skills as claude.ai upload archives, with a `-Changed` mode that packages only Skills missing from or different from the copies Claude Code synced from the account. Because claude.ai rewrites `SKILL.md` frontmatter layout on upload, the comparison checks `name` and `description` by value and other content byte for byte. Documented the upload path and the one-source rule for project, personal, and account-synced copies in the English and Chinese Claude adapter READMEs, and made the project adapter's Skill-source line hold for both project and account installation. One English upload was confirmed current through the synced copies; same-name replacement and sync latency were not measured.
+
 ## 1.8.3 - 2026-10-09
 
 - Narrowed delivery orchestration and dependent-Skill routing, reused valid writing evidence and stage context, scoped design reads and gates, and merged the inconsistent requirements acceptance checks. Independent blocking questions can be batched while existing authorization, sensitive-operation safeguards, artifact approval boundaries, and required validation remain in force.
