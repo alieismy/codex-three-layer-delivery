@@ -4,8 +4,9 @@ All notable changes to this project should be documented here.
 
 This project uses GitHub releases for versioning. Directory names should not contain edition or version suffixes such as `v4` or `-en`.
 
-## Unreleased
+## 1.8.4 - 2026-10-09
 
+- Applied three Opus 5.5 guidance edits to the English and Simplified Chinese Claude global templates. Subagents are no longer used to verify the model's own work unless the user asks; the Pre-Output Self-Review section and three Thinking Methods items that prescribed thinking steps are removed. Codex and Cursor surfaces intentionally keep the previous text. The [review](docs/opus-5-5-instruction-review.md) records the guidance mapping and a 12-run Opus 5.5 `xhigh` A/B smoke test with [full responses](docs/evidence/opus-5-5-instruction-ab-2026-10-09.json). Every arm passed 28 of 29 frozen assertions and shared one T2 word-limit failure. This shows no detected regression, not an improvement.
 - Added `scripts/package-claude-ai-skills.ps1` to package the nine Claude adapter RD Skills as claude.ai upload archives, with a `-Changed` mode that packages only Skills missing from or different from the copies Claude Code synced from the account. Because claude.ai rewrites `SKILL.md` frontmatter layout on upload, the comparison checks `name` and `description` by value and other content byte for byte. Documented the upload path and the one-source rule for project, personal, and account-synced copies in the English and Chinese Claude adapter READMEs, and made the project adapter's Skill-source line hold for both project and account installation. One English upload was confirmed current through the synced copies; same-name replacement and sync latency were not measured.
 - Recorded a 2026-10-09 [nested Skill override probe](docs/evidence/claude-nested-skill-overrides-2026-10-09.json) in the compatibility notes. During source maintenance, a bare `skillOverrides` key set to `off`, paired with the `anthropic-skills:` name set to `on`, hid the Claude adapters' nested `rd-*` Skills and kept the account-synced copies; directory-qualified keys alone and a bare key alone failed. The repository does not commit the override.
 
