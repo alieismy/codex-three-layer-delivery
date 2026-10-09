@@ -93,7 +93,7 @@ Default document verdicts are **Approved / Conditionally Approved / Rejected**. 
 ## Tool Selection
 
 - Inspect the target and applicable upstream sources before external retrieval
-- Use `rd-research` when standards, law, policy, source code, current technology behavior, quotations, timelines, or public facts materially affect a finding
+- Use `rd-research` only when material evidence gaps about standards, law, policy, source code, current technology behavior, quotations, timelines, or public facts need focused research; reuse inspected evidence that remains current and applicable, and keep routine source checks within the review
 - Prefer primary sources and use independent sources to test self-interested or disputed claims
 - If authoritative evidence is inaccessible, narrow the finding and verdict instead of filling the gap
 - Redact secrets and unnecessary personal or infrastructure identifiers from findings and evidence excerpts; preserve a controlled source pointer when reviewers need the raw material

@@ -1,0 +1,167 @@
+{
+  "date": "2026-10-09",
+  "status": "native_read_preflight_blocked_comparison_not_run",
+  "purpose": "Preflight one isolated read-only native Skill request before a bounded baseline-versus-candidate comparison.",
+  "execution": {
+    "client": "Codex CLI",
+    "cli_version": "0.162.0",
+    "platform": "Windows / PowerShell",
+    "model_requested": "gpt-6-astra",
+    "reasoning_requested": "high",
+    "server_side_model_identity_independently_verified": false,
+    "effective_prompt_independently_verified": false,
+    "sandbox_requested": "read-only",
+    "approval_policy_requested": "never",
+    "controls": [
+      "New separate temporary CODEX_HOME; no auth file copied",
+      "New isolated Git workspace, user config and execpolicy rules ignored; project_doc_max_bytes=0",
+      "Web search disabled; apps, plugins, remote_plugin, hooks, memories, multi_agent, multi_agent_v2, skill_search disabled",
+      "Discovered personal and system Skill paths disabled individually through skills.config",
+      "Existing configured provider/authentication supplied only to the child process; no credential or private provider endpoint in this evidence",
+      "Ephemeral independent context; JSON event output; 180-second execution bound"
+    ],
+    "elapsed_seconds": 21.21,
+    "exit_code": 0,
+    "timed_out": false,
+    "usage": [
+      {
+        "input_tokens": 57763,
+        "cached_input_tokens": 41984,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 212,
+        "reasoning_output_tokens": 10
+      }
+    ],
+    "normal_process_exit_is_not_task_completion": true
+  },
+  "actual_preflight_inputs": {
+    "prompt": "核对本地 probe calibration 记录。请读取实际记录并报告 calibration label 与声明的证据状态，简短回答。",
+    "prompt_sha256": "c765833af3d747111ed831d0750abb063dbd04f8226e002a106c7405f3358d20",
+    "files": {
+      ".agents/skills/local-evidence-probe/SKILL.md": "---\nname: local-evidence-probe\ndescription: Read and report the bounded local calibration fixture when asked to verify the probe calibration record.\n---\n\n# Local calibration evidence\n\nFor a probe calibration request, read `fixtures/calibration.txt` from the workspace. Report its calibration label and declared evidence state. Do not modify any files.\n",
+      "fixtures/calibration.txt": "calibration_label: calibration-47\nevidence_state: synthetic static fixture only\n"
+    },
+    "file_sha256": {
+      ".agents/skills/local-evidence-probe/SKILL.md": "66443efdf070640f3f926293e10b60dea736fde746517133763aaa585571b416",
+      "fixtures/calibration.txt": "28df13f178b25ac7d354d0dafc2228c5d936131e53713a53ef41d00d6a66bbb4"
+    }
+  },
+  "observation": {
+    "first_model_message": "我会使用 local-evidence-probe 技能读取实际记录，核对标签和声明的证据状态。\n",
+    "requested_read_command_sanitized": "pwsh.exe -Command Get-Content -LiteralPath '.agents/skills/local-evidence-probe/SKILL.md'",
+    "router_rejection": "exec_command failed: CreateProcess rejected: blocked by policy",
+    "read_attempt_evidence": "Command rejection observed in stderr; no successful shell command or fixture read appeared in completed tool items.",
+    "mcp_results": [
+      {
+        "tool": "list_mcp_resources",
+        "arguments": {},
+        "result": {
+          "resources": []
+        }
+      },
+      {
+        "tool": "list_mcp_resource_templates",
+        "arguments": {},
+        "result": {
+          "resourceTemplates": []
+        }
+      }
+    ],
+    "complete_first_final_response": "未能读取实际记录，无法确认 calibration label 与声明的证据状态。\n\n读取技能文件的命令被执行策略拒绝，且没有可用的资源读取通道；本次核对未完成。",
+    "response_sha256": "bbfeda1beeb99e8f96fbe2d33f74481ea56f58da71ca4f5498cb1a5a7c4671d3",
+    "actual_skill_body_loaded": false,
+    "actual_fixture_read": false,
+    "scope_of_false_fields": "No successful read was observed; the independently observable rejection prevents claiming actual loading.",
+    "native_skill_discovery_limit": "The model named the workspace probe Skill and attempted its relative entry path. This is an entry-discovery observation, not proof of complete native loading or strong context isolation."
+  },
+  "planned_comparison": {
+    "maximum_independent_calls": 12,
+    "actual_comparison_calls": 0,
+    "case_ids": [
+      "R1-lightweight-fact",
+      "R2-single-critical-conflict",
+      "Q1-requirement-sufficient-evidence",
+      "Q2-requirement-material-research-gap",
+      "S1-local-calculation",
+      "S2-sensitive-trust-boundary"
+    ],
+    "cases_status": "Frozen planned inputs only; none executed, scored, or passed.",
+    "baseline_changed_set_sha256": "d9bd0a048eaf46313eb45ca7bc04cc6334fa6f0f05bb7bb63e18c8e36dd0c36e",
+    "skill_body_hashes": {
+      "baseline": {
+        "skills/rd-delivery/SKILL.md": "46ccda59e423a48d68c800fb4871eaf32c11ae508efa514f2779d3428cbb7214",
+        "skills/rd-design/SKILL.md": "41153a5917832c896e4947024b486c194d6dcdbcc57ce2f0f4fd5bcc238f19d9",
+        "skills/rd-feasibility/SKILL.md": "4a1bfce8ca3028d6b3d4d37bae803d00cb6f07b6fb7de836f8bd9e26b175ac44",
+        "skills/rd-requirement/SKILL.md": "9d1308d8b46f2bde9a52b0ea0daba67a18807c34970791dc497423080377b7ed",
+        "skills/rd-research/SKILL.md": "0471522f6479ac2f5d2625e532eb6f902d89ef0fe498b5997be0cb0763b1e850",
+        "skills/rd-review/SKILL.md": "73ce461d007bbbaa349abdd4459e391b68431c5fe9cdff4648683303f6baee53",
+        "skills/rd-solution/SKILL.md": "d4e4ecd8bb7e9f7e4804f9be3e12ba5d2feae75002d05bfb0685b1fdf382cc56",
+        "skills/rd-specification/SKILL.md": "df5ade35714b655d5da533d5017d33baccfc381ec784cf451e32184c96837639",
+        "skills/rd-writing/SKILL.md": "6b1e03f873502c9c7f7296f6be5b3e4431d5965bca16db94f593eb92b7b04fe5"
+      },
+      "candidate": {
+        "skills/rd-delivery/SKILL.md": "46ccda59e423a48d68c800fb4871eaf32c11ae508efa514f2779d3428cbb7214",
+        "skills/rd-design/SKILL.md": "f324ce04223ea397d60f98296e8bd04bcef0069c26ddb5c9b60571339e118861",
+        "skills/rd-feasibility/SKILL.md": "d703bb1e150af94f5e8ae156f781fce135bbaaa234268a1cde5eec67d9657162",
+        "skills/rd-requirement/SKILL.md": "dfedd66dd67b7f796b022770c212070945b11500dcfe58532cae29e25c59715b",
+        "skills/rd-research/SKILL.md": "5b64f3ee6d576ab9506789230011666c6d87c11338d09548fc8c34ad46e74fad",
+        "skills/rd-review/SKILL.md": "d034cfe59c39292dcb85ffffb8357a182b197aacda98a2da3d203700cfe22f9a",
+        "skills/rd-solution/SKILL.md": "a86362e90bf6aee0caf38ba0088759154b67ab79b323c484862cd36c1c080fb4",
+        "skills/rd-specification/SKILL.md": "5156e6bca3ab6caf3d9bb46196bf03222aad7cc42d6f2ed8e2b36f2cf4fb2adc",
+        "skills/rd-writing/SKILL.md": "6b1e03f873502c9c7f7296f6be5b3e4431d5965bca16db94f593eb92b7b04fe5"
+      }
+    },
+    "cases": [
+      {
+        "id": "R1-lightweight-fact",
+        "prompt": "读取给定 API 文档片段，告诉我 listTickets 默认 page_size 是多少。简短回答。",
+        "files": {
+          "inputs/api-excerpt.md": "# Synthetic API documentation excerpt\nFixture E-API is fictional and provided solely for this bounded test.\n`listTickets(page_size=25)` returns a page of tickets; `page_size` accepts integers from 1 to 100.\n"
+        }
+      },
+      {
+        "id": "R2-single-critical-conflict",
+        "prompt": "我们要决定关闭工单的保留期限。请分析本地两份政策证据对同一个保留期限主张的冲突，形成可供业务负责人决策的证据说明。实际期限由业务负责人决定。",
+        "files": {
+          "inputs/retention-evidence.md": "# Synthetic retention-policy evidence\nAll records are fictional; no real legal or compliance conclusion can be drawn.\nP1: Current approved organization policy rev 3 applies to closed service tickets and declares retention of 180 days.\nP2: Signed service agreement rev 2 covers the same tickets and declares retention of 365 days.\nAuthority and precedence between P1 and P2 are unresolved. No policy owner determination or exception is supplied.\n"
+        }
+      },
+      {
+        "id": "Q1-requirement-sufficient-evidence",
+        "prompt": "根据本地已经核实的输入，起草两条可验收需求并列明依据。输出需求草稿即可。",
+        "files": {
+          "inputs/verified-requirement-record.md": "# Synthetic verified requirement record\nFictional inputs, supplied as checked and current for this draft.\nE1: Approved interface baseline supports exact ticket-ID lookup and returns either one matching ticket or not-found.\nE2: Approved business rule allows exact lookup of closed tickets within the already-approved 180-day retention period.\nE3: Current acceptance script passes exact lookup for ticket T-017, not-found for T-999, and lookup of closed T-018 within 180 days.\nScope is a two-requirement draft; production deployment and broader policy changes are not authorized.\n"
+        }
+      },
+      {
+        "id": "Q2-requirement-material-research-gap",
+        "prompt": "根据本地输入起草工单查询需求，并处理其中影响验收的证据问题。保留期限由业务负责人决定。完成可推进的草稿，同时给出解决证据冲突所需的研究说明。",
+        "files": {
+          "inputs/requirement-gap-record.md": "# Synthetic requirement evidence with a material gap\nAll records are fictional.\nE1: Current approved interface supports exact ticket-ID lookup and a not-found response.\nE2: Approved service policy rev 3 requires closed-ticket availability for 180 days.\nE3: Signed customer agreement rev 2 requires the same closed tickets to remain available for 365 days.\nThe applicability and precedence of E2 and E3 are unresolved, and no responsible-owner decision exists. The user authorizes a draft and evidence analysis, not a retention-policy change.\n"
+        }
+      },
+      {
+        "id": "S1-local-calculation",
+        "prompt": "为本地纯计算函数 count_clamped(n)=max(0,min(n,100))写一个简短技术方案。输入是同一可信组件已验证的整数，不存在外部输入、存储、账户或网络。说明推荐实现和必要验证即可。",
+        "files": {}
+      },
+      {
+        "id": "S2-sensitive-trust-boundary",
+        "prompt": "为客服工单查询接口写一个简短技术方案。认证用户只能查看自己组织的工单；接口处理网络输入，工单含客户个人信息。说明推荐架构、关键安全控制、验证和仍需责任人决定的问题。当前只授权方案草稿。",
+        "files": {
+          "inputs/ticket-api-boundary.md": "# Synthetic ticket API boundaries\nThis is a fictional design exercise.\nBrowser clients send ticket IDs over the network. Service tickets carry tenant_id and customer contact information. An existing identity provider authenticates users and provides verified user and tenant claims. The database is private to the service. Production rollout and real account changes are out of scope. Required behavior is that a user can retrieve only tickets from their own organization, including safe not-found/denied handling without exposing another organization's ticket metadata.\n"
+        }
+      }
+    ],
+    "snapshot_limit": "Skill body hashes identify the planned variants; the variants were not executed. Full variant snapshots remain in the task-local resumable record and are not needed to reconstruct the actual preflight inputs embedded above."
+  },
+  "decision": "Stop comparison after the first preflight blocker; no unchanged-condition retry, wider permission, or substitute supplied-text comparison.",
+  "limits": [
+    "No full native Skill loading, actual fixture inspection, or implicit routing improvement established",
+    "No baseline-versus-candidate behavior result or causal benefit",
+    "No token, cost, or latency improvement conclusion from this one failed preflight",
+    "No server-side model identity or complete effective-prompt isolation proof",
+    "No Chinese Skill-body execution, Claude/Cursor execution, sensitive-operation enforcement, production or business acceptance"
+  ],
+  "reentry_condition": "Retry only under a separately understood and changed execution-entry condition that preserves the approved permission boundary; retain this first failure."
+}

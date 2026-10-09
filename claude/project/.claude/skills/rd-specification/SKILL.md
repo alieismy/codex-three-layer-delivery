@@ -88,7 +88,7 @@ Pre-execution checks:
 
 ## Tool Selection
 
-- Use `rd-research` for current standards status, regulations, official interpretations, or external technical facts
+- Use `rd-research` only when material evidence gaps about current standards status, regulations, official interpretations, or external technical facts need focused research; reuse inspected evidence that remains current and applicable, and keep routine source checks within specification work
 - Prefer standards bodies, regulators, official specifications, and inspected normative sources
 - Use Context7 or an equivalent documentation retriever only when a clause depends on current software, protocol, SDK, or API behavior
 - When authoritative text is inaccessible, verify metadata only and mark clause content for human confirmation

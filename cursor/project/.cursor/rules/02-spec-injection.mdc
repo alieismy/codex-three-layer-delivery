@@ -32,7 +32,7 @@ Before requirements, feasibility, design, standards, or review work:
 1. Check `.cursor/rules/` for project conventions.
 2. Check relevant skills in `.cursor/skills/`.
 3. Check existing templates, glossaries, review forms, standards references, and prior decisions before creating new rules.
-4. Persist a project decision as durable guidance only when it is stable, reusable, and approved by the user or authorized owner.
+4. Persist only stable, reusable agent-operating conventions approved by the user or authorized owner in rules. Keep approved architecture, product, and adoption decisions in linked project documents, with rule pointers only when they affect agent behavior.
 
 ## Spec Maintenance
 

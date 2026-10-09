@@ -50,6 +50,8 @@ pwsh ./scripts/test-validator.ps1
 git diff --check
 ```
 
+Reuse passing gate results during read-only review when the checked content and relevant tool or environment state remain unchanged. New edits, failures, external changes, or unresolved concerns require fresh affected checks; new changes to the shared surfaces listed above still require all repository gates before completion.
+
 Before a release, also run the networked dynamic gate:
 
 ```powershell

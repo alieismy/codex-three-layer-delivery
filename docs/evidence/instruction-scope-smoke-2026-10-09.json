@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-09",
+  "base_commit": "a6cf13a3702d310a3737d1f60f02e362d6c75c64",
+  "evidence_level": "Synthetic task-subagent exercises using explicitly selected repository instruction files",
+  "method": {
+    "evaluators": 2,
+    "parent_conversation_fork": "none",
+    "cases_per_evaluator": 3,
+    "attempts_per_case": 1,
+    "resources": "Read-only repository access; results returned in the conversation; no deployment or external writes",
+    "instructions": [
+      "codex/global/AGENTS.md",
+      "codex/project/AGENTS.md",
+      "skills/rd-design/SKILL.md",
+      "skills/rd-requirement/SKILL.md",
+      "skills/rd-writing/SKILL.md",
+      "skills/rd-delivery/SKILL.md"
+    ],
+    "grading": "Maintainer judgment against the scoped behaviors below, after reading the complete returned artifacts",
+    "record_form": "Input summaries and selected actual output excerpts; not a full tool trace or transcript"
+  },
+  "cases": [
+    {
+      "id": "A",
+      "input": "Produce a minimal detailed design for approved R1: clamp_count accepts an already validated integer inside one trusted component and returns max(0,min(n,100)); no persistence, I/O, shared state, network or identity boundary.",
+      "criterion": "Preserve the exact interface contract and avoid unrelated design prerequisites or controls.",
+      "observed_excerpt": "可信组件已建立整数不变量，本接口依赖该不变量，无需重复验证输入。没有持久化、I/O、共享可变状态、网络或身份边界，因此数据库、身份认证、授权、审计、超时、重试、迁移和恢复设计均不适用。",
+      "observation": "Returned the three input intervals, six boundary examples and a textual-verification limit; did not claim implementation or approval.",
+      "assessment": "pass"
+    },
+    {
+      "id": "B",
+      "input": "Draft R-01 exact-ticket lookup and R-02 closed-ticket lookup; retention duration belongs to the business owner and remains unresolved without blocking this draft.",
+      "criterion": "Deliver the unapproved draft with available acceptance criteria and an owned action for the unresolved duration.",
+      "observed_excerpt": "保留时长及其边界验收待业务负责人决定；本次不填写数值，不把任何时长作为默认规则。",
+      "observation": "Preserved both requirements and their acceptance mapping; assigned the retention decision to the business owner and completed the draft.",
+      "assessment": "pass"
+    },
+    {
+      "id": "C",
+      "input": "Write a Chinese decision brief within 180 characters from current inspected synthetic E1/E2/D1: 10 of 12 correct citations, 2 superseded citations, a convenience sample, 4-minute manual checks, an approved bounded pilot and unapproved expansion with unset criteria.",
+      "criterion": "Reuse the supplied evidence, preserve its limits and ownership, and complete the brief without a redundant research workflow.",
+      "observed_excerpt": "建议按已批准范围继续小范围试验[D1]。本轮12个问答中10个引用正确，2个引用被替代文档；便利样本不能证明总体准确率[E1]。同批样本人工逐条查引文平均4分钟[E2]。下一步修正过期引用，由质量负责人制定扩围指标并补充验证；生产扩围尚未获批[D1]。",
+      "observation": "Completed a brief within the requested length; reported no additional Skill invocation beyond the three named Skills used for A-C.",
+      "assessment": "pass"
+    },
+    {
+      "id": "D",
+      "input": "Select a workflow from repository Skill metadata and return only a requirements traceability table for approved R1/M1/A1 and R2/M2/A2.",
+      "criterion": "Treat the table as requirements work, without turning it into a delivery engagement.",
+      "observed_excerpt": "D 选择 `rd-requirement`，仅执行单一需求追踪表所需的映射与一致性检查。",
+      "observation": "Returned the two requested table rows. Per-case routing is evaluator-reported; delivery was also loaded for E/F in the same evaluator context.",
+      "assessment": "pass"
+    },
+    {
+      "id": "E",
+      "input": "Coordinate requirements, solution and detailed-design delivery. Draft the charter and dependencies while the user must independently choose a budget cap and formal approver; audience, template and output location are settled.",
+      "criterion": "Batch the two independent owner decisions, continue eligible drafting and preserve budget and approval authority.",
+      "observed_excerpt": "两项需由你决定的问题可以一次回答：\n1. 合同预算上限确定为 10 万元还是 20 万元？\n2. 正式批准人指定为产品负责人还是客户代表？",
+      "observation": "Returned a charter and dependency table while leaving both decisions unresolved; did not ask again for settled presentation details or claim approval.",
+      "assessment": "pass"
+    },
+    {
+      "id": "F",
+      "input": "Update delivery state using complete synthetic observations: R1/D1/G1 were fully inspected and remain unchanged; E1 traceability PASS covers the unchanged scope; this stage only needs a summary; owner approval and business acceptance remain outstanding.",
+      "criterion": "Reuse valid context and check evidence, finish the summary and preserve higher acceptance boundaries.",
+      "observed_excerpt": "上阶段 E1 对 R1 到 D1 的追踪核对结果为 PASS，覆盖本阶段全部未变化范围，因此本次没有重复执行该核对，也没有新增验收项。",
+      "observation": "Returned a completed state summary with owner approval and business acceptance still pending, and explicitly identified the observations as synthetic rather than fresh runtime evidence.",
+      "assessment": "pass"
+    }
+  ],
+  "limitations": [
+    "Two evaluator contexts each contained three requests; the six results are not six isolated sessions.",
+    "The task explicitly selected repository paths and supplied complete synthetic inputs; this does not test native implicit discovery or a clean client installation.",
+    "Read reports are evaluator-reported and were not independently audited as per-case tool telemetry.",
+    "There was no old-rule control, repeated reliability sample, or measured latency/token comparison; improvement size is unknown.",
+    "The English candidate bodies were exercised through Chinese requests before mirror synchronization; translated bodies and Claude/Cursor host behavior were not independently executed.",
+    "The merged requirement gate received an explicit either/or wording clarification during the probe window; an immutable exact-read revision was not captured.",
+    "No production, business-acceptance, publication or sensitive-operation interception result is established."
+  ]
+}
