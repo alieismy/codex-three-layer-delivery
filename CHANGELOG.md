@@ -4,12 +4,14 @@ All notable changes to this project should be documented here.
 
 This project uses GitHub releases for versioning. Directory names should not contain edition or version suffixes such as `v4` or `-en`.
 
-## Unreleased
+## 1.8.3 - 2026-10-09
 
 - Narrowed delivery orchestration and dependent-Skill routing, reused valid writing evidence and stage context, scoped design reads and gates, and merged the inconsistent requirements acceptance checks. Independent blocking questions can be batched while existing authorization, sensitive-operation safeguards, artifact approval boundaries, and required validation remain in force.
 - Clarified direct primary-source retrieval, decision-record placement, and proportionate guidance for read-only commands across the applicable English/Chinese and platform surfaces. The initial scope added four output cases and three trigger cases per canonical language tree, reaching 55 output and 81 trigger definitions at that stage; these definitions are not model-execution results. A [bounded six-scenario subagent smoke check](docs/evidence/instruction-scope-smoke-2026-10-09.json) preceded mirror synchronization; it does not establish native discovery or cross-client reliability.
 - Completed the research-routing condition across six other specialist Skills, narrowed the research description while retaining single-material-claim research, scoped the solution security gate, and clarified reuse of unchanged passing gate results. Added three output and three trigger cases per canonical language tree (58 output and 84 trigger definitions at that stage). The [initial native follow-up preflight](docs/evidence/astra-instruction-followup-2026-10-09.json) discovered the probe entry but its read was rejected by execution policy; all twelve planned comparison calls were unexecuted at that point.
 - Narrowed the remaining `rd-delivery` research-stage pointer and added a sufficient-evidence orchestration regression across six mirrors (59 output and 84 trigger definitions per canonical language). The [resumed read-only MXC preflight and twelve native comparison runs](docs/evidence/astra-instruction-resume-2026-10-09.json) retain first results and the original failure. Both variants met the response criteria; the material-gap requirements pair read extra ancestor/user instructions and is explicitly confounded. No causal behavior improvement, cross-client reliability, or efficiency benefit is claimed.
+
+- Refreshed the release-only Codex schema baseline to `0.162.0`, corrected schema attribution, and rechecked registry versions. Public configuration values and permission defaults remain unchanged; historical client/runtime evidence retains its original scope.
 
 ## 1.8.2 - 2026-10-05
 

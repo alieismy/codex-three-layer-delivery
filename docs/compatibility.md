@@ -1,6 +1,6 @@
 # Compatibility
 
-The npm registry latest versions were rechecked on 2026-10-02; the installed Codex CLI and release schema baseline are `0.160.0`. Claude Code CLI `2.1.287` was observed on 2026-10-02. Other installed versions and runtime observations retain their original dates: Cursor version 2026-09-11, Cursor Rules/Skills/FAQ documentation 2026-09-16, detailed Claude Code documentation 2026-09-04, and the bounded Context7 stdio probe 2026-08-14. Recheck registry versions and decision-relevant tool/API surfaces before each release.
+The npm registry latest versions were rechecked on 2026-10-09; the installed Codex CLI and release schema baseline are `0.162.0`. The installed Claude Code CLI `2.1.287` observation retains its 2026-10-02 date; registry latest does not establish installation or testing. Other installed versions and runtime observations retain their original dates: Cursor version 2026-09-11, Cursor Rules/Skills/FAQ documentation 2026-09-16, detailed Claude Code documentation 2026-09-04, and the bounded Context7 stdio probe 2026-08-14. Recheck registry versions and decision-relevant tool/API surfaces before each release.
 
 ## Codex
 
@@ -10,9 +10,9 @@ The 2026-10-05 [configuration and Skill follow-up](config-skill-tuning.md) used 
 
 | Component | Tested version | Registry latest checked | Notes |
 |---|---:|---:|---|
-| `@openai/codex` npm package | `0.147.0` | `0.160.0` | Registry latest and installed CLI `0.160.0` were rechecked on 2026-10-02. The tagged `0.160.0` schema was fetched for this release baseline; the release gate compares it with the current live schema and runs the four example checks. The broader tested baseline remains `0.147.0`. Do not hardcode this into the repository name or AGENTS rules. |
+| `@openai/codex` npm package | `0.147.0` | `0.162.0` | Registry latest and installed CLI `0.162.0` were rechecked on 2026-10-09. The tagged `0.162.0` schema was fetched for this release baseline; the release gate compares it with the current live schema and runs the four example checks. The broader tested baseline remains `0.147.0`. Do not hardcode this into the repository name or AGENTS rules. |
 
-The repository vendors the Codex `0.160.0` configuration schema as an offline snapshot with provenance and SHA-256 metadata under `schemas/`. `scripts/validate.ps1` uses the snapshot deterministically; the release-only `scripts/validate-release.ps1` compares it with the current official schema, checks the installed CLI version, validates all four examples against the live copy, and strict-loads each example from an isolated temporary `CODEX_HOME`.
+The repository vendors the Codex `0.162.0` configuration schema as an offline snapshot with provenance and SHA-256 metadata under `schemas/`. `scripts/validate.ps1` uses the snapshot deterministically; the release-only `scripts/validate-release.ps1` compares it with the current official schema, checks the installed CLI version, validates all four examples against the live copy, and strict-loads each example from an isolated temporary `CODEX_HOME`.
 
 The separate 2026-09-20 [dual-model evaluation](dual-model-compatibility.md) used CLI `0.155.1` and requested `gpt-5.6-sol` and `gpt-6-astra`, both with high reasoning and high verbosity. Supplied-text assertions scored 42/48 and 46/48 respectively; four native attempts were blocked. The report preserves failures and limits, does not verify backend identity or implicit routing, and does not replace the release schema or broader baseline above.
 
@@ -24,13 +24,15 @@ The [timed Chinese CLI follow-up](evidence/skill-routing-zh-cli-2026-10-02.json)
 
 The 2026-10-05 [upstream-learning comparison](upstream-learning-pilot.md) used CLI `0.160.0` with requested `gpt-6-astra`, reasoning `max`, and verbosity `medium`. Six first-attempt native cells compared a staged Chinese `rd-review` with the target disabled: both enabled review requests successfully read the complete target body, neither disabled counterpart read it, and both factual near-miss arms left it unread. All 24 frozen semantic assertions passed under blinded task-agent grading and maintainer review. This establishes the selected loading boundaries and equivalent observed assertion results, not an incremental quality benefit or justification to disable the existing Skill. The record retains per-cell elapsed time, cache and token fields, local exact-file selector probes, and separate supplied-text document-method comparisons. Shared inherited context, backend identity, repeated reliability, English behavior, other clients, and real-workflow benefits remain outside this result.
 
+The 2026-10-09 release-baseline review found the tagged `0.162.0` schema byte-identical to the official live copy. Relative to `0.160.0`, it adds optional capabilities and removes plugin `ema_auth` configuration; none of the four public examples uses the removed fields, so their configuration values and permission defaults remain unchanged. A schema field does not establish feature availability. The release gate checks schema, CLI version, and strict loading separately without expanding historical runtime claims.
+
 ## Claude Code
 
 The release follow-up [installation guard probe](evidence/claude-installation-guards-2026-10-02.json) executed all eleven published Claude Bash installation blocks with isolated HOME and project targets on Windows Git Bash. All 52 cases passed, including existing project/user memory, existing settings, empty shared cores, and effective overrides. Guarded failures preserved the original files and did not copy user memory before project preflights. This establishes bounded installation file behavior, not Claude instruction loading; concurrent installers were not tested.
 
 | Component | Tested/pinned version | Registry latest checked | Notes |
 |---|---:|---:|---|
-| `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.287` | Registry latest and installed CLI `2.1.287` were observed on 2026-10-02. The settings schema, adapter structure, and `claude doctor` were last re-checked with `2.1.260` on 2026-09-04. Dangerous-command permission behavior was not exercised; settings validation is not proof that every wrapper or compound command will be intercepted. |
+| `@anthropic-ai/claude-code` npm package | Not pinned by this repository | `2.1.295` | Registry latest and installed CLI `2.1.287` were observed on 2026-10-02. The settings schema, adapter structure, and `claude doctor` were last re-checked with `2.1.260` on 2026-09-04. Dangerous-command permission behavior was not exercised; settings validation is not proof that every wrapper or compound command will be intercepted. |
 
 The [memory documentation](https://code.claude.com/docs/en/memory#agents-md), checked on 2026-10-01, states that Claude Code reads `AGENTS.md` directly from v2.1.277 only when no `CLAUDE.md` is present, and that an `@AGENTS.md` import in `CLAUDE.md` is never read twice. The project adapter therefore uses the import. This is documentation evidence; loading was not verified on the maintainer's installed CLI.
 
@@ -71,12 +73,12 @@ This repository does not ship an active Cursor `.cursor/mcp.json` and does not r
 
 | MCP server | Package | Tested version | Registry latest checked | Default in public config |
 |---|---|---:|---:|---|
-| Context7 | `@upstash/context7-mcp` | `4.0.2` | `4.1.1` | Codex example disabled; sole Cursor minimal example, inactive until copied and credentialed |
+| Context7 | `@upstash/context7-mcp` | `4.0.2` | `4.2.0` | Codex example disabled; sole Cursor minimal example, inactive until copied and credentialed |
 | Tavily | `tavily-mcp` | `0.2.19` | `0.2.22` | Codex example disabled; omitted from Cursor minimal example |
 | Sequential Thinking | `@modelcontextprotocol/server-sequential-thinking` | `2025.12.18` | `2026.8.31` | Omitted from public minimal examples |
 | Brave Search | `@brave/brave-search-mcp-server` | `2.0.82` | `2.1.4` | Omitted from public minimal examples |
-| Playwright MCP | `@playwright/mcp` | `0.0.75` | `0.0.82` | Codex example disabled; omitted from Cursor minimal example |
-| Chrome DevTools MCP | `chrome-devtools-mcp` | `1.1.1` | `1.9.0` | Codex example disabled; omitted from Cursor minimal example |
+| Playwright MCP | `@playwright/mcp` | `0.0.75` | `0.0.83` | Codex example disabled; omitted from Cursor minimal example |
+| Chrome DevTools MCP | `chrome-devtools-mcp` | `1.1.1` | `1.10.1` | Codex example disabled; omitted from Cursor minimal example |
 | Augment Context Engine | `ace-tool-rs` | `0.1.16` | `0.1.16` | Omitted from public minimal examples |
 
 Context7 `4.0.2` was verified against the [npm package metadata](https://www.npmjs.com/package/@upstash/context7-mcp/v/4.0.2) and the [official GitHub release](https://github.com/upstash/context7/releases/tag/%40upstash%2Fcontext7-mcp%404.0.2) published on 2026-08-11. The package requires Node.js `>=20.18.1`. On Windows with Node.js `24.18.0`, the package reported the expected CLI version and options, completed a stdio `initialize` exchange for MCP protocol `2025-06-18`, and returned `resolve-library-id` and `query-docs` from `tools/list`.
