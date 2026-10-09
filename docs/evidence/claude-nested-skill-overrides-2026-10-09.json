@@ -1,0 +1,140 @@
+{
+  "date": "2026-10-09",
+  "cli_version": "2.1.295",
+  "base_commit": "fc545e2382c9e71b375f0dd53b01e48e64edad7d",
+  "scope": "Source-repository maintenance only: whether skillOverrides can hide the Claude adapters' nested rd-* Skills while keeping the account-synced anthropic-skills:rd-* copies. Not a distributed-adapter setting.",
+  "evidence_level": "Headless runtime observation, one run per variant; Skill tool results and the stream-json init Skill list are recorded directly, later listing presence is model-reported",
+  "method": {
+    "client": "claude -p --output-format stream-json --verbose --model sonnet --permission-mode default --allowedTools Read Skill --no-session-persistence",
+    "fixture": "Fresh temporary git repository outside this repository containing claude/project/.claude/skills/rd-research/SKILL.md and zh-CN/claude/project/.claude/skills/rd-research/SKILL.md copied from base_commit, plus one placeholder note.md beside each adapter; the variant's skillOverrides in the fixture's .claude/settings.json",
+    "trigger": "Reading claude/project/note.md (single-adapter runs) or both note.md files (dual-adapter runs) loads the nested Skills",
+    "probes": "After the reads, the Skill tool was called with each candidate name and the first line of each result was recorded",
+    "account_state": "Nine rd-* Skills synced from the claude.ai account; no personal ~/.claude/skills/rd-* copies; existing user-level settings and context retained",
+    "record_form": "Tool-result first lines and init Skill lists; raw transcripts were not retained"
+  },
+  "runs": [
+    {
+      "id": "A",
+      "skill_overrides": {},
+      "trigger": "both adapters",
+      "init_skills": ["anthropic-skills:rd-research"],
+      "skill_tool": {
+        "claude/project:rd-research": "Launching skill: claude/project:rd-research",
+        "zh-CN/claude/project:rd-research": "Launching skill: zh-CN/claude/project:rd-research",
+        "rd-research": "Unknown skill: rd-research. Directory-scoped variants exist: claude/project:rd-research, zh-CN/claude/project:rd-research",
+        "anthropic-skills:rd-research": "Launching skill: anthropic-skills:rd-research"
+      },
+      "assessment": "baseline: both nested copies load under directory-qualified names; the bare name no longer resolves"
+    },
+    {
+      "id": "A2",
+      "skill_overrides": {},
+      "trigger": "claude/project only",
+      "init_skills": ["anthropic-skills:rd-research"],
+      "skill_tool": {
+        "rd-research": "Launching skill: rd-research",
+        "claude/project:rd-research": "Unknown skill: claude/project:rd-research",
+        "anthropic-skills:rd-research": "Launching skill: anthropic-skills:rd-research"
+      },
+      "observation": "The model reported that rd-research loaded from the fixture's claude/project/.claude/skills directory.",
+      "assessment": "baseline: a single nested copy keeps the bare name and runs instead of the account copy"
+    },
+    {
+      "id": "C",
+      "skill_overrides": {"rd-research": "off"},
+      "trigger": "both adapters",
+      "init_skills": [],
+      "skill_tool": {
+        "claude/project:rd-research": "Skill claude/project:rd-research is disabled for model invocation in skillOverrides settings",
+        "zh-CN/claude/project:rd-research": "Skill zh-CN/claude/project:rd-research is disabled for model invocation in skillOverrides settings",
+        "rd-research": "Unknown skill: rd-research",
+        "anthropic-skills:rd-research": "Launching skill: anthropic-skills:rd-research"
+      },
+      "observation": "anthropic-skills:rd-research was absent from the init Skill list; the model reported it reappearing in a listing update after the nested load.",
+      "assessment": "fail: the bare key alone also hides the account copy at session start"
+    },
+    {
+      "id": "D1",
+      "skill_overrides": {"claude/project:rd-research": "off", "zh-CN/claude/project:rd-research": "off"},
+      "trigger": "both adapters",
+      "init_skills": ["anthropic-skills:rd-research"],
+      "skill_tool": {
+        "claude/project:rd-research": "Skill claude/project:rd-research is disabled for model invocation in skillOverrides settings",
+        "zh-CN/claude/project:rd-research": "Skill zh-CN/claude/project:rd-research is disabled for model invocation in skillOverrides settings",
+        "rd-research": "Unknown skill: rd-research",
+        "anthropic-skills:rd-research": "Launching skill: anthropic-skills:rd-research"
+      },
+      "assessment": "pass for this load shape only"
+    },
+    {
+      "id": "D2",
+      "skill_overrides": {"claude/project:rd-research": "off", "zh-CN/claude/project:rd-research": "off"},
+      "trigger": "claude/project only",
+      "init_skills": ["anthropic-skills:rd-research"],
+      "skill_tool": {
+        "rd-research": "Launching skill: rd-research",
+        "claude/project:rd-research": "Unknown skill: claude/project:rd-research",
+        "anthropic-skills:rd-research": "Launching skill: anthropic-skills:rd-research"
+      },
+      "assessment": "fail: the single nested copy keeps the bare name, so directory-qualified keys do not match it"
+    },
+    {
+      "id": "B",
+      "skill_overrides": {"anthropic-skills:rd-research": "on", "rd-research": "off"},
+      "trigger": "both adapters",
+      "init_skills": ["anthropic-skills:rd-research"],
+      "skill_tool": {
+        "claude/project:rd-research": "Skill claude/project:rd-research is disabled for model invocation in skillOverrides settings",
+        "zh-CN/claude/project:rd-research": "Skill zh-CN/claude/project:rd-research is disabled for model invocation in skillOverrides settings",
+        "rd-research": "Unknown skill: rd-research",
+        "anthropic-skills:rd-research": "Launching skill: anthropic-skills:rd-research"
+      },
+      "assessment": "pass"
+    },
+    {
+      "id": "B2",
+      "skill_overrides": {"anthropic-skills:rd-research": "on", "rd-research": "off"},
+      "trigger": "claude/project only",
+      "init_skills": ["anthropic-skills:rd-research"],
+      "skill_tool": {
+        "rd-research": "Skill rd-research is disabled for model invocation in skillOverrides settings",
+        "claude/project:rd-research": "Unknown skill: claude/project:rd-research",
+        "anthropic-skills:rd-research": "Launching skill: anthropic-skills:rd-research"
+      },
+      "assessment": "pass; the bare name reaches the disabled nested copy, not the account copy"
+    },
+    {
+      "id": "repo",
+      "location": "this repository at base_commit, read-only",
+      "skill_overrides_source": "ignored .claude/settings.local.json",
+      "skill_overrides": "For each of the nine rd-* names: \"anthropic-skills:<name>\": \"on\" and \"<name>\": \"off\"",
+      "trigger": "Read claude/project/CLAUDE.md and zh-CN/claude/project/CLAUDE.md",
+      "init_skills": [
+        "anthropic-skills:rd-delivery",
+        "anthropic-skills:rd-design",
+        "anthropic-skills:rd-feasibility",
+        "anthropic-skills:rd-requirement",
+        "anthropic-skills:rd-research",
+        "anthropic-skills:rd-review",
+        "anthropic-skills:rd-solution",
+        "anthropic-skills:rd-specification",
+        "anthropic-skills:rd-writing"
+      ],
+      "skill_tool": {
+        "claude/project:rd-review": "Skill claude/project:rd-review is disabled for model invocation in skillOverrides settings",
+        "zh-CN/claude/project:rd-review": "Skill zh-CN/claude/project:rd-review is disabled for model invocation in skillOverrides settings",
+        "rd-review": "Unknown skill: rd-review",
+        "anthropic-skills:rd-review": "Launching skill: anthropic-skills:rd-review"
+      },
+      "observation": "The model reported no Skill listing update after the reads and only the nine anthropic-skills:rd-* names; no tracked file changed.",
+      "assessment": "pass"
+    }
+  ],
+  "limits": [
+    "One run per variant; the interactive / menu was not checked.",
+    "The skills documentation does not state that a bare skillOverrides key matches a directory-qualified nested Skill; recheck after CLI upgrades.",
+    "A bare off key also hides personal or project Skills with the same name.",
+    "Only rd-research and rd-review were invoked; the other seven names were checked through the init Skill list only.",
+    "The bare-name behavior before any nested load was not probed."
+  ]
+}
