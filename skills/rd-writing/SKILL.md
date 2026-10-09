@@ -52,7 +52,7 @@ Read only the reference needed for the target:
 
 ### 3. Verify Before Drafting
 
-- Inspect supplied and project sources first; use `rd-research` for volatile, disputed, external, or decision-critical claims
+- Inspect supplied and project sources first; reuse inspected evidence whose scope and currency remain valid. Use `rd-research` only when evidence needed for a material claim is missing, stale, disputed, or insufficient for the required precision
 - Resolve timeline, version, jurisdiction, units, denominator, quotation context, and source ownership where material
 - Record conflicts and evidence gaps; do not let polished prose conceal uncertainty
 
@@ -81,7 +81,7 @@ Read only the reference needed for the target:
 ## Tool Selection
 
 - Use local document and repository inspection before external retrieval
-- Use `rd-research` to build or refresh the evidence package; do not duplicate a deep research workflow inside drafting
+- When the evidence check identifies a need to build or refresh the evidence package, use `rd-research`; keep routine supporting checks within drafting
 - Use document-format Skills for `.docx`, PDF, presentation, or spreadsheet artifacts after the content is stable
 - Use language-polish Skills only after factual and argumentative integrity is established
 

@@ -53,13 +53,13 @@ Select the narrowest owning workflow. Use research as an evidence supplier, not 
 
 Use `rd-delivery` only when the request explicitly asks for multi-stage or multi-document orchestration, phase gates, or a durable cross-session handoff. The request need not name the Skill, but task complexity or multiple outputs alone do not qualify. For a single deliverable, use the owning specialist Skill directly.
 
-When a task crosses boundaries, keep one primary controlling deliverable for routing and authority, and retain every explicitly requested companion output with its inputs, status, authority, and verification responsibility. Route dependent questions to their owning Skills; multiple outputs alone do not require `rd-delivery`. Do not let research become requirements, feasibility become solution selection, solution become detailed design, or review silently rewrite its target.
+When a task crosses boundaries, keep one primary controlling deliverable for routing and authority, and retain every explicitly requested companion output with its inputs, status, authority, and verification responsibility. Route dependent questions to another Skill only when they require a distinct specialist judgment or deliverable beyond the primary workflow; handle routine supporting checks within the primary workflow. Multiple outputs alone do not require `rd-delivery`. Do not let research become requirements, feasibility become solution selection, solution become detailed design, or review silently rewrite its target.
 
 ## Artifact Authority and Traceability
 
 - Identify which artifacts are source, governing authority, approved upstream input, working draft, derived output, or historical reference.
 - Record important decisions with owner, rationale, evidence, status, affected artifacts, and replacement or invalidation conditions. For adoption decisions, identify the decision stage and conditions for progressing; keep recommendation scope separate from artifact approval status.
-- Persist stable, reusable conventions or decisions in this file or linked project documents only after approval by the user or an authorized owner; do not leave approved decisions only in chat history.
+- Persist stable, reusable agent-operating conventions in this file only after approval by the user or an authorized owner. Keep approved architecture, product, and adoption decisions in linked project documents, with pointers here only when they affect agent behavior; do not leave approved decisions only in chat history.
 - Express requirements and normative clauses in stable, testable language. Trace downstream design and verification back to their controlling requirement or decision.
 - If an upstream artifact changes, identify affected downstream outputs and revalidate them. Do not silently preserve invalidated conclusions.
 - Where evidence remains incomplete, distinguish unknown, unverified, disputed, and accepted risk. Do not convert absence of evidence into approval.
@@ -90,7 +90,7 @@ Validation evidence must be concrete: command and result, inspected source and l
 Use external tools only for a specific evidence need, and prefer the source that owns the claim:
 
 - Library, framework, SDK, or API documentation: official documentation, or Context7 when configured.
-- Current or time-sensitive facts: web search, then the owning primary source.
+- Current or time-sensitive facts: inspect the owning primary source directly; use web search when needed to locate it or discover material counterevidence.
 - Open-source architecture: the repository source; DeepWiki on demand.
 - Standards, law, or policy: official standards bodies, regulators, or vendor documentation first.
 - Optional reasoning tools support synthesis but never replace evidence. When a capability is unavailable, record the limitation and stay within the remaining evidence boundary.

@@ -114,7 +114,7 @@ Pre-execution checks:
 ## Tool Selection
 
 - Inspect user-provided and local project sources before external retrieval
-- Use `rd-research` when laws, standards, policy, external interfaces, or other evidence materially affect a requirement
+- Use `rd-research` only when material evidence gaps about laws, standards, policy, external interfaces, or other requirement constraints need focused research; reuse inspected evidence that remains current and applicable, and keep routine source checks within requirements work
 - Use only configured tools, prefer primary sources, and use library/API documentation retrieval only for current interface facts
 - If retrieval is unavailable, mark the evidence gap instead of inventing a requirement
 
@@ -123,10 +123,9 @@ Pre-execution checks:
 Pre-delivery checklist:
 
 - [ ] Every identified in-scope core scenario is covered and traceable to a source or decision
-- [ ] Every functional requirement has acceptance criteria
+- [ ] Every requirement either has a checkable acceptance or evaluation method (including acceptance criteria for functional requirements), or is explicitly marked unresolved with a verification action
 - [ ] Priorities use stated criteria, and every identified P0 need maps to a requirement or an explicit exclusion
 - [ ] Assumptions and exclusions explicitly listed
-- [ ] Every requirement has an acceptance method, or is explicitly marked as unresolved with a verification action
 - [ ] Proposed products, models, vendors, tools, or configurations are separated from the underlying need unless approved as constraints
 - [ ] Key terms, stakeholder roles, and business rules are consistent
 - [ ] Decision-critical ambiguity is either resolved or explicitly listed

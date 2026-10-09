@@ -1,6 +1,6 @@
 # 兼容性
 
-npm registry 最新版本已于 2026-10-02 重新核查；本机 Codex CLI 与发布 Schema 基线均为 `0.160.0`。2026-10-02 观察到本机 Claude Code CLI 为 `2.1.287`。其它已安装版本和运行测试保留各自原有日期：Cursor 版本为 2026-09-11，Cursor Rules、Skills 和 FAQ 文档为 2026-09-16，Claude Code 详细文档检查为 2026-09-04，Context7 有边界 stdio 探针为 2026-08-14。每次公开发布前重新核查 registry 最新版本和影响结论的工具/API surface。
+npm registry 最新版本已于 2026-10-09 重新核查；本机 Codex CLI 与发布 Schema 基线均为 `0.162.0`。Claude Code 本机 CLI `2.1.287` 的观察日期仍为 2026-10-02，当前 registry 版本不代表已安装或已测试。其它已安装版本和运行测试保留各自原有日期：Cursor 版本为 2026-09-11，Cursor Rules、Skills 和 FAQ 文档为 2026-09-16，Claude Code 详细文档检查为 2026-09-04，Context7 有边界 stdio 探针为 2026-08-14。每次公开发布前重新核查 registry 最新版本和影响结论的工具/API surface。
 
 ## Codex
 
@@ -10,9 +10,9 @@ npm registry 最新版本已于 2026-10-02 重新核查；本机 Codex CLI 与�
 
 | 组件 | 已测试版本 | registry 最新核查版本 | 备注 |
 |---|---:|---:|---|
-| `@openai/codex` npm 包 | `0.147.0` | `0.160.0` | registry 与本机 CLI `0.160.0` 已于 2026-10-02 重新核查。已为本次发布基线获取 tag 固定的 `0.160.0` Schema；发布门禁会将其与实时 Schema 比较并执行四份示例检查。更广的测试基线仍为 `0.147.0`。不要把该版本写进仓库名或 AGENTS 规则。 |
+| `@openai/codex` npm 包 | `0.147.0` | `0.162.0` | registry 与本机 CLI `0.162.0` 已于 2026-10-09 重新核查。已为本次发布基线获取 tag 固定的 `0.162.0` Schema；发布门禁会将其与实时 Schema 比较并执行四份示例检查。更广的测试基线仍为 `0.147.0`。不要把该版本写进仓库名或 AGENTS 规则。 |
 
-仓库在 `schemas/` 下保存带来源和 SHA-256 元数据的 Codex `0.160.0` 配置 Schema 离线快照。`scripts/validate.ps1` 确定性使用该快照；仅发布前执行的 `scripts/validate-release.ps1` 会将其与当前官方 Schema 比较，核对已安装 CLI 版本，使用实时副本验证四份示例，并从隔离的临时 `CODEX_HOME` 严格加载每份示例。
+仓库在 `schemas/` 下保存带来源和 SHA-256 元数据的 Codex `0.162.0` 配置 Schema 离线快照。`scripts/validate.ps1` 确定性使用该快照；仅发布前执行的 `scripts/validate-release.ps1` 会将其与当前官方 Schema 比较，核对已安装 CLI 版本，使用实时副本验证四份示例，并从隔离的临时 `CODEX_HOME` 严格加载每份示例。
 
 独立的 2026-09-20 [双模型评估](dual-model-compatibility.md)使用 CLI `0.155.1`，请求 `gpt-5.6-sol` 与 `gpt-6-astra`，两者均为 high 推理和 high 输出详细程度。基于所提供文本的断言分别为 42/48 和 46/48，四次原生尝试均受阻。报告保留失败与限制，不证明后端模型身份或隐式路由，也不替代上述发布 Schema 或更广测试基线。
 
@@ -24,13 +24,15 @@ npm registry 最新版本已于 2026-10-02 重新核查；本机 Codex CLI 与�
 
 2026-10-05 的[上游学习对照](upstream-learning-pilot.md)使用 CLI `0.160.0`，请求 `gpt-6-astra`、推理 `max`、输出详细程度 `medium`。六次原生首次尝试比较暂存的中文 `rd-review` 与目标禁用条件：两次启用目标的评审请求均成功读取完整正文，两个禁用对照均未读取；资料整理这一相邻请求的两组也均未读取。经盲化任务代理评分和维护者核对，24 条冻结语义断言全部通过。这说明选定案例的加载边界及断言结果相当，尚不能证明增量质量收益，也不构成禁用既有 Skill 的依据。记录保留逐次耗时、缓存和 token 字段、本地精确文件选择器探针，以及独立的给定文本方法比较。继承上下文、后端身份、重复稳定性、英文行为、其他客户端及真实工作流收益不在该结果的证明范围内。
 
+2026-10-09 的发布基线复核确认：`0.162.0` 标签 Schema 与官方实时副本逐字节一致。相对于 `0.160.0`，Schema 新增了可选能力并移除了插件 `ema_auth` 配置；四份公共示例均未使用被移除字段，因此保留配置值及权限默认值。Schema 存在某字段不代表对应功能可用。发布门禁分别验证 Schema、CLI 版本和严格加载，不扩大历史运行结论。
+
 ## Claude Code
 
 发布前的[安装保护探针](../../docs/evidence/claude-installation-guards-2026-10-02.json)在 Windows Git Bash 中使用隔离的 HOME 和项目目标，执行全部十一个已发布 Claude Bash 安装块。52 个用例全部通过，包含既有项目/用户记忆、既有 settings、空共享核心和有效 override。guard 失败时原文件保持不变，用户记忆不会在项目预检前复制。这只证明有边界的安装文件行为，不证明 Claude 指令加载；未测试并发安装。
 
 | 组件 | 已测试 / 已固定版本 | registry 最新核查版本 | 备注 |
 |---|---:|---:|---|
-| `@anthropic-ai/claude-code` npm 包 | 本仓库不固定 | `2.1.287` | 已于 2026-10-02 观察到 registry 与本机 CLI 版本均为 `2.1.287`；settings Schema、适配器结构和 `claude doctor` 最近一次使用 `2.1.260` 重新核查的日期仍为 2026-09-04。未实际执行危险命令验证权限行为；settings 校验不能证明所有包装命令或复合命令都会被拦截。 |
+| `@anthropic-ai/claude-code` npm 包 | 本仓库不固定 | `2.1.295` | 已于 2026-10-02 观察到 registry 与本机 CLI 版本均为 `2.1.287`；settings Schema、适配器结构和 `claude doctor` 最近一次使用 `2.1.260` 重新核查的日期仍为 2026-09-04。未实际执行危险命令验证权限行为；settings 校验不能证明所有包装命令或复合命令都会被拦截。 |
 
 2026-10-01 核查的 [memory 文档](https://code.claude.com/docs/en/memory#agents-md) 说明：Claude Code 自 v2.1.277 起仅在不存在 `CLAUDE.md` 时直接读取 `AGENTS.md`；`CLAUDE.md` 中的 `@AGENTS.md` 导入不会导致重复读取。项目适配因此采用导入方式。这是文档证据，尚未在维护者本机 CLI 上验证加载行为。
 
@@ -76,12 +78,12 @@ Cursor Rules、Skills 和 FAQ 官方文档已于 2026-09-16 重新核查；2026-
 
 | MCP 服务器 | 包名 | 已测试版本 | registry 最新核查版本 | 公开配置默认值 |
 |---|---|---:|---:|---|
-| Context7 | `@upstash/context7-mcp` | `4.0.2` | `4.1.1` | Codex 示例禁用；Cursor 最小示例唯一 server，复制并配置凭据前不活动 |
+| Context7 | `@upstash/context7-mcp` | `4.0.2` | `4.2.0` | Codex 示例禁用；Cursor 最小示例唯一 server，复制并配置凭据前不活动 |
 | Tavily | `tavily-mcp` | `0.2.19` | `0.2.22` | Codex 示例禁用；Cursor 最小示例省略 |
 | Sequential Thinking | `@modelcontextprotocol/server-sequential-thinking` | `2025.12.18` | `2026.8.31` | 公共最小示例省略 |
 | Brave Search | `@brave/brave-search-mcp-server` | `2.0.82` | `2.1.4` | 公共最小示例省略 |
-| Playwright MCP | `@playwright/mcp` | `0.0.75` | `0.0.82` | Codex 示例禁用；Cursor 最小示例省略 |
-| Chrome DevTools MCP | `chrome-devtools-mcp` | `1.1.1` | `1.9.0` | Codex 示例禁用；Cursor 最小示例省略 |
+| Playwright MCP | `@playwright/mcp` | `0.0.75` | `0.0.83` | Codex 示例禁用；Cursor 最小示例省略 |
+| Chrome DevTools MCP | `chrome-devtools-mcp` | `1.1.1` | `1.10.1` | Codex 示例禁用；Cursor 最小示例省略 |
 | Augment Context Engine | `ace-tool-rs` | `0.1.16` | `0.1.16` | 公共最小示例省略 |
 
 Context7 `4.0.2` 已对照 [npm 包元数据](https://www.npmjs.com/package/@upstash/context7-mcp/v/4.0.2)和 2026-08-11 发布的 [GitHub 官方 Release](https://github.com/upstash/context7/releases/tag/%40upstash%2Fcontext7-mcp%404.0.2)核实。该包要求 Node.js `>=20.18.1`。在 Windows 与 Node.js `24.18.0` 环境中，包能够返回预期 CLI 版本与参数，完成 MCP 协议 `2025-06-18` 的 stdio `initialize` 交换，并通过 `tools/list` 返回 `resolve-library-id` 和 `query-docs`。

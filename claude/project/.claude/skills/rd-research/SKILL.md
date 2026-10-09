@@ -1,11 +1,11 @@
 ---
 name: rd-research
 description: >-
-  Research and verify decision-critical claims using project evidence and
-  inspected primary sources. Use for standards or policy evidence, open-source
-  and AI-tool evaluation, API or product facts, network or system configuration
-  research, literature review, and technical or public-affairs fact-checking.
-  Produce traceable evidence, not an unsupported answer or final design.
+  Build or refresh traceable evidence for decision-critical claims in technical
+  adoption, standards, configuration, or fact-checking. Use when source assessment,
+  conflicting-evidence analysis, or research synthesis is needed, including for a
+  single material claim. Keep quick factual lookups and routine supporting checks
+  in their owning workflow.
 ---
 
 # rd-research

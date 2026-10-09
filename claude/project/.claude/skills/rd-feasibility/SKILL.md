@@ -91,7 +91,7 @@ Pre-execution checks:
 
 ## Tool Selection
 
-- Use `rd-research` for current policy, standards, market, vendor, cost, or technical-maturity evidence
+- Use `rd-research` only when material policy, standards, market, vendor, cost, or technical-maturity evidence gaps need focused research; reuse inspected evidence that remains current and applicable, and keep routine source checks within feasibility work
 - Prefer primary sources and the narrowest configured retrieval capability
 - Use library/API documentation retrieval only when current interface or compatibility facts affect feasibility
 - Separate unavailable evidence from analysis and make the verification action explicit

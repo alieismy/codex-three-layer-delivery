@@ -1,12 +1,10 @@
 ---
 name: rd-delivery
 description: >-
-  Coordinate a multi-stage, multi-document decision or design engagement across
-  requirements, research, feasibility, solution, design, specification, writing,
-  and review. Use when the user explicitly requests an end-to-end workflow,
-  document package, phased delivery plan, cross-session handoff, or artifact and
-  decision traceability. Invoke only when explicitly requested; route a single
-  document and coding or deployment execution to their owning workflows.
+  Coordinate decision or design document delivery. Use when the user explicitly requests
+  multi-stage or multi-document orchestration, phase gates, or a durable cross-session
+  handoff. A document package, summary, or traceability table alone does not qualify.
+  Route single-deliverable work and coding or deployment execution to their owning workflows.
 ---
 
 # rd-delivery
@@ -29,7 +27,7 @@ For a durable engagement record, read [delivery-record.md](references/delivery-r
 - Select only the stages required by the decision and deliverables; never force all `rd-*` Skills into a pipeline
 - Treat identified, current authoritative project artifacts as sources of truth and chat as transient working context
 - Keep authority explicit: an agent may draft, verify, or recommend, but only an authorized stakeholder can approve or baseline an artifact
-- Load the smallest relevant context set for the current stage, then refresh it at each phase boundary
+- Identify the smallest relevant context set for each stage. At phase boundaries, confirm authoritative inputs and applicable scope remain current; reuse inspected unchanged context and load only changed, newly applicable, or decision-critical material whose validity is uncertain
 - Keep durable artifact classes distinct: long-lived need and intent, current-state architecture, engagement-specific change design, decision rationale, evidence, and review findings must not silently substitute for one another
 - Treat the delivery record as an index, not a second copy of its artifacts: keep status and concise decision context in the record, and link to the one authoritative location for full content
 - Keep the current project stage or responsibility, primary outcome, and shortest evidence path explicit; allocate work to that outcome before optional supporting improvements
@@ -41,9 +39,9 @@ For a durable engagement record, read [delivery-record.md](references/delivery-r
 
 - State the real decision or delivery goal, audience, scope, exclusions, success criteria, authority, and date/version boundary
 - State the current project stage or responsibility when it changes priorities, and identify the primary outcome and shortest evidence path for this engagement
-- Inspect existing project guidance, document maps, templates, glossaries, baselines, upstream decisions, and active work records
+- Inspect only project guidance, document maps, templates, glossaries, baselines, upstream decisions, and active work records relevant to the engagement, following the context-reuse rule above
 - Separate repository-answerable facts from user-owned scope, priority, risk, and approval decisions
-- When iterative clarification is practical, ask one highest-impact unresolved decision at a time with a recommendation and trade-off; batch only independent questions when delay would materially harm progress
+- Ask only for user-owned decisions that block the current authorized work. Batch a small number of independent questions with recommendations and trade-offs; handle dependent decision branches one step at a time. Reuse supplied decisions, proceed on explicit low-risk assumptions, and record non-blocking unknowns without pausing independent work
 
 **Completion criterion:** the current stage when relevant, primary outcome, shortest evidence path, target deliverables, governing inputs, decision owners, and blocking unknowns are explicit.
 
@@ -77,14 +75,14 @@ Route work to the narrowest matching Skill:
 |------|-------|
 | PRD, SRS, or structured requirements | `rd-requirement` |
 | Decision-ready viability judgment | `rd-feasibility` |
-| External, current, disputed, or repository evidence | `rd-research` |
+| Material evidence gaps requiring source assessment, conflict analysis, or research synthesis | `rd-research` |
 | Option selection and high-level architecture | `rd-solution` |
 | Implementation-ready contracts and detailed design | `rd-design` |
 | Normative clauses or standards work | `rd-specification` |
 | Audience-ready professional narrative | `rd-writing` |
 | Independent findings and verdict | `rd-review` |
 
-Before each stage, load its authoritative upstream artifacts and applicable scoped rules. After each stage, record outputs, changed decisions, unresolved items, verification performed, and the next eligible work packages.
+After each stage, record outputs, changed decisions, unresolved items, verification performed, and the next eligible work packages.
 
 **Completion criterion:** each produced artifact satisfies its specialist Skill's quality gate and has a recorded status; downstream work does not consume an unmarked draft as an approved baseline.
 

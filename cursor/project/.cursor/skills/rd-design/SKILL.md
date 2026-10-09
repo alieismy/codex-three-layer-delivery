@@ -23,6 +23,8 @@ Produce **construction-ready detailed designs** based on approved requirements a
 
 ## Execution Steps
 
+Apply the steps, baseline reads, and quality gates to the authorized design scope. For an inapplicable dimension, give a brief risk-based reason rather than inventing interfaces, data models, or controls to satisfy the checklist.
+
 ### 1. Design Input Confirmation
 
 - Confirm the approved requirements and any material technical proposal or high-level design (`rd-solution` output)
@@ -113,7 +115,7 @@ General software security design considerations:
 
 ## Context and Baseline Check
 
-Pre-execution checks:
+Read only the following baselines that constrain the in-scope design:
 - Project design conventions and naming standards
 - Existing interface design specs and API style guides
 - Database design standards (naming, indexing, partitioning strategy)
@@ -123,7 +125,7 @@ Pre-execution checks:
 ## Tool Selection
 
 - Inspect approved requirements, architecture decisions, schemas, and local conventions first
-- Use `rd-research` when external standards or current technology facts materially constrain the design
+- Use `rd-research` only when material evidence gaps about external standards or current technology facts need focused research; reuse inspected evidence that remains current and applicable, and keep routine source checks within design work
 - Use Context7 or an equivalent documentation retriever only for current framework, library, SDK, or API behavior
 - Treat external repository designs as examples and verify applicability against this system's constraints
 
@@ -135,7 +137,7 @@ Pre-delivery checklist:
 - [ ] Data model normalization or denormalization choices have documented rationale
 - [ ] Critical flows cover happy / error / timeout paths
 - [ ] Concurrency and idempotency requirements addressed
-- [ ] Security dimensions covered (at minimum: authentication, authorization, input validation, data protection)
+- [ ] Applicable security controls are covered, including authentication, authorization, input validation, and data protection where relevant; excluded controls have risk-based reasons
 - [ ] Error handling strategy is explicit
 - [ ] Configuration, migration, recovery, and rollback contracts are explicit when applicable
 - [ ] Design is traceable to requirements (each module maps to a requirement item)

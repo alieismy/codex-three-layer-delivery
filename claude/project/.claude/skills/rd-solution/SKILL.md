@@ -43,7 +43,7 @@ Produce decision-ready **technical proposals, high-level designs, solution archi
 - Generate at least **2 candidate solutions** when a real architectural or technical choice exists
 - Where there is meaningful design space, seek a materially different approach with a credible benefit mechanism, including emerging technology or a new workflow when relevant. Mark untested benefits as hypotheses and judge novelty by fit and value; retain only justified alternatives
 - Each solution should include: architecture overview, core components, data/interface boundaries, technology choices, deployment or operating assumptions
-- Route decision-material maturity, compatibility, policy, cost, or current-version claims to `rd-research`; do not turn candidate generation into an unbounded search phase
+- Identify decision-material maturity, compatibility, policy, cost, or current-version evidence gaps and apply [Tool Selection](#tool-selection) below; do not turn candidate generation into an unbounded search phase
 - For infrastructure, networking, proxy, VPN, VPS, or AI-tool solutions, model trust boundaries, control/data flows, credential ownership, platform/version constraints, observability, recovery, and exit path
 
 **Completion criterion:** every real decision has at least two candidates viable for the decision in scope or a documented reason only one remains; each candidate states the same material boundaries and assumptions, and a promising hypothesis is not misrepresented as established capability.
@@ -133,7 +133,7 @@ Pre-execution checks:
 
 ## Tool Selection
 
-- Use `rd-research` when current documentation, maturity, compatibility, cost, policy, or industry evidence materially affects the recommendation
+- Use `rd-research` only when material evidence gaps about current documentation, maturity, compatibility, cost, policy, or industry claims need focused research; reuse inspected evidence that remains current and applicable, and keep routine source checks within solution work
 - Prefer primary sources and the narrowest configured retrieval capability
 - Use Context7 or an equivalent documentation retriever only for current framework, library, SDK, or API facts
 - Treat reference architectures as examples, not proof that a design fits this project's constraints
@@ -145,7 +145,7 @@ Pre-delivery checklist:
 - [ ] Candidate solutions are compared when a real choice exists
 - [ ] Recommendation rationale is clear, confidence level labeled
 - [ ] Materially different options, opportunity costs, and future evolution are assessed where relevant; for untested options or staged adoption, proposed benefits and the next justified verification/adoption step are explicit
-- [ ] Security dimension covered (authentication, validation, protection, auditing)
+- [ ] Applicable security risks and controls are addressed; authentication, validation, protection, and auditing are covered where relevant, with material exclusions justified by risk
 - [ ] Risks identified, each with mitigation measures
 - [ ] Exit path or alternative path documented for high-impact decisions
 - [ ] Key data has source attribution; inferences and facts are distinguished
