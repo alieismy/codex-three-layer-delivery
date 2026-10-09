@@ -51,6 +51,8 @@ Claude Code 官方文档核查入口：
 
 随后把这一组合扩展到全部九个名称，写入被忽略的 `.claude/settings.local.json`，在本仓库中只读复核。读取两个适配目录的 `CLAUDE.md` 后，`claude/project:rd-review` 与 `zh-CN/claude/project:rd-review` 返回 `skillOverrides` 错误，九个 `anthropic-skills:rd-*` 均在初始 Skill 列表中，`anthropic-skills:rd-review` 正常运行。Skills 文档没有说明短名键会匹配目录限定的嵌套 Skill，CLI 升级后需要复核。短名 `off` 键也会隐藏同名的个人或项目 Skill。嵌套副本加载后，短名会命中被禁用的副本或返回 `Unknown skill`，不会运行账户副本，因此应使用全名 `anthropic-skills:rd-*` 调用。只实际调用了 `rd-research` 与 `rd-review`，未检查交互式 `/` 菜单。仓库不提交该覆盖，因为它取决于各维护者的 Skill 来源；维护者 `.claude/settings.json` 仍只包含 `claudeMdExcludes`。
 
+[2026-10-09 Opus 5.5 指令评估](opus-5-5-instruction-review.md)依据官方指南对 Claude 全局模板的中英文版本做了三处修改：除非用户要求，不再用子代理验证模型自己的工作；删除输出前自我审核；删除思维方法中规定思考步骤的三项。采纳前，在 CLI `2.1.295` 上以 `claude-opus-5-5`、`xhigh` 运行了 12 次 headless `claude -p`，覆盖 4 个 eval 任务 × 3 个臂，每格一个样本。每个臂都通过了 29 条冻结断言中的 28 条，且三个臂都未通过同一项 T2 字数限制。[证据记录](../../docs/evidence/opus-5-5-instruction-ab-2026-10-09.json)保留了完整回复。该结果只说明未检测到回归，不说明有所改进。Codex 和 Cursor 侧文件有意保持不变。
+
 
 [2026-10-01 历史冒烟记录](../../docs/evidence/skill-routing-smoke-2026-10-01.json)保留四次完成的 Codex 尝试和四次 Claude 鉴权阻塞（`Not logged in`）。用户确认 10 月 2 日 Claude 通过前已经登录，不能据此归因为升级修复。Codex T3 此前约 271 秒才完成文件捕获，后次上限为 180 秒，不是受控的路由回归比较。
 
