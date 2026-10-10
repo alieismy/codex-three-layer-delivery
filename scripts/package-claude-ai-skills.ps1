@@ -267,10 +267,10 @@ $manifest = [ordered]@{
 )
 
 if ($selected.Count -eq 0) {
-    Write-Host "claude.ai already holds all nine $Language RD Skills from $sourceRelative; nothing to upload." -ForegroundColor Green
+    Write-Host "Local synced copies match all nine $Language RD Skills from $sourceRelative; no archives selected. Current claude.ai state depends on the last successful sync." -ForegroundColor Green
     exit 0
 }
 
 Write-Host "Packaged $($selected.Count) $Language RD Skill archive(s) in $outputDir" -ForegroundColor Green
 Write-Host "Upload each archive at claude.ai Customize > Skills, replacing any older copy of the same Skill."
-Write-Host "After Claude Code syncs, rerun with -Changed to confirm that nothing remains to upload."
+Write-Host "After Claude Code syncs, rerun with -Changed to compare the source with the local last-synced copies."
