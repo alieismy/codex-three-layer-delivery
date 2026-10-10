@@ -1,6 +1,6 @@
 # 兼容性
 
-npm registry 最新版本已于 2026-10-09 重新核查；本机 Codex CLI 与发布 Schema 基线均为 `0.162.0`。Claude Code 本机 CLI `2.1.287` 的观察日期仍为 2026-10-02，当前 registry 版本不代表已安装或已测试。其它已安装版本和运行测试保留各自原有日期：Cursor 版本为 2026-09-11，Cursor Rules、Skills 和 FAQ 文档为 2026-09-16，Claude Code 详细文档检查为 2026-09-04，Context7 有边界 stdio 探针为 2026-08-14。每次公开发布前重新核查 registry 最新版本和影响结论的工具/API surface。
+npm registry 最新版本已于 2026-10-10 重新核查；本机 Codex CLI 与发布 Schema 基线均为 `0.162.1`，本机 Claude Code CLI 为 `2.1.296`。早先 Claude Code `2.1.287` 的观察日期仍为 2026-10-02，当前 registry 版本不代表已通过运行测试。其它已安装版本和运行测试保留各自原有日期：Cursor 版本为 2026-09-11，Cursor Rules、Skills 和 FAQ 文档为 2026-09-16，Claude Code 详细文档检查为 2026-09-04，Context7 有边界 stdio 探针为 2026-08-14。每次公开发布前重新核查 registry 最新版本和影响结论的工具/API surface。
 
 ## Codex
 
@@ -10,9 +10,9 @@ npm registry 最新版本已于 2026-10-09 重新核查；本机 Codex CLI 与�
 
 | 组件 | 已测试版本 | registry 最新核查版本 | 备注 |
 |---|---:|---:|---|
-| `@openai/codex` npm 包 | `0.147.0` | `0.162.0` | registry 与本机 CLI `0.162.0` 已于 2026-10-09 重新核查。已为本次发布基线获取 tag 固定的 `0.162.0` Schema；发布门禁会将其与实时 Schema 比较并执行四份示例检查。更广的测试基线仍为 `0.147.0`。不要把该版本写进仓库名或 AGENTS 规则。 |
+| `@openai/codex` npm 包 | `0.147.0` | `0.162.1` | registry 与本机 CLI `0.162.1` 已于 2026-10-10 重新核查。已为本次发布基线获取 tag 固定的 `0.162.1` Schema；发布门禁会将其与实时 Schema 比较并执行四份示例检查。更广的测试基线仍为 `0.147.0`。不要把该版本写进仓库名或 AGENTS 规则。 |
 
-仓库在 `schemas/` 下保存带来源和 SHA-256 元数据的 Codex `0.162.0` 配置 Schema 离线快照。`scripts/validate.ps1` 确定性使用该快照；仅发布前执行的 `scripts/validate-release.ps1` 会将其与当前官方 Schema 比较，核对已安装 CLI 版本，使用实时副本验证四份示例，并从隔离的临时 `CODEX_HOME` 严格加载每份示例。
+仓库在 `schemas/` 下保存带来源和 SHA-256 元数据的 Codex `0.162.1` 配置 Schema 离线快照。`scripts/validate.ps1` 确定性使用该快照；仅发布前执行的 `scripts/validate-release.ps1` 会将其与当前官方 Schema 比较，核对已安装 CLI 版本，使用实时副本验证四份示例，并从隔离的临时 `CODEX_HOME` 严格加载每份示例。
 
 独立的 2026-09-20 [双模型评估](dual-model-compatibility.md)使用 CLI `0.155.1`，请求 `gpt-5.6-sol` 与 `gpt-6-astra`，两者均为 high 推理和 high 输出详细程度。基于所提供文本的断言分别为 42/48 和 46/48，四次原生尝试均受阻。报告保留失败与限制，不证明后端模型身份或隐式路由，也不替代上述发布 Schema 或更广测试基线。
 
@@ -26,13 +26,15 @@ npm registry 最新版本已于 2026-10-09 重新核查；本机 Codex CLI 与�
 
 2026-10-09 的发布基线复核确认：`0.162.0` 标签 Schema 与官方实时副本逐字节一致。相对于 `0.160.0`，Schema 新增了可选能力并移除了插件 `ema_auth` 配置；四份公共示例均未使用被移除字段，因此保留配置值及权限默认值。Schema 存在某字段不代表对应功能可用。发布门禁分别验证 Schema、CLI 版本和严格加载，不扩大历史运行结论。
 
+2026-10-10 的发布预检最初失败，原因是本机 Codex `0.162.1` 与 `0.162.0` Schema 版本固定值不一致。随后核对了 tag 固定的 `0.162.1` Schema 和许可证：tag Schema、当前实时 Schema 与既有快照逐字节一致，许可证也未变化。本次只刷新来源元数据、版本注释和兼容性记录，没有修改示例配置值或权限。现有发布门禁保持不变，必须在刷新后的基线上通过。
+
 ## Claude Code
 
 发布前的[安装保护探针](../../docs/evidence/claude-installation-guards-2026-10-02.json)在 Windows Git Bash 中使用隔离的 HOME 和项目目标，执行全部十一个已发布 Claude Bash 安装块。52 个用例全部通过，包含既有项目/用户记忆、既有 settings、空共享核心和有效 override。guard 失败时原文件保持不变，用户记忆不会在项目预检前复制。这只证明有边界的安装文件行为，不证明 Claude 指令加载；未测试并发安装。
 
 | 组件 | 已测试 / 已固定版本 | registry 最新核查版本 | 备注 |
 |---|---:|---:|---|
-| `@anthropic-ai/claude-code` npm 包 | 本仓库不固定 | `2.1.295` | 已于 2026-10-02 观察到 registry 与本机 CLI 版本均为 `2.1.287`；settings Schema、适配器结构和 `claude doctor` 最近一次使用 `2.1.260` 重新核查的日期仍为 2026-09-04。未实际执行危险命令验证权限行为；settings 校验不能证明所有包装命令或复合命令都会被拦截。 |
+| `@anthropic-ai/claude-code` npm 包 | 本仓库不固定 | `2.1.296` | registry 与本机 CLI `2.1.296` 已于 2026-10-10 重新核查；早先 `2.1.287` 的观察日期为 2026-10-02；settings Schema、适配器结构和 `claude doctor` 最近一次使用 `2.1.260` 重新核查的日期仍为 2026-09-04。未实际执行危险命令验证权限行为；settings 校验不能证明所有包装命令或复合命令都会被拦截。 |
 
 2026-10-01 核查的 [memory 文档](https://code.claude.com/docs/en/memory#agents-md) 说明：Claude Code 自 v2.1.277 起仅在不存在 `CLAUDE.md` 时直接读取 `AGENTS.md`；`CLAUDE.md` 中的 `@AGENTS.md` 导入不会导致重复读取。项目适配因此采用导入方式。这是文档证据，尚未在维护者本机 CLI 上验证加载行为。
 
@@ -51,7 +53,9 @@ Claude Code 官方文档核查入口：
 
 随后把这一组合扩展到全部九个名称，写入被忽略的 `.claude/settings.local.json`，在本仓库中只读复核。读取两个适配目录的 `CLAUDE.md` 后，`claude/project:rd-review` 与 `zh-CN/claude/project:rd-review` 返回 `skillOverrides` 错误，九个 `anthropic-skills:rd-*` 均在初始 Skill 列表中，`anthropic-skills:rd-review` 正常运行。Skills 文档没有说明短名键会匹配目录限定的嵌套 Skill，CLI 升级后需要复核。短名 `off` 键也会隐藏同名的个人或项目 Skill。嵌套副本加载后，短名会命中被禁用的副本或返回 `Unknown skill`，不会运行账户副本，因此应使用全名 `anthropic-skills:rd-*` 调用。只实际调用了 `rd-research` 与 `rd-review`，未检查交互式 `/` 菜单。仓库不提交该覆盖，因为它取决于各维护者的 Skill 来源；维护者 `.claude/settings.json` 仍只包含 `claudeMdExcludes`。
 
-[2026-10-09 Opus 5.5 指令评估](opus-5-5-instruction-review.md)依据官方指南对 Claude 全局模板的中英文版本做了三处修改：除非用户要求，不再用子代理验证模型自己的工作；删除输出前自我审核；删除思维方法中规定思考步骤的三项。采纳前，在 CLI `2.1.295` 上以 `claude-opus-5-5`、`xhigh` 运行了 12 次 headless `claude -p`，覆盖 4 个 eval 任务 × 3 个臂，每格一个样本。每个臂都通过了 29 条冻结断言中的 28 条，且三个臂都未通过同一项 T2 字数限制。[证据记录](../../docs/evidence/opus-5-5-instruction-ab-2026-10-09.json)保留了完整回复。该结果只说明未检测到回归，不说明有所改进。Codex 和 Cursor 侧文件有意保持不变。
+[2026-10-09 Opus 5.5 指令评估](opus-5-5-instruction-review.md)原先对 Claude 全局模板的中英文版本做了三处修改：限制用子代理验证模型自己的工作；删除输出前自我审核；删除三项思维方法。采纳前，在 CLI `2.1.295` 上以 `claude-opus-5-5`、`xhigh` 运行了 12 次 headless `claude -p`，覆盖 4 个 eval 任务 × 3 个臂，每格一个样本。每个历史实验臂都通过了 29 条冻结断言中的 28 条，且三个臂都未通过同一项 T2 字数限制。[历史证据记录](../../docs/evidence/opus-5-5-instruction-ab-2026-10-09.json)保留了完整回复。该结果只说明这些臂未检测到回归，不说明有所改进。
+
+2026-10-10，用户要求保留第一性原理拆解、任务分类和多视角推演。Claude 全局模板恢复全部六项思维方法，同时保留 R1/R2；当前模板不是历史 A2 臂，旧比较不验证新组合。补充修订纠正了理由：这些方法属于分析偏好，不要求披露内部推理。针对明确的硬性篇幅限制，`rd-writing` 补充修订要求明确计数单位与范围、对最终文本做确定性计数、最后一次编辑后重新计数，无法计数时说明限制而不虚报通过，并同步必要适配镜像。[补充证据](../../docs/evidence/claude-instruction-followup-2026-10-10.json)单独记录新探针及结果。打包脚本的无变化提示现只描述本地最近同步副本；本地相等不能确认 claude.ai 当前状态。2026-10-10 核查的[官方 Skills 上传契约](https://code.claude.com/docs/en/skills#using-skill-frontmatter-outside-claude-code)明确：claude.ai 只允许标准 Agent Skills 字段，不包括 Claude Code 的 `effort`，不支持的字段会在打包或上传时被拒绝。这些仓库修改不代表更新个人安装或账户。
 
 
 [2026-10-01 历史冒烟记录](../../docs/evidence/skill-routing-smoke-2026-10-01.json)保留四次完成的 Codex 尝试和四次 Claude 鉴权阻塞（`Not logged in`）。用户确认 10 月 2 日 Claude 通过前已经登录，不能据此归因为升级修复。Codex T3 此前约 271 秒才完成文件捕获，后次上限为 180 秒，不是受控的路由回归比较。
@@ -88,7 +92,7 @@ Cursor Rules、Skills 和 FAQ 官方文档已于 2026-09-16 重新核查；2026-
 
 | MCP 服务器 | 包名 | 已测试版本 | registry 最新核查版本 | 公开配置默认值 |
 |---|---|---:|---:|---|
-| Context7 | `@upstash/context7-mcp` | `4.0.2` | `4.2.0` | Codex 示例禁用；Cursor 最小示例唯一 server，复制并配置凭据前不活动 |
+| Context7 | `@upstash/context7-mcp` | `4.0.2` | `4.3.0` | Codex 示例禁用；Cursor 最小示例唯一 server，复制并配置凭据前不活动 |
 | Tavily | `tavily-mcp` | `0.2.19` | `0.2.22` | Codex 示例禁用；Cursor 最小示例省略 |
 | Sequential Thinking | `@modelcontextprotocol/server-sequential-thinking` | `2025.12.18` | `2026.8.31` | 公共最小示例省略 |
 | Brave Search | `@brave/brave-search-mcp-server` | `2.0.82` | `2.1.4` | 公共最小示例省略 |

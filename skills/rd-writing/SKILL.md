@@ -34,7 +34,7 @@ Read only the reference needed for the target:
 
 ### 1. Pin the Writing Contract
 
-- Confirm audience, decision or publication purpose, scope, genre, length, tone, date boundary, and required citation style
+- Confirm audience, decision or publication purpose, scope, genre, length, tone, date boundary, and required citation style; for a hard length limit, establish the counting unit and which content is included
 - Identify supplied source material, claims that require current verification, and any editorial or organizational constraints
 - Preserve established terminology, names, dates, quotations, numbering, and traceability
 - If the user supplies a desired conclusion, treat it as a proposition to test rather than a fact to defend
@@ -75,8 +75,9 @@ Read only the reference needed for the target:
 - Confirm the conclusion does not exceed the evidence and that limitations are specific rather than boilerplate
 - Preserve one canonical claim-source map for high-impact or contested documents
 - Remove secrets and unnecessary personal or infrastructure identifiers from publishable prose, quotations, screenshots, and appendices without obscuring material evidence limits
+- For an explicit length limit, measure the final deliverable with an available deterministic counter using the agreed unit and included content. Revise over-limit text without dropping required evidence or qualifications. Deliver the counted text unchanged, including headings and markup; any later wording or formatting change requires a new count. If measurement is unavailable, report the limit as unverified; do not present an estimate as a measured count or claim the check passed.
 
-**Completion criterion:** every material claim, citation, number, quotation, term, and conclusion passes the final accuracy and entailment check, with unresolved limitations still visible.
+**Completion criterion:** every material claim, citation, number, quotation, term, and conclusion passes the final accuracy and entailment check, with unresolved limitations still visible; any hard length limit has a measured passing result, otherwise that check remains unmet.
 
 ## Tool Selection
 

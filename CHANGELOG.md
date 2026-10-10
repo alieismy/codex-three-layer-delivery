@@ -4,6 +4,13 @@ All notable changes to this project should be documented here.
 
 This project uses GitHub releases for versioning. Directory names should not contain edition or version suffixes such as `v4` or `-en`.
 
+## 1.8.5 - 2026-10-10
+
+- Restored first-principles decomposition, task classification, and multi-perspective reasoning in the English and Simplified Chinese Claude global templates at the user's request, retaining the subagent restriction and removal of generic self-review. Corrected the R3 rationale and kept the 2026-10-09 A/B arms, outputs, and grades historical; they do not validate the current R1/R2-only combination. The [follow-up record](docs/evidence/claude-instruction-followup-2026-10-10.json) covers new probes separately.
+- Corrected the claude.ai packaging script's no-change message to describe local last-synced copies rather than assert current account state. Updated the review's official-field evidence: Claude Code supports Skill `effort`, while claude.ai rejects unsupported upload fields, including `effort`.
+- Added targeted checks in `rd-writing` for explicit hard length limits: establish the counting unit and scope, deterministically count the final text, recount after the last edit, and disclose unavailable counting instead of claiming a pass. Necessary English/Chinese platform mirrors follow the same contract, addressing the shared historical T2 word-limit failure.
+- Refreshed the release metadata to Codex `0.162.1` after the installed CLI outgrew the `0.162.0` pin. The tagged schema, live schema, and existing snapshot are byte-identical; configuration values and permissions remain unchanged. Rechecked registry versions separately from historical runtime evidence.
+
 ## 1.8.4 - 2026-10-09
 
 - Applied three Opus 5.5 guidance edits to the English and Simplified Chinese Claude global templates. Subagents are no longer used to verify the model's own work unless the user asks; the Pre-Output Self-Review section and three Thinking Methods items that prescribed thinking steps are removed. Codex and Cursor surfaces intentionally keep the previous text. The [review](docs/opus-5-5-instruction-review.md) records the guidance mapping and a 12-run Opus 5.5 `xhigh` A/B smoke test with [full responses](docs/evidence/opus-5-5-instruction-ab-2026-10-09.json). Every arm passed 28 of 29 frozen assertions and shared one T2 word-limit failure. This shows no detected regression, not an improvement.

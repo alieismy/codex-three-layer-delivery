@@ -1,25 +1,25 @@
 # Claude instructions for Opus 5.5
 
-Date: 2026-10-09. Status: three guidance-driven edits applied to the Claude global template after a bounded A/B smoke test; not yet released.
+Original review: 2026-10-09. Follow-up: 2026-10-10. Status: R1 and R2 retained; R3 withdrawn at the user's request, restoring first-principles decomposition, task classification, and multi-perspective reasoning. The follow-up changes belong to v1.8.5; the original experiment remains a historical record.
 
 ## Decision and scope
 
-Most of the Claude-facing instructions already match the current Opus 5.5 guidance. The global template had no all-caps emphasis, no request to write out reasoning, tight scope controls, and Skill descriptions and progressive loading within the documented limits. The evidence supported three targeted edits to `claude/global/CLAUDE.md` and its Simplified Chinese mirror:
+Most of the Claude-facing instructions already match the current Opus 5.5 guidance. The global template had no all-caps emphasis, no request to write out reasoning, tight scope controls, and Skill descriptions and progressive loading within the documented limits. On 2026-10-09, the review adopted three targeted edits to `claude/global/CLAUDE.md` and its Simplified Chinese mirror. The table preserves that decision and records the 2026-10-10 correction:
 
 | ID | Change | Guidance basis |
 |---|---|---|
 | R1 | The subagent rule drops "counterexample review" and adds: do not use subagents to verify or double-check your own work unless the user asks for an independent review | The Opus 5 prompting page advises against using subagents to verify the model's own work |
 | R2 | Remove the eight-item "Pre-Output Self-Review" section | Opus 5 checks its own work without prompting; explicit re-check instructions cause over-verification. Five of the eight items repeated existing rules almost verbatim, and the other three partly overlapped |
-| R3 | Remove Thinking Methods items 1–3 (first-principles decomposition, task classification, multi-perspective reasoning); keep counterargument testing, critical evaluation, and confidence labeling as items 1–3 | Prescribed thinking steps are less effective than general instructions, and effort is the primary control for thinking depth. The retained items define output requirements, not thinking steps |
+| R3 | Originally removed Thinking Methods items 1–3; withdrawn on 2026-10-10. All six methods are restored with their original numbering | General-instruction guidance supports trying shorter prompts, but does not establish that these domain-method preferences are harmful. They do not request disclosure of internal reasoning, and retained counterargument testing also specifies analysis. Removing them was a maintenance choice, not an official requirement |
 
-The always-on global text shrank from 18,438 to 17,137 bytes (−7.1%) and from 152 to 138 lines.
+In the 2026-10-09 experiment, the English always-on global text shrank from 18,438 to 17,137 bytes (−7.1%) and from 152 to 138 lines. These historical measurements describe A0 and A2, not the current template after R3 was withdrawn.
 
-**Unchanged:**
+**Unchanged in the 2026-10-09 change:**
 - `claude/project/CLAUDE.md`, the imported `AGENTS.md`, and the nine `rd-*` Skills. In the Skills, "verify" refers to verifiable deliverables such as acceptance criteria and verification actions, not to the model re-checking itself.
-- Codex and Cursor surfaces, by maintainer instruction. `codex/global/AGENTS.md` still contains the removed sections; this divergence is intentional because the guidance is Claude-specific.
+- Codex and Cursor surfaces, by maintainer instruction. The original divergence covered R1–R3; after the follow-up, the three restored Thinking Methods are shared again, while the Claude-specific R1/R2 differences remain.
 - Effort settings. Neither the templates nor the Skills set an effort level.
 
-**Strongest objection:** one sample per cell cannot show an improvement. The test shows only that the frozen assertions detected no regression. The edits are adopted because they follow the published guidance, remove duplicated or prescriptive text that no validator depends on, and are reversible. Confidence that the edits do not degrade quality is medium; there is no evidence that they improve it.
+**Strongest objection:** one sample per cell cannot show an improvement. The test shows only that the frozen assertions detected no regression in the historical arms. R1/R2 remain grounded in published over-verification guidance and removal of redundant reminders. The original rationale for R3 overstated the distinction between analytical preferences and prescribed thinking steps; the user requires those preferences to remain. The A/B did not isolate R2 from R3 and cannot establish the quality of the current R1/R2-only combination. No improvement or efficiency benefit is claimed.
 
 ## Official guidance and application
 
@@ -27,20 +27,20 @@ Pages were read on 2026-10-09. The Opus 5.5 page describes the Opus 5 prompting 
 
 | # | Guidance | Repository state before this change | Disposition | Confidence |
 |---|---|---|---|---|
-| 1 | Effort is the primary, more reliable lever for thinking depth. The default is `medium`; at `xhigh`/`max`, Opus 5.5 thinks more than Opus 5 at the same level. Use `xhigh`/`max` only where they show a measured quality gain | The templates set no effort | No change. Skill `effort` frontmatter is **not** recommended: it overrides the session level, so `high` would lower a session running at `xhigh`, and whether a claude.ai upload preserves the field is unknown | High |
-| 2 | Instructions such as "think carefully" in chat system prompts can be removed. General instructions work better than prescribed step-by-step thinking | Thinking Methods items 1–3 prescribed the thinking process; item 2 listed 14 task types with no following action | R3 | Medium |
+| 1 | Effort is the primary, more reliable lever for thinking depth. The default is `medium`; at `xhigh`/`max`, Opus 5.5 thinks more than Opus 5 at the same level. Use `xhigh`/`max` only where they show a measured quality gain | The templates set no effort | No change. Claude Code supports Skill `effort` frontmatter and it overrides the session level; `high` would lower a session at `xhigh`. The 2026-10-10 official Skills documentation explicitly excludes `effort` from permitted claude.ai upload fields and says unsupported fields cause a packaging/upload error | High |
+| 2 | Instructions such as "think carefully" in chat system prompts can be removed. General instructions work better than prescribed step-by-step thinking | Thinking Methods items 1–3 express domain-method preferences; task classification also overlaps project routing, but none requires disclosure of internal reasoning | R3 withdrawn on 2026-10-10; retain the methods at the user's request | High for the instruction content; effectiveness unmeasured |
 | 3 | Opus 5 self-checks without prompting; explicit re-check instructions cause over-verification and should be removed | The eight-item Pre-Output Self-Review, five of whose items duplicated existing rules | R2 | Medium |
 | 4 | Do not use subagents to verify or double-check the model's own work | The subagent rule listed "counterexample review" as a subagent use | R1 | Medium-high |
 | 5 | Unattended runs can stop early; naming the specific stop patterns helps, but this supplement should not be used in interactive sessions | The template already says to continue when the next step is implied | No change. Revisit only if early stopping is observed in unattended runs | Medium |
 | 6 | Progress updates and pasted-content markers are harness-side behavior | Observed in Claude Code CLI `2.1.295` in the authoring session | No change; do not add rules limiting progress updates | High (one session) |
 | 7 | Asking the model to write out its reasoning in the response can trigger `reasoning_extraction` refusals | No such instruction; the template says not to reproduce every internal check | No change | High |
-| 8 | Claude Code memory guidance: keep each `CLAUDE.md` under 200 lines with specific, consistent instructions. `CLAUDE.md` is delivered as a user message, and `/doctor prompt-audit` can check instructions written for older models | 152 global lines (now 138); 111 lines in `AGENTS.md` | No structural change. `/doctor prompt-audit` was not run on the installed CLI and remains unverified | Medium |
+| 8 | Claude Code memory guidance: keep each `CLAUDE.md` under 200 lines with specific, consistent instructions. `CLAUDE.md` is delivered as a user message, and `/doctor prompt-audit` can check instructions written for older models | Historical A0: 152 global lines; A2: 138; imported `AGENTS.md`: 111 | No structural change. `/doctor prompt-audit` was not run on the installed CLI and remains unverified | Medium |
 | 9 | Skill authoring: descriptions up to 1,024 characters, `SKILL.md` under 500 lines, references one level deep, no over-explaining for Opus, evaluation-driven iteration | Descriptions of 345–460 characters, 104–162 lines, one-level references | No structural change. Gap: Claude-side tests covered Skill selection and loading only; the A/B below is the first Opus 5.5 output-quality check, and it is small | High |
 | 10 | Literal-scope wording such as "only report high-severity issues" lowers recall (stated for code review) | `rd-review` excludes pure style issues and requires location, evidence, and impact for each finding | Recorded as a hypothesis only; no change | Low |
 
 Vision, frontend, multi-application exploration, multi-agent timing signals, thinking-disabled prompts, and API breaking changes do not apply to this repository's document-delivery scope and were not assessed.
 
-## A/B smoke test
+## Historical 2026-10-09 A/B smoke test
 
 **Design**, frozen before execution:
 - **Runs:** four existing eval tasks × three arms × one sample = 12 headless `claude -p` runs. Model `claude-opus-5-5` at `xhigh` effort, Claude Code CLI `2.1.295`, random order.
@@ -78,7 +78,7 @@ Vision, frontend, multi-application exploration, multi-agent timing signals, thi
 | T4 feasibility | 8/8 | 8/8 | 8/8 |
 | **Total** | **28/29** | **28/29** | **28/29** |
 
-Both decision rules passed and no repeat runs were triggered. The edited English template is byte-identical to arm A2.
+Both decision rules passed and no repeat runs were triggered. The English template adopted on 2026-10-09 was byte-identical to arm A2. The current template restores the methods removed by R3 and is no longer byte-identical to A2; no historical output, grade, or arm has been relabeled.
 
 **Efficiency, reported but not used as a gate:**
 
@@ -108,14 +108,24 @@ A1 and A2 used fewer output tokens than A0, but one sample per cell cannot separ
 
 The [evidence record](evidence/opus-5-5-instruction-ab-2026-10-09.json) contains the arm hashes, the probes, the frozen prompts and assertions, every full response with its hash, the grades, and the metrics.
 
+## 2026-10-10 follow-up
+
+The user explicitly requires first-principles decomposition, task classification, and multi-perspective reasoning to remain. The English and Chinese Claude global templates restore their original six-item Thinking Methods section while retaining R1 and R2.
+
+The follow-up also corrects the packaging script's no-change message to refer to the local last-synced copies; local equality does not prove current claude.ai account state. For explicit hard length limits, the `rd-writing` completion contract requires the counting unit and scope to be established, deterministic counting of the final text, recounting after the last edit, and disclosure when counting is unavailable rather than claiming the limit passed. These targeted checks address the shared T2 defect without reintroducing a generic self-review checklist. The [follow-up evidence record](evidence/claude-instruction-followup-2026-10-10.json) is the authority for the new probes and their results; the historical A/B above does not validate this new combination or establish cross-client reliability.
+
+On CLI `2.1.296` with `claude-opus-5-5` at `xhigh`, the final English and Chinese samples produced briefs of 203 whitespace-separated words and 362 non-whitespace Unicode code points respectively. Both preserved the successfully counted text, including headings and markup, and met the five existing eval assertions. Separate verification notes were outside the brief, as in the historical scoring scope. The record also retains the 231-word English baseline's incorrect compliance claim, the first Chinese sample's unavailable measurement, and a Chinese follow-up that edited its counted title without recounting. That last failure prompted the explicit instruction to deliver counted text unchanged. Six calls in total, changing permissions during the Chinese diagnostic and one sample per final language, establish bounded observations rather than causal improvement or reliability.
+
+The subsequent self-review identified a localized wording issue in the final Chinese sample: its recommendation says the basis is an evidence gap rather than an established defect, although T1 already records two superseded-citation errors. This overbroad qualification can obscure the difference between observed sample errors and unestablished overall production fitness. The original five assertions and length check still pass; they do not establish complete content accuracy. The evidence record's `self_review` entry preserves this Minor finding separately, without editing the response, its hash, or the frozen grades. The existing accuracy contract already addresses this class of error, so this observation does not justify another global checklist or general validator.
+
 ## Deferred items and re-entry conditions
 
 | Item | Status | Reopen when |
 |---|---|---|
 | Effort note in `claude/README.md`. A top-level user `effortLevel` does not apply to Opus 5.5; use `/effort` or per-model `modelSettings` | Deferred, not approved | Downstream users report effort-setting confusion |
-| Skill `effort` frontmatter | Rejected | A per-Skill quality gain is measured and claude.ai retention of the field is confirmed |
+| Skill `effort` frontmatter | Not added: unsupported by the current claude.ai upload contract | The official upload contract changes, and a per-Skill quality gain is measured; a Claude Code-only payload would require a separate scoped decision |
 | Early-stop prompt guidance | Not added | Early stopping is observed in unattended runs |
-| T2 word-limit overrun | Recorded | It reproduces with at least two samples and a candidate `rd-writing` change is tested |
+| T2 word-limit overrun | Targeted objective-check instruction added in the 2026-10-10 follow-up | Further remediation requires new failures; consult the follow-up evidence for actual test outcomes |
 | `/doctor prompt-audit` cross-check | Not run | The command is confirmed on the installed CLI |
 | Personal effort level | Outside repository scope. Choosing between `high` and `xhigh` is a cost and latency trade-off; no workload measurement exists here | A maintainer measures their own workload |
 
@@ -129,6 +139,8 @@ Official documentation, read on 2026-10-09:
 - [Effort](https://platform.claude.com/docs/en/build-with-claude/effort)
 - [Claude Code model configuration](https://code.claude.com/docs/en/model-config), [Skills](https://code.claude.com/docs/en/skills), and [memory](https://code.claude.com/docs/en/memory)
 - [Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
+
+Follow-up official documentation, checked on 2026-10-10: [Using Skill frontmatter outside Claude Code](https://code.claude.com/docs/en/skills#using-skill-frontmatter-outside-claude-code).
 
 Secondary sources, used as background only; they did not contradict the official guidance, and no conclusion depends on them:
 - [KDnuggets](https://www.kdnuggets.com/everything-claude-opus-5-5-actually-ships-with)
