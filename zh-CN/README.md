@@ -102,6 +102,8 @@ pwsh -File ./scripts/install-rd-skills.ps1 -Language zh-CN -CheckOnly
 
 如同一层级存在非空 `AGENTS.override.md`，它是当前生效的指令来源；应先备份并有意识地合并，不要创建不会生效的 `AGENTS.md`。如已有 `AGENTS.md`，也应先备份，再只合并需要的章节。不要直接替换现有个人全局指令或项目规则。模板包含角色、语言、推理深度、授权和交付纪律等观点化默认值，应按实际用户、团队与仓库调整；`zh-CN/` 全局模板有意默认使用简体中文。
 
+可选的记忆模型与生成范围、Fast 选择、Windows MXC，以及验证和恢复步骤，见 [Codex 配置使用指南](docs/codex-configuration-guidance.md)。这些配方不改变公共默认值。
+
 ### Claude Code
 
 安装用户级 Claude Code memory（记忆）：
