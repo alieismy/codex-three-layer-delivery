@@ -28,6 +28,29 @@ npm registry 最新版本已于 2026-10-10 重新核查；本机 Codex CLI 与�
 
 2026-10-10 的发布预检最初失败，原因是本机 Codex `0.162.1` 与 `0.162.0` Schema 版本固定值不一致。随后核对了 tag 固定的 `0.162.1` Schema 和许可证：tag Schema、当前实时 Schema 与既有快照逐字节一致，许可证也未变化。本次只刷新来源元数据、版本注释和兼容性记录，没有修改示例配置值或权限。现有发布门禁保持不变，必须在刷新后的基线上通过。
 
+<a id="codex-configuration-guidance-2026-10-11"></a>
+
+### 2026-10-11 配置使用指南
+
+[配置使用指南](codex-configuration-guidance.md)新增可选 Markdown 配方以及验证和恢复说明。公开配置值、权限默认值、全局指令和 Skills 保持不变。本机 CLI 已重新核查为 `0.162.1`，离线 Schema 基线仍为 `0.162.1`。本次不构成新的 registry 或发布基线核查。
+
+本日检查了官方[配置参考](https://learn.chatgpt.com/docs/config-file/config-reference)、[记忆控制](https://learn.chatgpt.com/docs/customization/memories)和 [profile 说明](https://learn.chatgpt.com/docs/config-file/config-advanced#profiles)。Profile 使用独立的 `<name>.config.toml` 文件。模型访问权限、生成资格、已有记忆的使用和配置加载成功是不同问题。
+
+本日官方 [Standard token 费率](https://learn.chatgpt.com/docs/pricing#token-rates)如下：
+
+| 模型 | 每百万输入 token 的 credits | 每百万缓存输入 token 的 credits | 每百万输出 token 的 credits |
+|---|---:|---:|---:|
+| GPT-5.6 Sol | 100 | 10 | 500 |
+| GPT-6.1 Sol | 50 | 2.5 | 250 |
+
+这些费率不能证明后台记忆的实际用量或质量。Credits 价格本身不能决定订阅内含用量；API key 用量和部分 Enterprise 协议适用其他计价方式。因此，指南将两个阶段均使用 GPT-6.1 Sol 作为可选候选，而非实测最优组合或公共默认值，也不假定旧提取模型更便宜。
+
+[Windows 指南](https://learn.chatgpt.com/docs/windows/windows-sandbox#enable-mxc)推荐在兼容设备上优先采用 MXC，而本地 `codex features list` 将 `prefer_mxc` 标为 `under development`。配置参考说明独立 CLI 默认关闭；Desktop rollout 与本地覆盖另行影响选择。这些属于不同证据，不能据此认定已普遍成熟。官方 [MXC 兼容性探针](https://learn.chatgpt.com/docs/windows/windows-sandbox#mxc-compatibility)要求 CLI `0.162.0` 或更新版本。所列命令只检查启动；本次文档变更不验证沙箱隔离或脱离终端运行的服务行为。
+
+指南区分基础配置的 app-server 严格加载和支持 profile 的 CLI 加载。CLI `0.162.1` 的 `codex app-server --help` 列出 `--strict-config`，没有 profile 选择器；主 CLI 提供 `--profile`。配置加载不能验证 MCP 调用、记忆生成、计费、质量或 Desktop 是否保持基础配置与 profile 边界。Markdown 片段不在现有四份公开 TOML 的检查清单内；未来若分发独立 profile，必须将其纳入维护的验证清单。
+
+随后在 2026-10-11 进行的 v1.8.6 发布预检重新核查了 Codex、Claude Code 和七个 MCP 包的 registry 条目，所列最新版本均未变化。联网发布门禁确认实时 Schema 与仓库快照一致，并使用 Codex `0.162.1` 通过四次隔离严格加载。另行检查的中英文指南共八个 TOML 片段及其八个合并候选均通过固定 Schema 验证；四份公共示例解析后的值完全不变。这些检查不扩大运行行为或模型质量结论。
+
 ## Claude Code
 
 发布前的[安装保护探针](../../docs/evidence/claude-installation-guards-2026-10-02.json)在 Windows Git Bash 中使用隔离的 HOME 和项目目标，执行全部十一个已发布 Claude Bash 安装块。52 个用例全部通过，包含既有项目/用户记忆、既有 settings、空共享核心和有效 override。guard 失败时原文件保持不变，用户记忆不会在项目预检前复制。这只证明有边界的安装文件行为，不证明 Claude 指令加载；未测试并发安装。
