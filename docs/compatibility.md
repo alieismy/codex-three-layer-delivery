@@ -28,6 +28,29 @@ The 2026-10-09 release-baseline review found the tagged `0.162.0` schema byte-id
 
 The 2026-10-10 release preflight initially failed because installed Codex `0.162.1` differed from the `0.162.0` schema pin. The tagged `0.162.1` schema and license were then checked: the tagged schema, current live schema, and existing snapshot are byte-identical, and the license is unchanged. Only provenance, version comments, and compatibility records were refreshed; example configuration values and permissions were not changed. The unchanged release gate must pass on the refreshed baseline.
 
+<a id="codex-configuration-guidance-2026-10-11"></a>
+
+### 2026-10-11 configuration guidance
+
+The [configuration guide](codex-configuration-guidance.md) adds optional Markdown recipes and verification/recovery guidance. Public configuration values, permission defaults, global instructions, and Skills remain unchanged. The installed CLI was rechecked as `0.162.1`; the offline schema baseline remains `0.162.1`. This is not a new registry or release-baseline check.
+
+The official [configuration reference](https://learn.chatgpt.com/docs/config-file/config-reference), [memory controls](https://learn.chatgpt.com/docs/customization/memories), and [profile guidance](https://learn.chatgpt.com/docs/config-file/config-advanced#profiles) were reviewed on this date. Profiles use separate `<name>.config.toml` files. Model access, generation eligibility, use of existing memories, and successful configuration loading are separate questions.
+
+The official [Standard token rates](https://learn.chatgpt.com/docs/pricing#token-rates) on this date were:
+
+| Model | Input credits / 1M tokens | Cached input credits / 1M tokens | Output credits / 1M tokens |
+|---|---:|---:|---:|
+| GPT-5.6 Sol | 100 | 10 | 500 |
+| GPT-6.1 Sol | 50 | 2.5 | 250 |
+
+These rates do not establish actual background-memory usage or quality. Credit prices alone do not determine included subscription usage; API-key usage and some Enterprise agreements follow different pricing. The guide therefore treats two GPT-6.1 Sol phases as an optional candidate, not a measured optimum or a public default, and does not assume that an older extraction model is cheaper.
+
+The [Windows guide](https://learn.chatgpt.com/docs/windows/windows-sandbox#enable-mxc) recommends MXC preference on compatible devices, while local `codex features list` reports `prefer_mxc` as `under development`. The reference documents the standalone default as disabled; Desktop rollout and local overrides are separate. These statements describe different evidence and do not establish universal maturity. The official [MXC compatibility probe](https://learn.chatgpt.com/docs/windows/windows-sandbox#mxc-compatibility) requires CLI `0.162.0` or newer. The published command checks startup only; this documentation change does not verify sandbox isolation or detached-server behavior.
+
+The guide distinguishes base app-server strict loading from a profile-aware CLI load. In CLI `0.162.1`, `codex app-server --help` lists `--strict-config` but no profile selector, while the main CLI exposes `--profile`. Loading configuration does not verify MCP calls, memory generation, billing, quality, or Desktop preservation of profile/base separation. The Markdown snippets are outside the existing four-file public TOML inventory; future distributed profiles must join the maintained validation inventory.
+
+The subsequent v1.8.6 release preflight on 2026-10-11 rechecked the Codex, Claude Code, and seven MCP package registry entries: their listed latest versions remained unchanged. The networked release gate matched the live schema to the tracked snapshot and passed four isolated strict loads with Codex `0.162.1`. Separately, all eight bilingual guide TOML snippets and their eight merged candidates passed the pinned schema; the four public examples retained exactly the same parsed values. These checks do not expand runtime or model-quality claims.
+
 ## Claude Code
 
 The release follow-up [installation guard probe](evidence/claude-installation-guards-2026-10-02.json) executed all eleven published Claude Bash installation blocks with isolated HOME and project targets on Windows Git Bash. All 52 cases passed, including existing project/user memory, existing settings, empty shared cores, and effective overrides. Guarded failures preserved the original files and did not copy user memory before project preflights. This establishes bounded installation file behavior, not Claude instruction loading; concurrent installers were not tested.

@@ -132,6 +132,8 @@ fi
 
 If `$CODEX_HOME/config.toml` already exists (default: `~/.codex/config.toml`), review and merge only the sections you need. The example deliberately uses live web search, enables Memories, inherits the full parent shell environment, and keeps Codex's default `KEY`/`SECRET`/`TOKEN` name filtering enabled with `ignore_default_excludes = false`. These choices match the maintainer's reviewed operating baseline; they are not neutral defaults for every user or threat model.
 
+See the [Codex configuration guide](docs/codex-configuration-guidance.md) for optional memory-model and eligibility choices, Fast selection, Windows MXC, and verification/recovery steps. These recipes do not change the public defaults.
+
 The high-permission profile is intentionally separate:
 
 ```text
