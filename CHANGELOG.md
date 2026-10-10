@@ -4,6 +4,10 @@ All notable changes to this project should be documented here.
 
 This project uses GitHub releases for versioning. Directory names should not contain edition or version suffixes such as `v4` or `-en`.
 
+## Unreleased
+
+- Updated the ChatGPT web custom-instruction profile to the approved, self-reviewed Chinese text and synchronized its complete English reference translation. Added contextual innovation and staged-adoption guidance, clarified available-context and continuing-authorization boundaries, preserved the original evidence and delivery safeguards, and refreshed both character counts and official project-scope guidance. Account saving and web response behavior remain unverified.
+
 ## 1.8.5 - 2026-10-10
 
 - Restored first-principles decomposition, task classification, and multi-perspective reasoning in the English and Simplified Chinese Claude global templates at the user's request, retaining the subagent restriction and removal of generic self-review. Corrected the R3 rationale and kept the 2026-10-09 A/B arms, outputs, and grades historical; they do not validate the current R1/R2-only combination. The [follow-up record](docs/evidence/claude-instruction-followup-2026-10-10.json) covers new probes separately.
