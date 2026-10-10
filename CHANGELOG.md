@@ -4,6 +4,10 @@ All notable changes to this project should be documented here.
 
 This project uses GitHub releases for versioning. Directory names should not contain edition or version suffixes such as `v4` or `-en`.
 
+## 1.8.7 - 2026-10-11
+
+- Refined the ChatGPT web custom-instruction profile to the approved final revision after self-review, with a synchronized complete English reference. Restored explicit evidence, stakeholder, upstream-constraint, and failed-verification safeguards; clarified personal/project context versus general knowledge and continuing authorization; refreshed character counts and documented project-instruction scope. This changes only the web profile and its documentation, not local-agent instructions or verified account behavior.
+
 ## 1.8.6 - 2026-10-11
 
 - Updated the ChatGPT web custom instructions with the user's approved Chinese text and a complete English reference translation. Added explicit innovation and bounded-trial guidance, accessible-context limits, and proportionate authorization/verification wording; refreshed independent character counts and the official field-limit check. This does not modify local-agent instructions or establish account-level behavior.
